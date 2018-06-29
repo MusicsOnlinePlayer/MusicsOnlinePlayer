@@ -13,10 +13,18 @@ The indexation consists in two parts :
        - Album title
          - Music file
          
- * the the server creates or completes a *xml* file wich contains all the "MetaData" of every *musics*. For exemple : Who liked the musics.
+ * Create or complete a *xml* file wich contains all the "MetaData" of every *musics*. For exemple : Who liked the musics.
  
 Now the server can receive socket connection in **async** mode. If a client client is connected the server will wait for him to login and receive a *login* message.
 
 #### Login
 The login is pretty simple and is based on hashable function ( in this case **SHA256** ). The client will first send his user class in a login class. The user class should contain his username and also his **SHA256** hash made of the Username and the Password. With that the server can identify who is try to log in by searching in the xml *user.xml*.
 
+### Requests
+
+For the moment there is multiple type of request that the client can make :
+ - `RequestSearch` is where the client can ask to the server to make a search. The client must specify the search text and what he want to search ( Music, Album, Author ). The server will respond with a `RequestSearchAnswer`
+ - `RequestMusic` allows the user to ask for a music filebinnaries. The server will answer with `RequestMusicAnswer` wich contains the music with the binnaries.
+ 
+### Client
+Once the 
