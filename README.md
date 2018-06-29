@@ -17,7 +17,7 @@ The indexation consists in two parts :
  
 Now the server can receive socket connection in **async** mode. If a client client is connected the server will wait for him to login and receive a *login* message.
 
-#### Login
+### Login
 The login is pretty simple and is based on hashable function ( in this case **SHA256** ). The client will first send his user class in a login class. The user class should contain his username and also his **SHA256** hash made of the Username and the Password. With that the server can identify who is try to log in by searching in the xml *user.xml*.
 
 ### Requests
