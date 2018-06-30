@@ -5,13 +5,10 @@ So the project is made arround 3 mains subjects : The Server, the client and the
 Here is a simple summary and how it works :
 
 ## Server
-At launch the server will do an indexation in the directory c:/AllMusics or creates this directory if it doesn't exist.
+At launch the server will do an indexation in the directory `c:/AllMusics` or creates this directory if it doesn't exist.
 The indexation consists of two parts :
  - Recognize all musics files and put in a list of *Music* with only the path of the file. With that we can know the artist and the album of the music. The music name must be the same as this `Something - Music Name` and the Musics "tree" must be like this :
-   - All Musics
-     - Author Name
-       - Album title
-         - Music file
+   ![Image of the tree](https://github.com/MalauD/MusicsOnlinePlayer/blob/master/Image/GitHubImage.PNG)
          
  * Creates or completes a *xml* file wich contains all the "MetaData" of every *musics*. For exemple : Who liked the musics.
  
