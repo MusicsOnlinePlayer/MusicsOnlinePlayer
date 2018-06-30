@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using Utility;
+using Musics___Server.MusicManagement;
+using System.Drawing;
 
 namespace Musics___Server.MusicsInformation
 {
@@ -172,5 +174,6 @@ namespace Musics___Server.MusicsInformation
             }
             return null;
         }
+
     }
 }

@@ -67,6 +67,7 @@
             this.UIPlayingMusic = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.UIMusicImage = new System.Windows.Forms.PictureBox();
             this.Tabs.SuspendLayout();
             this.UISearch.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -76,6 +77,7 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UITrackbarMusic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UIMusicImage)).BeginInit();
             this.SuspendLayout();
             // 
             // Tabs
@@ -387,6 +389,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.UIMusicImage);
             this.splitContainer1.Panel2.Controls.Add(this.UIForward);
             this.splitContainer1.Panel2.Controls.Add(this.UIBackward);
             this.splitContainer1.Panel2.Controls.Add(this.label5);
@@ -400,7 +403,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Size = new System.Drawing.Size(237, 796);
-            this.splitContainer1.SplitterDistance = 398;
+            this.splitContainer1.SplitterDistance = 291;
             this.splitContainer1.TabIndex = 1;
             // 
             // label1
@@ -420,7 +423,7 @@
             this.UIForward.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.UIForward.FlatAppearance.BorderSize = 0;
             this.UIForward.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIForward.Location = new System.Drawing.Point(193, 324);
+            this.UIForward.Location = new System.Drawing.Point(193, 454);
             this.UIForward.Name = "UIForward";
             this.UIForward.Size = new System.Drawing.Size(35, 35);
             this.UIForward.TabIndex = 11;
@@ -433,7 +436,7 @@
             this.UIBackward.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.UIBackward.FlatAppearance.BorderSize = 0;
             this.UIBackward.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIBackward.Location = new System.Drawing.Point(19, 324);
+            this.UIBackward.Location = new System.Drawing.Point(19, 454);
             this.UIBackward.Name = "UIBackward";
             this.UIBackward.Size = new System.Drawing.Size(35, 35);
             this.UIBackward.TabIndex = 10;
@@ -445,7 +448,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Open Sans", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label5.Location = new System.Drawing.Point(12, 273);
+            this.label5.Location = new System.Drawing.Point(12, 403);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(26, 39);
             this.label5.TabIndex = 9;
@@ -454,7 +457,7 @@
             // UITrackbarMusic
             // 
             this.UITrackbarMusic.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.UITrackbarMusic.Location = new System.Drawing.Point(35, 273);
+            this.UITrackbarMusic.Location = new System.Drawing.Point(35, 403);
             this.UITrackbarMusic.Maximum = 100;
             this.UITrackbarMusic.Name = "UITrackbarMusic";
             this.UITrackbarMusic.Size = new System.Drawing.Size(162, 45);
@@ -468,7 +471,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Open Sans", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label4.Location = new System.Drawing.Point(194, 273);
+            this.label4.Location = new System.Drawing.Point(194, 403);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(34, 39);
             this.label4.TabIndex = 8;
@@ -502,7 +505,7 @@
             this.UIPause.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.UIPause.FlatAppearance.BorderSize = 0;
             this.UIPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIPause.Location = new System.Drawing.Point(131, 324);
+            this.UIPause.Location = new System.Drawing.Point(131, 454);
             this.UIPause.Name = "UIPause";
             this.UIPause.Size = new System.Drawing.Size(35, 35);
             this.UIPause.TabIndex = 5;
@@ -515,7 +518,7 @@
             this.UIPlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.UIPlay.FlatAppearance.BorderSize = 0;
             this.UIPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIPlay.Location = new System.Drawing.Point(80, 324);
+            this.UIPlay.Location = new System.Drawing.Point(80, 454);
             this.UIPlay.Name = "UIPlay";
             this.UIPlay.Size = new System.Drawing.Size(35, 35);
             this.UIPlay.TabIndex = 4;
@@ -556,6 +559,15 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Artist";
             // 
+            // UIMusicImage
+            // 
+            this.UIMusicImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.UIMusicImage.Location = new System.Drawing.Point(24, 195);
+            this.UIMusicImage.Name = "UIMusicImage";
+            this.UIMusicImage.Size = new System.Drawing.Size(175, 175);
+            this.UIMusicImage.TabIndex = 12;
+            this.UIMusicImage.TabStop = false;
+            // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -583,6 +595,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.UITrackbarMusic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UIMusicImage)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -628,6 +641,7 @@
         private System.Windows.Forms.ListBox UIPlaylist;
         private System.Windows.Forms.Label UIAccountId;
         private System.Windows.Forms.Label UIAccountName;
+        private System.Windows.Forms.PictureBox UIMusicImage;
     }
 }
 

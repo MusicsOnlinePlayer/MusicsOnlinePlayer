@@ -27,9 +27,12 @@ namespace Musics___Client
 
             string path = @"c:\MusicsFiles\" + music.Title + music.Format;
 
-            
 
-            File.WriteAllBytes(path, music.FileBinary);
+            if (!File.Exists(path))
+            {
+                File.WriteAllBytes(path, music.FileBinary);
+            }
+            
 
             player.URL = path;
             player.controls.play();

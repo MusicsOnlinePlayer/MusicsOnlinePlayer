@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -10,7 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using TagLib;
 using Utility;
 
 
@@ -210,10 +211,18 @@ namespace Musics___Client
                     UIPlayingMusic.Text = InPlaying.Title;
                     UIArtist.Text = InPlaying.Author.Name;
                 });
-                
 
+                
                
                 p.PlayMusic(InPlaying);
+
+                try
+                {
+                    UIMusicImage.BackgroundImage = GetMetaImage(p.player.URL);
+                }
+                catch {
+                    UIMusicImage.BackgroundImage = null;
+                }
 
                 Invoke((MethodInvoker)delegate
                 {
@@ -256,7 +265,21 @@ namespace Musics___Client
         Music InPlaying;
 
         private List<object> SearchlistboxItems = new List<object>();
-        
+
+
+        public static Image GetMetaImage(string MusicPath)
+        {
+            TagLib.File f = new TagLib.Mpeg.AudioFile(MusicPath);
+
+            TagLib.IPicture pic = f.Tag.Pictures[0];
+            using (MemoryStream ms = new MemoryStream(pic.Data.Data))
+            {
+                Image image = Image.FromStream(ms);
+                return image;
+            }
+
+
+        }
 
         public void SendObject(object obj)
         {
@@ -382,7 +405,7 @@ namespace Musics___Client
                 System.IO.File.Delete(p);
             }
 
-            _clientSocket.Close();
+            //_clientSocket.Close();
             
         }
 
