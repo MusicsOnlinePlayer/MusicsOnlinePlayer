@@ -55,6 +55,7 @@
             this.UISettings = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label1 = new System.Windows.Forms.Label();
+            this.UIMusicImage = new System.Windows.Forms.PictureBox();
             this.UIForward = new System.Windows.Forms.Button();
             this.UIBackward = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -67,17 +68,27 @@
             this.UIPlayingMusic = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.UIMusicImage = new System.Windows.Forms.PictureBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.UIHueApi = new System.Windows.Forms.TextBox();
+            this.UIHueConnectKey = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.UIHueConnectRegister = new System.Windows.Forms.Button();
+            this.UIHueConnection = new System.Windows.Forms.Label();
+            this.UIHueIp = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.Tabs.SuspendLayout();
             this.UISearch.SuspendLayout();
             this.panel1.SuspendLayout();
             this.UIAccount.SuspendLayout();
+            this.UISettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.UITrackbarMusic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UIMusicImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UITrackbarMusic)).BeginInit();
             this.SuspendLayout();
             // 
             // Tabs
@@ -369,6 +380,16 @@
             // 
             // UISettings
             // 
+            this.UISettings.Controls.Add(this.UIHueIp);
+            this.UISettings.Controls.Add(this.label10);
+            this.UISettings.Controls.Add(this.UIHueConnection);
+            this.UISettings.Controls.Add(this.UIHueConnectRegister);
+            this.UISettings.Controls.Add(this.label9);
+            this.UISettings.Controls.Add(this.label8);
+            this.UISettings.Controls.Add(this.UIHueConnectKey);
+            this.UISettings.Controls.Add(this.UIHueApi);
+            this.UISettings.Controls.Add(this.label7);
+            this.UISettings.Controls.Add(this.label6);
             this.UISettings.Location = new System.Drawing.Point(4, 34);
             this.UISettings.Name = "UISettings";
             this.UISettings.Padding = new System.Windows.Forms.Padding(3);
@@ -416,6 +437,15 @@
             this.label1.Size = new System.Drawing.Size(225, 209);
             this.label1.TabIndex = 0;
             this.label1.Text = "M";
+            // 
+            // UIMusicImage
+            // 
+            this.UIMusicImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.UIMusicImage.Location = new System.Drawing.Point(24, 195);
+            this.UIMusicImage.Name = "UIMusicImage";
+            this.UIMusicImage.Size = new System.Drawing.Size(175, 175);
+            this.UIMusicImage.TabIndex = 12;
+            this.UIMusicImage.TabStop = false;
             // 
             // UIForward
             // 
@@ -559,14 +589,119 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Artist";
             // 
-            // UIMusicImage
+            // label6
             // 
-            this.UIMusicImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.UIMusicImage.Location = new System.Drawing.Point(24, 195);
-            this.UIMusicImage.Name = "UIMusicImage";
-            this.UIMusicImage.Size = new System.Drawing.Size(175, 175);
-            this.UIMusicImage.TabIndex = 12;
-            this.UIMusicImage.TabStop = false;
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Open Sans", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label6.Location = new System.Drawing.Point(6, 3);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(81, 43);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Hue";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Open Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label7.Location = new System.Drawing.Point(28, 135);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(87, 26);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Api key :";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // UIHueApi
+            // 
+            this.UIHueApi.Location = new System.Drawing.Point(33, 164);
+            this.UIHueApi.Name = "UIHueApi";
+            this.UIHueApi.Size = new System.Drawing.Size(780, 36);
+            this.UIHueApi.TabIndex = 15;
+            // 
+            // UIHueConnectKey
+            // 
+            this.UIHueConnectKey.BackColor = System.Drawing.Color.LimeGreen;
+            this.UIHueConnectKey.FlatAppearance.BorderSize = 0;
+            this.UIHueConnectKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UIHueConnectKey.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.UIHueConnectKey.Location = new System.Drawing.Point(819, 163);
+            this.UIHueConnectKey.Name = "UIHueConnectKey";
+            this.UIHueConnectKey.Size = new System.Drawing.Size(119, 36);
+            this.UIHueConnectKey.TabIndex = 16;
+            this.UIHueConnectKey.Text = "Connect";
+            this.UIHueConnectKey.UseVisualStyleBackColor = false;
+            this.UIHueConnectKey.Click += new System.EventHandler(this.UIHueConnectKey_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Open Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label8.Location = new System.Drawing.Point(35, 218);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(95, 26);
+            this.label8.TabIndex = 17;
+            this.label8.Text = "Register :";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Open Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label9.Location = new System.Drawing.Point(35, 255);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(271, 22);
+            this.label9.TabIndex = 21;
+            this.label9.Text = "Press the button and click connect";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // UIHueConnectRegister
+            // 
+            this.UIHueConnectRegister.BackColor = System.Drawing.Color.LimeGreen;
+            this.UIHueConnectRegister.FlatAppearance.BorderSize = 0;
+            this.UIHueConnectRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UIHueConnectRegister.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.UIHueConnectRegister.Location = new System.Drawing.Point(34, 283);
+            this.UIHueConnectRegister.Name = "UIHueConnectRegister";
+            this.UIHueConnectRegister.Size = new System.Drawing.Size(272, 36);
+            this.UIHueConnectRegister.TabIndex = 22;
+            this.UIHueConnectRegister.Text = "Connect and Register";
+            this.UIHueConnectRegister.UseVisualStyleBackColor = false;
+            this.UIHueConnectRegister.Click += new System.EventHandler(this.UIHueConnectRegister_Click);
+            // 
+            // UIHueConnection
+            // 
+            this.UIHueConnection.AutoSize = true;
+            this.UIHueConnection.Font = new System.Drawing.Font("Open Sans", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIHueConnection.ForeColor = System.Drawing.Color.Brown;
+            this.UIHueConnection.Location = new System.Drawing.Point(93, 15);
+            this.UIHueConnection.Name = "UIHueConnection";
+            this.UIHueConnection.Size = new System.Drawing.Size(156, 28);
+            this.UIHueConnection.TabIndex = 24;
+            this.UIHueConnection.Text = "Not connected";
+            this.UIHueConnection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // UIHueIp
+            // 
+            this.UIHueIp.Location = new System.Drawing.Point(33, 86);
+            this.UIHueIp.Name = "UIHueIp";
+            this.UIHueIp.Size = new System.Drawing.Size(412, 36);
+            this.UIHueIp.TabIndex = 26;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Open Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label10.Location = new System.Drawing.Point(28, 57);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(92, 26);
+            this.label10.TabIndex = 25;
+            this.label10.Text = "Bridge Ip";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Client
             // 
@@ -588,14 +723,16 @@
             this.panel1.PerformLayout();
             this.UIAccount.ResumeLayout(false);
             this.UIAccount.PerformLayout();
+            this.UISettings.ResumeLayout(false);
+            this.UISettings.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.UITrackbarMusic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UIMusicImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UITrackbarMusic)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -642,6 +779,16 @@
         private System.Windows.Forms.Label UIAccountId;
         private System.Windows.Forms.Label UIAccountName;
         private System.Windows.Forms.PictureBox UIMusicImage;
+        private System.Windows.Forms.TextBox UIHueApi;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button UIHueConnectKey;
+        private System.Windows.Forms.Button UIHueConnectRegister;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label UIHueConnection;
+        private System.Windows.Forms.TextBox UIHueIp;
+        private System.Windows.Forms.Label label10;
     }
 }
 
