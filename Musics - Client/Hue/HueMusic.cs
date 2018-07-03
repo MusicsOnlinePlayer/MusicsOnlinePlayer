@@ -50,14 +50,16 @@ namespace Musics___Client.Hue
 
         }
 
-        public async void TurnOnLight(List<string> Lights,RGBColor RgbColor,byte Brightness)
+
+
+        public async void TurnOnLight(RGBColor RgbColor,byte Brightness)
         {
             try
             {
                 var command = new LightCommand();
                 command.TurnOn().SetColor(RgbColor);
                 command.Brightness = Brightness;
-                await client.SendCommandAsync(command, Lights);
+                await client.SendCommandAsync(command);
             }
             catch { }
         }

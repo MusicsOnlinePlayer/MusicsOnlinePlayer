@@ -16,7 +16,7 @@ using Utility;
 using Musics___Client.Hue;
 using Q42.HueApi;
 using Q42.HueApi.Models.Bridge;
-
+using NAudio.CoreAudioApi;
 namespace Musics___Client
 {
 
@@ -544,6 +544,9 @@ namespace Musics___Client
 
                         UIHueConnection.Text = "Connected";
                         UIHueConnection.ForeColor = Color.Green;
+
+                        HueTimer.Enabled = true;
+                        HueTimer.Start();
                     }
                 }
                 catch (Exception ex)
@@ -562,7 +565,7 @@ namespace Musics___Client
 
 
 
-        #endregion Hue
+       
 
         private void UIHueConnectRegister_Click(object sender, EventArgs e)
         {
@@ -589,6 +592,9 @@ namespace Musics___Client
 
                         UIHueConnection.Text = "Connected";
                         UIHueConnection.ForeColor = Color.Green;
+
+                        HueTimer.Enabled = true;
+                        HueTimer.Start();
                     }
                 }
                 catch (Exception ex)
@@ -599,5 +605,22 @@ namespace Musics___Client
                 }
             }
         }
+
+        private void HueTimer_Tick(object sender, EventArgs e)
+        {
+            var enumerator = new MMDeviceEnumerator();
+            var device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
+            var scale = (int)Math.Floor(device.AudioMeterInformation.MasterPeakValue * 100);
+
+            UISoundLevel.Value = scale;
+
+            try
+            {
+                HueMusic.TurnOnLight(new Q42.HueApi.ColorConverters.RGBColor(100, 100, 100), Convert.ToByte(10 * scale));
+            }
+            catch { }
+        }
+
+        #endregion Hue
     }
 }
