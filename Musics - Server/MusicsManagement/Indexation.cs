@@ -16,7 +16,6 @@ namespace Musics___Server.MusicManagement
             Directory.CreateDirectory(@"c:\AllMusics");
             Console.WriteLine("Directory created.");
             MusicsInfo.SetupMusics();
-
         }
 
         public static byte[] GetFileBinary(Music m)

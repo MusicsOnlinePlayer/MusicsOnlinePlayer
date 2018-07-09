@@ -29,9 +29,9 @@ namespace Musics___Server
             AuthService.SetupAuth();
             MusicsInfo.SetupMusics();
 
-            Console.Write("|| Indexation of all musics....  ");
+            Console.Write("~ Indexation of all musics....  ");
             Console.WriteLine(Indexation.DoIndexation() + "Musics");
-            Console.WriteLine("|| Indexation done.");
+            Console.WriteLine("~ Indexation done.");
 
             Indexation.SaveAllInfos();
 
@@ -47,18 +47,51 @@ namespace Musics___Server
                 }
                 else if (entry == "-index")
                 {
-                    Console.Write("|| Indexation of all musics....  ");
+                    Console.Write("~ Indexation of all musics....  ");
                     Console.WriteLine(Indexation.DoIndexation() + "Musics");
-                    Console.WriteLine("|| Indexation done.");
+                    Console.WriteLine("~ Indexation done.");
                 }
                 else if (entry == "-save")
                 {
-                    Console.Write("|| Saving music info ... ");
+                    Console.Write("~ Saving music info ... ");
                     Indexation.SaveAllInfos();
                     Console.WriteLine("Done.");
                 }
+                else if (entry == "-users")
+                {
+                    Console.WriteLine("~ Getting all connected users");
+                    foreach(User u in Clients.List.Values)
+                    {
+                        Console.WriteLine(" - " + u.Name + " " + u.rank.ToString() + " " + u.UID);
+                    }
+                    Console.WriteLine("End.");
+                }
+                else if (entry == "-users -all")
+                {
+                    Console.WriteLine("~ Getting all users");
+                    foreach (User u in UsersInfos.GetAllUsers())
+                    {
+                        Console.WriteLine(" - " + u.Name + " " + u.rank.ToString() + " " + u.UID);
+                    }
+                    Console.WriteLine("End.");
+                }
+                else if (entry.Contains("-promote"))
+                {
+                    string UID = entry.Split('-')[2].Replace(" ","");
+                    if(Enum.TryParse(entry.Split('-')[3],out Rank rank))
+                    {
+                        Console.WriteLine("~ Promote " + UID + " to " + rank.ToString());
+                        UsersInfos.SetRankOfUser(UID, rank);
+                        Console.WriteLine("Ok.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("~ Syntax not correct, please use -promote -UID -Rank");
+                    }
+                    
+                }
             }
-            Console.Write("|| Saving music info ... ");
+            Console.Write("~ Saving music info ... ");
             Indexation.SaveAllInfos();
             Console.WriteLine("Done.");
 
@@ -244,19 +277,19 @@ namespace Musics___Server
                         AuthService.SignupUser(auth.LoginInfo);
                         Clients.List.Remove(socket);
                         Clients.AddUser(auth.LoginInfo, socket);
-                        SendObject(new AuthInfo(true), socket);
+                        SendObject(new AuthInfo(true,Rank.Viewer), socket);
                     }
                     else
                     {
                         if (AuthService.SigninUser(auth.LoginInfo) && !Clients.Contains(auth.LoginInfo.UID))
                         {
-                            SendObject(new AuthInfo(true), socket);
+                            SendObject(new AuthInfo(true,UsersInfos.GetRankOfUser(auth.LoginInfo.UID)), socket);
                             Clients.List.Remove(socket);
                             Clients.AddUser(auth.LoginInfo, socket);
                         }
                         else
                         {
-                            SendObject(new AuthInfo(false), socket);
+                            SendObject(new AuthInfo(false,Rank.Viewer), socket);
                         }
                     }
                 }

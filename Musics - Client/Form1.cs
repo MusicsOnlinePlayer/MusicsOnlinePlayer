@@ -14,8 +14,6 @@ using System.Windows.Forms;
 using TagLib;
 using Utility;
 using Musics___Client.Hue;
-using Q42.HueApi;
-using Q42.HueApi.Models.Bridge;
 using NAudio.CoreAudioApi;
 namespace Musics___Client
 {
@@ -26,7 +24,6 @@ namespace Musics___Client
         public User Me;
 
         private HueMusic HueMusic = new HueMusic();
-        private List<LocatedBridge> HueBridges;
 
         public Client()
         {
@@ -44,6 +41,8 @@ namespace Musics___Client
 
             UIAccountName.Text = Me.Name;
             UIAccountId.Text = Me.UID;
+            this.Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + authInfo.rankofAuthUser.ToString();
+            UIRank.Text = authInfo.rankofAuthUser.ToString();
 
             try
             {

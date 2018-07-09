@@ -141,15 +141,32 @@ namespace Utility
             Name = name;
             password = Password;
             UID = Hash.SHA256Hash(name + password);
+        }
 
+
+        public User(string name, string Password, Rank RankOf)
+        {
+            Name = name;
+            rank = RankOf;
+            password = Password;
+            UID = Hash.SHA256Hash(name + password);
         }
 
         public string UID;
+        public Rank rank;
 
         private string password;
         public String Name;
         public bool Connected;
     }
+    public enum Rank{
+        Viewer,
+        AdvancedUser,
+        Admin,
+        Creator
+    };
+
+
     public class ClientList
     {
         public Dictionary<Socket, User> List = new Dictionary<Socket, User>();
@@ -321,10 +338,12 @@ namespace Utility
     public class AuthInfo
     {
         public bool IsAccepted;
+        public Rank rankofAuthUser;
 
-        public AuthInfo(bool Accepted)
+        public AuthInfo(bool Accepted,Rank RankOfUser)
         {
             IsAccepted = Accepted;
+            rankofAuthUser = RankOfUser;
         }
     }
 

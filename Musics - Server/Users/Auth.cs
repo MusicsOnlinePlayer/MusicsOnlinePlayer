@@ -40,6 +40,10 @@ namespace Musics___Server.Authentification
                 nodeUID.InnerText = user.UID;
                 nodeUser.AppendChild(nodeUID);
 
+                XmlNode nodeRank = doc.CreateElement("Rank");
+                nodeRank.InnerText = user.rank.ToString();
+                nodeUser.AppendChild(nodeRank);
+
                 XmlNode nodeRatedMusics = doc.CreateElement("RatedMusics");
                 nodeUser.AppendChild(nodeRatedMusics);
 

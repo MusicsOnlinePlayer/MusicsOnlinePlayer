@@ -33,6 +33,7 @@ namespace Musics___Client
             if (ClientForm.authInfo.IsAccepted)
             {
                 ClientForm.Me = RequestedUser;
+                
 
                 Invoke((MethodInvoker)delegate
                 {
@@ -81,7 +82,7 @@ namespace Musics___Client
         {
             if (UIUserNameSign.Text != null && UIPasswordSign.Text != null && UIPasswordSign.Text == UISecondPasswordSign.Text)
             {
-                RequestedUser = new User(UILogin.Text, UIPassword.Text);
+                RequestedUser = new User(UIUserNameSign.Text, UIPasswordSign.Text);
                 ClientForm.SendObject(new Login(RequestedUser, true));
             }
             else

@@ -54,6 +54,8 @@
             this.UIAccountId = new System.Windows.Forms.Label();
             this.UIAccountName = new System.Windows.Forms.Label();
             this.UISettings = new System.Windows.Forms.TabPage();
+            this.label11 = new System.Windows.Forms.Label();
+            this.UISoundLevel = new System.Windows.Forms.ProgressBar();
             this.UIHueIp = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.UIHueConnection = new System.Windows.Forms.Label();
@@ -80,8 +82,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.HueTimer = new System.Windows.Forms.Timer(this.components);
-            this.UISoundLevel = new System.Windows.Forms.ProgressBar();
-            this.label11 = new System.Windows.Forms.Label();
+            this.UIRank = new System.Windows.Forms.Label();
             this.Tabs.SuspendLayout();
             this.UISearch.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -105,7 +106,7 @@
             this.Tabs.Controls.Add(this.UIForums);
             this.Tabs.Controls.Add(this.UIAccount);
             this.Tabs.Controls.Add(this.UISettings);
-            this.Tabs.Font = new System.Drawing.Font("Open Sans", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Tabs.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Tabs.ItemSize = new System.Drawing.Size(90, 30);
             this.Tabs.Location = new System.Drawing.Point(239, 0);
             this.Tabs.Multiline = true;
@@ -148,12 +149,12 @@
             // 
             // UIPlaylist
             // 
-            this.UIPlaylist.Font = new System.Drawing.Font("Open Sans", 15.75F, System.Drawing.FontStyle.Italic);
+            this.UIPlaylist.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic);
             this.UIPlaylist.FormattingEnabled = true;
-            this.UIPlaylist.ItemHeight = 28;
+            this.UIPlaylist.ItemHeight = 25;
             this.UIPlaylist.Location = new System.Drawing.Point(428, 377);
             this.UIPlaylist.Name = "UIPlaylist";
-            this.UIPlaylist.Size = new System.Drawing.Size(769, 368);
+            this.UIPlaylist.Size = new System.Drawing.Size(769, 354);
             this.UIPlaylist.TabIndex = 16;
             // 
             // UIAddPlaylistUnder
@@ -185,11 +186,11 @@
             // UIselectedartist
             // 
             this.UIselectedartist.AutoSize = true;
-            this.UIselectedartist.Font = new System.Drawing.Font("Open Sans", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIselectedartist.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIselectedartist.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.UIselectedartist.Location = new System.Drawing.Point(29, 429);
             this.UIselectedartist.Name = "UIselectedartist";
-            this.UIselectedartist.Size = new System.Drawing.Size(92, 28);
+            this.UIselectedartist.Size = new System.Drawing.Size(92, 25);
             this.UIselectedartist.TabIndex = 14;
             this.UIselectedartist.Text = "No artist";
             this.UIselectedartist.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -197,11 +198,11 @@
             // UISelectedGenres
             // 
             this.UISelectedGenres.AutoSize = true;
-            this.UISelectedGenres.Font = new System.Drawing.Font("Open Sans", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UISelectedGenres.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UISelectedGenres.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.UISelectedGenres.Location = new System.Drawing.Point(25, 549);
             this.UISelectedGenres.Name = "UISelectedGenres";
-            this.UISelectedGenres.Size = new System.Drawing.Size(85, 28);
+            this.UISelectedGenres.Size = new System.Drawing.Size(94, 25);
             this.UISelectedGenres.TabIndex = 10;
             this.UISelectedGenres.Text = "Genres :";
             this.UISelectedGenres.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -209,11 +210,11 @@
             // UISelectedRating
             // 
             this.UISelectedRating.AutoSize = true;
-            this.UISelectedRating.Font = new System.Drawing.Font("Open Sans", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UISelectedRating.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UISelectedRating.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.UISelectedRating.Location = new System.Drawing.Point(29, 489);
             this.UISelectedRating.Name = "UISelectedRating";
-            this.UISelectedRating.Size = new System.Drawing.Size(81, 28);
+            this.UISelectedRating.Size = new System.Drawing.Size(86, 25);
             this.UISelectedRating.TabIndex = 9;
             this.UISelectedRating.Text = "Rating :";
             this.UISelectedRating.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -221,11 +222,11 @@
             // UISelectedname
             // 
             this.UISelectedname.AutoSize = true;
-            this.UISelectedname.Font = new System.Drawing.Font("Open Sans", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UISelectedname.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UISelectedname.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.UISelectedname.Location = new System.Drawing.Point(23, 380);
             this.UISelectedname.Name = "UISelectedname";
-            this.UISelectedname.Size = new System.Drawing.Size(135, 37);
+            this.UISelectedname.Size = new System.Drawing.Size(127, 31);
             this.UISelectedname.TabIndex = 8;
             this.UISelectedname.Text = "No music";
             this.UISelectedname.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -248,7 +249,7 @@
             this.UIRadioMusic.Checked = true;
             this.UIRadioMusic.Location = new System.Drawing.Point(189, 2);
             this.UIRadioMusic.Name = "UIRadioMusic";
-            this.UIRadioMusic.Size = new System.Drawing.Size(87, 32);
+            this.UIRadioMusic.Size = new System.Drawing.Size(87, 29);
             this.UIRadioMusic.TabIndex = 2;
             this.UIRadioMusic.TabStop = true;
             this.UIRadioMusic.Text = "Music";
@@ -259,7 +260,7 @@
             this.UIRadioAlbum.AutoSize = true;
             this.UIRadioAlbum.Location = new System.Drawing.Point(90, 2);
             this.UIRadioAlbum.Name = "UIRadioAlbum";
-            this.UIRadioAlbum.Size = new System.Drawing.Size(94, 32);
+            this.UIRadioAlbum.Size = new System.Drawing.Size(90, 29);
             this.UIRadioAlbum.TabIndex = 1;
             this.UIRadioAlbum.Text = "Album";
             this.UIRadioAlbum.UseVisualStyleBackColor = true;
@@ -269,7 +270,7 @@
             this.UIRadioArtist.AutoSize = true;
             this.UIRadioArtist.Location = new System.Drawing.Point(3, 1);
             this.UIRadioArtist.Name = "UIRadioArtist";
-            this.UIRadioArtist.Size = new System.Drawing.Size(81, 32);
+            this.UIRadioArtist.Size = new System.Drawing.Size(79, 29);
             this.UIRadioArtist.TabIndex = 0;
             this.UIRadioArtist.Text = "Artist";
             this.UIRadioArtist.UseVisualStyleBackColor = true;
@@ -290,13 +291,13 @@
             // 
             // UISearchListbox
             // 
-            this.UISearchListbox.Font = new System.Drawing.Font("Open Sans", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UISearchListbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UISearchListbox.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.UISearchListbox.FormattingEnabled = true;
-            this.UISearchListbox.ItemHeight = 28;
+            this.UISearchListbox.ItemHeight = 25;
             this.UISearchListbox.Location = new System.Drawing.Point(30, 59);
             this.UISearchListbox.Name = "UISearchListbox";
-            this.UISearchListbox.Size = new System.Drawing.Size(1167, 312);
+            this.UISearchListbox.Size = new System.Drawing.Size(1167, 304);
             this.UISearchListbox.TabIndex = 1;
             this.UISearchListbox.SelectedIndexChanged += new System.EventHandler(this.UISearchListbox_SelectedIndexChanged);
             this.UISearchListbox.DoubleClick += new System.EventHandler(this.UISearchListbox_DoubleClick);
@@ -306,7 +307,7 @@
             this.UITextboxSearch.Location = new System.Drawing.Point(30, 13);
             this.UITextboxSearch.Margin = new System.Windows.Forms.Padding(10);
             this.UITextboxSearch.Name = "UITextboxSearch";
-            this.UITextboxSearch.Size = new System.Drawing.Size(688, 36);
+            this.UITextboxSearch.Size = new System.Drawing.Size(688, 31);
             this.UITextboxSearch.TabIndex = 0;
             this.UITextboxSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UITextboxSearch_KeyDown);
             // 
@@ -352,6 +353,7 @@
             // 
             // UIAccount
             // 
+            this.UIAccount.Controls.Add(this.UIRank);
             this.UIAccount.Controls.Add(this.UIAccountId);
             this.UIAccount.Controls.Add(this.UIAccountName);
             this.UIAccount.Location = new System.Drawing.Point(4, 34);
@@ -368,17 +370,17 @@
             this.UIAccountId.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.UIAccountId.Location = new System.Drawing.Point(15, 68);
             this.UIAccountId.Name = "UIAccountId";
-            this.UIAccountId.Size = new System.Drawing.Size(131, 28);
+            this.UIAccountId.Size = new System.Drawing.Size(127, 25);
             this.UIAccountId.TabIndex = 1;
             this.UIAccountId.Text = "UIAccountId";
             // 
             // UIAccountName
             // 
             this.UIAccountName.AutoSize = true;
-            this.UIAccountName.Font = new System.Drawing.Font("Open Sans", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIAccountName.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIAccountName.Location = new System.Drawing.Point(6, 13);
             this.UIAccountName.Name = "UIAccountName";
-            this.UIAccountName.Size = new System.Drawing.Size(313, 51);
+            this.UIAccountName.Size = new System.Drawing.Size(299, 42);
             this.UIAccountName.TabIndex = 0;
             this.UIAccountName.Text = "UIAccount Name";
             // 
@@ -404,21 +406,40 @@
             this.UISettings.Text = "Settings";
             this.UISettings.UseVisualStyleBackColor = true;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label11.Location = new System.Drawing.Point(711, 15);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(120, 24);
+            this.label11.TabIndex = 28;
+            this.label11.Text = "Sound level :";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // UISoundLevel
+            // 
+            this.UISoundLevel.Location = new System.Drawing.Point(853, 15);
+            this.UISoundLevel.Name = "UISoundLevel";
+            this.UISoundLevel.Size = new System.Drawing.Size(298, 26);
+            this.UISoundLevel.TabIndex = 27;
+            // 
             // UIHueIp
             // 
             this.UIHueIp.Location = new System.Drawing.Point(33, 86);
             this.UIHueIp.Name = "UIHueIp";
-            this.UIHueIp.Size = new System.Drawing.Size(412, 36);
+            this.UIHueIp.Size = new System.Drawing.Size(412, 31);
             this.UIHueIp.TabIndex = 26;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Open Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label10.Location = new System.Drawing.Point(28, 57);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(92, 26);
+            this.label10.Size = new System.Drawing.Size(85, 24);
             this.label10.TabIndex = 25;
             this.label10.Text = "Bridge Ip";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -426,11 +447,11 @@
             // UIHueConnection
             // 
             this.UIHueConnection.AutoSize = true;
-            this.UIHueConnection.Font = new System.Drawing.Font("Open Sans", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIHueConnection.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIHueConnection.ForeColor = System.Drawing.Color.Brown;
             this.UIHueConnection.Location = new System.Drawing.Point(93, 15);
             this.UIHueConnection.Name = "UIHueConnection";
-            this.UIHueConnection.Size = new System.Drawing.Size(156, 28);
+            this.UIHueConnection.Size = new System.Drawing.Size(151, 25);
             this.UIHueConnection.TabIndex = 24;
             this.UIHueConnection.Text = "Not connected";
             this.UIHueConnection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -452,11 +473,11 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Open Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label9.Location = new System.Drawing.Point(35, 255);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(271, 22);
+            this.label9.Size = new System.Drawing.Size(252, 20);
             this.label9.TabIndex = 21;
             this.label9.Text = "Press the button and click connect";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -464,11 +485,11 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Open Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label8.Location = new System.Drawing.Point(35, 218);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(95, 26);
+            this.label8.Size = new System.Drawing.Size(89, 24);
             this.label8.TabIndex = 17;
             this.label8.Text = "Register :";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -491,17 +512,17 @@
             // 
             this.UIHueApi.Location = new System.Drawing.Point(33, 164);
             this.UIHueApi.Name = "UIHueApi";
-            this.UIHueApi.Size = new System.Drawing.Size(780, 36);
+            this.UIHueApi.Size = new System.Drawing.Size(780, 31);
             this.UIHueApi.TabIndex = 15;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Open Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label7.Location = new System.Drawing.Point(28, 135);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(87, 26);
+            this.label7.Size = new System.Drawing.Size(82, 24);
             this.label7.TabIndex = 14;
             this.label7.Text = "Api key :";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -509,11 +530,11 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Open Sans", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label6.Location = new System.Drawing.Point(6, 3);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(81, 43);
+            this.label6.Size = new System.Drawing.Size(75, 37);
             this.label6.TabIndex = 13;
             this.label6.Text = "Hue";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -550,11 +571,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Papyrus", 99.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 99.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.DodgerBlue;
             this.label1.Location = new System.Drawing.Point(3, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(225, 209);
+            this.label1.Size = new System.Drawing.Size(176, 152);
             this.label1.TabIndex = 0;
             this.label1.Text = "M";
             // 
@@ -596,11 +617,11 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Open Sans", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label5.Location = new System.Drawing.Point(12, 403);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(26, 39);
+            this.label5.Size = new System.Drawing.Size(25, 33);
             this.label5.TabIndex = 9;
             this.label5.Text = "-";
             // 
@@ -619,33 +640,33 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Open Sans", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label4.Location = new System.Drawing.Point(194, 403);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(34, 39);
+            this.label4.Size = new System.Drawing.Size(32, 33);
             this.label4.TabIndex = 8;
             this.label4.Text = "+";
             // 
             // UINextPlaylist
             // 
             this.UINextPlaylist.AutoSize = true;
-            this.UINextPlaylist.Font = new System.Drawing.Font("Open Sans", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UINextPlaylist.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UINextPlaylist.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.UINextPlaylist.Location = new System.Drawing.Point(19, 154);
             this.UINextPlaylist.Name = "UINextPlaylist";
-            this.UINextPlaylist.Size = new System.Drawing.Size(130, 26);
+            this.UINextPlaylist.Size = new System.Drawing.Size(131, 24);
             this.UINextPlaylist.TabIndex = 7;
             this.UINextPlaylist.Text = "No Music next";
             // 
             // UIArtist
             // 
             this.UIArtist.AutoSize = true;
-            this.UIArtist.Font = new System.Drawing.Font("Open Sans", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIArtist.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIArtist.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.UIArtist.Location = new System.Drawing.Point(19, 89);
             this.UIArtist.Name = "UIArtist";
-            this.UIArtist.Size = new System.Drawing.Size(85, 26);
+            this.UIArtist.Size = new System.Drawing.Size(80, 24);
             this.UIArtist.TabIndex = 6;
             this.UIArtist.Text = "No Artist";
             // 
@@ -678,11 +699,11 @@
             // UIPlayingMusic
             // 
             this.UIPlayingMusic.AutoSize = true;
-            this.UIPlayingMusic.Font = new System.Drawing.Font("Open Sans", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIPlayingMusic.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPlayingMusic.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.UIPlayingMusic.Location = new System.Drawing.Point(50, 12);
             this.UIPlayingMusic.Name = "UIPlayingMusic";
-            this.UIPlayingMusic.Size = new System.Drawing.Size(135, 37);
+            this.UIPlayingMusic.Size = new System.Drawing.Size(127, 31);
             this.UIPlayingMusic.TabIndex = 2;
             this.UIPlayingMusic.Text = "No music";
             this.UIPlayingMusic.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -690,22 +711,22 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Open Sans", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label3.Location = new System.Drawing.Point(12, 126);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 28);
+            this.label3.Size = new System.Drawing.Size(56, 25);
             this.label3.TabIndex = 1;
             this.label3.Text = "Next";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Open Sans", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label2.Location = new System.Drawing.Point(12, 61);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 28);
+            this.label2.Size = new System.Drawing.Size(61, 25);
             this.label2.TabIndex = 0;
             this.label2.Text = "Artist";
             // 
@@ -714,24 +735,15 @@
             this.HueTimer.Interval = 200;
             this.HueTimer.Tick += new System.EventHandler(this.HueTimer_Tick);
             // 
-            // UISoundLevel
+            // UIRank
             // 
-            this.UISoundLevel.Location = new System.Drawing.Point(853, 15);
-            this.UISoundLevel.Name = "UISoundLevel";
-            this.UISoundLevel.Size = new System.Drawing.Size(298, 26);
-            this.UISoundLevel.TabIndex = 27;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Open Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label11.Location = new System.Drawing.Point(711, 15);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(126, 26);
-            this.label11.TabIndex = 28;
-            this.label11.Text = "Sound level :";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.UIRank.AutoSize = true;
+            this.UIRank.ForeColor = System.Drawing.Color.Maroon;
+            this.UIRank.Location = new System.Drawing.Point(361, 13);
+            this.UIRank.Name = "UIRank";
+            this.UIRank.Size = new System.Drawing.Size(82, 25);
+            this.UIRank.TabIndex = 2;
+            this.UIRank.Text = "UIRank";
             // 
             // Client
             // 
@@ -822,6 +834,7 @@
         private System.Windows.Forms.Timer HueTimer;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ProgressBar UISoundLevel;
+        private System.Windows.Forms.Label UIRank;
     }
 }
 

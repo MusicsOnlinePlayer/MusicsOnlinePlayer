@@ -95,5 +95,58 @@ namespace Musics___Server.Usersinfos
             }
             return false;
         }
+
+        public static List<User> GetAllUsers()
+        {
+            List<User> UsersList = new List<User>();
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"users.xml");
+
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("User");
+
+            foreach (XmlNode n in nodes)
+            {
+                User tmp = new User
+                {
+                    Name = n["Name"].InnerText,
+                    UID = n["UID"].InnerText
+                };
+                tmp.rank = GetRankOfUser(tmp.UID);
+
+                UsersList.Add(tmp);
+            }
+            return UsersList;
+        }
+
+        public static Rank GetRankOfUser(string UID)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"users.xml");
+
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("User");
+            foreach (XmlNode n in nodes)
+            {
+                if (n["UID"].InnerText == UID)
+                {
+                    return (Rank)Enum.Parse(typeof(Rank),n["Rank"].InnerText);
+                }
+            }
+            return Rank.Viewer;
+        }
+        public static void SetRankOfUser(string UID,Rank rank)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"users.xml");
+
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("User");
+            foreach (XmlNode n in nodes)
+            {
+                if (n["UID"].InnerText == UID)
+                {
+                    n["Rank"].InnerText = rank.ToString();
+                }
+            }
+            doc.Save(@"users.xml");
+        }
     }
 }
