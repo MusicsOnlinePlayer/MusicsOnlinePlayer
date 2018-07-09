@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
-
 using Utility;
 using Musics___Server.MusicsInformation;
 
@@ -92,7 +91,7 @@ namespace Musics___Server.MusicManagement
                             }
 
                             NumberofMusics++;
-
+                            
                             CurrentArtist.albums[i].Musics.Add(current);
 
                             //Console.WriteLine("     " + current.Title);
