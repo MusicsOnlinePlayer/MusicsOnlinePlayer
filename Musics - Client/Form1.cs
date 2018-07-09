@@ -13,9 +13,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TagLib;
 using Utility;
-
-
-
+using Musics___Client.Hue;
+using Q42.HueApi;
+using Q42.HueApi.Models.Bridge;
+using NAudio.CoreAudioApi;
 namespace Musics___Client
 {
 
@@ -24,6 +25,8 @@ namespace Musics___Client
         public Socket _clientSocket;
         public User Me;
 
+        private HueMusic HueMusic = new HueMusic();
+        private List<LocatedBridge> HueBridges;
 
         public Client()
         {
@@ -41,7 +44,17 @@ namespace Musics___Client
 
             UIAccountName.Text = Me.Name;
             UIAccountId.Text = Me.UID;
-            
+
+            try
+            {
+                if (Properties.Settings.Default.HueKey != null && Properties.Settings.Default.HueIp != null)
+                {
+                    UIHueApi.Text = Properties.Settings.Default.HueKey;
+                    UIHueIp.Text = Properties.Settings.Default.HueIp;
+                }
+            }
+            catch { }
+           
         }
 
         public void Connect()
@@ -65,6 +78,8 @@ namespace Musics___Client
             p.player.PlayStateChange += Player_PlayStateChange;
         }
 
+
+        #region PlayerSearch
         private void Player_PlayStateChange(int NewState)
         {   
             if(NewState == 8)
@@ -400,6 +415,8 @@ namespace Musics___Client
         {
             p.player.close();
 
+            
+
             foreach(var p in System.IO.Directory.GetFiles(@"c:\MusicsFiles"))
             {
                 System.IO.File.Delete(p);
@@ -497,5 +514,113 @@ namespace Musics___Client
                 SendObject(new Rate((SearchlistboxItems[UISearchListbox.SelectedIndex] as Music).MID));
             }
         }
+
+        #endregion
+
+        #region Hue
+
+
+        private void UIHueConnectKey_Click(object sender, EventArgs e)
+        {
+            if(UIHueApi != null && UIHueIp.Text != null)
+            {
+                try
+                {
+                    UIHueConnectKey.Hide();
+                    UIHueConnectRegister.Hide();
+                    HueMusic.Connect(UIHueIp.Text, UIHueApi.Text);
+                    if (!AsyncHelper.RunSync(() => HueMusic.client.CheckConnection())) 
+                    {
+                        UIHueConnectKey.Show();
+                        UIHueConnectRegister.Show();
+                    }
+                    else
+                    {
+                        Properties.Settings.Default.HueKey = UIHueApi.Text;
+                        Properties.Settings.Default.HueIp = UIHueIp.Text;
+                        Properties.Settings.Default.Save();
+
+
+
+                        UIHueConnection.Text = "Connected";
+                        UIHueConnection.ForeColor = Color.Green;
+
+                        HueTimer.Enabled = true;
+                        HueTimer.Start();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                    UIHueConnectKey.Show();
+                    UIHueConnectRegister.Show();
+                }
+                
+            }
+
+           
+
+
+        }
+
+
+
+       
+
+        private void UIHueConnectRegister_Click(object sender, EventArgs e)
+        {
+            if(UIHueIp.Text != null)
+            {
+                try
+                {
+                    UIHueConnectKey.Hide();
+                    UIHueConnectRegister.Hide();
+                    HueMusic.ConnectRegister(UIHueIp.Text);
+                    if (!AsyncHelper.RunSync(() => HueMusic.client.CheckConnection()))
+                    {
+                        UIHueConnectKey.Show();
+                        UIHueConnectRegister.Show();
+                    }
+                    else
+                    {
+                        Properties.Settings.Default.HueKey = HueMusic.ApiKey;
+                        UIHueApi.Text = HueMusic.ApiKey;
+                        Properties.Settings.Default.HueIp = UIHueIp.Text;
+                        Properties.Settings.Default.Save();
+
+
+
+                        UIHueConnection.Text = "Connected";
+                        UIHueConnection.ForeColor = Color.Green;
+
+                        HueTimer.Enabled = true;
+                        HueTimer.Start();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                    UIHueConnectKey.Show();
+                    UIHueConnectRegister.Show();
+                }
+            }
+        }
+
+        private void HueTimer_Tick(object sender, EventArgs e)
+        {
+            var enumerator = new MMDeviceEnumerator();
+            var device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
+            var scale = (int)Math.Floor(device.AudioMeterInformation.MasterPeakValue * 100);
+
+            UISoundLevel.Value = scale;
+
+            try
+            {
+                HueMusic.TurnOnLight(new Q42.HueApi.ColorConverters.RGBColor(100, 100, 100), Convert.ToByte(10 * scale));
+            }
+            catch { }
+        }
+
+        #endregion Hue
     }
 }
