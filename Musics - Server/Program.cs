@@ -202,37 +202,41 @@ namespace Musics___Server
             if (Clients.GetUser(socket).UID != null)
             {
 
-                if (received is RequestSearch)
+                if (received is Request)
                 {
-                    RequestSearch requestSearch = received as RequestSearch;
-                    Console.WriteLine("Request by client :" + requestSearch.Name);
-                    TreatSearch(requestSearch, socket);
+                    Request request = received as Request;
 
-
-                }
-                if (received is RequestMusic)
-                {
-                    RequestMusic requestMusic = received as RequestMusic;
-                    foreach (Author a in Indexation.ServerMusics)
+                    switch (request.requestsTypes)
                     {
-                        foreach (Album al in a.albums)
-                        {
-                            foreach (Music m in al.Musics)
-                            {
-                                if (m.Title == requestMusic.Requested.Title)
-                                {
-                                    Music answer = new Music(m.Title, new Author(m.Author.Name), Indexation.GetFileBinary(m))
-                                    {
-                                        Format = m.Format,
-                                        Rating = m.Rating
-                                    };
+                        case RequestsTypes.Search:
+                            Console.WriteLine("Request by client :" + request.Name);
+                            TreatSearch(request, socket);
+                            break;
 
-                                    SendObject(new RequestMusicAnswer(answer), socket);
-                                    return;
+                        case RequestsTypes.MusicsBinaries:
+
+                            foreach (Author a in Indexation.ServerMusics)
+                            {
+                                foreach (Album al in a.albums)
+                                {
+                                    foreach (Music m in al.Musics)
+                                    {
+                                        if (m.Title == request.RequestedBinaries.Title)
+                                        {
+                                            Music answer = new Music(m.Title, new Author(m.Author.Name), Indexation.GetFileBinary(m))
+                                            {
+                                                Format = m.Format,
+                                                Rating = m.Rating
+                                            };
+
+                                            SendObject(new RequestAnswer(answer), socket);
+                                            return;
+                                        }
+                                    }
+
                                 }
                             }
-
-                        }
+                            break;
                     }
                 }
                 if (received is Rate)
@@ -299,7 +303,7 @@ namespace Musics___Server
 
         }
 
-        private static void TreatSearch(RequestSearch requestSearch, Socket asker)
+        private static void TreatSearch(Request requestSearch, Socket asker)
         {
             if (Clients.GetUser(asker).UID != null)
             {
@@ -324,7 +328,7 @@ namespace Musics___Server
                                     {
                                         Rating = m.Rating,
                                         Album = new Album(al.Name)
-                                        
+
                                     };
                                     author.albums.Last().Add(temp);
                                 }
@@ -335,7 +339,7 @@ namespace Musics___Server
 
 
                     }
-                    SendObject(new RequestSearchAnswer(result, new Author(null)), asker);
+                    SendObject(new RequestAnswer(result, new Author(null)), asker);
 
                 }
                 if (requestSearch.Requested is Album)
@@ -356,7 +360,7 @@ namespace Musics___Server
                                     {
                                         Rating = z.Rating,
                                         Album = new Album(al.Name)
-                                        
+
                                     };
                                     tmp.Add(temp);
                                 }
@@ -365,7 +369,7 @@ namespace Musics___Server
                             }
                         }
                     }
-                    SendObject(new RequestSearchAnswer(result, new Album(null, null)), asker);
+                    SendObject(new RequestAnswer(result, new Album(null, null)), asker);
                 }
                 if (requestSearch.Requested is Music)
                 {
@@ -384,7 +388,7 @@ namespace Musics___Server
                                     {
                                         Rating = m.Rating,
                                         Album = new Album(al.Name)
-                                        
+
                                     };
 
                                     result.Add(temp);
@@ -395,7 +399,7 @@ namespace Musics___Server
                         }
                     }
 
-                    SendObject(new RequestSearchAnswer(result, new Music()), asker);
+                    SendObject(new RequestAnswer(result, new Music()), asker);
                 }
 
             }

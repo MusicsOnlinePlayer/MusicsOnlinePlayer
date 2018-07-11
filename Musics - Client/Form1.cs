@@ -29,7 +29,7 @@ namespace Musics___Client
         {
             InitializeComponent();
 
-            
+
         }
 
         private void Client_Load(object sender, EventArgs e)
@@ -53,7 +53,7 @@ namespace Musics___Client
                 }
             }
             catch { }
-           
+
         }
 
         public void Connect()
@@ -80,27 +80,27 @@ namespace Musics___Client
 
         #region PlayerSearch
         private void Player_PlayStateChange(int NewState)
-        {   
-            if(NewState == 8)
+        {
+            if (NewState == 8)
             {
-                ChangeMusicPlaylist(true); 
+                ChangeMusicPlaylist(true);
             }
         }
 
         private void ChangeMusicPlaylist(bool forward)
         {
-            
+
             try
             {
                 if (forward)
                 {
-                    
-                    SendObject(new RequestMusic(playlist[playlist.IndexOf(InPlaying) + 1]));
+
+                    SendObject(new Request(playlist[playlist.IndexOf(InPlaying) + 1]));
                     UIPlaylist.SelectedIndex++;
                 }
                 else
                 {
-                    SendObject(new RequestMusic(playlist[playlist.IndexOf(InPlaying) - 1]));
+                    SendObject(new Request(playlist[playlist.IndexOf(InPlaying) - 1]));
                     UIPlaylist.SelectedIndex--;
                 }
             }
@@ -161,110 +161,114 @@ namespace Musics___Client
 
         private void TreatObject(object obj)
         {
-            if (obj is RequestSearchAnswer)
+            if (obj is RequestAnswer)
             {
-                RequestSearchAnswer searchAnswer = obj as RequestSearchAnswer;
+                RequestAnswer searchAnswer = obj as RequestAnswer;
 
-                Invoke((MethodInvoker)delegate
+                if (searchAnswer.requestsTypes == RequestsTypes.Search)
                 {
-                    UISearchListbox.Items.Clear();
-
-                });
-                SearchlistboxItems.Clear();
-
-                if (searchAnswer.Requested is Author)
-                {
-                    List<Author> authors = searchAnswer.answerList as List<Author>;
-                    foreach (Author a in authors)
+                    Invoke((MethodInvoker)delegate
                     {
-                        Invoke((MethodInvoker)delegate
-                        {
-                            UISearchListbox.Items.Add(a.Name);
-                            SearchlistboxItems.Add(a);
-                        });
-                    }
-                }
-                if (searchAnswer.Requested is Album)
-                {
-                    List<Album> albums = searchAnswer.answerList as List<Album>;
-                    foreach (Album a in albums)
+                        UISearchListbox.Items.Clear();
+
+                    });
+                    SearchlistboxItems.Clear();
+
+                    if (searchAnswer.Requested is Author)
                     {
-                        Invoke((MethodInvoker)delegate
+                        List<Author> authors = searchAnswer.AnswerList as List<Author>;
+                        foreach (Author a in authors)
                         {
-                            UISearchListbox.Items.Add(a.Name);
-                            SearchlistboxItems.Add(a);
-                        });
+                            Invoke((MethodInvoker)delegate
+                            {
+                                UISearchListbox.Items.Add(a.Name);
+                                SearchlistboxItems.Add(a);
+                            });
+                        }
                     }
-                }
-                if (searchAnswer.Requested is Music)
-                {
-                    List<Music> musics = searchAnswer.answerList as List<Music>;
-                    foreach (Music a in musics)
+                    if (searchAnswer.Requested is Album)
                     {
-                        Invoke((MethodInvoker)delegate
+                        List<Album> albums = searchAnswer.AnswerList as List<Album>;
+                        foreach (Album a in albums)
                         {
-                            UISearchListbox.Items.Add(a.Title);
-                            SearchlistboxItems.Add(a);
-                        });
+                            Invoke((MethodInvoker)delegate
+                            {
+                                UISearchListbox.Items.Add(a.Name);
+                                SearchlistboxItems.Add(a);
+                            });
+                        }
                     }
+                    if (searchAnswer.Requested is Music)
+                    {
+                        List<Music> musics = searchAnswer.AnswerList as List<Music>;
+                        foreach (Music a in musics)
+                        {
+                            Invoke((MethodInvoker)delegate
+                            {
+                                UISearchListbox.Items.Add(a.Title);
+                                SearchlistboxItems.Add(a);
+                            });
+                        }
+                    }
+                    Invoke((MethodInvoker)delegate
+                    {
+                        ChangeDescription();
+                    });
                 }
-                Invoke((MethodInvoker)delegate
+                if (searchAnswer.requestsTypes == RequestsTypes.MusicsBinaries)
                 {
-                    ChangeDescription();
-                });
+                    InPlaying = searchAnswer.Binaries;
 
-            }
-            if(obj is RequestMusicAnswer)
-            {
 
-                InPlaying = (obj as RequestMusicAnswer).Requested;
-                
+                    Invoke((MethodInvoker)delegate
+                    {
+                        UIPlayingMusic.Text = InPlaying.Title;
+                        UIArtist.Text = InPlaying.Author.Name;
+                    });
 
-                Invoke((MethodInvoker)delegate
-                {
-                    UIPlayingMusic.Text = InPlaying.Title;
-                    UIArtist.Text = InPlaying.Author.Name;
-                });
 
-                
-               
-                p.PlayMusic(InPlaying);
 
-                try
-                {
-                    UIMusicImage.BackgroundImage = GetMetaImage(p.player.URL);
-                }
-                catch {
-                    UIMusicImage.BackgroundImage = null;
-                }
+                    p.PlayMusic(InPlaying);
 
-                Invoke((MethodInvoker)delegate
-                {
                     try
                     {
-                        UIPlaylist.SelectedIndex = playlist.IndexOf(InPlaying);
-                        UINextPlaylist.Text = playlist[playlist.IndexOf(InPlaying) + 1].Title;
+                        UIMusicImage.BackgroundImage = GetMetaImage(p.player.URL);
                     }
                     catch
                     {
-                        UINextPlaylist.Text = "No music Next";
+                        UIMusicImage.BackgroundImage = null;
                     }
-                });
+
+                    Invoke((MethodInvoker)delegate
+                    {
+                        try
+                        {
+                            UIPlaylist.SelectedIndex = playlist.IndexOf(InPlaying);
+                            UINextPlaylist.Text = playlist[playlist.IndexOf(InPlaying) + 1].Title;
+                        }
+                        catch
+                        {
+                            UINextPlaylist.Text = "No music Next";
+                        }
+                    });
+
+                }
+
 
 
             }
-            if(obj is AuthInfo)
+            if (obj is AuthInfo)
             {
                 authInfo = obj as AuthInfo;
                 OnloginInfoReceived(EventArgs.Empty);
             }
-            if(obj is RateReport)
+            if (obj is RateReport)
             {
                 RateReport temp = obj as RateReport;
 
-                if(selected != null && selected is Music)
+                if (selected != null && selected is Music)
                 {
-                    if(temp.MID == (selected as Music).MID)
+                    if (temp.MID == (selected as Music).MID)
                     {
                         (selected as Music).Rating = temp.UpdatedRating;
                         ChangeDescription();
@@ -321,18 +325,18 @@ namespace Musics___Client
             {
                 if (UIRadioAlbum.Checked)
                 {
-                    SendObject(new RequestSearch(UITextboxSearch.Text, new Album(null, null)));
+                    SendObject(new Request(UITextboxSearch.Text, new Album(null, null)));
                     return;
                 }
                 if (UIRadioArtist.Checked)
                 {
-                    SendObject(new RequestSearch(UITextboxSearch.Text, new Author(null)));
+                    SendObject(new Request(UITextboxSearch.Text, new Author(null)));
                     return;
                 }
                 if (UIRadioMusic.Checked)
                 {
                     //MessageBox.Show("TestOk");
-                    SendObject(new RequestSearch(UITextboxSearch.Text, new Music()));
+                    SendObject(new Request(UITextboxSearch.Text, new Music()));
                     return;
                 }
             }
@@ -348,12 +352,12 @@ namespace Musics___Client
                 ChangeDescription();
             });
 
-            
+
         }
         private void ChangeDescription()
         {
-            
-            
+
+
 
             if (UISearchListbox.SelectedItem != null)
             {
@@ -377,7 +381,7 @@ namespace Musics___Client
                     UISelectedRating.Text = "Rating : ";
 
 
-                    UIPathAuthor.Text = (selected as Album ).Author.Name;
+                    UIPathAuthor.Text = (selected as Album).Author.Name;
                     UIPathAlbum.Text = (selected as Album).Name;
                     UIPathMusic.Text = "";
 
@@ -394,17 +398,17 @@ namespace Musics___Client
                     UIPathMusic.Text = "";
                 }
             }
-            
+
         }
 
         private void UIPlayBis_Click(object sender, EventArgs e)
         {
-            if(selected is Music)
+            if (selected is Music)
             {
-                SendObject(new RequestMusic(selected as Music));
+                SendObject(new Request(selected as Music));
                 playlist.Clear();
             }
-            
+
         }
 
 
@@ -416,7 +420,7 @@ namespace Musics___Client
         private void UIPause_Click(object sender, EventArgs e)
         {
             p.player.controls.pause();
-            
+
         }
 
         private void UITrackbarMusic_Scroll(object sender, EventArgs e)
@@ -428,15 +432,15 @@ namespace Musics___Client
         {
             p.player.close();
 
-            
 
-            foreach(var p in System.IO.Directory.GetFiles(@"c:\MusicsFiles"))
+
+            foreach (var p in System.IO.Directory.GetFiles(@"c:\MusicsFiles"))
             {
                 System.IO.File.Delete(p);
             }
 
             //_clientSocket.Close();
-            
+
         }
 
         private List<Music> playlist = new List<Music>();
@@ -454,7 +458,7 @@ namespace Musics___Client
             ChangeMusicPlaylist(true);
         }
 
-        
+
 
         private void UISearchListbox_DoubleClick(object sender, EventArgs e)
         {
@@ -474,7 +478,7 @@ namespace Musics___Client
                     }
                     return;
                 }
-                if(SearchlistboxItems[UISearchListbox.SelectedIndex] is Album)
+                if (SearchlistboxItems[UISearchListbox.SelectedIndex] is Album)
                 {
                     Album tmp = SearchlistboxItems[UISearchListbox.SelectedIndex] as Album;
 
@@ -491,13 +495,13 @@ namespace Musics___Client
                         return;
                     }
                 }
-                if(SearchlistboxItems[UISearchListbox.SelectedIndex] is Music)
+                if (SearchlistboxItems[UISearchListbox.SelectedIndex] is Music)
                 {
-                    SendObject(new RequestMusic(SearchlistboxItems[UISearchListbox.SelectedIndex] as Music));
+                    SendObject(new Request(SearchlistboxItems[UISearchListbox.SelectedIndex] as Music));
                     playlist.Clear();
                     UIPlaylist.Items.Clear();
                 }
-                
+
             }
         }
 
@@ -507,9 +511,9 @@ namespace Musics___Client
             {
                 playlist.Add(SearchlistboxItems[UISearchListbox.SelectedIndex] as Music);
                 UIPlaylist.Items.Add((SearchlistboxItems[UISearchListbox.SelectedIndex] as Music).Title);
-                if(playlist.Count == 1)
+                if (playlist.Count == 1)
                 {
-                    SendObject(new RequestMusic(playlist.First()));
+                    SendObject(new Request(playlist.First()));
                     UIPlaylist.SelectedIndex = 0;
                 }
             }
@@ -522,9 +526,35 @@ namespace Musics___Client
 
         private void UIThumbup_Click(object sender, EventArgs e)
         {
-            if(SearchlistboxItems[UISearchListbox.SelectedIndex] != null && SearchlistboxItems[UISearchListbox.SelectedIndex] is Music)
+            if (SearchlistboxItems[UISearchListbox.SelectedIndex] != null && SearchlistboxItems[UISearchListbox.SelectedIndex] is Music)
             {
                 SendObject(new Rate((SearchlistboxItems[UISearchListbox.SelectedIndex] as Music).MID));
+            }
+        }
+
+        private void UIPathAuthor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!(SearchlistboxItems.First() is Author))
+            {
+                SendObject(new Request(UIPathAuthor.Text, new Author(null)));
+            }
+        }
+
+        private void UIPathAlbum_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!(SearchlistboxItems.First() is Album))
+            {
+                SendObject(new Request(UIPathAlbum.Text, new Album(null)));
+            }
+        }
+
+        private void Tabs_TabIndexChanged(object sender, EventArgs e)
+        {
+            switch (Tabs.SelectedIndex)
+            {
+                case 3:
+
+                    break;
             }
         }
 
@@ -535,14 +565,14 @@ namespace Musics___Client
 
         private void UIHueConnectKey_Click(object sender, EventArgs e)
         {
-            if(UIHueApi != null && UIHueIp.Text != null)
+            if (UIHueApi != null && UIHueIp.Text != null)
             {
                 try
                 {
                     UIHueConnectKey.Hide();
                     UIHueConnectRegister.Hide();
                     HueMusic.Connect(UIHueIp.Text, UIHueApi.Text);
-                    if (!AsyncHelper.RunSync(() => HueMusic.client.CheckConnection())) 
+                    if (!AsyncHelper.RunSync(() => HueMusic.client.CheckConnection()))
                     {
                         UIHueConnectKey.Show();
                         UIHueConnectRegister.Show();
@@ -568,21 +598,21 @@ namespace Musics___Client
                     UIHueConnectKey.Show();
                     UIHueConnectRegister.Show();
                 }
-                
+
             }
 
-           
+
 
 
         }
 
 
 
-       
+
 
         private void UIHueConnectRegister_Click(object sender, EventArgs e)
         {
-            if(UIHueIp.Text != null)
+            if (UIHueIp.Text != null)
             {
                 try
                 {
@@ -637,20 +667,6 @@ namespace Musics___Client
         #endregion Hue
 
 
-        private void UIPathAuthor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            if(!(SearchlistboxItems.First() is Author))
-            {
-                SendObject(new RequestSearch(UIPathAuthor.Text, new Author(null)));
-            }
-        }
 
-        private void UIPathAlbum_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            if (!(SearchlistboxItems.First() is Album))
-            {
-                SendObject(new RequestSearch(UIPathAlbum.Text, new Album(null)));
-            }
-        }
     }
 }

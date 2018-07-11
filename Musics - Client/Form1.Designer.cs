@@ -87,10 +87,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.HueTimer = new System.Windows.Forms.Timer(this.components);
+            this.label12 = new System.Windows.Forms.Label();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.UILikedMusicsList = new System.Windows.Forms.ListBox();
             this.Tabs.SuspendLayout();
             this.UISearch.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.UIFavorites.SuspendLayout();
             this.UIAccount.SuspendLayout();
             this.UISettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -120,6 +124,7 @@
             this.Tabs.SelectedIndex = 0;
             this.Tabs.Size = new System.Drawing.Size(1213, 800);
             this.Tabs.TabIndex = 0;
+            this.Tabs.TabIndexChanged += new System.EventHandler(this.Tabs_TabIndexChanged);
             // 
             // UIHome
             // 
@@ -385,6 +390,9 @@
             // 
             // UIFavorites
             // 
+            this.UIFavorites.Controls.Add(this.UILikedMusicsList);
+            this.UIFavorites.Controls.Add(this.checkedListBox1);
+            this.UIFavorites.Controls.Add(this.label12);
             this.UIFavorites.Location = new System.Drawing.Point(4, 34);
             this.UIFavorites.Name = "UIFavorites";
             this.UIFavorites.Padding = new System.Windows.Forms.Padding(3);
@@ -807,6 +815,38 @@
             this.HueTimer.Interval = 200;
             this.HueTimer.Tick += new System.EventHandler(this.HueTimer_Tick);
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label12.Location = new System.Drawing.Point(6, 3);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(202, 37);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "Liked musics";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(272, 159);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(8, 4);
+            this.checkedListBox1.TabIndex = 15;
+            // 
+            // UILikedMusicsList
+            // 
+            this.UILikedMusicsList.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UILikedMusicsList.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.UILikedMusicsList.FormattingEnabled = true;
+            this.UILikedMusicsList.ItemHeight = 25;
+            this.UILikedMusicsList.Location = new System.Drawing.Point(13, 40);
+            this.UILikedMusicsList.Margin = new System.Windows.Forms.Padding(0);
+            this.UILikedMusicsList.Name = "UILikedMusicsList";
+            this.UILikedMusicsList.Size = new System.Drawing.Size(1168, 304);
+            this.UILikedMusicsList.TabIndex = 16;
+            // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -827,6 +867,8 @@
             this.tableLayoutPanel1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.UIFavorites.ResumeLayout(false);
+            this.UIFavorites.PerformLayout();
             this.UIAccount.ResumeLayout(false);
             this.UIAccount.PerformLayout();
             this.UISettings.ResumeLayout(false);
@@ -903,6 +945,9 @@
         private System.Windows.Forms.LinkLabel UIPathAlbum;
         private System.Windows.Forms.LinkLabel UIPathAuthor;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.ListBox UILikedMusicsList;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.Label label12;
     }
 }
 

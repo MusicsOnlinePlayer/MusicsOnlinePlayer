@@ -275,54 +275,78 @@ namespace Utility
 
     }
 
-    [Serializable]
-    public class RequestSearch
+    public enum RequestsTypes
     {
+        Search,
+        MusicsBinaries,
+        Favorites
+    }
+
+
+    [Serializable]
+    public class Request
+    {
+        public RequestsTypes requestsTypes;
+
         public string Name;
         public object Requested;
 
-        public RequestSearch(string name, object requested)
+        public Music RequestedBinaries;
+
+        public string UserID;
+
+        public Request(string name, object requested)
         {
             Requested = requested;
             Name = name;
+            requestsTypes = RequestsTypes.Search;
         }
-    }
 
-    [Serializable]
-    public class RequestMusic
-    {
-        public Music Requested;
-
-        public RequestMusic(Music requested)
+        public Request(Music requested)
         {
-            Requested = requested;
+            RequestedBinaries = requested;
+            requestsTypes = RequestsTypes.MusicsBinaries;
         }
-    }
 
-    [Serializable]
-    public class RequestMusicAnswer
-    {
-        public Music Requested;
-
-        public RequestMusicAnswer(Music requested)
+        public Request(string UIDFavorites)
         {
-            Requested = requested;
+            UserID = UIDFavorites;
+            requestsTypes = RequestsTypes.Favorites;
         }
     }
 
-
     [Serializable]
-    public class RequestSearchAnswer
+    public class RequestAnswer
     {
-        public object answerList;
+        public RequestsTypes requestsTypes;
+
+        public object AnswerList;
         public object Requested;
 
-        public RequestSearchAnswer(object answer, object requested)
+        public Music Binaries;
+
+        List<Music> Favorites = new List<Music>();
+
+        public RequestAnswer(object answerlist, object requested)
         {
-            answerList = answer;
             Requested = requested;
+            AnswerList = answerlist;
+            requestsTypes = RequestsTypes.Search;
+        }
+
+        public RequestAnswer(Music requested)
+        {
+            Binaries = requested;
+            requestsTypes = RequestsTypes.MusicsBinaries;
+        }
+
+        public RequestAnswer(List<Music> favorites)
+        {
+            Favorites = favorites;
+            requestsTypes = RequestsTypes.Favorites;
         }
     }
+
 
     [Serializable]
     public class Login{
