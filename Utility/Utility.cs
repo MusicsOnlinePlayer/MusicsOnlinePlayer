@@ -61,6 +61,7 @@ namespace Utility
     {
         public string Title;
         public Author Author;
+        public Album Album;
         public string Format;
         public string ServerPath;
         public string MID;
@@ -109,6 +110,10 @@ namespace Utility
             Author = author;
             Name = name;
             Musics = new List<Music>();
+        }
+        public Album(string name)
+        {
+            Name = name;
         }
         public void Add(Music music)
         {

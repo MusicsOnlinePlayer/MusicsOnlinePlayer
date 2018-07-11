@@ -32,6 +32,10 @@
             this.Tabs = new System.Windows.Forms.TabControl();
             this.UIHome = new System.Windows.Forms.TabPage();
             this.UISearch = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.UIPathMusic = new System.Windows.Forms.LinkLabel();
+            this.UIPathAlbum = new System.Windows.Forms.LinkLabel();
+            this.UIPathAuthor = new System.Windows.Forms.LinkLabel();
             this.UIPlaylist = new System.Windows.Forms.ListBox();
             this.UIAddPlaylistUnder = new System.Windows.Forms.Button();
             this.UIPlayBis = new System.Windows.Forms.Button();
@@ -47,10 +51,11 @@
             this.UISearchListbox = new System.Windows.Forms.ListBox();
             this.UITextboxSearch = new System.Windows.Forms.TextBox();
             this.UIBrowse = new System.Windows.Forms.TabPage();
-            this.UIFavorite = new System.Windows.Forms.TabPage();
+            this.UIFavorites = new System.Windows.Forms.TabPage();
             this.UIPlaylists = new System.Windows.Forms.TabPage();
             this.UIForums = new System.Windows.Forms.TabPage();
             this.UIAccount = new System.Windows.Forms.TabPage();
+            this.UIRank = new System.Windows.Forms.Label();
             this.UIAccountId = new System.Windows.Forms.Label();
             this.UIAccountName = new System.Windows.Forms.Label();
             this.UISettings = new System.Windows.Forms.TabPage();
@@ -82,9 +87,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.HueTimer = new System.Windows.Forms.Timer(this.components);
-            this.UIRank = new System.Windows.Forms.Label();
             this.Tabs.SuspendLayout();
             this.UISearch.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.UIAccount.SuspendLayout();
             this.UISettings.SuspendLayout();
@@ -101,7 +106,7 @@
             this.Tabs.Controls.Add(this.UIHome);
             this.Tabs.Controls.Add(this.UISearch);
             this.Tabs.Controls.Add(this.UIBrowse);
-            this.Tabs.Controls.Add(this.UIFavorite);
+            this.Tabs.Controls.Add(this.UIFavorites);
             this.Tabs.Controls.Add(this.UIPlaylists);
             this.Tabs.Controls.Add(this.UIForums);
             this.Tabs.Controls.Add(this.UIAccount);
@@ -128,6 +133,7 @@
             // 
             // UISearch
             // 
+            this.UISearch.Controls.Add(this.tableLayoutPanel1);
             this.UISearch.Controls.Add(this.UIPlaylist);
             this.UISearch.Controls.Add(this.UIAddPlaylistUnder);
             this.UISearch.Controls.Add(this.UIPlayBis);
@@ -146,6 +152,61 @@
             this.UISearch.TabIndex = 1;
             this.UISearch.Text = "Search";
             this.UISearch.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.23116F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.76884F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 232F));
+            this.tableLayoutPanel1.Controls.Add(this.UIPathMusic, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.UIPathAlbum, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.UIPathAuthor, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(29, 44);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(620, 19);
+            this.tableLayoutPanel1.TabIndex = 20;
+            // 
+            // UIPathMusic
+            // 
+            this.UIPathMusic.AutoSize = true;
+            this.UIPathMusic.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIPathMusic.LinkColor = System.Drawing.Color.Blue;
+            this.UIPathMusic.Location = new System.Drawing.Point(390, 0);
+            this.UIPathMusic.Name = "UIPathMusic";
+            this.UIPathMusic.Size = new System.Drawing.Size(42, 14);
+            this.UIPathMusic.TabIndex = 19;
+            this.UIPathMusic.TabStop = true;
+            this.UIPathMusic.Text = "Music";
+            // 
+            // UIPathAlbum
+            // 
+            this.UIPathAlbum.AutoSize = true;
+            this.UIPathAlbum.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIPathAlbum.LinkColor = System.Drawing.Color.Blue;
+            this.UIPathAlbum.Location = new System.Drawing.Point(182, 0);
+            this.UIPathAlbum.Name = "UIPathAlbum";
+            this.UIPathAlbum.Size = new System.Drawing.Size(42, 14);
+            this.UIPathAlbum.TabIndex = 18;
+            this.UIPathAlbum.TabStop = true;
+            this.UIPathAlbum.Text = "Album";
+            this.UIPathAlbum.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.UIPathAlbum_LinkClicked);
+            // 
+            // UIPathAuthor
+            // 
+            this.UIPathAuthor.AutoSize = true;
+            this.UIPathAuthor.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIPathAuthor.LinkColor = System.Drawing.Color.Blue;
+            this.UIPathAuthor.Location = new System.Drawing.Point(3, 0);
+            this.UIPathAuthor.Name = "UIPathAuthor";
+            this.UIPathAuthor.Size = new System.Drawing.Size(49, 14);
+            this.UIPathAuthor.TabIndex = 17;
+            this.UIPathAuthor.TabStop = true;
+            this.UIPathAuthor.Text = "Author";
+            this.UIPathAuthor.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.UIPathAuthor_LinkClicked);
             // 
             // UIPlaylist
             // 
@@ -295,9 +356,10 @@
             this.UISearchListbox.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.UISearchListbox.FormattingEnabled = true;
             this.UISearchListbox.ItemHeight = 25;
-            this.UISearchListbox.Location = new System.Drawing.Point(30, 59);
+            this.UISearchListbox.Location = new System.Drawing.Point(29, 63);
+            this.UISearchListbox.Margin = new System.Windows.Forms.Padding(0);
             this.UISearchListbox.Name = "UISearchListbox";
-            this.UISearchListbox.Size = new System.Drawing.Size(1167, 304);
+            this.UISearchListbox.Size = new System.Drawing.Size(1168, 304);
             this.UISearchListbox.TabIndex = 1;
             this.UISearchListbox.SelectedIndexChanged += new System.EventHandler(this.UISearchListbox_SelectedIndexChanged);
             this.UISearchListbox.DoubleClick += new System.EventHandler(this.UISearchListbox_DoubleClick);
@@ -321,15 +383,15 @@
             this.UIBrowse.Text = "Browse";
             this.UIBrowse.UseVisualStyleBackColor = true;
             // 
-            // UIFavorite
+            // UIFavorites
             // 
-            this.UIFavorite.Location = new System.Drawing.Point(4, 34);
-            this.UIFavorite.Name = "UIFavorite";
-            this.UIFavorite.Padding = new System.Windows.Forms.Padding(3);
-            this.UIFavorite.Size = new System.Drawing.Size(1205, 762);
-            this.UIFavorite.TabIndex = 3;
-            this.UIFavorite.Text = "Favorite";
-            this.UIFavorite.UseVisualStyleBackColor = true;
+            this.UIFavorites.Location = new System.Drawing.Point(4, 34);
+            this.UIFavorites.Name = "UIFavorites";
+            this.UIFavorites.Padding = new System.Windows.Forms.Padding(3);
+            this.UIFavorites.Size = new System.Drawing.Size(1205, 762);
+            this.UIFavorites.TabIndex = 3;
+            this.UIFavorites.Text = "Favorites";
+            this.UIFavorites.UseVisualStyleBackColor = true;
             // 
             // UIPlaylists
             // 
@@ -363,6 +425,16 @@
             this.UIAccount.TabIndex = 6;
             this.UIAccount.Text = "Account";
             this.UIAccount.UseVisualStyleBackColor = true;
+            // 
+            // UIRank
+            // 
+            this.UIRank.AutoSize = true;
+            this.UIRank.ForeColor = System.Drawing.Color.Maroon;
+            this.UIRank.Location = new System.Drawing.Point(361, 13);
+            this.UIRank.Name = "UIRank";
+            this.UIRank.Size = new System.Drawing.Size(82, 25);
+            this.UIRank.TabIndex = 2;
+            this.UIRank.Text = "UIRank";
             // 
             // UIAccountId
             // 
@@ -735,16 +807,6 @@
             this.HueTimer.Interval = 200;
             this.HueTimer.Tick += new System.EventHandler(this.HueTimer_Tick);
             // 
-            // UIRank
-            // 
-            this.UIRank.AutoSize = true;
-            this.UIRank.ForeColor = System.Drawing.Color.Maroon;
-            this.UIRank.Location = new System.Drawing.Point(361, 13);
-            this.UIRank.Name = "UIRank";
-            this.UIRank.Size = new System.Drawing.Size(82, 25);
-            this.UIRank.TabIndex = 2;
-            this.UIRank.Text = "UIRank";
-            // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -761,6 +823,8 @@
             this.Tabs.ResumeLayout(false);
             this.UISearch.ResumeLayout(false);
             this.UISearch.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.UIAccount.ResumeLayout(false);
@@ -785,7 +849,7 @@
         private System.Windows.Forms.TabPage UIHome;
         private System.Windows.Forms.TabPage UISearch;
         private System.Windows.Forms.TabPage UIBrowse;
-        private System.Windows.Forms.TabPage UIFavorite;
+        private System.Windows.Forms.TabPage UIFavorites;
         private System.Windows.Forms.TabPage UIPlaylists;
         private System.Windows.Forms.TabPage UIForums;
         private System.Windows.Forms.TabPage UIAccount;
@@ -835,6 +899,10 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ProgressBar UISoundLevel;
         private System.Windows.Forms.Label UIRank;
+        private System.Windows.Forms.LinkLabel UIPathMusic;
+        private System.Windows.Forms.LinkLabel UIPathAlbum;
+        private System.Windows.Forms.LinkLabel UIPathAuthor;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
 

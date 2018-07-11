@@ -322,7 +322,9 @@ namespace Musics___Server
                                 {
                                     Music temp = new Music(m.Title, author, "")
                                     {
-                                        Rating = m.Rating
+                                        Rating = m.Rating,
+                                        Album = new Album(al.Name)
+                                        
                                     };
                                     author.albums.Last().Add(temp);
                                 }
@@ -352,7 +354,9 @@ namespace Musics___Server
                                 {
                                     Music temp = new Music(z.Title, new Author(z.Author.Name), "")
                                     {
-                                        Rating = z.Rating
+                                        Rating = z.Rating,
+                                        Album = new Album(al.Name)
+                                        
                                     };
                                     tmp.Add(temp);
                                 }
@@ -378,7 +382,9 @@ namespace Musics___Server
                                 {
                                     Music temp = new Music(m.Title, new Author(a.Name), "")
                                     {
-                                        Rating = m.Rating
+                                        Rating = m.Rating,
+                                        Album = new Album(al.Name)
+                                        
                                     };
 
                                     result.Add(temp);

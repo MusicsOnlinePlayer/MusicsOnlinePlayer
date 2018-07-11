@@ -363,13 +363,23 @@ namespace Musics___Client
                     UISelectedname.Text = (selected as Music).Title;
                     UIselectedartist.Text = (selected as Music).Author.Name;
                     UISelectedRating.Text = "Rating : " + (selected as Music).Rating;
+
+                    UIPathAuthor.Text = (selected as Music).Author.Name;
+                    UIPathAlbum.Text = (selected as Music).Album.Name;
+                    UIPathMusic.Text = (selected as Music).Title;
                 }
+
                 if (SearchlistboxItems.First() is Album)
                 {
                     selected = SearchlistboxItems[UISearchListbox.SelectedIndex] as Album;
                     UISelectedname.Text = (selected as Album).Name;
                     UIselectedartist.Text = (selected as Album).Author.Name;
                     UISelectedRating.Text = "Rating : ";
+
+
+                    UIPathAuthor.Text = (selected as Album ).Author.Name;
+                    UIPathAlbum.Text = (selected as Album).Name;
+                    UIPathMusic.Text = "";
 
                 }
                 if (SearchlistboxItems.First() is Author)
@@ -378,6 +388,10 @@ namespace Musics___Client
                     UISelectedname.Text = (selected as Author).Name;
                     UIselectedartist.Text = "";
                     UISelectedRating.Text = "Rating : ";
+
+                    UIPathAuthor.Text = (selected as Author).Name;
+                    UIPathAlbum.Text = "";
+                    UIPathMusic.Text = "";
                 }
             }
             
@@ -621,5 +635,22 @@ namespace Musics___Client
         }
 
         #endregion Hue
+
+
+        private void UIPathAuthor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if(!(SearchlistboxItems.First() is Author))
+            {
+                SendObject(new RequestSearch(UIPathAuthor.Text, new Author(null)));
+            }
+        }
+
+        private void UIPathAlbum_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!(SearchlistboxItems.First() is Album))
+            {
+                SendObject(new RequestSearch(UIPathAlbum.Text, new Album(null)));
+            }
+        }
     }
 }
