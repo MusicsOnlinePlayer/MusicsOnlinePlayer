@@ -5,7 +5,7 @@ using System.IO;
 using Utility;
 using Musics___Server.MusicsInformation;
 
-namespace Musics___Server.MusicManagement
+namespace Musics___Server.MusicsManagement
 {
     static class Indexation 
     {
@@ -69,36 +69,40 @@ namespace Musics___Server.MusicManagement
                 int i = 0;
                 foreach (var a in AlbumOfArtist)
                 {
-                    CurrentArtist.albums.Add(new Album(CurrentArtist,Path.GetFileName(a)));
-
-                    //Console.WriteLine(" " + CurrentArtist.albums.Last().Name);
-
-                    
-                    foreach (var m in Directory.GetFiles(a))
+                    if (!Path.GetFileNameWithoutExtension(a).Contains("-ignore"))
                     {
+                        CurrentArtist.albums.Add(new Album(CurrentArtist, Path.GetFileName(a)));
 
-                        if(Path.GetExtension(m) == ".mp3" || Path.GetExtension(m) == ".flac")
+                        //Console.WriteLine(" " + CurrentArtist.albums.Last().Name);
+
+
+                        foreach (var m in Directory.GetFiles(a))
                         {
-                            string Musicname = Path.GetFileNameWithoutExtension(m).Split('-').Last().Remove(0, 1);
-                            Music current = new Music(Musicname, CurrentArtist, m)
+
+                            if (Path.GetExtension(m) == ".mp3" || Path.GetExtension(m) == ".flac")
                             {
-                                Format = Path.GetExtension(m),
-                            };
-                            if (MusicsInfo.MusicsExisting(current.MID))
-                            {
-                                current.Rating = MusicsInfo.GetMusicInfo(current.MID).Rating;
+                                string Musicname = Path.GetFileNameWithoutExtension(m).Split('-').Last().Remove(0, 1);
+                                Music current = new Music(Musicname, CurrentArtist, m)
+                                {
+                                    Format = Path.GetExtension(m),
+                                };
+                                if (MusicsInfo.MusicsExisting(current.MID))
+                                {
+                                    current.Rating = MusicsInfo.GetMusicInfo(current.MID).Rating;
+                                }
+
+                                NumberofMusics++;
+
+                                CurrentArtist.albums[i].Musics.Add(current);
+
+                                //Console.WriteLine("     " + current.Title);
                             }
 
-                            NumberofMusics++;
-                            
-                            CurrentArtist.albums[i].Musics.Add(current);
 
-                            //Console.WriteLine("     " + current.Title);
                         }
-                        
-
+                        i++;
                     }
-                    i++;
+                    
                 }
 
                 ServerMusics.Add(CurrentArtist);

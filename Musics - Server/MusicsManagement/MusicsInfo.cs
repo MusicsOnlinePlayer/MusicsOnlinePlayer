@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using Utility;
-using Musics___Server.MusicManagement;
+using Musics___Server.MusicsManagement;
 using System.Drawing;
 
 namespace Musics___Server.MusicsInformation

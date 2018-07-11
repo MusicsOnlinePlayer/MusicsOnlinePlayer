@@ -4,10 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using Utility;
-using Musics___Server.MusicManagement;
 using Musics___Server.Authentification;
 using Musics___Server.Usersinfos;
 using Musics___Server.MusicsInformation;
+using Musics___Server.MusicsManagement;
 
 namespace Musics___Server
 {
@@ -35,6 +35,7 @@ namespace Musics___Server
 
             Indexation.SaveAllInfos();
 
+
             string entry = "";
 
             while (entry != "-quit")
@@ -43,7 +44,7 @@ namespace Musics___Server
                 if (entry == "-init")
                 {
                     Indexation.InitRepository();
-                    
+
                 }
                 else if (entry == "-index")
                 {
@@ -60,7 +61,7 @@ namespace Musics___Server
                 else if (entry == "-users")
                 {
                     Console.WriteLine("~ Getting all connected users");
-                    foreach(User u in Clients.List.Values)
+                    foreach (User u in Clients.List.Values)
                     {
                         Console.WriteLine(" - " + u.Name + " " + u.rank.ToString() + " " + u.UID);
                     }
@@ -77,8 +78,8 @@ namespace Musics___Server
                 }
                 else if (entry.Contains("-promote"))
                 {
-                    string UID = entry.Split('-')[2].Replace(" ","");
-                    if(Enum.TryParse(entry.Split('-')[3],out Rank rank))
+                    string UID = entry.Split('-')[2].Replace(" ", "");
+                    if (Enum.TryParse(entry.Split('-')[3], out Rank rank))
                     {
                         Console.WriteLine("~ Promote " + UID + " to " + rank.ToString());
                         UsersInfos.SetRankOfUser(UID, rank);
@@ -88,7 +89,7 @@ namespace Musics___Server
                     {
                         Console.WriteLine("~ Syntax not correct, please use -promote -UID -Rank");
                     }
-                    
+
                 }
             }
             Console.Write("~ Saving music info ... ");
@@ -277,19 +278,19 @@ namespace Musics___Server
                         AuthService.SignupUser(auth.LoginInfo);
                         Clients.List.Remove(socket);
                         Clients.AddUser(auth.LoginInfo, socket);
-                        SendObject(new AuthInfo(true,Rank.Viewer), socket);
+                        SendObject(new AuthInfo(true, Rank.Viewer), socket);
                     }
                     else
                     {
                         if (AuthService.SigninUser(auth.LoginInfo) && !Clients.Contains(auth.LoginInfo.UID))
                         {
-                            SendObject(new AuthInfo(true,UsersInfos.GetRankOfUser(auth.LoginInfo.UID)), socket);
+                            SendObject(new AuthInfo(true, UsersInfos.GetRankOfUser(auth.LoginInfo.UID)), socket);
                             Clients.List.Remove(socket);
                             Clients.AddUser(auth.LoginInfo, socket);
                         }
                         else
                         {
-                            SendObject(new AuthInfo(false,Rank.Viewer), socket);
+                            SendObject(new AuthInfo(false, Rank.Viewer), socket);
                         }
                     }
                 }
@@ -306,11 +307,12 @@ namespace Musics___Server
 
                 if (requestSearch.Requested is Author)
                 {
-                    List<Author> answer = new List<Author>();
+                    List<Author> result = new List<Author>();
 
                     foreach (Author a in Indexation.ServerMusics)
                     {
-                        if (a.Name.Contains(requestSearch.Name))
+                        bool Found = Search.Find(requestSearch.Name, a.Name);
+                        if (Found)
                         {
                             Author author = new Author(a.Name);
                             foreach (var al in a.albums)
@@ -325,23 +327,25 @@ namespace Musics___Server
                                     author.albums.Last().Add(temp);
                                 }
                             }
-                            answer.Add(author);
+                            result.Add(author);
                             Console.WriteLine("  " + a.Name);
                         }
-                    }
 
-                    SendObject(new RequestSearchAnswer(answer, new Author(null)), asker);
+
+                    }
+                    SendObject(new RequestSearchAnswer(result, new Author(null)), asker);
 
                 }
                 if (requestSearch.Requested is Album)
                 {
-                    List<Album> answer = new List<Album>();
+                    List<Album> result = new List<Album>();
 
                     foreach (Author a in Indexation.ServerMusics)
                     {
                         foreach (Album al in a.albums)
                         {
-                            if (al.Name.Contains(requestSearch.Name))
+                            bool Found = Search.Find(requestSearch.Name, al.Name);
+                            if (Found)
                             {
                                 Album tmp = new Album(new Author(al.Author.Name), al.Name);
                                 foreach (var z in al.Musics)
@@ -352,16 +356,16 @@ namespace Musics___Server
                                     };
                                     tmp.Add(temp);
                                 }
-                                answer.Add(tmp);
+                                result.Add(tmp);
                                 Console.WriteLine("  " + al.Name);
                             }
                         }
                     }
-                    SendObject(new RequestSearchAnswer(answer, new Album(null, null)), asker);
+                    SendObject(new RequestSearchAnswer(result, new Album(null, null)), asker);
                 }
                 if (requestSearch.Requested is Music)
                 {
-                    List<Music> answer = new List<Music>();
+                    List<Music> result = new List<Music>();
 
                     foreach (Author a in Indexation.ServerMusics)
                     {
@@ -369,21 +373,23 @@ namespace Musics___Server
                         {
                             foreach (Music m in al.Musics)
                             {
-                                if (m.Title.Contains(requestSearch.Name))
+                                bool Found = Search.Find(requestSearch.Name, m.Title);
+                                if (Found)
                                 {
                                     Music temp = new Music(m.Title, new Author(a.Name), "")
                                     {
                                         Rating = m.Rating
                                     };
 
-                                    answer.Add(temp);
+                                    result.Add(temp);
                                     Console.WriteLine("  " + m.Title);
                                 }
                             }
 
                         }
                     }
-                    SendObject(new RequestSearchAnswer(answer, new Music()), asker);
+
+                    SendObject(new RequestSearchAnswer(result, new Music()), asker);
                 }
 
             }
