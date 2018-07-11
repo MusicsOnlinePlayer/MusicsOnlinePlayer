@@ -22,6 +22,16 @@ For the moment there is multiple type of request that the client can make :
  - `RequestSearch` is where the client can ask to the server to make a search. The client must specify the search text and what he want to search ( Music, Album, Author ). The server will respond with a `RequestSearchAnswer`
  - `RequestMusic` allows the user to ask for a music filebinnaries. The server will answer with `RequestMusicAnswer` wich contains the music with the binnaries.
  
+### Server command
+There is multiple server command that can help you quite a lot.The command always start with **-**. Here is the list :
+ - `-init` will create a directory for the music file if it doesn't exist.
+ - `-index` will do an indexation again. See bellow for more detail.
+ - `-users` will get all connected users and display his `Name`,`User ID` and his `Rank` you can add the `-all` parameters to get all registered users.
+ - `-promote` will upgrade the grade of the specified users. Please use this syntax : `-promote -UID -NewRank`.
+ - `-quit` will save all music information and stop the server application.
+ 
+
+ 
 ## Client
 Once the client is connected with the form *Login.form*. He can access to differents tabs :
 - `Search` to find and listen musics.
