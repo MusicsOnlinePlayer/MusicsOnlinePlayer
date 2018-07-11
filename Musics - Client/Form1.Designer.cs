@@ -52,6 +52,9 @@
             this.UITextboxSearch = new System.Windows.Forms.TextBox();
             this.UIBrowse = new System.Windows.Forms.TabPage();
             this.UIFavorites = new System.Windows.Forms.TabPage();
+            this.UILikedMusicsList = new System.Windows.Forms.ListBox();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.UIPlaylists = new System.Windows.Forms.TabPage();
             this.UIForums = new System.Windows.Forms.TabPage();
             this.UIAccount = new System.Windows.Forms.TabPage();
@@ -72,6 +75,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label13 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.UIMusicImage = new System.Windows.Forms.PictureBox();
             this.UIForward = new System.Windows.Forms.Button();
@@ -87,9 +91,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.HueTimer = new System.Windows.Forms.Timer(this.components);
-            this.label12 = new System.Windows.Forms.Label();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.UILikedMusicsList = new System.Windows.Forms.ListBox();
             this.Tabs.SuspendLayout();
             this.UISearch.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -137,6 +138,7 @@
             // 
             // UISearch
             // 
+            this.UISearch.Controls.Add(this.UIThumbup);
             this.UISearch.Controls.Add(this.tableLayoutPanel1);
             this.UISearch.Controls.Add(this.UIPlaylist);
             this.UISearch.Controls.Add(this.UIAddPlaylistUnder);
@@ -144,11 +146,10 @@
             this.UISearch.Controls.Add(this.UIselectedartist);
             this.UISearch.Controls.Add(this.UISelectedGenres);
             this.UISearch.Controls.Add(this.UISelectedRating);
-            this.UISearch.Controls.Add(this.UISelectedname);
             this.UISearch.Controls.Add(this.panel1);
-            this.UISearch.Controls.Add(this.UIThumbup);
             this.UISearch.Controls.Add(this.UISearchListbox);
             this.UISearch.Controls.Add(this.UITextboxSearch);
+            this.UISearch.Controls.Add(this.UISelectedname);
             this.UISearch.Location = new System.Drawing.Point(4, 34);
             this.UISearch.Name = "UISearch";
             this.UISearch.Padding = new System.Windows.Forms.Padding(3);
@@ -162,7 +163,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.23116F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.76884F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 232F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 235F));
             this.tableLayoutPanel1.Controls.Add(this.UIPathMusic, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAlbum, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAuthor, 0, 0);
@@ -179,7 +180,7 @@
             this.UIPathMusic.AutoSize = true;
             this.UIPathMusic.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathMusic.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathMusic.Location = new System.Drawing.Point(390, 0);
+            this.UIPathMusic.Location = new System.Drawing.Point(387, 0);
             this.UIPathMusic.Name = "UIPathMusic";
             this.UIPathMusic.Size = new System.Drawing.Size(42, 14);
             this.UIPathMusic.TabIndex = 19;
@@ -191,7 +192,7 @@
             this.UIPathAlbum.AutoSize = true;
             this.UIPathAlbum.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathAlbum.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathAlbum.Location = new System.Drawing.Point(182, 0);
+            this.UIPathAlbum.Location = new System.Drawing.Point(180, 0);
             this.UIPathAlbum.Name = "UIPathAlbum";
             this.UIPathAlbum.Size = new System.Drawing.Size(42, 14);
             this.UIPathAlbum.TabIndex = 18;
@@ -399,6 +400,39 @@
             this.UIFavorites.TabIndex = 3;
             this.UIFavorites.Text = "Favorites";
             this.UIFavorites.UseVisualStyleBackColor = true;
+            // 
+            // UILikedMusicsList
+            // 
+            this.UILikedMusicsList.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UILikedMusicsList.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.UILikedMusicsList.FormattingEnabled = true;
+            this.UILikedMusicsList.ItemHeight = 25;
+            this.UILikedMusicsList.Location = new System.Drawing.Point(13, 40);
+            this.UILikedMusicsList.Margin = new System.Windows.Forms.Padding(0);
+            this.UILikedMusicsList.Name = "UILikedMusicsList";
+            this.UILikedMusicsList.Size = new System.Drawing.Size(1168, 304);
+            this.UILikedMusicsList.TabIndex = 16;
+            this.UILikedMusicsList.DoubleClick += new System.EventHandler(this.UILikedMusicsList_DoubleClick);
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(272, 159);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(8, 4);
+            this.checkedListBox1.TabIndex = 15;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label12.Location = new System.Drawing.Point(6, 3);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(202, 37);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "Liked musics";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // UIPlaylists
             // 
@@ -626,6 +660,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.label13);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             // 
             // splitContainer1.Panel2
@@ -647,14 +682,24 @@
             this.splitContainer1.SplitterDistance = 291;
             this.splitContainer1.TabIndex = 1;
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Proxy 1", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(123, 127);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(110, 46);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "usic";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 99.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Proxy 1", 99.74999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label1.Location = new System.Drawing.Point(3, 9);
+            this.label1.Location = new System.Drawing.Point(3, 34);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(176, 152);
+            this.label1.Size = new System.Drawing.Size(164, 162);
             this.label1.TabIndex = 0;
             this.label1.Text = "M";
             // 
@@ -814,39 +859,6 @@
             this.HueTimer.Interval = 200;
             this.HueTimer.Tick += new System.EventHandler(this.HueTimer_Tick);
             // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label12.Location = new System.Drawing.Point(6, 3);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(202, 37);
-            this.label12.TabIndex = 14;
-            this.label12.Text = "Liked musics";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(272, 159);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(8, 4);
-            this.checkedListBox1.TabIndex = 15;
-            // 
-            // UILikedMusicsList
-            // 
-            this.UILikedMusicsList.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UILikedMusicsList.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.UILikedMusicsList.FormattingEnabled = true;
-            this.UILikedMusicsList.ItemHeight = 25;
-            this.UILikedMusicsList.Location = new System.Drawing.Point(13, 40);
-            this.UILikedMusicsList.Margin = new System.Windows.Forms.Padding(0);
-            this.UILikedMusicsList.Name = "UILikedMusicsList";
-            this.UILikedMusicsList.Size = new System.Drawing.Size(1168, 304);
-            this.UILikedMusicsList.TabIndex = 16;
-            this.UILikedMusicsList.DoubleClick += new System.EventHandler(this.UILikedMusicsList_DoubleClick);
-            // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -903,7 +915,6 @@
         private System.Windows.Forms.RadioButton UIRadioAlbum;
         private System.Windows.Forms.RadioButton UIRadioArtist;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button UIPlay;
         private System.Windows.Forms.TrackBar UITrackbarMusic;
         private System.Windows.Forms.Label UIPlayingMusic;
@@ -948,6 +959,8 @@
         private System.Windows.Forms.ListBox UILikedMusicsList;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label13;
     }
 }
 
