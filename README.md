@@ -7,7 +7,7 @@ Here is a simple summary and how it works :
 ## Server
 At launch the server will do an indexation in the directory `c:/AllMusics` or creates this directory if it doesn't exist.
 The indexation consists of two parts :
- - Recognize all musics files and put in a list of *Music* with only the path of the file. With that we can know the artist and the album of the music. The music name must be the same as this `Something - Music Name` and the Musics "tree" must be like this :
+ - Recognize all musics files and put in a list of *Music* with only the path of the file. With that we can know the artist and the album of the music. You can put `-ignore` at the end of the album directory to not index it in the server. The music name must be the same as this `Something - Music Name` and the Musics "tree" must be like this :
 ![Image of the tree](https://github.com/MalauD/MusicsOnlinePlayer/blob/master/Image/GitHubImage.PNG)
          
  * Creates or completes a *xml* file wich contains all the "MetaData" of every *musics*. For exemple : Who liked the musics.
@@ -30,3 +30,5 @@ Once the client is connected with the form *Login.form*. He can access to differ
 ### Playing Music
 To play music the client will first ask for the filebinnaries of the music to the server. Once the client receive it, he converts it to a file in the directory `c:/MusicsFiles`. The application will play it using `Wmplib.dll`. 
 
+### Hue
+The client can handle the hue sytem and create a dico like ambiance. In the `Settings` menu you can connect to you own hue bridge to get an **API key** or if you already know it you can enter directly.
