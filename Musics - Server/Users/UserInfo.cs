@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml;
 using Utility;
-
+using Musics___Server.MusicsManagement;
 namespace Musics___Server.Usersinfos
 {
     class UsersInfos
@@ -49,27 +49,30 @@ namespace Musics___Server.Usersinfos
 
         }
 
-        //public static List<Music> GetLikedMusics(string UserID)
-        //{
-        //    XmlDocument doc = new XmlDocument();
-        //    doc.Load(@"users.xml");
+        public static List<Music> GetLikedMusics(string UserID)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"users.xml");
 
-        //    XmlNodeList nodes = doc.DocumentElement.SelectNodes("User");
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("User");
 
-        //    List<Music> tmp = new List<Music>();
+            List<Music> tmp = new List<Music>();
 
-        //    foreach (XmlNode n in nodes)
-        //    {
-        //        if (n["UID"].InnerText == UserID)
-        //        {
-        //            XmlNodeList nodesMusics = n.SelectNodes("RatedMusics/Music");
-        //            foreach (XmlNode nM in nodesMusics)
-        //            {
-                        
-        //            }
-        //        }
-        //    }
-        //}
+            foreach (XmlNode n in nodes)
+            {
+                if (n["UID"].InnerText == UserID)
+                {
+                    XmlNodeList nodesMusics = n.SelectNodes("RatedMusics/Music");
+                    foreach (XmlNode nM in nodesMusics)
+                    {
+                        Music tmpM = Indexation.GetMusicByID(nM["MID"].InnerText);
+                        tmpM.FileBinary = null;
+                        tmp.Add(tmpM);
+                    }
+                }
+            }
+            return tmp;
+        }
 
         public static bool VoteExist(string MID, string UID)
         {

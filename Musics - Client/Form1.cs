@@ -54,7 +54,10 @@ namespace Musics___Client
             }
             catch { }
 
+            SendObject(new Request(Me.UID));
+
         }
+
 
         public void Connect()
         {
@@ -253,6 +256,15 @@ namespace Musics___Client
                     });
 
                 }
+                if(searchAnswer.requestsTypes == RequestsTypes.Favorites)
+                {
+                    UILikedMusicsList.Items.Clear();
+                    foreach(var m in searchAnswer.Favorites)
+                    {
+                        UILikedMusicsList.Items.Add(m.Title);
+                        LikedMusics.Add(m);
+                    }
+                }
 
 
 
@@ -283,7 +295,7 @@ namespace Musics___Client
         Music InPlaying;
 
         private List<object> SearchlistboxItems = new List<object>();
-
+        private List<Music> LikedMusics = new List<Music>();
 
         public static Image GetMetaImage(string MusicPath)
         {
@@ -548,13 +560,12 @@ namespace Musics___Client
             }
         }
 
-        private void Tabs_TabIndexChanged(object sender, EventArgs e)
+        private void UILikedMusicsList_DoubleClick(object sender, EventArgs e)
         {
-            switch (Tabs.SelectedIndex)
+            if (UILikedMusicsList.SelectedItem != null)
             {
-                case 3:
-
-                    break;
+                Tabs.SelectedIndex = 1;
+                SendObject(new Request(LikedMusics[UILikedMusicsList.SelectedIndex].Title, new Music()));
             }
         }
 
@@ -664,9 +675,11 @@ namespace Musics___Client
             catch { }
         }
 
+
+
+
         #endregion Hue
 
-
-
+       
     }
 }

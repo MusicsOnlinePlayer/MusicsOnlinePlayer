@@ -124,7 +124,6 @@
             this.Tabs.SelectedIndex = 0;
             this.Tabs.Size = new System.Drawing.Size(1213, 800);
             this.Tabs.TabIndex = 0;
-            this.Tabs.TabIndexChanged += new System.EventHandler(this.Tabs_TabIndexChanged);
             // 
             // UIHome
             // 
@@ -846,6 +845,7 @@
             this.UILikedMusicsList.Name = "UILikedMusicsList";
             this.UILikedMusicsList.Size = new System.Drawing.Size(1168, 304);
             this.UILikedMusicsList.TabIndex = 16;
+            this.UILikedMusicsList.DoubleClick += new System.EventHandler(this.UILikedMusicsList_DoubleClick);
             // 
             // Client
             // 

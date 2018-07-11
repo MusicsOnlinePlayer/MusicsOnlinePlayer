@@ -325,7 +325,7 @@ namespace Utility
 
         public Music Binaries;
 
-        List<Music> Favorites = new List<Music>();
+        public List<Music> Favorites = new List<Music>();
 
         public RequestAnswer(object answerlist, object requested)
         {

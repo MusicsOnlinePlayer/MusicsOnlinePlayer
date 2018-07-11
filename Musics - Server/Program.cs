@@ -237,6 +237,9 @@ namespace Musics___Server
                                 }
                             }
                             break;
+                        case RequestsTypes.Favorites:
+                            SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(request.UserID)),socket);
+                            break;
                     }
                 }
                 if (received is Rate)
