@@ -288,7 +288,7 @@ namespace Musics___Client
                     }
                 }
             }
-            if(obj is EditUserReport)
+            if (obj is EditUserReport)
             {
                 EditUserReport tmp = obj as EditUserReport;
                 if (tmp.IsApproved)
@@ -300,6 +300,13 @@ namespace Musics___Client
                         UIAccountId.Text = Me.UID;
                         this.Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + Me.rank.ToString();
                         UIRank.Text = Me.rank.ToString();
+                    });
+                }
+                else
+                {
+                    Invoke((MethodInvoker)delegate
+                    {
+                        UIEditError.Text = "Username use by another person !";
                     });
                 }
             }

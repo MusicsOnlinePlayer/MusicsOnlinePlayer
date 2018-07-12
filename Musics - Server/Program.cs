@@ -85,11 +85,11 @@ namespace Musics___Server
                         UsersInfos.SetRankOfUser(UID, rank);
 
                         User tmpUser = Clients.GetUser(UID);
+                        tmpUser.rank = rank;
                         Socket tmpSocket = Clients.GetSocket(UID);
                         Clients.List.Remove(tmpSocket);
-                        
                         Clients.AddUser(tmpUser,tmpSocket);
-
+                        SendObject(new EditUserReport(true, tmpUser),tmpSocket);
                         Console.WriteLine("Ok.");
                     }
                     else
@@ -319,8 +319,10 @@ namespace Musics___Server
                     {
                         if (AuthService.SigninUser(auth.LoginInfo) && !Clients.Contains(auth.LoginInfo.UID))
                         {
-                            SendObject(new AuthInfo(true, UsersInfos.GetRankOfUser(auth.LoginInfo.UID)), socket);
+                            Rank RankUser = UsersInfos.GetRankOfUser(auth.LoginInfo.UID);
+                            SendObject(new AuthInfo(true, RankUser ), socket);
                             Clients.List.Remove(socket);
+                            auth.LoginInfo.rank = RankUser;
                             Clients.AddUser(auth.LoginInfo, socket);
                         }
                         else
