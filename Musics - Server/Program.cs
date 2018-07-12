@@ -265,6 +265,9 @@ namespace Musics___Server
                                     else
                                     {
                                         m.Rating++;
+
+                                        Clients.List.TryGetValue(socket, out User value);
+                                        SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(value.UID), socket));
                                     }
                                     SendObject(new RateReport(true, temp.MusicRatedMID, m.Rating), socket);
                                 }
