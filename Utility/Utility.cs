@@ -203,6 +203,18 @@ namespace Utility
             return -1;
         }
 
+        public Socket GetSocket(string UID)
+        {
+            foreach (var p in List)
+            {
+                if (p.Value.UID == UID)
+                {
+                    return p.Key;
+                }
+            }
+            return null;
+        }
+
         public User GetUser(string UID)
         {
             foreach (var p in List.Values)
@@ -361,6 +373,32 @@ namespace Utility
             IsSignup = Signup;
         }
 
+    }
+
+    [Serializable]
+    public class EditUser
+    {
+        public string UIDOld;
+        public User NewUser;
+
+        public EditUser(string UserIdOld,User Newuser)
+        {
+            UIDOld = UserIdOld;
+            NewUser = Newuser;
+        }
+    }
+
+    [Serializable]
+    public class EditUserReport
+    {
+        public bool IsApproved;
+        public User NewUser;
+
+        public EditUserReport(bool Approved, User Newuser)
+        {
+            IsApproved = Approved;
+            NewUser = Newuser;
+        }
     }
 
     [Serializable]

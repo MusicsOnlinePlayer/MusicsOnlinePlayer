@@ -65,5 +65,47 @@ namespace Musics___Server.Authentification
             return false;
         }
 
+        public bool UserIDExit(string UID)
+        {
+            doc.Load(@"users.xml");
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("User");
+
+            foreach (XmlNode n in nodes)
+            {
+                if (n["UID"].InnerText == UID)
+                    return true;
+            }
+            return false;
+        }
+
+        public bool EditUser(string OldUID, User NewUser)
+        {
+            XmlDocument docs = new XmlDocument();
+            docs.Load(@"users.xml");
+            XmlNodeList nodes = docs.DocumentElement.SelectNodes("User");
+
+
+
+            foreach (XmlNode n in nodes)
+            {
+                if (n["UID"].InnerText == OldUID)
+                {
+                    if (!UserIDExit(NewUser.UID))
+                    {
+                        n["Name"].InnerText = NewUser.Name;
+                        n["UID"].InnerText = NewUser.UID;
+                        docs.Save(@"users.xml");
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                    
+            }
+            return false;
+        }
     }
 }

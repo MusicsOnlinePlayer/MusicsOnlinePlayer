@@ -83,6 +83,13 @@ namespace Musics___Server
                     {
                         Console.WriteLine("~ Promote " + UID + " to " + rank.ToString());
                         UsersInfos.SetRankOfUser(UID, rank);
+
+                        User tmpUser = Clients.GetUser(UID);
+                        Socket tmpSocket = Clients.GetSocket(UID);
+                        Clients.List.Remove(tmpSocket);
+                        
+                        Clients.AddUser(tmpUser,tmpSocket);
+
                         Console.WriteLine("Ok.");
                     }
                     else
@@ -238,7 +245,7 @@ namespace Musics___Server
                             }
                             break;
                         case RequestsTypes.Favorites:
-                            SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(request.UserID)),socket);
+                            SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(request.UserID)), socket);
                             break;
                     }
                 }
@@ -267,12 +274,30 @@ namespace Musics___Server
                                         m.Rating++;
 
                                         Clients.List.TryGetValue(socket, out User value);
-                                        SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(value.UID), socket));
+                                        SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(value.UID)), socket);
                                     }
                                     SendObject(new RateReport(true, temp.MusicRatedMID, m.Rating), socket);
                                 }
                             }
                         }
+                    }
+
+                }
+                if (received is EditUser)
+                {
+                    EditUser tmp = received as EditUser;
+                    if (AuthService.EditUser(tmp.UIDOld, tmp.NewUser))
+                    {
+                        SendObject(new EditUserReport(true, tmp.NewUser), socket);
+
+                        Clients.List.Remove(socket);
+                        Clients.AddUser(tmp.NewUser, socket);
+                        return;
+
+                    }
+                    else
+                    {
+                        SendObject(new EditUserReport(false, tmp.NewUser), socket);
                     }
 
                 }

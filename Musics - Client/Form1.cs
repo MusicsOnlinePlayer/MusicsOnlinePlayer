@@ -257,10 +257,10 @@ namespace Musics___Client
                     });
 
                 }
-                if(searchAnswer.requestsTypes == RequestsTypes.Favorites)
+                if (searchAnswer.requestsTypes == RequestsTypes.Favorites)
                 {
                     UILikedMusicsList.Items.Clear();
-                    foreach(var m in searchAnswer.Favorites)
+                    foreach (var m in searchAnswer.Favorites)
                     {
                         UILikedMusicsList.Items.Add(m.Title);
                         LikedMusics.Add(m);
@@ -286,6 +286,21 @@ namespace Musics___Client
                         (selected as Music).Rating = temp.UpdatedRating;
                         ChangeDescription();
                     }
+                }
+            }
+            if(obj is EditUserReport)
+            {
+                EditUserReport tmp = obj as EditUserReport;
+                if (tmp.IsApproved)
+                {
+                    Invoke((MethodInvoker)delegate
+                    {
+                        Me = tmp.NewUser;
+                        UIAccountName.Text = Me.Name + " (Modified)";
+                        UIAccountId.Text = Me.UID;
+                        this.Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + Me.rank.ToString();
+                        UIRank.Text = Me.rank.ToString();
+                    });
                 }
             }
 
@@ -679,8 +694,36 @@ namespace Musics___Client
 
 
 
+
         #endregion Hue
 
-       
+        #region Account
+
+        private void UIAccountEdit_Click(object sender, EventArgs e)
+        {
+            if (UIEditPassword1.Text != null && UIEditPassword1.Text == UIEditPassword2.Text)
+            {
+                if (UIEditName.Text == "")
+                {
+                    SendObject(new EditUser(Me.UID, new User(Me.Name, UIEditPassword1.Text)));
+                }
+                else
+                {
+                    SendObject(new EditUser(Me.UID, new User(UIEditName.Text, UIEditPassword1.Text)));
+                }
+            }
+            else if (UIEditPassword1.Text == null)
+            {
+                UIEditError.Text = "Please enter the new password";
+            }
+            else
+            {
+                UIEditError.Text = "Passwords don't match";
+            }
+        }
+
+
+
+        #endregion
     }
 }
