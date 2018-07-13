@@ -4,6 +4,8 @@ using System.Linq;
 using System.IO;
 using Utility;
 using Musics___Server.MusicsInformation;
+using TagLib;
+
 
 namespace Musics___Server.MusicsManagement
 {
@@ -20,7 +22,7 @@ namespace Musics___Server.MusicsManagement
 
         public static byte[] GetFileBinary(Music m)
         {
-            return File.ReadAllBytes(m.ServerPath);
+            return System.IO.File.ReadAllBytes(m.ServerPath);
         }
 
         public static Music GetMusicByID(string MID)
@@ -81,7 +83,20 @@ namespace Musics___Server.MusicsManagement
 
                             if (Path.GetExtension(m) == ".mp3" || Path.GetExtension(m) == ".flac")
                             {
-                                string Musicname = Path.GetFileNameWithoutExtension(m).Split('-').Last().Remove(0, 1);
+                                TagLib.File file = TagLib.File.Create(m);
+                                string Musicname = file.Tag.Title;
+                                if(Musicname == null)
+                                {
+                                    try
+                                    {
+                                        Musicname = Path.GetFileNameWithoutExtension(m).Split('-')[1].Remove(0, 1);
+                                    }
+                                    catch
+                                    {
+                                        Musicname = Path.GetFileNameWithoutExtension(m);
+                                    }
+                                }
+
                                 Music current = new Music(Musicname, CurrentArtist, m)
                                 {
                                     Format = Path.GetExtension(m),

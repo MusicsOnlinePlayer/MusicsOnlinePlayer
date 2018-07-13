@@ -260,6 +260,7 @@ namespace Musics___Client
                 if (searchAnswer.requestsTypes == RequestsTypes.Favorites)
                 {
                     UILikedMusicsList.Items.Clear();
+                    LikedMusics.Clear();
                     foreach (var m in searchAnswer.Favorites)
                     {
                         UILikedMusicsList.Items.Add(m.Title);
