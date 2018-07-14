@@ -26,12 +26,12 @@ namespace Musics___Server.Usersinfos
                             if (nM["MID"].InnerText == MID)
                             {
                                 nM.ParentNode.RemoveChild(nM);
-                                
+
                             }
 
                         }
                         doc.Save(@"users.xml");
-                        
+
                     }
                     else
                     {
@@ -88,13 +88,13 @@ namespace Musics___Server.Usersinfos
                     XmlNodeList nodesMusics = n.SelectNodes("RatedMusics/Music");
                     foreach (XmlNode nM in nodesMusics)
                     {
-                        if(nM["MID"].InnerText == MID)
+                        if (nM["MID"].InnerText == MID)
                         {
                             return true;
                         }
-                        
+
                     }
-                }  
+                }
             }
             return false;
         }
@@ -121,6 +121,58 @@ namespace Musics___Server.Usersinfos
             return UsersList;
         }
 
+        public static User GetUser(string UID)
+        {
+            
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"users.xml");
+
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("User");
+
+            foreach (XmlNode n in nodes)
+            {
+                if(UID == n["UID"].InnerText)
+                {
+                    User tmp = new User
+                    {
+                        Name = n["Name"].InnerText,
+                        UID = n["UID"].InnerText
+                    };
+                    tmp.rank = GetRankOfUser(tmp.UID);
+
+                    return tmp;
+                }
+               
+            }
+            return null;
+        }
+
+        public static List<User> SearchUser(string Username)
+        {
+            List<User> UsersList = new List<User>();
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"users.xml");
+
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("User");
+
+            foreach (XmlNode n in nodes)
+            {
+                if (Search.Find(Username, n["Name"].InnerText))
+                {
+                    User tmp = new User
+                    {
+                        Name = n["Name"].InnerText,
+                        UID = n["UID"].InnerText
+                    };
+                    tmp.rank = GetRankOfUser(tmp.UID);
+                    
+                    UsersList.Add(tmp);
+                } 
+            }
+            return UsersList;
+        }
+
+
         public static Rank GetRankOfUser(string UID)
         {
             XmlDocument doc = new XmlDocument();
@@ -131,12 +183,12 @@ namespace Musics___Server.Usersinfos
             {
                 if (n["UID"].InnerText == UID)
                 {
-                    return (Rank)Enum.Parse(typeof(Rank),n["Rank"].InnerText);
+                    return (Rank)Enum.Parse(typeof(Rank), n["Rank"].InnerText);
                 }
             }
             return Rank.Viewer;
         }
-        public static void SetRankOfUser(string UID,Rank rank)
+        public static void SetRankOfUser(string UID, Rank rank)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(@"users.xml");

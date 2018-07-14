@@ -121,19 +121,22 @@
   <data name="Icoplay" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icoplay.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Icopause" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icopause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="IcoAdd" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IcoAdd.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="thumbup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\thumbup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="IcoForward" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IcoForward.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="IcoAdd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IcoAdd.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icopause" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icopause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="IcoBackward" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IcoBackward.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="thumbup" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\thumbup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IcoEdit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IcoEdit.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

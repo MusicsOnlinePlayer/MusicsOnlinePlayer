@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TagLib;
 using Utility;
 using Musics___Client.Hue;
 using NAudio.CoreAudioApi;
+
 namespace Musics___Client
 {
 
@@ -267,9 +264,33 @@ namespace Musics___Client
                         LikedMusics.Add(m);
                     }
                 }
-
-
-
+                if(searchAnswer.requestsTypes == RequestsTypes.Users)
+                {
+                    if (searchAnswer.IsAccepted)
+                    {
+                        Invoke((MethodInvoker)delegate
+                        {
+                            UserSearchResult.Clear();
+                            UIUsersResult.Items.Clear();
+                            foreach (var u in searchAnswer.Users)
+                            {
+                                if(u.UID != Me.UID)
+                                {
+                                    UserSearchResult.Add(u);
+                                    UIUsersResult.Items.Add(u.Name);
+                                }
+                            }
+                            if(UserSearchResult.Count != 0)
+                            {
+                                UIUsersResult.SelectedIndex = 0;
+                            }
+                        });
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid rank, you must be at least a -User-");
+                    }
+                }
             }
             if (obj is AuthInfo)
             {
@@ -731,6 +752,57 @@ namespace Musics___Client
         }
 
 
+
+        #endregion
+
+
+        #region EditUser
+
+        List<User> UserSearchResult = new List<User>();
+
+        private void UISearchUser_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if(UISearchUser.Text != null)
+                {
+                    SendObject(new Request(new User(UISearchUser.Text)));
+                }
+            }
+        }
+
+        private void UIUsersResult_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (UIUsersResult.SelectedItem != null)
+            {
+                UIPanelEditUser.Visible = true;
+
+                UIAdminUser.Text = UIUsersResult.Text + " - " + UserSearchResult[UIUsersResult.SelectedIndex].rank.ToString();
+                UIAdminUID.Text = UserSearchResult[UIUsersResult.SelectedIndex].UID;
+
+                UIEditUserRank.Items.Clear();
+
+                List<string> r = Enum.GetNames(typeof(Rank)).OfType<string>().ToList();
+                for(int i = 0;i < (int)Me.rank; i++)
+                {
+                    UIEditUserRank.Items.Add(r[i]);
+                }
+
+                UIEditUserRank.SelectedIndex = (int)UserSearchResult[UIUsersResult.SelectedIndex].rank;
+            }
+        }
+
+       
+
+        private void UIEditUserConfirm_Click(object sender, EventArgs e)
+        {
+           
+            if (UIEditUserRank.SelectedIndex != (int)UserSearchResult[UIUsersResult.SelectedIndex].rank && Enum.TryParse(UIEditUserRank.SelectedItem.ToString(),out Rank rank))
+            {
+                
+                SendObject(new EditRequest(UserSearchResult[UIUsersResult.SelectedIndex].UID, rank));
+            }
+        }
 
         #endregion
     }

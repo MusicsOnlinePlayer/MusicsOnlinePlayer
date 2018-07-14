@@ -82,14 +82,8 @@ namespace Musics___Server
                     if (Enum.TryParse(entry.Split('-')[3], out Rank rank))
                     {
                         Console.WriteLine("~ Promote " + UID + " to " + rank.ToString());
-                        UsersInfos.SetRankOfUser(UID, rank);
-
-                        User tmpUser = Clients.GetUser(UID);
-                        tmpUser.rank = rank;
-                        Socket tmpSocket = Clients.GetSocket(UID);
-                        Clients.List.Remove(tmpSocket);
-                        Clients.AddUser(tmpUser,tmpSocket);
-                        SendObject(new EditUserReport(true, tmpUser),tmpSocket);
+                        PromoteUser(UID, rank);
+                       
                         Console.WriteLine("Ok.");
                     }
                     else
@@ -105,6 +99,21 @@ namespace Musics___Server
 
         }
 
+        public static void PromoteUser(string UID,Rank rank)
+        {
+            UsersInfos.SetRankOfUser(UID, rank);
+
+            User tmpUser = Clients.GetUser(UID);
+            if (tmpUser != null)
+            {
+                tmpUser.rank = rank;
+                Socket tmpSocket = Clients.GetSocket(UID);
+                Clients.List.Remove(tmpSocket);
+                Clients.AddUser(tmpUser, tmpSocket);
+                SendObject(new EditUserReport(true, Clients.GetUser(UID)), Clients.GetSocket(UID));
+            }
+          
+        }
 
         public static void SetupServer()
         {
@@ -247,6 +256,16 @@ namespace Musics___Server
                         case RequestsTypes.Favorites:
                             SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(request.UserID)), socket);
                             break;
+                        case RequestsTypes.Users:
+                            if(Clients.GetUser(socket).rank != Rank.Viewer)
+                            {
+                                SendObject(new RequestAnswer(UsersInfos.SearchUser(request.Username), true),socket);
+                            }
+                            else
+                            {
+                                SendObject(new RequestAnswer(null, false),socket);
+                            }
+                            break;
                     }
                 }
                 if (received is Rate)
@@ -300,6 +319,25 @@ namespace Musics___Server
                         SendObject(new EditUserReport(false, tmp.NewUser), socket);
                     }
 
+                }
+                if(received is EditRequest)
+                {
+                    EditRequest tmp = received as EditRequest;
+
+                    switch (tmp.TypeOfEdit)
+                    {
+                        case TypesEdit.Users:
+                            if((int)UsersInfos.GetRankOfUser(Clients.GetUser(socket).UID) > (int)tmp.NewRankOfUser)
+                            {
+                                PromoteUser(tmp.UserToEdit, tmp.NewRankOfUser);
+                                List<User> tmpU = new List<User>();
+                                tmpU.Add(UsersInfos.GetUser(tmp.UserToEdit));
+                                SendObject(new RequestAnswer(tmpU,true),socket);
+                                Console.WriteLine("~ User promoted " + tmp.UserToEdit + " to " + tmp.NewRankOfUser.ToString());
+                            }
+
+                            break;
+                    }
                 }
             }
             else

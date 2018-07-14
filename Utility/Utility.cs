@@ -137,10 +137,13 @@ namespace Utility
     [Serializable]
     public class User
     {
-        public User()
-        {
+        public User(){}
 
+        public User(string UserName)
+        {
+            Name = UserName;
         }
+
         public User(string name, string Password)
         {
             Name = name;
@@ -165,10 +168,10 @@ namespace Utility
         public bool Connected;
     }
     public enum Rank{
-        Viewer,
-        AdvancedUser,
-        Admin,
-        Creator
+        Viewer = 0,
+        User = 1,
+        Admin = 2,
+        Creator = 3
     };
 
 
@@ -291,7 +294,8 @@ namespace Utility
     {
         Search,
         MusicsBinaries,
-        Favorites
+        Favorites,
+        Users
     }
 
 
@@ -300,13 +304,20 @@ namespace Utility
     {
         public RequestsTypes requestsTypes;
 
+        //Search
         public string Name;
         public object Requested;
 
+        //Binaries
         public Music RequestedBinaries;
 
+        //Favorites
         public string UserID;
 
+        //User
+        public string Username;
+
+        //Search
         public Request(string name, object requested)
         {
             Requested = requested;
@@ -314,20 +325,29 @@ namespace Utility
             requestsTypes = RequestsTypes.Search;
         }
 
+        //Binaries
         public Request(Music requested)
         {
             RequestedBinaries = requested;
             requestsTypes = RequestsTypes.MusicsBinaries;
         }
 
+        //Favorites
         public Request(string UIDFavorites)
         {
             UserID = UIDFavorites;
             requestsTypes = RequestsTypes.Favorites;
         }
+
+        //User
+        public Request(User SearchUser)
+        {
+            Username = SearchUser.Name;
+            requestsTypes = RequestsTypes.Users;
+        }
     }
 
-    [Serializable]
+    [Serializable] 
     public class RequestAnswer
     {
         public RequestsTypes requestsTypes;
@@ -338,6 +358,10 @@ namespace Utility
         public Music Binaries;
 
         public List<Music> Favorites = new List<Music>();
+
+        public List<User> Users = new List<User>();
+
+        public bool IsAccepted;
 
         public RequestAnswer(object answerlist, object requested)
         {
@@ -356,6 +380,13 @@ namespace Utility
         {
             Favorites = favorites;
             requestsTypes = RequestsTypes.Favorites;
+        }
+
+        public RequestAnswer(List<User> AnswerUsers,bool IsRequestAccepted)
+        {
+            IsAccepted = IsRequestAccepted;
+            Users = AnswerUsers;
+            requestsTypes = RequestsTypes.Users;
         }
     }
 
@@ -440,4 +471,26 @@ namespace Utility
 
         }
     }
+
+    public enum TypesEdit{
+        Users,
+        Musics
+    }
+
+    [Serializable]
+    public class EditRequest
+    {
+        public TypesEdit TypeOfEdit;
+
+        public string UserToEdit;
+        public Rank NewRankOfUser;
+
+        public EditRequest(string UIDToEdit,Rank NewRank)
+        {
+            UserToEdit = UIDToEdit;
+            NewRankOfUser = NewRank;
+            TypeOfEdit = TypesEdit.Users;
+        }
+    }
+
 }

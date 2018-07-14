@@ -83,6 +83,16 @@ namespace Musics___Client.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap IcoEdit {
+            get {
+                object obj = ResourceManager.GetObject("IcoEdit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap IcoForward {
             get {
                 object obj = ResourceManager.GetObject("IcoForward", resourceCulture);

@@ -32,6 +32,7 @@
             this.Tabs = new System.Windows.Forms.TabControl();
             this.UIHome = new System.Windows.Forms.TabPage();
             this.UISearch = new System.Windows.Forms.TabPage();
+            this.UIEditMusic = new System.Windows.Forms.Button();
             this.UIThumbup = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.UIPathMusic = new System.Windows.Forms.LinkLabel();
@@ -58,6 +59,16 @@
             this.UIPlaylists = new System.Windows.Forms.TabPage();
             this.UIForums = new System.Windows.Forms.TabPage();
             this.UIAccount = new System.Windows.Forms.TabPage();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.UIEditError = new System.Windows.Forms.Label();
+            this.UIAccountEdit = new System.Windows.Forms.Button();
+            this.UIEditPassword2 = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.UIEditPassword1 = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.UIEditName = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.UIRank = new System.Windows.Forms.Label();
             this.UIAccountId = new System.Windows.Forms.Label();
             this.UIAccountName = new System.Windows.Forms.Label();
@@ -74,6 +85,17 @@
             this.UIHueApi = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.UIAdministration = new System.Windows.Forms.TabPage();
+            this.UIPanelEditUser = new System.Windows.Forms.Panel();
+            this.UIEditUserConfirm = new System.Windows.Forms.Button();
+            this.UIEditUserRank = new System.Windows.Forms.ComboBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.UIAdminUID = new System.Windows.Forms.Label();
+            this.UIAdminUser = new System.Windows.Forms.Label();
+            this.UIUsersResult = new System.Windows.Forms.ListBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.UISearchUser = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label13 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -91,30 +113,22 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.HueTimer = new System.Windows.Forms.Timer(this.components);
-            this.label14 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label15 = new System.Windows.Forms.Label();
-            this.UIEditName = new System.Windows.Forms.TextBox();
-            this.UIEditPassword1 = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.UIEditPassword2 = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.UIAccountEdit = new System.Windows.Forms.Button();
-            this.UIEditError = new System.Windows.Forms.Label();
             this.Tabs.SuspendLayout();
             this.UISearch.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.UIFavorites.SuspendLayout();
             this.UIAccount.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.UISettings.SuspendLayout();
+            this.UIAdministration.SuspendLayout();
+            this.UIPanelEditUser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UIMusicImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UITrackbarMusic)).BeginInit();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // Tabs
@@ -127,6 +141,7 @@
             this.Tabs.Controls.Add(this.UIForums);
             this.Tabs.Controls.Add(this.UIAccount);
             this.Tabs.Controls.Add(this.UISettings);
+            this.Tabs.Controls.Add(this.UIAdministration);
             this.Tabs.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Tabs.ItemSize = new System.Drawing.Size(90, 30);
             this.Tabs.Location = new System.Drawing.Point(239, 0);
@@ -149,6 +164,7 @@
             // 
             // UISearch
             // 
+            this.UISearch.Controls.Add(this.UIEditMusic);
             this.UISearch.Controls.Add(this.UIThumbup);
             this.UISearch.Controls.Add(this.tableLayoutPanel1);
             this.UISearch.Controls.Add(this.UIPlaylist);
@@ -169,6 +185,18 @@
             this.UISearch.Text = "Search";
             this.UISearch.UseVisualStyleBackColor = true;
             // 
+            // UIEditMusic
+            // 
+            this.UIEditMusic.BackgroundImage = global::Musics___Client.Properties.Resources.IcoEdit;
+            this.UIEditMusic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.UIEditMusic.FlatAppearance.BorderSize = 0;
+            this.UIEditMusic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UIEditMusic.Location = new System.Drawing.Point(392, 424);
+            this.UIEditMusic.Name = "UIEditMusic";
+            this.UIEditMusic.Size = new System.Drawing.Size(30, 30);
+            this.UIEditMusic.TabIndex = 21;
+            this.UIEditMusic.UseVisualStyleBackColor = true;
+            // 
             // UIThumbup
             // 
             this.UIThumbup.BackColor = System.Drawing.Color.White;
@@ -188,7 +216,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.23116F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.76884F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 236F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 242F));
             this.tableLayoutPanel1.Controls.Add(this.UIPathMusic, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAlbum, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAuthor, 0, 0);
@@ -205,7 +233,7 @@
             this.UIPathMusic.AutoSize = true;
             this.UIPathMusic.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathMusic.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathMusic.Location = new System.Drawing.Point(386, 0);
+            this.UIPathMusic.Location = new System.Drawing.Point(380, 0);
             this.UIPathMusic.Name = "UIPathMusic";
             this.UIPathMusic.Size = new System.Drawing.Size(42, 14);
             this.UIPathMusic.TabIndex = 19;
@@ -217,7 +245,7 @@
             this.UIPathAlbum.AutoSize = true;
             this.UIPathAlbum.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathAlbum.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathAlbum.Location = new System.Drawing.Point(180, 0);
+            this.UIPathAlbum.Location = new System.Drawing.Point(177, 0);
             this.UIPathAlbum.Name = "UIPathAlbum";
             this.UIPathAlbum.Size = new System.Drawing.Size(42, 14);
             this.UIPathAlbum.TabIndex = 18;
@@ -479,6 +507,111 @@
             this.UIAccount.Text = "Account";
             this.UIAccount.UseVisualStyleBackColor = true;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.UIEditError);
+            this.panel2.Controls.Add(this.UIAccountEdit);
+            this.panel2.Controls.Add(this.UIEditPassword2);
+            this.panel2.Controls.Add(this.label17);
+            this.panel2.Controls.Add(this.UIEditPassword1);
+            this.panel2.Controls.Add(this.label16);
+            this.panel2.Controls.Add(this.UIEditName);
+            this.panel2.Controls.Add(this.label15);
+            this.panel2.Controls.Add(this.label14);
+            this.panel2.Location = new System.Drawing.Point(13, 126);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(634, 389);
+            this.panel2.TabIndex = 4;
+            // 
+            // UIEditError
+            // 
+            this.UIEditError.AutoSize = true;
+            this.UIEditError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIEditError.ForeColor = System.Drawing.Color.Red;
+            this.UIEditError.Location = new System.Drawing.Point(444, 295);
+            this.UIEditError.Name = "UIEditError";
+            this.UIEditError.Size = new System.Drawing.Size(0, 16);
+            this.UIEditError.TabIndex = 5;
+            // 
+            // UIAccountEdit
+            // 
+            this.UIAccountEdit.BackColor = System.Drawing.Color.LimeGreen;
+            this.UIAccountEdit.FlatAppearance.BorderSize = 0;
+            this.UIAccountEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UIAccountEdit.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.UIAccountEdit.Location = new System.Drawing.Point(496, 319);
+            this.UIAccountEdit.Name = "UIAccountEdit";
+            this.UIAccountEdit.Size = new System.Drawing.Size(119, 36);
+            this.UIAccountEdit.TabIndex = 17;
+            this.UIAccountEdit.Text = "Edit";
+            this.UIAccountEdit.UseVisualStyleBackColor = false;
+            this.UIAccountEdit.Click += new System.EventHandler(this.UIAccountEdit_Click);
+            // 
+            // UIEditPassword2
+            // 
+            this.UIEditPassword2.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.UIEditPassword2.Location = new System.Drawing.Point(39, 233);
+            this.UIEditPassword2.Name = "UIEditPassword2";
+            this.UIEditPassword2.Size = new System.Drawing.Size(576, 31);
+            this.UIEditPassword2.TabIndex = 10;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label17.Location = new System.Drawing.Point(34, 204);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(191, 25);
+            this.label17.TabIndex = 9;
+            this.label17.Text = "Repeat password :";
+            // 
+            // UIEditPassword1
+            // 
+            this.UIEditPassword1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.UIEditPassword1.Location = new System.Drawing.Point(39, 153);
+            this.UIEditPassword1.Name = "UIEditPassword1";
+            this.UIEditPassword1.Size = new System.Drawing.Size(576, 31);
+            this.UIEditPassword1.TabIndex = 8;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label16.Location = new System.Drawing.Point(34, 124);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(164, 25);
+            this.label16.TabIndex = 7;
+            this.label16.Text = "New password :";
+            // 
+            // UIEditName
+            // 
+            this.UIEditName.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.UIEditName.Location = new System.Drawing.Point(39, 78);
+            this.UIEditName.Name = "UIEditName";
+            this.UIEditName.Size = new System.Drawing.Size(576, 31);
+            this.UIEditName.TabIndex = 6;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label15.Location = new System.Drawing.Point(34, 49);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(80, 25);
+            this.label15.TabIndex = 5;
+            this.label15.Text = "Name :";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.Black;
+            this.label14.Location = new System.Drawing.Point(16, 11);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(144, 29);
+            this.label14.TabIndex = 3;
+            this.label14.Text = "Edit account";
+            // 
             // UIRank
             // 
             this.UIRank.AutoSize = true;
@@ -663,6 +796,133 @@
             this.label6.TabIndex = 13;
             this.label6.Text = "Hue";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // UIAdministration
+            // 
+            this.UIAdministration.Controls.Add(this.UIPanelEditUser);
+            this.UIAdministration.Controls.Add(this.UIUsersResult);
+            this.UIAdministration.Controls.Add(this.label19);
+            this.UIAdministration.Controls.Add(this.UISearchUser);
+            this.UIAdministration.Controls.Add(this.label18);
+            this.UIAdministration.Location = new System.Drawing.Point(4, 34);
+            this.UIAdministration.Name = "UIAdministration";
+            this.UIAdministration.Padding = new System.Windows.Forms.Padding(3);
+            this.UIAdministration.Size = new System.Drawing.Size(1205, 762);
+            this.UIAdministration.TabIndex = 8;
+            this.UIAdministration.Text = "Administration";
+            this.UIAdministration.UseVisualStyleBackColor = true;
+            // 
+            // UIPanelEditUser
+            // 
+            this.UIPanelEditUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.UIPanelEditUser.Controls.Add(this.UIEditUserConfirm);
+            this.UIPanelEditUser.Controls.Add(this.UIEditUserRank);
+            this.UIPanelEditUser.Controls.Add(this.label20);
+            this.UIPanelEditUser.Controls.Add(this.UIAdminUID);
+            this.UIPanelEditUser.Controls.Add(this.UIAdminUser);
+            this.UIPanelEditUser.Location = new System.Drawing.Point(22, 341);
+            this.UIPanelEditUser.Name = "UIPanelEditUser";
+            this.UIPanelEditUser.Size = new System.Drawing.Size(682, 227);
+            this.UIPanelEditUser.TabIndex = 36;
+            this.UIPanelEditUser.Visible = false;
+            // 
+            // UIEditUserConfirm
+            // 
+            this.UIEditUserConfirm.BackColor = System.Drawing.Color.LimeGreen;
+            this.UIEditUserConfirm.FlatAppearance.BorderSize = 0;
+            this.UIEditUserConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UIEditUserConfirm.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.UIEditUserConfirm.Location = new System.Drawing.Point(558, 186);
+            this.UIEditUserConfirm.Name = "UIEditUserConfirm";
+            this.UIEditUserConfirm.Size = new System.Drawing.Size(119, 36);
+            this.UIEditUserConfirm.TabIndex = 32;
+            this.UIEditUserConfirm.Text = "Confirm";
+            this.UIEditUserConfirm.UseVisualStyleBackColor = false;
+            this.UIEditUserConfirm.Click += new System.EventHandler(this.UIEditUserConfirm_Click);
+            // 
+            // UIEditUserRank
+            // 
+            this.UIEditUserRank.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIEditUserRank.FormattingEnabled = true;
+            this.UIEditUserRank.Location = new System.Drawing.Point(66, 68);
+            this.UIEditUserRank.Name = "UIEditUserRank";
+            this.UIEditUserRank.Size = new System.Drawing.Size(154, 28);
+            this.UIEditUserRank.TabIndex = 31;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(5, 68);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(55, 20);
+            this.label20.TabIndex = 30;
+            this.label20.Text = "Rank :";
+            // 
+            // UIAdminUID
+            // 
+            this.UIAdminUID.AutoSize = true;
+            this.UIAdminUID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIAdminUID.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.UIAdminUID.Location = new System.Drawing.Point(3, 35);
+            this.UIAdminUID.Name = "UIAdminUID";
+            this.UIAdminUID.Size = new System.Drawing.Size(82, 16);
+            this.UIAdminUID.TabIndex = 29;
+            this.UIAdminUID.Text = "UIAdminUID";
+            // 
+            // UIAdminUser
+            // 
+            this.UIAdminUser.AutoSize = true;
+            this.UIAdminUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIAdminUser.Location = new System.Drawing.Point(3, 3);
+            this.UIAdminUser.Margin = new System.Windows.Forms.Padding(3);
+            this.UIAdminUser.Name = "UIAdminUser";
+            this.UIAdminUser.Size = new System.Drawing.Size(176, 31);
+            this.UIAdminUser.TabIndex = 28;
+            this.UIAdminUser.Text = "UIAdminUser";
+            // 
+            // UIUsersResult
+            // 
+            this.UIUsersResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic);
+            this.UIUsersResult.FormattingEnabled = true;
+            this.UIUsersResult.ItemHeight = 25;
+            this.UIUsersResult.Location = new System.Drawing.Point(22, 141);
+            this.UIUsersResult.Name = "UIUsersResult";
+            this.UIUsersResult.Size = new System.Drawing.Size(682, 179);
+            this.UIUsersResult.TabIndex = 35;
+            this.UIUsersResult.MouseDown += new System.Windows.Forms.MouseEventHandler(this.UIUsersResult_MouseDown);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label19.Location = new System.Drawing.Point(18, 67);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(70, 24);
+            this.label19.TabIndex = 34;
+            this.label19.Text = "Search";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // UISearchUser
+            // 
+            this.UISearchUser.Location = new System.Drawing.Point(22, 94);
+            this.UISearchUser.Name = "UISearchUser";
+            this.UISearchUser.Size = new System.Drawing.Size(544, 31);
+            this.UISearchUser.TabIndex = 33;
+            this.UISearchUser.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UISearchUser_KeyDown);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label18.Location = new System.Drawing.Point(15, 13);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(100, 37);
+            this.label18.TabIndex = 32;
+            this.label18.Text = "Users";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // splitContainer1
             // 
@@ -871,111 +1131,6 @@
             this.HueTimer.Interval = 200;
             this.HueTimer.Tick += new System.EventHandler(this.HueTimer_Tick);
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.Color.Black;
-            this.label14.Location = new System.Drawing.Point(16, 11);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(144, 29);
-            this.label14.TabIndex = 3;
-            this.label14.Text = "Edit account";
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.UIEditError);
-            this.panel2.Controls.Add(this.UIAccountEdit);
-            this.panel2.Controls.Add(this.UIEditPassword2);
-            this.panel2.Controls.Add(this.label17);
-            this.panel2.Controls.Add(this.UIEditPassword1);
-            this.panel2.Controls.Add(this.label16);
-            this.panel2.Controls.Add(this.UIEditName);
-            this.panel2.Controls.Add(this.label15);
-            this.panel2.Controls.Add(this.label14);
-            this.panel2.Location = new System.Drawing.Point(13, 126);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(634, 389);
-            this.panel2.TabIndex = 4;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label15.Location = new System.Drawing.Point(34, 49);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(80, 25);
-            this.label15.TabIndex = 5;
-            this.label15.Text = "Name :";
-            // 
-            // UIEditName
-            // 
-            this.UIEditName.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.UIEditName.Location = new System.Drawing.Point(39, 78);
-            this.UIEditName.Name = "UIEditName";
-            this.UIEditName.Size = new System.Drawing.Size(576, 31);
-            this.UIEditName.TabIndex = 6;
-            // 
-            // UIEditPassword1
-            // 
-            this.UIEditPassword1.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.UIEditPassword1.Location = new System.Drawing.Point(39, 153);
-            this.UIEditPassword1.Name = "UIEditPassword1";
-            this.UIEditPassword1.Size = new System.Drawing.Size(576, 31);
-            this.UIEditPassword1.TabIndex = 8;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label16.Location = new System.Drawing.Point(34, 124);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(164, 25);
-            this.label16.TabIndex = 7;
-            this.label16.Text = "New password :";
-            // 
-            // UIEditPassword2
-            // 
-            this.UIEditPassword2.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.UIEditPassword2.Location = new System.Drawing.Point(39, 233);
-            this.UIEditPassword2.Name = "UIEditPassword2";
-            this.UIEditPassword2.Size = new System.Drawing.Size(576, 31);
-            this.UIEditPassword2.TabIndex = 10;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label17.Location = new System.Drawing.Point(34, 204);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(191, 25);
-            this.label17.TabIndex = 9;
-            this.label17.Text = "Repeat password :";
-            // 
-            // UIAccountEdit
-            // 
-            this.UIAccountEdit.BackColor = System.Drawing.Color.LimeGreen;
-            this.UIAccountEdit.FlatAppearance.BorderSize = 0;
-            this.UIAccountEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIAccountEdit.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.UIAccountEdit.Location = new System.Drawing.Point(496, 319);
-            this.UIAccountEdit.Name = "UIAccountEdit";
-            this.UIAccountEdit.Size = new System.Drawing.Size(119, 36);
-            this.UIAccountEdit.TabIndex = 17;
-            this.UIAccountEdit.Text = "Edit";
-            this.UIAccountEdit.UseVisualStyleBackColor = false;
-            this.UIAccountEdit.Click += new System.EventHandler(this.UIAccountEdit_Click);
-            // 
-            // UIEditError
-            // 
-            this.UIEditError.AutoSize = true;
-            this.UIEditError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UIEditError.ForeColor = System.Drawing.Color.Red;
-            this.UIEditError.Location = new System.Drawing.Point(444, 295);
-            this.UIEditError.Name = "UIEditError";
-            this.UIEditError.Size = new System.Drawing.Size(0, 16);
-            this.UIEditError.TabIndex = 5;
-            // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1000,8 +1155,14 @@
             this.UIFavorites.PerformLayout();
             this.UIAccount.ResumeLayout(false);
             this.UIAccount.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.UISettings.ResumeLayout(false);
             this.UISettings.PerformLayout();
+            this.UIAdministration.ResumeLayout(false);
+            this.UIAdministration.PerformLayout();
+            this.UIPanelEditUser.ResumeLayout(false);
+            this.UIPanelEditUser.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -1010,8 +1171,6 @@
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.UIMusicImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UITrackbarMusic)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1090,6 +1249,18 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label UIEditError;
+        private System.Windows.Forms.Button UIEditMusic;
+        private System.Windows.Forms.TabPage UIAdministration;
+        private System.Windows.Forms.Panel UIPanelEditUser;
+        private System.Windows.Forms.Button UIEditUserConfirm;
+        private System.Windows.Forms.ComboBox UIEditUserRank;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label UIAdminUID;
+        private System.Windows.Forms.Label UIAdminUser;
+        private System.Windows.Forms.ListBox UIUsersResult;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox UISearchUser;
+        private System.Windows.Forms.Label label18;
     }
 }
 
