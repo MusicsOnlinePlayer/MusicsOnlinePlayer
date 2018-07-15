@@ -264,7 +264,7 @@ namespace Musics___Client
                         LikedMusics.Add(m);
                     }
                 }
-                if(searchAnswer.requestsTypes == RequestsTypes.Users)
+                if (searchAnswer.requestsTypes == RequestsTypes.Users)
                 {
                     if (searchAnswer.IsAccepted)
                     {
@@ -274,13 +274,13 @@ namespace Musics___Client
                             UIUsersResult.Items.Clear();
                             foreach (var u in searchAnswer.Users)
                             {
-                                if(u.UID != Me.UID)
+                                if (u.UID != Me.UID)
                                 {
                                     UserSearchResult.Add(u);
                                     UIUsersResult.Items.Add(u.Name);
                                 }
                             }
-                            if(UserSearchResult.Count != 0)
+                            if (UserSearchResult.Count != 0)
                             {
                                 UIUsersResult.SelectedIndex = 0;
                             }
@@ -400,6 +400,7 @@ namespace Musics___Client
         }
 
         object selected;
+        Element typeOfSelected;
 
         private void UISearchListbox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -413,14 +414,12 @@ namespace Musics___Client
         }
         private void ChangeDescription()
         {
-
-
-
             if (UISearchListbox.SelectedItem != null)
             {
                 if (SearchlistboxItems.First() is Music)
                 {
                     selected = SearchlistboxItems[UISearchListbox.SelectedIndex] as Music;
+                    typeOfSelected = Element.Music;
                     UISelectedname.Text = (selected as Music).Title;
                     UIselectedartist.Text = (selected as Music).Author.Name;
                     UISelectedRating.Text = "Rating : " + (selected as Music).Rating;
@@ -433,6 +432,7 @@ namespace Musics___Client
                 if (SearchlistboxItems.First() is Album)
                 {
                     selected = SearchlistboxItems[UISearchListbox.SelectedIndex] as Album;
+                    typeOfSelected = Element.Album;
                     UISelectedname.Text = (selected as Album).Name;
                     UIselectedartist.Text = (selected as Album).Author.Name;
                     UISelectedRating.Text = "Rating : ";
@@ -445,6 +445,7 @@ namespace Musics___Client
                 }
                 if (SearchlistboxItems.First() is Author)
                 {
+                    typeOfSelected = Element.Author;
                     selected = SearchlistboxItems[UISearchListbox.SelectedIndex] as Author;
                     UISelectedname.Text = (selected as Author).Name;
                     UIselectedartist.Text = "";
@@ -467,7 +468,6 @@ namespace Musics___Client
             }
 
         }
-
 
         private void UIPlay_Click(object sender, EventArgs e)
         {
@@ -502,9 +502,6 @@ namespace Musics___Client
 
         private List<Music> playlist = new List<Music>();
 
-
-
-
         private void UIBackward_Click(object sender, EventArgs e)
         {
             ChangeMusicPlaylist(false);
@@ -514,8 +511,6 @@ namespace Musics___Client
         {
             ChangeMusicPlaylist(true);
         }
-
-
 
         private void UISearchListbox_DoubleClick(object sender, EventArgs e)
         {
@@ -764,7 +759,7 @@ namespace Musics___Client
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if(UISearchUser.Text != null)
+                if (UISearchUser.Text != null)
                 {
                     SendObject(new Request(new User(UISearchUser.Text)));
                 }
@@ -783,7 +778,7 @@ namespace Musics___Client
                 UIEditUserRank.Items.Clear();
 
                 List<string> r = Enum.GetNames(typeof(Rank)).OfType<string>().ToList();
-                for(int i = 0;i < (int)Me.rank; i++)
+                for (int i = 0; i < (int)Me.rank; i++)
                 {
                     UIEditUserRank.Items.Add(r[i]);
                 }
@@ -792,16 +787,42 @@ namespace Musics___Client
             }
         }
 
-       
+
 
         private void UIEditUserConfirm_Click(object sender, EventArgs e)
         {
-           
-            if (UIEditUserRank.SelectedIndex != (int)UserSearchResult[UIUsersResult.SelectedIndex].rank && Enum.TryParse(UIEditUserRank.SelectedItem.ToString(),out Rank rank))
+
+            if (UIEditUserRank.SelectedIndex != (int)UserSearchResult[UIUsersResult.SelectedIndex].rank && Enum.TryParse(UIEditUserRank.SelectedItem.ToString(), out Rank rank))
             {
-                
+
                 SendObject(new EditRequest(UserSearchResult[UIUsersResult.SelectedIndex].UID, rank));
             }
+        }
+
+        #endregion
+
+        #region EditMusic
+
+        private void UIEditMusic_Click(object sender, EventArgs e)
+        {
+            if (selected != null)
+            {
+                UIEditMusicName.Visible = true;
+                UIEditMusicName.Text = UISelectedname.Text;
+            }
+        }
+
+        private void UIEditMusicName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if ((int)Me.rank > 1 && UIEditMusicName.Text != null)
+                {
+                    SendObject(new EditRequest(selected,UIEditMusicName.Text,typeOfSelected));
+                    UIEditMusicName.Visible = false;
+                }
+            }
+
         }
 
         #endregion

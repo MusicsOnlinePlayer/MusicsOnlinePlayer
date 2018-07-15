@@ -45,20 +45,34 @@ namespace Utility
     [Serializable]
     public class Author
     {
+        public Element type = Element.Author;
+
         public string Name;
         public int Rating = 0;
 
+        public string MID;
         public List<Album> albums;
+        public string ServerPath;
 
         public Author(string name)
         {
             Name = name;
             albums = new List<Album>();
+            MID = Hash.SHA256Hash(Name + Element.Author);
+        }
+        public Author(string name,string Path)
+        {
+            Name = name;
+            albums = new List<Album>();
+            MID = Hash.SHA256Hash(Name + Element.Author);
+            ServerPath = Path;
         }
     }
     [Serializable]
     public class Music
     {
+        public Element type = Element.Music;
+
         public string Title;
         public Author Author;
         public Album Album;
@@ -100,21 +114,37 @@ namespace Utility
     [Serializable]
     public class Album
     {
+        public Element type = Element.Album;
+
+        public string MID;
+
         public string Name;
         public Author Author;
         public int Rating = 0;
         public List<Music> Musics;
+        public string ServerPath;
 
         public Album(Author author, string name)
         {
             Author = author;
             Name = name;
             Musics = new List<Music>();
+            MID = Hash.SHA256Hash(Name + Element.Album.ToString());
+        }
+        public Album(Author author, string name,string Path)
+        {
+            Author = author;
+            Name = name;
+            Musics = new List<Music>();
+            MID = Hash.SHA256Hash(Name + Element.Album.ToString());
+            ServerPath = Path;
         }
         public Album(string name)
         {
             Name = name;
+            MID = Hash.SHA256Hash(Name + Element.Album.ToString());
         }
+
         public void Add(Music music)
         {
             Musics.Add(music);
@@ -477,6 +507,13 @@ namespace Utility
         Musics
     }
 
+    public enum Element
+    {
+        Author,
+        Album,
+        Music
+    }
+
     [Serializable]
     public class EditRequest
     {
@@ -485,11 +522,23 @@ namespace Utility
         public string UserToEdit;
         public Rank NewRankOfUser;
 
+        public object ObjectToEdit;
+        public string NewName;
+        public Element TypeOfObject;
+
         public EditRequest(string UIDToEdit,Rank NewRank)
         {
             UserToEdit = UIDToEdit;
             NewRankOfUser = NewRank;
             TypeOfEdit = TypesEdit.Users;
+        }
+
+        public EditRequest(object ToEdit,string NewTitle,Element TypeOf)
+        {
+            ObjectToEdit = ToEdit;
+            NewName = NewTitle;
+            TypeOfObject = TypeOf;
+            TypeOfEdit = TypesEdit.Musics;
         }
     }
 

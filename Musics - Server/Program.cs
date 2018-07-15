@@ -335,7 +335,12 @@ namespace Musics___Server
                                 SendObject(new RequestAnswer(tmpU,true),socket);
                                 Console.WriteLine("~ User promoted " + tmp.UserToEdit + " to " + tmp.NewRankOfUser.ToString());
                             }
-
+                            break;
+                        case TypesEdit.Musics:
+                            if((int)Clients.GetUser(socket).rank > 1)
+                            {
+                                Indexation.ModifyElement(tmp.ObjectToEdit, tmp.NewName);
+                            }
                             break;
                     }
                 }

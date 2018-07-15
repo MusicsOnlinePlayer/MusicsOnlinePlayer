@@ -25,7 +25,30 @@ namespace Musics___Server.MusicsInformation
             }
         }
 
-        
+        public static void EditMusicsInfo(string OldMID,Music NewMusicInfo)
+        {
+            XmlDocument doc = new XmlDocument();
+
+            doc.Load(@"Musics.xml");
+
+            if (MusicsExisting(OldMID))
+            {
+                XmlNodeList nodes = doc.DocumentElement.SelectNodes("Music");
+
+                foreach (XmlNode n in nodes)
+                {
+                    if (n["MID"].InnerText == OldMID)
+                    {
+                        n["Title"].InnerText = NewMusicInfo.Title;
+                        n["Author"].InnerText = NewMusicInfo.Author.Name;
+                        n["MID"].InnerText = NewMusicInfo.MID;
+                        doc.Save(@"Musics.xml");
+                        return;
+                    }
+                }
+            }
+           
+        }
 
         public static void SaveMusicInfo(Music music)
         {
