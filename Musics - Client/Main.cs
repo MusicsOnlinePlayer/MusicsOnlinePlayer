@@ -597,17 +597,24 @@ namespace Musics___Client
 
         private void UIPathAuthor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (!(SearchlistboxItems.First() is Author))
+            if(SearchlistboxItems.Count != 0)
             {
-                SendObject(new Request(UIPathAuthor.Text, new Author(null)));
+                if (!(SearchlistboxItems.First() is Author))
+                {
+                    SendObject(new Request(UIPathAuthor.Text, new Author(null)));
+                }
             }
+            
         }
 
         private void UIPathAlbum_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (!(SearchlistboxItems.First() is Album))
+            if (SearchlistboxItems.Count != 0)
             {
-                SendObject(new Request(UIPathAlbum.Text, new Album(null)));
+                if (!(SearchlistboxItems.First() is Album))
+                {
+                    SendObject(new Request(UIPathAlbum.Text, new Album(null)));
+                }
             }
         }
 
