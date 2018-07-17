@@ -212,6 +212,10 @@ namespace Musics___Client
                         {
                             Playlist.Clear();
                             UIPlaylist.Items.Clear();
+                            Music m = new Music()
+                            {
+                                MID = InPlaying.MID
+                            };
                             Playlist.Add(InPlaying);
                             UIPlaylist.Items.Add(InPlaying.Title);
                             PlaylistIndex = 0;
