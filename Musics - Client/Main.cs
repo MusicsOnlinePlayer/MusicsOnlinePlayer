@@ -81,35 +81,15 @@ namespace Musics___Client
         #region PlayerSearch
         private void Player_PlayStateChange(int NewState)
         {
-            if (NewState == 8)
+            if(NewState == 8)
             {
-                ChangeMusicPlaylist(true);
-            }
-        }
-
-        private void ChangeMusicPlaylist(bool forward)
-        {
-
-            try
-            {
-                if (forward)
+                if (PlaylistIndex + 1 < Playlist.Count)
                 {
-
-                    SendObject(new Request(playlist[playlist.IndexOf(InPlaying) + 1]));
-                    UIPlaylist.SelectedIndex++;
-                }
-                else
-                {
-                    SendObject(new Request(playlist[playlist.IndexOf(InPlaying) - 1]));
-                    UIPlaylist.SelectedIndex--;
+                    PlaylistIndex++;
+                    SendObject(new Request(Playlist[PlaylistIndex]));
                 }
             }
-            catch
-            {
-
-            }
         }
-
         byte[] recbuffer = new byte[100000000];
         Thread recevoir;
 
@@ -220,16 +200,32 @@ namespace Musics___Client
                 {
                     InPlaying = searchAnswer.Binaries;
 
+                    
 
                     Invoke((MethodInvoker)delegate
                     {
+                        if (PlaylistContainsMusic(InPlaying.MID))
+                        {
+                            UIPlaylist.SelectedIndex = PlaylistIndex;
+                        }
+                        else
+                        {
+                            Playlist.Clear();
+                            UIPlaylist.Items.Clear();
+                            Playlist.Add(InPlaying);
+                            UIPlaylist.Items.Add(InPlaying.Title);
+                            PlaylistIndex = 0;
+                            UIPlaylist.SelectedIndex = PlaylistIndex;
+                        }
                         UIPlayingMusic.Text = InPlaying.Title;
                         UIArtist.Text = InPlaying.Author.Name;
                     });
 
-
+                    
 
                     p.PlayMusic(InPlaying);
+
+
 
                     try
                     {
@@ -240,18 +236,6 @@ namespace Musics___Client
                         UIMusicImage.BackgroundImage = null;
                     }
 
-                    Invoke((MethodInvoker)delegate
-                    {
-                        try
-                        {
-                            UIPlaylist.SelectedIndex = playlist.IndexOf(InPlaying);
-                            UINextPlaylist.Text = playlist[playlist.IndexOf(InPlaying) + 1].Title;
-                        }
-                        catch
-                        {
-                            UINextPlaylist.Text = "No music Next";
-                        }
-                    });
 
                 }
                 if (searchAnswer.requestsTypes == RequestsTypes.Favorites)
@@ -464,9 +448,18 @@ namespace Musics___Client
             if (selected is Music)
             {
                 SendObject(new Request(selected as Music));
-                playlist.Clear();
             }
-
+            else if (selected is Album)
+            {
+                Playlist.Clear();
+                UIPlaylist.Items.Clear();
+                foreach (var m in (selected as Album).Musics)
+                {
+                    Playlist.Add(m);
+                    UIPlaylist.Items.Add(m.Title);
+                }
+                SendObject(new Request(Playlist.First()));
+            }
         }
 
         private void UIPlay_Click(object sender, EventArgs e)
@@ -498,18 +491,6 @@ namespace Musics___Client
 
             //_clientSocket.Close();
 
-        }
-
-        private List<Music> playlist = new List<Music>();
-
-        private void UIBackward_Click(object sender, EventArgs e)
-        {
-            ChangeMusicPlaylist(false);
-        }
-
-        private void UIForward_Click(object sender, EventArgs e)
-        {
-            ChangeMusicPlaylist(true);
         }
 
         private void UISearchListbox_DoubleClick(object sender, EventArgs e)
@@ -550,30 +531,60 @@ namespace Musics___Client
                 if (SearchlistboxItems[UISearchListbox.SelectedIndex] is Music)
                 {
                     SendObject(new Request(SearchlistboxItems[UISearchListbox.SelectedIndex] as Music));
-                    playlist.Clear();
-                    UIPlaylist.Items.Clear();
+;
                 }
 
             }
         }
 
+        private List<Music> Playlist = new List<Music>();
+        private int PlaylistIndex = 0;
+
         private void UIAddPlaylistUnder_Click(object sender, EventArgs e)
         {
-            if (SearchlistboxItems[UISearchListbox.SelectedIndex] is Music)
+            if(selected is Music)
             {
-                playlist.Add(SearchlistboxItems[UISearchListbox.SelectedIndex] as Music);
-                UIPlaylist.Items.Add((SearchlistboxItems[UISearchListbox.SelectedIndex] as Music).Title);
-                if (playlist.Count == 1)
+                Playlist.Add(selected as Music);
+                UIPlaylist.Items.Add((selected as Music).Title);
+            }
+            else if (selected is Album)
+            {
+                foreach(var m in (selected as Album).Musics)
                 {
-                    SendObject(new Request(playlist.First()));
-                    UIPlaylist.SelectedIndex = 0;
+                    Playlist.Add(m);
+                    UIPlaylist.Items.Add(m.Title);
                 }
             }
-            try
+        }
+
+        private bool PlaylistContainsMusic(string MID)
+        {
+            foreach(var m in Playlist)
             {
-                UINextPlaylist.Text = playlist[playlist.IndexOf(InPlaying) + 1].Title;
+                if(m.MID == MID)
+                {
+                    return true;
+                }
             }
-            catch { }
+            return false;
+        }
+
+        private void UIBackward_Click(object sender, EventArgs e)
+        {
+            if(PlaylistIndex - 1 >= 0)
+            {
+                PlaylistIndex--;
+                SendObject(new Request(Playlist[PlaylistIndex]));
+            }
+        }
+
+        private void UIForward_Click(object sender, EventArgs e)
+        {
+            if (PlaylistIndex + 1 < Playlist.Count)
+            {
+                PlaylistIndex++;
+                SendObject(new Request(Playlist[PlaylistIndex]));
+            }
         }
 
         private void UIThumbup_Click(object sender, EventArgs e)
