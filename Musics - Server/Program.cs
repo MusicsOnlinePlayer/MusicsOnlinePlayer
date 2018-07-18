@@ -344,6 +344,11 @@ namespace Musics___Server
                             break;
                     }
                 }
+                if(received is SavePlaylist)
+                {
+                    SavePlaylist tmp = received as SavePlaylist;
+                    UsersInfos.SaveUserPlaylist(tmp.UID, tmp.playlist);
+                }
             }
             else
             {
@@ -385,7 +390,7 @@ namespace Musics___Server
             {
                 Console.WriteLine("Sending to the client :");
 
-                if (requestSearch.Requested is Author)
+                if (requestSearch.Requested == Element.Author)
                 {
                     List<Author> result = new List<Author>();
 
@@ -415,10 +420,10 @@ namespace Musics___Server
 
 
                     }
-                    SendObject(new RequestAnswer(result, new Author(null)), asker);
+                    SendObject(new RequestAnswer(result, Element.Author), asker);
 
                 }
-                if (requestSearch.Requested is Album)
+                if (requestSearch.Requested == Element.Album)
                 {
                     List<Album> result = new List<Album>();
 
@@ -445,9 +450,9 @@ namespace Musics___Server
                             }
                         }
                     }
-                    SendObject(new RequestAnswer(result, new Album(null, null)), asker);
+                    SendObject(new RequestAnswer(result, Element.Album), asker);
                 }
-                if (requestSearch.Requested is Music)
+                if (requestSearch.Requested == Element.Music)
                 {
                     List<Music> result = new List<Music>();
 
@@ -475,7 +480,18 @@ namespace Musics___Server
                         }
                     }
 
-                    SendObject(new RequestAnswer(result, new Music()), asker);
+                    SendObject(new RequestAnswer(result, Element.Music), asker);
+                }
+                if(requestSearch.Requested == Element.Playlist)
+                {
+                    List<Playlist> tmp = new List<Playlist>();
+                    foreach(Playlist p in UsersInfos.GetPlaylists())
+                    {
+                        if (Search.Find(requestSearch.Name, p.Name)){
+                            tmp.Add(p);
+                        }
+                    }
+                    SendObject(new RequestAnswer(tmp, Element.Playlist),asker);
                 }
 
             }

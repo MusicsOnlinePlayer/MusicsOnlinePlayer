@@ -123,7 +123,7 @@ namespace Musics___Server.Usersinfos
 
         public static User GetUser(string UID)
         {
-            
+
             XmlDocument doc = new XmlDocument();
             doc.Load(@"users.xml");
 
@@ -131,7 +131,7 @@ namespace Musics___Server.Usersinfos
 
             foreach (XmlNode n in nodes)
             {
-                if(UID == n["UID"].InnerText)
+                if (UID == n["UID"].InnerText)
                 {
                     User tmp = new User
                     {
@@ -142,7 +142,7 @@ namespace Musics___Server.Usersinfos
 
                     return tmp;
                 }
-               
+
             }
             return null;
         }
@@ -165,9 +165,9 @@ namespace Musics___Server.Usersinfos
                         UID = n["UID"].InnerText
                     };
                     tmp.rank = GetRankOfUser(tmp.UID);
-                    
+
                     UsersList.Add(tmp);
-                } 
+                }
             }
             return UsersList;
         }
@@ -202,6 +202,66 @@ namespace Musics___Server.Usersinfos
                 }
             }
             doc.Save(@"users.xml");
+        }
+
+        public static void SaveUserPlaylist(string UID, Playlist playlist)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"users.xml");
+
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("User");
+            XmlAttribute xmlAttribute;
+
+            foreach (XmlNode n in nodes)
+            {
+                if (n["UID"].InnerText == UID)
+                {
+                    XmlNode playlistnode = doc.CreateElement("Playlist");
+                    //playlistnode.InnerText = playlist.Name;
+
+                    xmlAttribute = doc.CreateAttribute("Name");
+                    xmlAttribute.InnerText = playlist.Name;
+
+                    playlistnode.Attributes.Append(xmlAttribute);
+
+                    foreach (var m in playlist.musics)
+                    {
+                        XmlNode nodeMusic = doc.CreateElement("Music");
+                        nodeMusic.InnerText = m.MID;
+                        playlistnode.AppendChild(nodeMusic);
+                    }
+
+
+                    n["UserPlaylists"].AppendChild(playlistnode);
+                }
+            }
+            doc.Save(@"users.xml");
+        }
+
+        public static List<Playlist> GetPlaylists()
+        {
+            List<Playlist> playlists = new List<Playlist>();
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"users.xml");
+
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("User");
+            foreach (XmlNode n in nodes)
+            {
+                XmlNodeList PlaylistNode = n.SelectNodes("UserPlaylists/Playlist");
+
+                foreach(XmlNode p in PlaylistNode)
+                {
+                    Playlist playlist = new Playlist(new User(n["Name"].InnerText), p.Attributes["Name"].InnerText);
+                    foreach(XmlNode m in p.SelectNodes("Music"))
+                    {
+                        playlist.musics.Add(Indexation.GetMusicByID(m.InnerText));
+                    }
+                    playlists.Add(playlist);
+                }
+                
+            }
+            return playlists;
         }
     }
 }

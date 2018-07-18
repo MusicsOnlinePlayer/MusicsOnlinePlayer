@@ -47,6 +47,9 @@ namespace Musics___Server.Authentification
                 XmlNode nodeRatedMusics = doc.CreateElement("RatedMusics");
                 nodeUser.AppendChild(nodeRatedMusics);
 
+                XmlNode nodePlaylist = doc.CreateElement("UserPlaylists");
+                nodeUser.AppendChild(nodePlaylist);
+
                 doc.DocumentElement.AppendChild(nodeUser);
                 doc.Save(@"users.xml");
             }

@@ -151,7 +151,25 @@ namespace Utility
         }
     }
 
+    [Serializable]
+    public class Playlist
+    {
+        public User Creator;
+        public string Name;
+        public List<Music> musics = new List<Music>();
 
+        public Playlist(User creator,string name,List<Music> Musics)
+        {
+            Creator = creator;
+            Name = name;
+            musics = Musics;
+        }
+        public Playlist(User creator, string name)
+        {
+            Creator = creator;
+            Name = name;
+        }
+    }
 
     public static class Hash
     {
@@ -336,7 +354,7 @@ namespace Utility
 
         //Search
         public string Name;
-        public object Requested;
+        public Element Requested;
 
         //Binaries
         public Music RequestedBinaries;
@@ -348,7 +366,7 @@ namespace Utility
         public string Username;
 
         //Search
-        public Request(string name, object requested)
+        public Request(string name, Element requested)
         {
             Requested = requested;
             Name = name;
@@ -383,7 +401,7 @@ namespace Utility
         public RequestsTypes requestsTypes;
 
         public object AnswerList;
-        public object Requested;
+        public Element Requested;
 
         public Music Binaries;
 
@@ -393,7 +411,7 @@ namespace Utility
 
         public bool IsAccepted;
 
-        public RequestAnswer(object answerlist, object requested)
+        public RequestAnswer(object answerlist, Element requested)
         {
             Requested = requested;
             AnswerList = answerlist;
@@ -420,6 +438,18 @@ namespace Utility
         }
     }
 
+    [Serializable]
+    public class SavePlaylist
+    {
+        public string UID;
+        public Playlist playlist;
+
+        public SavePlaylist(string UserId, Playlist Playlist)
+        {
+            UID = UserId;
+           playlist = Playlist;
+        }
+    }
 
     [Serializable]
     public class Login{
@@ -511,7 +541,8 @@ namespace Utility
     {
         Author,
         Album,
-        Music
+        Music,
+        Playlist
     }
 
     [Serializable]
