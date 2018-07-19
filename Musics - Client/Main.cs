@@ -223,6 +223,7 @@ namespace Musics___Client
                         else
                         {
                             Playlist.Clear();
+                            PlaylistIndex = 0;
                             UIPlaylist.Items.Clear();
                             Music m = new Music()
                             {
@@ -469,6 +470,7 @@ namespace Musics___Client
                     UIPathMusic.Text = "";
 
                     Playlist.Clear();
+                    PlaylistIndex = 0;
                     UIPlaylist.Items.Clear();
                     foreach (var m in (selected as Playlist).musics)
                     {
@@ -490,6 +492,7 @@ namespace Musics___Client
             else if (selected is Album)
             {
                 Playlist.Clear();
+                PlaylistIndex = 0;
                 UIPlaylist.Items.Clear();
                 foreach (var m in (selected as Album).Musics)
                 {
@@ -501,6 +504,7 @@ namespace Musics___Client
             else if(selected is Playlist)
             {
                 SendObject(new Request(Playlist.First()));
+                
             }
         }
 
@@ -578,6 +582,7 @@ namespace Musics___Client
                 if(SearchlistboxItems[UISearchListbox.SelectedIndex] is Playlist)
                 {
                     Playlist.Clear();
+                    PlaylistIndex = 0;
                     UIPlaylist.Items.Clear();
                     foreach (var m in (selected as Playlist).musics)
                     {
