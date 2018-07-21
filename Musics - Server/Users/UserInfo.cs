@@ -227,7 +227,7 @@ namespace Musics___Server.Usersinfos
                     xmlAttributeProtection.InnerText = playlist.Private.ToString();
 
 
-
+                    playlistnode.Attributes.Append(xmlAttributeProtection);
                     playlistnode.Attributes.Append(xmlAttributeName);
 
                     foreach (var m in playlist.musics)

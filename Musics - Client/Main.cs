@@ -122,8 +122,14 @@ namespace Musics___Client
 
         private void ReceiveCallback(IAsyncResult AR)
         {
-
+            try
+            {
                 int ren = _clientSocket.EndReceive(AR);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
             //Array.Resize(ref recbuffer, ren);
 
 
