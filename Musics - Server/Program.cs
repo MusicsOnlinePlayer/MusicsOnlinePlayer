@@ -327,7 +327,7 @@ namespace Musics___Server
                     switch (tmp.TypeOfEdit)
                     {
                         case TypesEdit.Users:
-                            if((int)UsersInfos.GetRankOfUser(Clients.GetUser(socket).UID) > (int)tmp.NewRankOfUser)
+                            if((int)UsersInfos.GetRankOfUser(Clients.GetUser(socket).UID) > (int)tmp.NewRankOfUser && (int)UsersInfos.GetRankOfUser(Clients.GetUser(socket).UID) > (int)UsersInfos.GetRankOfUser(tmp.UserToEdit))
                             {
                                 PromoteUser(tmp.UserToEdit, tmp.NewRankOfUser);
                                 List<User> tmpU = new List<User>();

@@ -77,7 +77,7 @@ namespace Musics___Client
             p.player.PlayStateChange += Player_PlayStateChange;
         }
 
-
+        
         #region PlayerSearch
         private void Player_PlayStateChange(int NewState)
         {
