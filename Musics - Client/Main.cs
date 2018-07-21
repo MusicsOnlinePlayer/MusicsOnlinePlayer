@@ -123,7 +123,7 @@ namespace Musics___Client
         private void ReceiveCallback(IAsyncResult AR)
         {
 
-            int ren = _clientSocket.EndReceive(AR);
+                int ren = _clientSocket.EndReceive(AR);
             //Array.Resize(ref recbuffer, ren);
 
 
@@ -920,7 +920,7 @@ namespace Musics___Client
         {
             if(e.KeyCode == Keys.Enter)
             {
-                SendObject(new SavePlaylist(Me.UID, new Playlist(Me,UIPlaylistName.Text, Playlist)));
+                SendObject(new SavePlaylist(Me.UID, new Playlist(Me,UIPlaylistName.Text, Playlist,UIPlaylistPrivate.Checked)));
             }
          
         }

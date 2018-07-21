@@ -485,7 +485,7 @@ namespace Musics___Server
                 if(requestSearch.Requested == Element.Playlist)
                 {
                     List<Playlist> tmp = new List<Playlist>();
-                    foreach(Playlist p in UsersInfos.GetPlaylists())
+                    foreach (Playlist p in UsersInfos.GetPlaylists(Clients.GetUser(asker).UID))
                     {
                         if (Search.Find(requestSearch.Name, p.Name)){
                             tmp.Add(p);

@@ -157,12 +157,14 @@ namespace Utility
         public User Creator;
         public string Name;
         public List<Music> musics = new List<Music>();
+        public bool Private;
 
-        public Playlist(User creator,string name,List<Music> Musics)
+        public Playlist(User creator,string name,List<Music> Musics,bool IsPrivate)
         {
             Creator = creator;
             Name = name;
             musics = Musics;
+            Private = IsPrivate;
         }
         public Playlist(User creator, string name)
         {

@@ -210,7 +210,8 @@ namespace Musics___Server.Usersinfos
             doc.Load(@"users.xml");
 
             XmlNodeList nodes = doc.DocumentElement.SelectNodes("User");
-            XmlAttribute xmlAttribute;
+            XmlAttribute xmlAttributeName;
+            XmlAttribute xmlAttributeProtection;
 
             foreach (XmlNode n in nodes)
             {
@@ -219,10 +220,15 @@ namespace Musics___Server.Usersinfos
                     XmlNode playlistnode = doc.CreateElement("Playlist");
                     //playlistnode.InnerText = playlist.Name;
 
-                    xmlAttribute = doc.CreateAttribute("Name");
-                    xmlAttribute.InnerText = playlist.Name;
+                    xmlAttributeName = doc.CreateAttribute("Name");
+                    xmlAttributeName.InnerText = playlist.Name;
 
-                    playlistnode.Attributes.Append(xmlAttribute);
+                    xmlAttributeProtection = doc.CreateAttribute("Level");
+                    xmlAttributeProtection.InnerText = playlist.Private.ToString();
+
+
+
+                    playlistnode.Attributes.Append(xmlAttributeName);
 
                     foreach (var m in playlist.musics)
                     {
@@ -238,7 +244,7 @@ namespace Musics___Server.Usersinfos
             doc.Save(@"users.xml");
         }
 
-        public static List<Playlist> GetPlaylists()
+        public static List<Playlist> GetPlaylists(string UID)
         {
             List<Playlist> playlists = new List<Playlist>();
 
@@ -257,7 +263,21 @@ namespace Musics___Server.Usersinfos
                     {
                         playlist.musics.Add(Indexation.GetMusicByID(m.InnerText));
                     }
-                    playlists.Add(playlist);
+                    if(p.Attributes["Level"].InnerText == true.ToString())
+                    {
+                        if(n["UID"].InnerText == UID)
+                        {
+                            playlist.Private = true;
+                            playlists.Add(playlist);
+                            
+                        }
+                    }
+                    else
+                    {
+                        playlist.Private = false;
+                        playlists.Add(playlist);
+                    }
+                  
                 }
                 
             }
