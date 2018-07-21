@@ -60,6 +60,8 @@ namespace Musics___Server.MusicsManagement
 
             int NumberofMusics = 0;
 
+            TagLib.File file;
+
             foreach (var n in ArtistDirs)
             {
                 Author CurrentArtist = new Author(Path.GetFileName(n),n);
@@ -83,7 +85,7 @@ namespace Musics___Server.MusicsManagement
 
                             if (Path.GetExtension(m) == ".mp3" || Path.GetExtension(m) == ".flac")
                             {
-                                TagLib.File file = TagLib.File.Create(m);
+                                file = TagLib.File.Create(m);
                                 string Musicname = file.Tag.Title;
                                 if (Musicname == null)
                                 {
