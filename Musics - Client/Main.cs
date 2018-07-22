@@ -58,7 +58,7 @@ namespace Musics___Client
 
         public void Connect()
         {
-            IPEndPoint ip = new IPEndPoint(IPAddress.Loopback, 2003);
+            IPEndPoint ip = new IPEndPoint(IPAddress.Parse("84.6.190.239"), 2003);
 
             try
             {

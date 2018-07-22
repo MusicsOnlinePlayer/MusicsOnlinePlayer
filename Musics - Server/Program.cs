@@ -212,10 +212,22 @@ namespace Musics___Server
             try
             {
                 received = Function.Deserialize(new MessageTCP(Buffer));
+               
             }
             catch { return; }
 
-            if (Clients.GetUser(socket).UID != null)
+            bool ClientLogin;
+
+            try
+            {
+                ClientLogin = Clients.GetUser(socket).UID != null;
+            }
+            catch
+            {
+                ClientLogin = false;
+            }
+
+            if (ClientLogin)
             {
 
                 if (received is Request)
@@ -230,6 +242,8 @@ namespace Musics___Server
                             break;
 
                         case RequestsTypes.MusicsBinaries:
+
+                            Console.Write("Test");
 
                             foreach (Author a in Indexation.ServerMusics)
                             {
@@ -355,6 +369,8 @@ namespace Musics___Server
                 if (received is Login)
                 {
                     Login auth = received as Login;
+
+                    Console.Write("~ Client try to login");
 
                     if (auth.IsSignup)
                     {
