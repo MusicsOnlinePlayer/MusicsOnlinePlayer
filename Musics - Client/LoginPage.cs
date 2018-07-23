@@ -115,5 +115,10 @@ namespace Musics___Client
         {
             UIErrorLogin.Text = "";
         }
+
+        private void UISettings_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

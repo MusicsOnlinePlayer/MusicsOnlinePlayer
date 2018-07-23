@@ -19,6 +19,7 @@ namespace Musics___Client
     {
         public Socket _clientSocket;
         public User Me;
+        public IPAddress ip;
 
         private HueMusic HueMusic = new HueMusic();
 
@@ -59,7 +60,6 @@ namespace Musics___Client
         public void Connect()
         {
             IPEndPoint ip = new IPEndPoint(IPAddress.Parse("84.6.190.239"), 2003);
-
             try
             {
                 _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
