@@ -46,5 +46,17 @@ namespace Musics___Client.Properties {
                 this["HueIp"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ServerIp {
+            get {
+                return ((string)(this["ServerIp"]));
+            }
+            set {
+                this["ServerIp"] = value;
+            }
+        }
     }
 }

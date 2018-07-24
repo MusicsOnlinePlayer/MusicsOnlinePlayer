@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 using System.Windows.Forms;
 
 namespace Musics___Client
@@ -15,6 +9,31 @@ namespace Musics___Client
         public Settings()
         {
             InitializeComponent();
+        }
+
+        private void Settings_Load(object sender, EventArgs e)
+        {
+            UISettingsIp.Text = Properties.Settings.Default.ServerIp;
+
+        }
+
+        public IPAddress result;
+
+        private void UISettingsApply_Click(object sender, EventArgs e)
+        {
+            if(IPAddress.TryParse(UISettingsIp.Text,out result))
+            {
+                this.Close();
+            }
+            else
+            {
+                UIError.Visible = true;
+            }
+        }
+
+        private void UISettingsIp_TextChanged(object sender, EventArgs e)
+        {
+            UIError.Visible = false;
         }
     }
 }

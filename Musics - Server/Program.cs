@@ -16,7 +16,7 @@ namespace Musics___Server
         private static readonly Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private const int BUFFER_SIZE = 100000000;
         private static readonly int PORT = 2003;
-        private static readonly byte[] buffer = new byte[BUFFER_SIZE];
+        private static byte[] buffer = new byte[BUFFER_SIZE];
 
         private static ClientList Clients = new ClientList();
         private static AuthentificationService AuthService = new AuthentificationService();
@@ -141,14 +141,15 @@ namespace Musics___Server
             try
             {
                 socket = serverSocket.EndAccept(ar);
-
+                socket.SendTimeout = 600000;
+                socket.ReceiveTimeout = 600000;
             }
             catch (ObjectDisposedException)
             {
                 return;
             }
 
-            socket.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.None, ReceiveCallback, socket);
+            socket.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.Partial, ReceiveCallback, socket);
             Clients.AddUser(new User(), socket);
             Console.WriteLine("Client connected =)");
             serverSocket.BeginAccept(AcceptCallback, null);
@@ -178,7 +179,7 @@ namespace Musics___Server
 
             try
             {
-                current.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.None, ReceiveCallback, current);
+                current.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.Partial, ReceiveCallback, current);
             }
             catch
             {
@@ -189,11 +190,12 @@ namespace Musics___Server
 
         private static void SendObject(object obj, Socket socket)
         {
-
+            //buffer = new byte[BUFFER_SIZE];
             var msg = Function.Serialize(obj);
+            
             try
             {
-                socket.Send(msg.Data, 0, msg.Data.Length, SocketFlags.None);
+                socket.Send(msg.Data, 0, msg.Data.Length, SocketFlags.Partial);
 
             }
             catch
@@ -243,7 +245,7 @@ namespace Musics___Server
 
                         case RequestsTypes.MusicsBinaries:
 
-                            Console.Write("Test");
+                            
 
                             foreach (Author a in Indexation.ServerMusics)
                             {
@@ -258,6 +260,7 @@ namespace Musics___Server
                                                 Format = m.Format,
                                                 Rating = m.Rating
                                             };
+                                            Console.Write("Sending binaries for " + m.Title);
 
                                             SendObject(new RequestAnswer(answer), socket);
                                             return;
@@ -344,8 +347,10 @@ namespace Musics___Server
                             if((int)UsersInfos.GetRankOfUser(Clients.GetUser(socket).UID) > (int)tmp.NewRankOfUser && (int)UsersInfos.GetRankOfUser(Clients.GetUser(socket).UID) > (int)UsersInfos.GetRankOfUser(tmp.UserToEdit))
                             {
                                 PromoteUser(tmp.UserToEdit, tmp.NewRankOfUser);
-                                List<User> tmpU = new List<User>();
-                                tmpU.Add(UsersInfos.GetUser(tmp.UserToEdit));
+                                List<User> tmpU = new List<User>
+                                {
+                                    UsersInfos.GetUser(tmp.UserToEdit)
+                                };
                                 SendObject(new RequestAnswer(tmpU,true),socket);
                                 Console.WriteLine("~ User promoted " + tmp.UserToEdit + " to " + tmp.NewRankOfUser.ToString());
                             }

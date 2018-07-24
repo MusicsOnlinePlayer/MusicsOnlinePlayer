@@ -115,10 +115,24 @@ namespace Musics___Client
         {
             UIErrorLogin.Text = "";
         }
+        Settings settingsForm = new Settings();
 
         private void UISettings_Click(object sender, EventArgs e)
-        {
+        {   
+            settingsForm.ShowDialog();
+            settingsForm.FormClosed += SettingsForm_FormClosed;
+        }
 
+        private void SettingsForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ClientForm = new Client
+            {
+                ip = settingsForm.result
+            };
+            Properties.Settings.Default.ServerIp = settingsForm.result.ToString() ;
+            Properties.Settings.Default.Save();
+            ClientForm.Connect();
+            ClientForm.LoginInfoReceived += ClientForm_LoginInfoReceived;
         }
     }
 }

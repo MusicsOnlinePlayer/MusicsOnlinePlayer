@@ -19,7 +19,7 @@ namespace Musics___Client
     {
         public Socket _clientSocket;
         public User Me;
-        public IPAddress ip;
+        public IPAddress ip = IPAddress.Loopback;
 
         private HueMusic HueMusic = new HueMusic();
 
@@ -59,10 +59,14 @@ namespace Musics___Client
 
         public void Connect()
         {
-            IPEndPoint ip = new IPEndPoint(IPAddress.Parse("84.6.190.239"), 2003);
+            IPEndPoint ip = new IPEndPoint(IPAddress.Parse(Properties.Settings.Default.ServerIp), 2003);
             try
             {
-                _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
+                {
+                    SendTimeout = 600000,
+                    ReceiveTimeout = 600000
+                };
                 _clientSocket.BeginConnect(ip, new AsyncCallback(ConnectCallBack), null);
 
             }
@@ -113,7 +117,7 @@ namespace Musics___Client
 
         private void Receive()
         {
-            _clientSocket.BeginReceive(recbuffer, 0, recbuffer.Length, SocketFlags.None,
+            _clientSocket.BeginReceive(recbuffer, 0, 100000000, SocketFlags.Partial,
                     new AsyncCallback(ReceiveCallback), null);
 
         }
@@ -125,18 +129,21 @@ namespace Musics___Client
             try
             {
                 int ren = _clientSocket.EndReceive(AR);
+               // Array.Resize(ref recbuffer, ren + 1);
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
-            //Array.Resize(ref recbuffer, ren);
-
+           
+            
 
 
             TreatObject(Function.Deserialize(new MessageTCP(recbuffer)));
 
-            _clientSocket.BeginReceive(recbuffer, 0, recbuffer.Length, SocketFlags.None,
+            recbuffer = new byte[100000000];
+
+            _clientSocket.BeginReceive(recbuffer, 0, recbuffer.Length, SocketFlags.Partial,
                 new AsyncCallback(ReceiveCallback), null);
 
         }
@@ -368,7 +375,7 @@ namespace Musics___Client
             var msg = Function.Serialize(obj);
             try
             {
-                _clientSocket.BeginSend(msg.Data, 0, msg.Data.Length, SocketFlags.None, new AsyncCallback(SendCallback), null);
+                _clientSocket.BeginSend(msg.Data, 0, msg.Data.Length, SocketFlags.Partial, new AsyncCallback(SendCallback), null);
 
             }
             catch
