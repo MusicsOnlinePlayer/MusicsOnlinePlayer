@@ -26,6 +26,7 @@ namespace Musics___Client
         {
             ClientForm.Connect();
             ClientForm.LoginInfoReceived += ClientForm_LoginInfoReceived;
+            settingsForm.FormClosing += SettingsForm_FormClosing;
         }
 
         private void ClientForm_LoginInfoReceived(object sender, EventArgs e)
@@ -120,16 +121,16 @@ namespace Musics___Client
         private void UISettings_Click(object sender, EventArgs e)
         {   
             settingsForm.ShowDialog();
-            settingsForm.FormClosed += SettingsForm_FormClosed;
+            
         }
 
-        private void SettingsForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             ClientForm = new Client
             {
                 ip = settingsForm.result
             };
-            Properties.Settings.Default.ServerIp = settingsForm.result.ToString() ;
+            Properties.Settings.Default.ServerIp = settingsForm.result.ToString();
             Properties.Settings.Default.Save();
             ClientForm.Connect();
             ClientForm.LoginInfoReceived += ClientForm_LoginInfoReceived;

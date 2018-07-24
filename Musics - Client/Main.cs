@@ -548,9 +548,12 @@ namespace Musics___Client
                 System.IO.File.Delete(p);
             }
 
-            //_clientSocket.Close();
+            _clientSocket.Disconnect(false);
+            _clientSocket.Dispose();
 
         }
+
+
 
         private void UISearchListbox_DoubleClick(object sender, EventArgs e)
         {
