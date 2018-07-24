@@ -56,6 +56,15 @@ namespace Musics___Client
 
         }
 
+        #region Network
+
+        private void Client_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
+            _clientSocket.Shutdown(SocketShutdown.Both);
+            _clientSocket.Close();
+        }
+
 
         public void Connect()
         {
@@ -82,7 +91,7 @@ namespace Musics___Client
         }
 
         
-        #region PlayerSearch
+       
         private void Player_PlayStateChange(int NewState)
         {
             if(NewState == 8)
@@ -143,9 +152,12 @@ namespace Musics___Client
 
             recbuffer = new byte[100000000];
 
-            _clientSocket.BeginReceive(recbuffer, 0, recbuffer.Length, SocketFlags.Partial,
+            try
+            {
+                _clientSocket.BeginReceive(recbuffer, 0, recbuffer.Length, SocketFlags.Partial,
                 new AsyncCallback(ReceiveCallback), null);
-
+            }
+            catch {}
         }
 
         protected virtual void OnloginInfoReceived(EventArgs e)
@@ -153,6 +165,29 @@ namespace Musics___Client
             LoginInfoReceived?.Invoke(this, e);
         }
 
+        public void SendObject(object obj)
+        {
+            var msg = Function.Serialize(obj);
+            try
+            {
+                _clientSocket.BeginSend(msg.Data, 0, msg.Data.Length, SocketFlags.Partial, new AsyncCallback(SendCallback), null);
+
+            }
+            catch
+            {
+                MessageBox.Show("Can't send message. Check your connection", "Connection exception");
+            }
+        }
+
+        private void SendCallback(IAsyncResult ar)
+        {
+            _clientSocket.EndSend(ar);
+        }
+
+
+        #endregion
+
+        #region PlayerSearch
         private void TreatObject(object obj)
         {
             if (obj is RequestAnswer)
@@ -370,25 +405,6 @@ namespace Musics___Client
 
         }
 
-        public void SendObject(object obj)
-        {
-            var msg = Function.Serialize(obj);
-            try
-            {
-                _clientSocket.BeginSend(msg.Data, 0, msg.Data.Length, SocketFlags.Partial, new AsyncCallback(SendCallback), null);
-
-            }
-            catch
-            {
-                MessageBox.Show("Can't send message. Check your connection", "Connection exception");
-            }
-        }
-
-        private void SendCallback(IAsyncResult ar)
-        {
-            _clientSocket.EndSend(ar);
-        }
-
         private void UITextboxSearch_KeyDown(object sender, KeyEventArgs e)
         {
 
@@ -548,12 +564,7 @@ namespace Musics___Client
                 System.IO.File.Delete(p);
             }
 
-            _clientSocket.Disconnect(false);
-            _clientSocket.Dispose();
-
         }
-
-
 
         private void UISearchListbox_DoubleClick(object sender, EventArgs e)
         {
@@ -942,5 +953,6 @@ namespace Musics___Client
         }
 
         #endregion
+
     }
 }
