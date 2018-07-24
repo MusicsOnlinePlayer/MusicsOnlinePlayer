@@ -79,6 +79,8 @@ namespace Utility
         public string Format;
         public string ServerPath;
         public string MID;
+        public string[] Genre;
+
 
         public int Rating = 0;
         public byte[] FileBinary;

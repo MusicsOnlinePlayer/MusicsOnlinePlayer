@@ -456,6 +456,8 @@ namespace Musics___Client
                     UISelectedname.Text = (selected as Music).Title;
                     UIselectedartist.Text = (selected as Music).Author.Name;
                     UISelectedRating.Text = "Rating : " + (selected as Music).Rating;
+                    UISelectedGenres.Text = "Genres : " + String.Join(" ",(selected as Music).Genre);
+
 
                     UIPathAuthor.Text = (selected as Music).Author.Name;
                     UIPathAlbum.Text = (selected as Music).Album.Name;
@@ -469,7 +471,7 @@ namespace Musics___Client
                     UISelectedname.Text = (selected as Album).Name;
                     UIselectedartist.Text = (selected as Album).Author.Name;
                     UISelectedRating.Text = "Rating : ";
-
+                    UISelectedGenres.Text = "Genres : " + String.Join(" ", (selected as Album).Musics.First().Genre);
 
                     UIPathAuthor.Text = (selected as Album).Author.Name;
                     UIPathAlbum.Text = (selected as Album).Name;
@@ -852,7 +854,6 @@ namespace Musics___Client
 
 
         #endregion
-
 
         #region EditUser
 

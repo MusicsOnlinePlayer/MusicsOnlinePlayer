@@ -102,6 +102,7 @@ namespace Musics___Server.MusicsManagement
                                 Music current = new Music(Musicname, CurrentArtist, m)
                                 {
                                     Format = Path.GetExtension(m),
+                                    Genre = file.Tag.Genres
                                 };
                                 if (MusicsInfo.MusicsExisting(current.MID))
                                 {
