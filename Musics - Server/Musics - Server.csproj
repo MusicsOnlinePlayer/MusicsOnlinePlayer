@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="MusicsManagement\MusicsInfo.cs" />
     <Compile Include="MusicsManagement\Search.cs" />
+    <Compile Include="MusicsManagement\Trending\Manager.cs" />
+    <Compile Include="MusicsManagement\Trending\Trending.cs" />
     <Compile Include="Users\Auth.cs" />
     <Compile Include="MusicsManagement\Indexation.cs" />
     <Compile Include="Program.cs" />
