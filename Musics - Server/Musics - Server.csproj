@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MusicsManagement\ClientAnswer\SearchAnswer.cs" />
     <Compile Include="MusicsManagement\MusicsInfo.cs" />
     <Compile Include="MusicsManagement\Search.cs" />
     <Compile Include="MusicsManagement\Trending\Manager.cs" />

@@ -29,7 +29,7 @@ namespace Musics___Server.MusicsManagement.Trending
 
         static List<Music> GetMostLikedMusicByDay()
         {
-
+            return null;
         }
 
         static List<Music> GetMostLikedMusicByGenre(string Genre, int length)
@@ -52,7 +52,7 @@ namespace Musics___Server.MusicsManagement.Trending
         }
         static List<Music> GetMostLikedMusicByDayByGenre(string Genre)
         {
-
+            return null;
         }
     }
 }

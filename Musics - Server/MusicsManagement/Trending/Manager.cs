@@ -8,11 +8,11 @@ namespace Musics___Server.MusicsManagement.Trending
     {
         static public List<Music> GetTrending()
         {
-
+            return null;
         }
         static public List<Music> GetTrendingByGenres(string Genre)
         {
-
+            return null;
         }
     }
 }
