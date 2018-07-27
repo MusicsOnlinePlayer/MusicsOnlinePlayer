@@ -914,6 +914,10 @@ namespace Musics___Client
                 UIEditMusicName.Visible = true;
                 UIEditMusicName.Text = UISelectedname.Text;
             }
+            if (UIEditMusicName.Visible)
+            {
+               // UIEditMusicName.Visible = false;
+            }
         }
 
         private void UIEditMusicName_KeyDown(object sender, KeyEventArgs e)
@@ -923,6 +927,11 @@ namespace Musics___Client
                 if ((int)Me.rank > 1 && UIEditMusicName.Text != null)
                 {
                     SendObject(new EditRequest(selected,UIEditMusicName.Text,typeOfSelected));
+                    UIEditMusicName.Visible = false;
+                }
+                else
+                {
+                    MessageBox.Show("You have to be at least a user to edit this music");
                     UIEditMusicName.Visible = false;
                 }
             }
