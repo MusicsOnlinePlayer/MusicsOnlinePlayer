@@ -11,7 +11,7 @@ namespace Musics___Server.MusicsManagement.Trending
 {
     class Trending
     {
-        static List<Music> GetMostLikedMusic()
+        static List<Music> GetMostLikedMusic(int length)
         {
             Dictionary<Music, int> musics = new Dictionary<Music, int>();
 
@@ -23,16 +23,32 @@ namespace Musics___Server.MusicsManagement.Trending
 
             musics.ToList().Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
 
-            return (from val in musics.Take(10) select val.Key).ToList();
+            return (from val in musics.Take(length) select val.Key).ToList();
         }
+
+
         static List<Music> GetMostLikedMusicByDay()
         {
 
         }
 
-        static List<Music> GetMostLikedMusicByGenre(string Genre)
+        static List<Music> GetMostLikedMusicByGenre(string Genre, int length)
         {
+            Dictionary<Music, int> musics = new Dictionary<Music, int>();
 
+
+            foreach (var m in Indexation.GetAllMusics())
+            {
+                
+                if (m.Genre.Contains(Genre))
+                {
+                    musics.Add(m, m.Rating);
+                }              
+            }
+
+            musics.ToList().Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+
+            return (from val in musics.Take(length) select val.Key).ToList();
         }
         static List<Music> GetMostLikedMusicByDayByGenre(string Genre)
         {
