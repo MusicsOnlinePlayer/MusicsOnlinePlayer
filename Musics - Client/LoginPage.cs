@@ -69,12 +69,12 @@ namespace Musics___Client
             }
         }
 
-        private void UIGoSignin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        void UIGoSignin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             tabControl1.SelectedTab = tabPage2;
         }
 
-        private void UIGoLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        void UIGoLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             tabControl1.SelectedTab = tabPage1;
         }
@@ -92,39 +92,39 @@ namespace Musics___Client
             }
         }
 
-        private void UILogin_TextChanged(object sender, EventArgs e)
+        void UILogin_TextChanged(object sender, EventArgs e)
         {
             UIErrorLogin.Text = "";
         }
 
-        private void UIPassword_TextChanged(object sender, EventArgs e)
+        void UIPassword_TextChanged(object sender, EventArgs e)
         {
             UIErrorLogin.Text = "";
         }
 
-        private void UIUserNameSign_TextChanged(object sender, EventArgs e)
+        void UIUserNameSign_TextChanged(object sender, EventArgs e)
         {
             UIErrorLogin.Text = "";
         }
 
-        private void UIPasswordSign_TextChanged(object sender, EventArgs e)
+        void UIPasswordSign_TextChanged(object sender, EventArgs e)
         {
             UIErrorLogin.Text = "";
         }
 
-        private void UISecondPasswordSign_TextChanged(object sender, EventArgs e)
+        void UISecondPasswordSign_TextChanged(object sender, EventArgs e)
         {
             UIErrorLogin.Text = "";
         }
         Settings settingsForm = new Settings();
 
-        private void UISettings_Click(object sender, EventArgs e)
+        void UISettings_Click(object sender, EventArgs e)
         {   
             settingsForm.ShowDialog();
             
         }
 
-        private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
+        void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             ClientForm = new Client
             {
