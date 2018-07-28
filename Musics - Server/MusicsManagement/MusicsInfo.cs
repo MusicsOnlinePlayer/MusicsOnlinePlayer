@@ -96,10 +96,6 @@ namespace Musics___Server.MusicsInformation
                 
                 doc.Save(@"Musics.xml");
             }
-            else
-            {
-                throw new Exception("MID of music is null");
-            }
         }
 
         public static void SaveMusicsInfo(List<Music> musics)

@@ -137,7 +137,7 @@ namespace Musics___Client
         {
             try
             {
-                int ren = _clientSocket.EndReceive(AR);
+                _clientSocket.EndReceive(AR);
                // Array.Resize(ref recbuffer, ren + 1);
             }
             catch(Exception ex)
@@ -273,7 +273,7 @@ namespace Musics___Client
                             Playlist.Clear();
                             PlaylistIndex = 0;
                             UIPlaylist.Items.Clear();
-                            Music m = new Music()
+                            Music m = new Music
                             {
                                 MID = InPlaying.MID
                             };
@@ -920,7 +920,7 @@ namespace Musics___Client
             }
         }
 
-        private void UIEditMusicName_KeyDown(object sender, KeyEventArgs e)
+        void UIEditMusicName_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
