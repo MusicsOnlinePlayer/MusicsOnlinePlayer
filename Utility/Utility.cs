@@ -47,23 +47,23 @@ namespace Utility
     {
         public Element type = Element.Author;
 
-        public string Name;
+        public string Name { get; set; }
         public int Rating = 0;
 
-        public string MID;
-        public List<Album> albums;
-        public string ServerPath;
+        public string MID { get; set; }
+        public List<Album> Albums { get; set; }
+        public string ServerPath { get; set; }
 
         public Author(string name)
         {
             Name = name;
-            albums = new List<Album>();
+            Albums = new List<Album>();
             MID = Hash.SHA256Hash(Name + Element.Author);
         }
         public Author(string name,string Path)
         {
             Name = name;
-            albums = new List<Album>();
+            Albums = new List<Album>();
             MID = Hash.SHA256Hash(Name + Element.Author);
             ServerPath = Path;
         }
@@ -73,17 +73,17 @@ namespace Utility
     {
         public Element type = Element.Music;
 
-        public string Title;
-        public Author Author;
-        public Album Album;
-        public string Format;
-        public string ServerPath;
-        public string MID;
-        public string[] Genre;
+        public string Title { get; set; }
+        public Author Author { get; set; }
+        public Album Album { get; set; }
+        public string Format { get; set; }
+        public string ServerPath { get; set; }
+        public string MID { get; set; }
+        public string[] Genre { get; set; }
 
 
         public int Rating = 0;
-        public byte[] FileBinary;
+        public byte[] FileBinary { get; set; }
 
         public Music()
         {
@@ -118,13 +118,13 @@ namespace Utility
     {
         public Element type = Element.Album;
 
-        public string MID;
+        public string MID { get; set; }
 
-        public string Name;
-        public Author Author;
+        public string Name { get; set; }
+        public Author Author { get; set; }
         public int Rating = 0;
-        public List<Music> Musics;
-        public string ServerPath;
+        public List<Music> Musics { get; set; }
+        public string ServerPath { get; set; }
 
         public Album(Author author, string name)
         {
@@ -156,10 +156,10 @@ namespace Utility
     [Serializable]
     public class Playlist
     {
-        public User Creator;
-        public string Name;
+        public User Creator { get; set; }
+        public string Name { get; set; }
         public List<Music> musics = new List<Music>();
-        public bool Private;
+        public bool Private { get; set; }
 
         public Playlist(User creator,string name,List<Music> Musics,bool IsPrivate)
         {
@@ -189,6 +189,13 @@ namespace Utility
     [Serializable]
     public class User
     {
+        public string UID { get; set; }
+        public Rank Userrank { get; set; }
+
+        private string Password { get; set; }
+        public String Name { get; set; }
+        public bool Connected { get; set; }
+
         public User(){}
 
         public User(string UserName)
@@ -196,28 +203,23 @@ namespace Utility
             Name = UserName;
         }
 
-        public User(string name, string Password)
+        public User(string name, string UserPassword)
         {
             Name = name;
-            password = Password;
-            UID = Hash.SHA256Hash(name + password);
+            Password = UserPassword;
+            UID = Hash.SHA256Hash(name + UserPassword);
         }
 
 
-        public User(string name, string Password, Rank RankOf)
+        public User(string name, string UserPassword, Rank RankOf)
         {
             Name = name;
-            rank = RankOf;
-            password = Password;
-            UID = Hash.SHA256Hash(name + password);
+            Userrank = RankOf;
+            Password = UserPassword;
+            UID = Hash.SHA256Hash(name + UserPassword);
         }
 
-        public string UID;
-        public Rank rank;
-
-        private string password;
-        public String Name;
-        public bool Connected;
+        
     }
     public enum Rank{
         Viewer = 0,
@@ -354,104 +356,104 @@ namespace Utility
     [Serializable]
     public class Request
     {
-        public RequestsTypes requestsTypes;
+        public RequestsTypes RequestsTypes { get; set; }
 
         //Search
-        public string Name;
+        public string Name { get; set; }
         public Element Requested;
 
         //Binaries
-        public Music RequestedBinaries;
+        public Music RequestedBinaries { get; set; }
 
         //Favorites
-        public string UserID;
+        public string UserID { get; set; }
 
         //User
-        public string Username;
+        public string Username { get; set; }
 
         //Search
         public Request(string name, Element requested)
         {
             Requested = requested;
             Name = name;
-            requestsTypes = RequestsTypes.Search;
+            RequestsTypes = RequestsTypes.Search;
         }
 
         //Binaries
         public Request(Music requested)
         {
             RequestedBinaries = requested;
-            requestsTypes = RequestsTypes.MusicsBinaries;
+            RequestsTypes = RequestsTypes.MusicsBinaries;
         }
 
         //Favorites
         public Request(string UIDFavorites)
         {
             UserID = UIDFavorites;
-            requestsTypes = RequestsTypes.Favorites;
+            RequestsTypes = RequestsTypes.Favorites;
         }
 
         //User
         public Request(User SearchUser)
         {
             Username = SearchUser.Name;
-            requestsTypes = RequestsTypes.Users;
+            RequestsTypes = RequestsTypes.Users;
         }
     }
 
     [Serializable] 
     public class RequestAnswer
     {
-        public RequestsTypes requestsTypes;
+        public RequestsTypes RequestsTypes { get; set; }
 
-        public object AnswerList;
-        public Element Requested;
+        public object AnswerList { get; set; }
+        public Element Requested { get; set; }
 
-        public Music Binaries;
+        public Music Binaries { get; set; }
 
         public List<Music> Favorites = new List<Music>();
 
         public List<User> Users = new List<User>();
 
-        public bool IsAccepted;
+        public bool IsAccepted { get; set; }
 
         public RequestAnswer(object answerlist, Element requested)
         {
             Requested = requested;
             AnswerList = answerlist;
-            requestsTypes = RequestsTypes.Search;
+            RequestsTypes = RequestsTypes.Search;
         }
 
         public RequestAnswer(Music requested)
         {
             Binaries = requested;
-            requestsTypes = RequestsTypes.MusicsBinaries;
+            RequestsTypes = RequestsTypes.MusicsBinaries;
         }
 
         public RequestAnswer(List<Music> favorites)
         {
             Favorites = favorites;
-            requestsTypes = RequestsTypes.Favorites;
+            RequestsTypes = RequestsTypes.Favorites;
         }
 
         public RequestAnswer(List<User> AnswerUsers,bool IsRequestAccepted)
         {
             IsAccepted = IsRequestAccepted;
             Users = AnswerUsers;
-            requestsTypes = RequestsTypes.Users;
+            RequestsTypes = RequestsTypes.Users;
         }
     }
 
     [Serializable]
     public class SavePlaylist
     {
-        public string UID;
-        public Playlist playlist;
+        public string UID { get; set; }
+        public Playlist Playlist { get; set; }
 
-        public SavePlaylist(string UserId, Playlist Playlist)
+        public SavePlaylist(string UserId, Playlist UserPlaylist)
         {
             UID = UserId;
-           playlist = Playlist;
+            Playlist = UserPlaylist;
         }
     }
 
@@ -459,8 +461,8 @@ namespace Utility
     public class Login{
 
         
-        public User LoginInfo;
-        public bool IsSignup;
+        public User LoginInfo { get; set; }
+        public bool IsSignup { get; set; }
 
         public Login(User Logininfo,bool Signup)
         {
@@ -473,8 +475,8 @@ namespace Utility
     [Serializable]
     public class EditUser
     {
-        public string UIDOld;
-        public User NewUser;
+        public string UIDOld { get; set; }
+        public User NewUser { get; set; }
 
         public EditUser(string UserIdOld,User Newuser)
         {
@@ -486,8 +488,8 @@ namespace Utility
     [Serializable]
     public class EditUserReport
     {
-        public bool IsApproved;
-        public User NewUser;
+        public bool IsApproved { get; set; }
+        public User NewUser { get; set; }
 
         public EditUserReport(bool Approved, User Newuser)
         {
@@ -499,20 +501,20 @@ namespace Utility
     [Serializable]
     public class AuthInfo
     {
-        public bool IsAccepted;
-        public Rank rankofAuthUser;
+        public bool IsAccepted { get; set; }
+        public Rank RankofAuthUser { get; set; }
 
         public AuthInfo(bool Accepted,Rank RankOfUser)
         {
             IsAccepted = Accepted;
-            rankofAuthUser = RankOfUser;
+            RankofAuthUser = RankOfUser;
         }
     }
 
     [Serializable]
     public class Rate
     {
-        public string MusicRatedMID;
+        public string MusicRatedMID { get; set; }
 
         public Rate(string RatedMusicMID)
         {
@@ -523,9 +525,9 @@ namespace Utility
     [Serializable]
     public class RateReport
     {
-        public bool ReportOk;
-        public string MID;
-        public int UpdatedRating;
+        public bool ReportOk { get; set; }
+        public string MID { get; set; }
+        public int UpdatedRating { get; set; }
 
         public RateReport(bool Reportok,string MusicID, int NewRating)
         {
@@ -552,14 +554,14 @@ namespace Utility
     [Serializable]
     public class EditRequest
     {
-        public TypesEdit TypeOfEdit;
+        public TypesEdit TypeOfEdit { get; set; }
 
-        public string UserToEdit;
-        public Rank NewRankOfUser;
+        public string UserToEdit { get; set; }
+        public Rank NewRankOfUser { get; set; }
 
-        public object ObjectToEdit;
-        public string NewName;
-        public Element TypeOfObject;
+        public object ObjectToEdit { get; set; }
+        public string NewName { get; set; }
+        public Element TypeOfObject { get; set; }
 
         public EditRequest(string UIDToEdit,Rank NewRank)
         {

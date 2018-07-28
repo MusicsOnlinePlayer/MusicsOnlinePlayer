@@ -39,8 +39,8 @@ namespace Musics___Client
 
             UIAccountName.Text = Me.Name;
             UIAccountId.Text = Me.UID;
-            this.Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + authInfo.rankofAuthUser.ToString();
-            UIRank.Text = authInfo.rankofAuthUser.ToString();
+            this.Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + authInfo.RankofAuthUser.ToString();
+            UIRank.Text = authInfo.RankofAuthUser.ToString();
 
             try
             {
@@ -194,7 +194,7 @@ namespace Musics___Client
             {
                 RequestAnswer searchAnswer = obj as RequestAnswer;
 
-                if (searchAnswer.requestsTypes == RequestsTypes.Search)
+                if (searchAnswer.RequestsTypes == RequestsTypes.Search)
                 {
                     Invoke((MethodInvoker)delegate
                     {
@@ -256,7 +256,7 @@ namespace Musics___Client
                         ChangeDescription();
                     });
                 }
-                if (searchAnswer.requestsTypes == RequestsTypes.MusicsBinaries)
+                if (searchAnswer.RequestsTypes == RequestsTypes.MusicsBinaries)
                 {
                     InPlaying = searchAnswer.Binaries;
 
@@ -303,7 +303,7 @@ namespace Musics___Client
 
 
                 }
-                if (searchAnswer.requestsTypes == RequestsTypes.Favorites)
+                if (searchAnswer.RequestsTypes == RequestsTypes.Favorites)
                 {
                     UILikedMusicsList.Items.Clear();
                     LikedMusics.Clear();
@@ -313,7 +313,7 @@ namespace Musics___Client
                         LikedMusics.Add(m);
                     }
                 }
-                if (searchAnswer.requestsTypes == RequestsTypes.Users)
+                if (searchAnswer.RequestsTypes == RequestsTypes.Users)
                 {
                     if (searchAnswer.IsAccepted)
                     {
@@ -369,8 +369,8 @@ namespace Musics___Client
                         Me = tmp.NewUser;
                         UIAccountName.Text = Me.Name + " (Modified)";
                         UIAccountId.Text = Me.UID;
-                        this.Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + Me.rank.ToString();
-                        UIRank.Text = Me.rank.ToString();
+                        this.Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + Me.Userrank.ToString();
+                        UIRank.Text = Me.Userrank.ToString();
                     });
                 }
                 else
@@ -579,7 +579,7 @@ namespace Musics___Client
                     UISearchListbox.Items.Clear();
                     SearchlistboxItems.Clear();
 
-                    foreach (var m in tmp.albums)
+                    foreach (var m in tmp.Albums)
                     {
                         UISearchListbox.Items.Add(m.Name);
                         SearchlistboxItems.Add(m);
@@ -876,18 +876,18 @@ namespace Musics___Client
             {
                 UIPanelEditUser.Visible = true;
 
-                UIAdminUser.Text = UIUsersResult.Text + " - " + UserSearchResult[UIUsersResult.SelectedIndex].rank.ToString();
+                UIAdminUser.Text = UIUsersResult.Text + " - " + UserSearchResult[UIUsersResult.SelectedIndex].Userrank.ToString();
                 UIAdminUID.Text = UserSearchResult[UIUsersResult.SelectedIndex].UID;
 
                 UIEditUserRank.Items.Clear();
 
                 List<string> r = Enum.GetNames(typeof(Rank)).OfType<string>().ToList();
-                for (int i = 0; i < (int)Me.rank; i++)
+                for (int i = 0; i < (int)Me.Userrank; i++)
                 {
                     UIEditUserRank.Items.Add(r[i]);
                 }
 
-                UIEditUserRank.SelectedIndex = (int)UserSearchResult[UIUsersResult.SelectedIndex].rank;
+                UIEditUserRank.SelectedIndex = (int)UserSearchResult[UIUsersResult.SelectedIndex].Userrank;
             }
         }
 
@@ -896,7 +896,7 @@ namespace Musics___Client
         private void UIEditUserConfirm_Click(object sender, EventArgs e)
         {
 
-            if (UIEditUserRank.SelectedIndex != (int)UserSearchResult[UIUsersResult.SelectedIndex].rank && Enum.TryParse(UIEditUserRank.SelectedItem.ToString(), out Rank rank))
+            if (UIEditUserRank.SelectedIndex != (int)UserSearchResult[UIUsersResult.SelectedIndex].Userrank && Enum.TryParse(UIEditUserRank.SelectedItem.ToString(), out Rank rank))
             {
 
                 SendObject(new EditRequest(UserSearchResult[UIUsersResult.SelectedIndex].UID, rank));
@@ -924,7 +924,7 @@ namespace Musics___Client
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if ((int)Me.rank > 1 && UIEditMusicName.Text != null)
+                if ((int)Me.Userrank > 1 && UIEditMusicName.Text != null)
                 {
                     SendObject(new EditRequest(selected,UIEditMusicName.Text,typeOfSelected));
                     UIEditMusicName.Visible = false;
