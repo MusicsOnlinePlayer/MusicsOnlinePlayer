@@ -42,7 +42,7 @@ namespace Musics___Server.MusicsManagement
             List<Music> tmp = new List<Music>();
             foreach (var a in Indexation.ServerMusics)
             {
-                foreach (var al in a.albums)
+                foreach (var al in a.Albums)
                 {
                     foreach (var m in al.Musics)
                     {
@@ -75,7 +75,7 @@ namespace Musics___Server.MusicsManagement
                 {
                     if (!Path.GetFileNameWithoutExtension(a).Contains("-ignore"))
                     {
-                        CurrentArtist.albums.Add(new Album(CurrentArtist, Path.GetFileName(a),a));
+                        CurrentArtist.Albums.Add(new Album(CurrentArtist, Path.GetFileName(a),a));
 
                         //Console.WriteLine(" " + CurrentArtist.albums.Last().Name);
 
@@ -111,7 +111,7 @@ namespace Musics___Server.MusicsManagement
 
                                 NumberofMusics++;
 
-                                CurrentArtist.albums[i].Musics.Add(current);
+                                CurrentArtist.Albums[i].Musics.Add(current);
 
                                 //Console.WriteLine("     " + current.Title);
                             }
@@ -136,7 +136,7 @@ namespace Musics___Server.MusicsManagement
                 Music tmpOrigin = Origin as Music;
                 foreach (var a in Indexation.ServerMusics)
                 {
-                    foreach (var al in a.albums)
+                    foreach (var al in a.Albums)
                     {
                         foreach (var m in al.Musics)
                         {
@@ -161,7 +161,7 @@ namespace Musics___Server.MusicsManagement
                 Album tmpOrigin = Origin as Album;
                 foreach (var a in Indexation.ServerMusics)
                 {
-                    foreach (var al in a.albums)
+                    foreach (var al in a.Albums)
                     {
                         if (al.MID == tmpOrigin.MID)
                         {

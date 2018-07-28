@@ -122,7 +122,7 @@ namespace Utility
 
         public string Name { get; set; }
         public Author Author { get; set; }
-        public int Rating = 0;
+        public int Rating { get; set; }
         public List<Music> Musics { get; set; }
         public string ServerPath { get; set; }
 
@@ -360,7 +360,7 @@ namespace Utility
 
         //Search
         public string Name { get; set; }
-        public Element Requested;
+        public Element Requested { get; set; }
 
         //Binaries
         public Music RequestedBinaries { get; set; }

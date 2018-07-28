@@ -116,7 +116,7 @@ namespace Musics___Client
         {
             UIErrorLogin.Text = "";
         }
-        Settings settingsForm = new Settings();
+        readonly Settings settingsForm = new Settings();
 
         void UISettings_Click(object sender, EventArgs e)
         {   

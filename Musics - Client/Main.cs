@@ -17,11 +17,11 @@ namespace Musics___Client
 
     public partial class Client : Form
     {
-        public Socket _clientSocket;
-        public User Me;
+        public Socket _clientSocket { get; set; }
+        public User Me { get; set; }
         public IPAddress ip = IPAddress.Loopback;
 
-        private HueMusic HueMusic = new HueMusic();
+        private readonly HueMusic HueMusic = new HueMusic();
 
         public Client()
         {
@@ -624,8 +624,8 @@ namespace Musics___Client
             }
         }
 
-        private List<Music> Playlist = new List<Music>();
-        private int PlaylistIndex = 0;
+        private readonly List<Music> Playlist = new List<Music>();
+        private int PlaylistIndex;
 
         private void UIAddPlaylistUnder_Click(object sender, EventArgs e)
         {
@@ -694,7 +694,7 @@ namespace Musics___Client
             
         }
 
-        private void UIPathAlbum_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        void UIPathAlbum_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (SearchlistboxItems.Count != 0)
             {
@@ -805,7 +805,7 @@ namespace Musics___Client
             }
         }
 
-        private void HueTimer_Tick(object sender, EventArgs e)
+        private async void HueTimer_Tick(object sender, EventArgs e)
         {
             var enumerator = new MMDeviceEnumerator();
             var device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
@@ -815,7 +815,7 @@ namespace Musics___Client
 
             try
             {
-                HueMusic.TurnOnLight(new Q42.HueApi.ColorConverters.RGBColor(100, 100, 100), Convert.ToByte(10 * scale));
+                await HueMusic.TurnOnLight(new Q42.HueApi.ColorConverters.RGBColor(100, 100, 100), Convert.ToByte(10 * scale));
             }
             catch { }
         }
@@ -857,7 +857,7 @@ namespace Musics___Client
 
         #region EditUser
 
-        List<User> UserSearchResult = new List<User>();
+        readonly List<User> UserSearchResult = new List<User>();
 
         private void UISearchUser_KeyDown(object sender, KeyEventArgs e)
         {

@@ -52,7 +52,7 @@ namespace Musics___Client.Hue
 
 
 
-        public async void TurnOnLight(RGBColor RgbColor,byte Brightness)
+        public async Task TurnOnLight(RGBColor RgbColor,byte Brightness)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace Musics___Client.Hue
             }
             catch { }
         }
-        public async void TurnOffLight(List<string> Lights)
+        public async Task TurnOffLight(List<string> Lights)
         {
             try
             {

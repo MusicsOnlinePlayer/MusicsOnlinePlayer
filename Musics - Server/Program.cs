@@ -64,7 +64,7 @@ namespace Musics___Server
                     Console.WriteLine("~ Getting all connected users");
                     foreach (User u in Clients.List.Values)
                     {
-                        Console.WriteLine(" - " + u.Name + " " + u.rank.ToString() + " " + u.UID);
+                        Console.WriteLine(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
                     }
                     Console.WriteLine("End.");
                 }
@@ -73,7 +73,7 @@ namespace Musics___Server
                     Console.WriteLine("~ Getting all users");
                     foreach (User u in UsersInfos.GetAllUsers())
                     {
-                        Console.WriteLine(" - " + u.Name + " " + u.rank.ToString() + " " + u.UID);
+                        Console.WriteLine(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
                     }
                     Console.WriteLine("End.");
                 }
@@ -107,7 +107,7 @@ namespace Musics___Server
             User tmpUser = Clients.GetUser(UID);
             if (tmpUser != null)
             {
-                tmpUser.rank = rank;
+                tmpUser.Userrank = rank;
                 Socket tmpSocket = Clients.GetSocket(UID);
                 Clients.List.Remove(tmpSocket);
                 Clients.AddUser(tmpUser, tmpSocket);
@@ -237,7 +237,7 @@ namespace Musics___Server
                 {
                     Request request = received as Request;
 
-                    switch (request.requestsTypes)
+                    switch (request.RequestsTypes)
                     {
                         case RequestsTypes.Search:
                             Console.WriteLine("Request by client :" + request.Name);
@@ -248,7 +248,7 @@ namespace Musics___Server
 
                             foreach (Author a in Indexation.ServerMusics)
                             {
-                                foreach (Album al in a.albums)
+                                foreach (Album al in a.Albums)
                                 {
                                     foreach (Music m in al.Musics)
                                     {
@@ -273,7 +273,7 @@ namespace Musics___Server
                             SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(request.UserID)), socket);
                             break;
                         case RequestsTypes.Users:
-                            if(Clients.GetUser(socket).rank != Rank.Viewer)
+                            if(Clients.GetUser(socket).Userrank != Rank.Viewer)
                             {
                                 SendObject(new RequestAnswer(UsersInfos.SearchUser(request.Username), true),socket);
                             }
@@ -294,7 +294,7 @@ namespace Musics___Server
 
                     foreach (var a in Indexation.ServerMusics)
                     {
-                        foreach (var al in a.albums)
+                        foreach (var al in a.Albums)
                         {
                             foreach (var m in al.Musics)
                             {
@@ -355,7 +355,7 @@ namespace Musics___Server
                             }
                             break;
                         case TypesEdit.Musics:
-                            if((int)Clients.GetUser(socket).rank > 1)
+                            if((int)Clients.GetUser(socket).Userrank > 1)
                             {
                                 Indexation.ModifyElement(tmp.ObjectToEdit, tmp.NewName);
                             }
@@ -365,7 +365,7 @@ namespace Musics___Server
                 if(received is SavePlaylist)
                 {
                     SavePlaylist tmp = received as SavePlaylist;
-                    UsersInfos.SaveUserPlaylist(tmp.UID, tmp.playlist);
+                    UsersInfos.SaveUserPlaylist(tmp.UID, tmp.Playlist);
                 }
             }
             else
@@ -390,7 +390,7 @@ namespace Musics___Server
                             Rank RankUser = UsersInfos.GetRankOfUser(auth.LoginInfo.UID);
                             SendObject(new AuthInfo(true, RankUser ), socket);
                             Clients.List.Remove(socket);
-                            auth.LoginInfo.rank = RankUser;
+                            auth.LoginInfo.Userrank = RankUser;
                             Clients.AddUser(auth.LoginInfo, socket);
                         }
                         else

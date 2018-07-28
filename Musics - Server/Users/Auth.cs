@@ -23,7 +23,7 @@ namespace Musics___Server.Authentification
             }
         }
 
-        XmlDocument doc = new XmlDocument();
+        readonly XmlDocument doc = new XmlDocument();
 
         public void SignupUser(User user)
         {
@@ -41,7 +41,7 @@ namespace Musics___Server.Authentification
                 nodeUser.AppendChild(nodeUID);
 
                 XmlNode nodeRank = doc.CreateElement("Rank");
-                nodeRank.InnerText = user.rank.ToString();
+                nodeRank.InnerText = user.Userrank.ToString();
                 nodeUser.AppendChild(nodeRank);
 
                 XmlNode nodeRatedMusics = doc.CreateElement("RatedMusics");

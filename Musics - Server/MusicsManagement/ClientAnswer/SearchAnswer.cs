@@ -25,9 +25,9 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                         if (Found)
                         {
                             Author author = new Author(a.Name);
-                            foreach (var al in a.albums)
+                            foreach (var al in a.Albums)
                             {
-                                author.albums.Add(new Album(new Author(a.Name), al.Name));
+                                author.Albums.Add(new Album(new Author(a.Name), al.Name));
                                 foreach (var m in al.Musics)
                                 {
                                     Music temp = new Music(m.Title, author, "")
@@ -36,7 +36,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                                         Album = new Album(al.Name),
                                         Genre = m.Genre
                                     };
-                                    author.albums.Last().Add(temp);
+                                    author.Albums.Last().Add(temp);
                                 }
                             }
                             result.Add(author);
@@ -54,7 +54,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
 
                     foreach (Author a in Indexation.ServerMusics)
                     {
-                        foreach (Album al in a.albums)
+                        foreach (Album al in a.Albums)
                         {
                             bool Found = Search.Find(requestSearch.Name, al.Name);
                             if (Found)
@@ -83,7 +83,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
 
                     foreach (Author a in Indexation.ServerMusics)
                     {
-                        foreach (Album al in a.albums)
+                        foreach (Album al in a.Albums)
                         {
                             foreach (Music m in al.Musics)
                             {
