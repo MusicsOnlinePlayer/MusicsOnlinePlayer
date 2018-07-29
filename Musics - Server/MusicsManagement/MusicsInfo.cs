@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace Musics___Server.MusicsInformation
 {
-    class MusicsInfo
+    static class MusicsInfo
     {
         public static void SetupMusics()
         {
@@ -144,10 +144,6 @@ namespace Musics___Server.MusicsInformation
 
                     
                 }
-                else
-                {
-                    throw new Exception("MID of music is null");
-                }
             }
             doc.Save(@"Musics.xml");
         }
@@ -184,10 +180,7 @@ namespace Musics___Server.MusicsInformation
                     {
                         temp.Rating = Convert.ToInt32(n["Rating"].InnerText);
                     }
-                    catch
-                    {
-                        throw new Exception("Impossible to get Music info : Rating");
-                    }
+                    catch { }
                     return temp;
                 }
             }

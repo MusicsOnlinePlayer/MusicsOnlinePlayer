@@ -4,7 +4,7 @@ using Utility;
 
 namespace Musics___Server.MusicsManagement.Trending
 {
-    class Manager
+    static class Manager
     {
         static public List<Music> GetTrending()
         {

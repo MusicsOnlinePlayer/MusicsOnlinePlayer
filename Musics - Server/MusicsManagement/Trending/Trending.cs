@@ -26,12 +26,6 @@ namespace Musics___Server.MusicsManagement.Trending
             return (from val in musics.Take(length) select val.Key).ToList();
         }
 
-
-        static List<Music> GetMostLikedMusicByDay()
-        {
-            return null;
-        }
-
         static List<Music> GetMostLikedMusicByGenre(string Genre, int length)
         {
             Dictionary<Music, int> musics = new Dictionary<Music, int>();
@@ -49,10 +43,13 @@ namespace Musics___Server.MusicsManagement.Trending
             musics.ToList().Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
 
             return (from val in musics.Take(length) select val.Key).ToList();
-        }
-        static List<Music> GetMostLikedMusicByDayByGenre(string Genre)
+        }                   
+
+        static List<string> GetMostPopularGenre()
         {
-            return null;
+            var LikedMusic = GetMostLikedMusic(10);
+            return (from val in LikedMusic select val.Genre).Cast<string>().ToList();
+
         }
     }
 }

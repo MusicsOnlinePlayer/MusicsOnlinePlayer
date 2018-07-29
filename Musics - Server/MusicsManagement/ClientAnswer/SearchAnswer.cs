@@ -7,7 +7,7 @@ using System.Net.Sockets;
 
 namespace Musics___Server.MusicsManagement.ClientSearch
 {
-    class SearchAnswer
+    static class SearchAnswer
     {
         public static void Do(Request requestSearch, Socket asker)
         {

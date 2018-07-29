@@ -5,7 +5,7 @@ using Utility;
 using Musics___Server.MusicsManagement;
 namespace Musics___Server.Usersinfos
 {
-    class UsersInfos
+    static class UsersInfos
     {
         public static void AddVoteMusic(string MID, string UID)
         {
@@ -218,7 +218,6 @@ namespace Musics___Server.Usersinfos
                 if (n["UID"].InnerText == UID)
                 {
                     XmlNode playlistnode = doc.CreateElement("Playlist");
-                    //playlistnode.InnerText = playlist.Name;
 
                     xmlAttributeName = doc.CreateAttribute("Name");
                     xmlAttributeName.InnerText = playlist.Name;

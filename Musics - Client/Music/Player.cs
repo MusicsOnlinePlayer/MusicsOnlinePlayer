@@ -13,18 +13,16 @@ namespace Musics___Client
     {
         public WindowsMediaPlayer player = new WindowsMediaPlayer();
 
-        
-
         public void PlayMusic(Music music)
         {
             player.controls.stop();
             player.close();
 
             if (!Directory.Exists(@"c:\MusicsFiles"))
+            {
                 Directory.CreateDirectory(@"c:\MusicsFiles");
-
-            //File.Create(@"c:\MusicsFiles\20030720.mp3");
-
+            }
+                
             string path = @"c:\MusicsFiles\" + music.Title + music.Format;
 
 
