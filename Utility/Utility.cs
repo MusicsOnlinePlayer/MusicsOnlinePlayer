@@ -349,7 +349,8 @@ namespace Utility
         Search,
         MusicsBinaries,
         Favorites,
-        Users
+        Users,
+        Trending
     }
 
 
@@ -370,6 +371,8 @@ namespace Utility
 
         //User
         public string Username { get; set; }
+
+        //Trending
 
         //Search
         public Request(string name, Element requested)
@@ -399,6 +402,12 @@ namespace Utility
             Username = SearchUser.Name;
             RequestsTypes = RequestsTypes.Users;
         }
+
+        //User
+        public Request()
+        {
+            RequestsTypes = RequestsTypes.Trending;
+        }
     }
 
     [Serializable] 
@@ -416,6 +425,8 @@ namespace Utility
         public List<User> Users = new List<User>();
 
         public bool IsAccepted { get; set; }
+
+        public List<Music[]> Trending = new List<Music[]>();
 
         public RequestAnswer(object answerlist, Element requested)
         {
@@ -441,6 +452,12 @@ namespace Utility
             IsAccepted = IsRequestAccepted;
             Users = AnswerUsers;
             RequestsTypes = RequestsTypes.Users;
+        }
+
+        public RequestAnswer(List<Music[]> Servertrending)
+        {
+            Trending = Servertrending;
+            RequestsTypes = RequestsTypes.Trending;
         }
     }
 

@@ -4,11 +4,18 @@ using Utility;
 
 namespace Musics___Server.MusicsManagement.Trending
 {
-    static class Manager
+    class Manager
     {
-        static public List<Music> GetTrending()
+        public static List<Music[]> GenreTrending = new List<Music[]>();
+        
+        static public void RefreshTrending()
         {
-            return null;
+            GenreTrending.Clear();
+
+            foreach(var genre in Trending.GetMostPopularGenre())
+            {
+                GenreTrending.Add(Trending.GetMostLikedMusicByGenre(genre, 10).ToArray());
+            }
         }
         static public List<Music> GetTrendingByGenres(string Genre)
         {

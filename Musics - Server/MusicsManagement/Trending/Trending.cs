@@ -9,9 +9,9 @@ using Musics___Server.MusicsManagement;
 
 namespace Musics___Server.MusicsManagement.Trending
 {
-    class Trending
+    public class Trending
     {
-        static List<Music> GetMostLikedMusic(int length)
+        static public List<Music> GetMostLikedMusic(int length)
         {
             Dictionary<Music, int> musics = new Dictionary<Music, int>();
 
@@ -26,7 +26,7 @@ namespace Musics___Server.MusicsManagement.Trending
             return (from val in musics.Take(length) select val.Key).ToList();
         }
 
-        static List<Music> GetMostLikedMusicByGenre(string Genre, int length)
+        static public List<Music> GetMostLikedMusicByGenre(string Genre, int length)
         {
             Dictionary<Music, int> musics = new Dictionary<Music, int>();
 
@@ -36,7 +36,7 @@ namespace Musics___Server.MusicsManagement.Trending
                 
                 if (m.Genre.Contains(Genre))
                 {
-                    musics.Add(m, m.Rating);
+                    musics.Add(new Music(m.Title,new Author(m.Author.Name),null,m.Rating), m.Rating);
                 }              
             }
 
@@ -45,7 +45,7 @@ namespace Musics___Server.MusicsManagement.Trending
             return (from val in musics.Take(length) select val.Key).ToList();
         }                   
 
-        static List<string> GetMostPopularGenre()
+        static public List<string> GetMostPopularGenre()
         {
             var LikedMusic = GetMostLikedMusic(10);
             return (from val in LikedMusic select val.Genre).Cast<string>().ToList();
