@@ -37,7 +37,7 @@ namespace Musics___Server
 
             Indexation.SaveAllInfos();
 
-            Manager.RefreshTrending();
+            //Manager.RefreshTrending();
 
             string entry = "";
 
@@ -154,7 +154,7 @@ namespace Musics___Server
 
             socket.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.Partial, ReceiveCallback, socket);
             Clients.AddUser(new User(), socket);
-            Console.WriteLine("Client connected =)");
+            Console.WriteLine("Client connected with ip : "+ socket.RemoteEndPoint.ToString());
             serverSocket.BeginAccept(AcceptCallback, null);
         }
 
