@@ -9,6 +9,7 @@ using Musics___Server.Usersinfos;
 using Musics___Server.MusicsInformation;
 using Musics___Server.MusicsManagement;
 using Musics___Server.MusicsManagement.ClientSearch;
+using Musics___Server.MusicsManagement.Trending;
 
 namespace Musics___Server
 {
@@ -36,6 +37,7 @@ namespace Musics___Server
 
             Indexation.SaveAllInfos();
 
+            Manager.RefreshTrending();
 
             string entry = "";
 
@@ -281,6 +283,9 @@ namespace Musics___Server
                             {
                                 SendObject(new RequestAnswer(null, false),socket);
                             }
+                            break;
+                        case RequestsTypes.Trending:
+                            SendObject(new RequestAnswer(Manager.GenreTrending),socket);
                             break;
                     }
                 }

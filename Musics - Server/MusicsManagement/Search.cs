@@ -2,14 +2,12 @@
 
 namespace Musics___Server.MusicsManagement
 {
-    class Search
+    static class Search
     {
         public static bool Find(string s, string t)
         {
-            s = s.ToLower();
-            t = t.ToLower();
 
-            if (t.Contains(s))
+            if (t.ToLower().Contains(s.ToLower()))
             {
                 return true;
             }

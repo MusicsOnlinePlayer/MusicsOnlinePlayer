@@ -32,8 +32,7 @@ namespace Musics___Server.MusicsManagement.Trending
 
 
             foreach (var m in Indexation.GetAllMusics())
-            {
-                
+            {                
                 if (m.Genre.Contains(Genre))
                 {
                     musics.Add(new Music(m.Title,new Author(m.Author.Name),null,m.Rating), m.Rating);
