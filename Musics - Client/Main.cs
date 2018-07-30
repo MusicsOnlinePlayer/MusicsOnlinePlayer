@@ -964,5 +964,17 @@ namespace Musics___Client
 
         #endregion
 
+        #region Upload
+
+
+        Upload uploadForm;
+
+        private void UIUpload_Click(object sender, EventArgs e)
+        {
+            uploadForm = new Upload();
+            uploadForm.ShowDialog();
+        }
+
+        #endregion
     }
 }

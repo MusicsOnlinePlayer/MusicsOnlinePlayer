@@ -227,6 +227,12 @@
     <Compile Include="Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Upload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Upload.Designer.cs">
+      <DependentUpon>Upload.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -240,6 +246,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Upload.resx">
+      <DependentUpon>Upload.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Musics - Client_TemporaryKey.pfx" />
     <None Include="packages.config" />
