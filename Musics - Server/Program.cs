@@ -157,7 +157,7 @@ namespace Musics___Server
             Console.WriteLine("Client connected with ip : "+ socket.RemoteEndPoint.ToString());
             serverSocket.BeginAccept(AcceptCallback, null);
         }
-
+         ,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
         private static void ReceiveCallback(IAsyncResult ar)
         {
             Socket current = (Socket)ar.AsyncState;
@@ -206,10 +206,6 @@ namespace Musics___Server
 
             }
         }
-
-
-
-
 
         private static void TreatRequest(byte[] Buffer, Socket socket)
         {
@@ -404,12 +400,7 @@ namespace Musics___Server
                         }
                     }
                 }
-            }
-
-
+            }           
         }
-
-       
-
     }
 }
