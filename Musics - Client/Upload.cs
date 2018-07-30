@@ -13,6 +13,9 @@ namespace Musics___Client
         public Upload()
         {
             InitializeComponent();
+            UIMusicInformation.View = View.Details;
+            UIMusicInformation.Columns.Add("Info",-2,HorizontalAlignment.Left);
+            UIMusicInformation.Columns.Add("User Input", -2, HorizontalAlignment.Left);
         }
 
         string[] FilesPath;
@@ -47,8 +50,7 @@ namespace Musics___Client
 
         private void Upload_Load(object sender, EventArgs e)
         {
-            UIMusicInformation.Columns.Add("Info", 100);
-            UIMusicInformation.Columns.Add("User Input",400);
+
         }
 
         private void UIMusicsBoxList_SelectedIndexChanged(object sender, EventArgs e)

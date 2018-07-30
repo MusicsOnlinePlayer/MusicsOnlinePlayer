@@ -33,8 +33,6 @@
             this.UIUploadButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.UIMusicInformation = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.UIMusicsBoxList = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
@@ -83,23 +81,13 @@
             // 
             // UIMusicInformation
             // 
-            this.UIMusicInformation.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
             this.UIMusicInformation.LabelEdit = true;
             this.UIMusicInformation.Location = new System.Drawing.Point(22, 212);
+            this.UIMusicInformation.MultiSelect = false;
             this.UIMusicInformation.Name = "UIMusicInformation";
             this.UIMusicInformation.Size = new System.Drawing.Size(376, 133);
             this.UIMusicInformation.TabIndex = 5;
             this.UIMusicInformation.UseCompatibleStateImageBehavior = false;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Information";
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "User Input";
             // 
             // UIMusicsBoxList
             // 
@@ -135,8 +123,6 @@
         private System.Windows.Forms.Button UIUploadButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ListView UIMusicInformation;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ComboBox UIMusicsBoxList;
     }
 }
