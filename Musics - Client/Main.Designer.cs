@@ -1211,7 +1211,7 @@
             this.UIPlayingMusic.AutoSize = true;
             this.UIPlayingMusic.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPlayingMusic.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.UIPlayingMusic.Location = new System.Drawing.Point(50, 12);
+            this.UIPlayingMusic.Location = new System.Drawing.Point(11, 10);
             this.UIPlayingMusic.Name = "UIPlayingMusic";
             this.UIPlayingMusic.Size = new System.Drawing.Size(127, 31);
             this.UIPlayingMusic.TabIndex = 2;
