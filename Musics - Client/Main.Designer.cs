@@ -313,11 +313,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.23116F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.76884F));
-<<<<<<< HEAD
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 254F));
-=======
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 253F));
->>>>>>> master
             this.tableLayoutPanel1.Controls.Add(this.UIPathMusic, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAlbum, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAuthor, 0, 0);
@@ -334,11 +330,7 @@
             this.UIPathMusic.AutoSize = true;
             this.UIPathMusic.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathMusic.LinkColor = System.Drawing.Color.Blue;
-<<<<<<< HEAD
             this.UIPathMusic.Location = new System.Drawing.Point(368, 0);
-=======
-            this.UIPathMusic.Location = new System.Drawing.Point(369, 0);
->>>>>>> master
             this.UIPathMusic.Name = "UIPathMusic";
             this.UIPathMusic.Size = new System.Drawing.Size(42, 14);
             this.UIPathMusic.TabIndex = 19;
@@ -1235,7 +1227,7 @@
             this.UIPlayingMusic.AutoSize = true;
             this.UIPlayingMusic.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPlayingMusic.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.UIPlayingMusic.Location = new System.Drawing.Point(11, 10);
+            this.UIPlayingMusic.Location = new System.Drawing.Point(50, 12);
             this.UIPlayingMusic.Name = "UIPlayingMusic";
             this.UIPlayingMusic.Size = new System.Drawing.Size(127, 31);
             this.UIPlayingMusic.TabIndex = 2;

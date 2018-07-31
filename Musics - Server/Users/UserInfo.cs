@@ -26,9 +26,12 @@ namespace Musics___Server.Usersinfos
                             if (nM["MID"].InnerText == MID)
                             {
                                 nM.ParentNode.RemoveChild(nM);
+
                             }
+
                         }
                         doc.Save(@"users.xml");
+
                     }
                     else
                     {
@@ -43,6 +46,7 @@ namespace Musics___Server.Usersinfos
                     }
                 }
             }
+
         }
 
         public static List<Music> GetLikedMusics(string UserID)
@@ -88,6 +92,7 @@ namespace Musics___Server.Usersinfos
                         {
                             return true;
                         }
+
                     }
                 }
             }
@@ -118,6 +123,7 @@ namespace Musics___Server.Usersinfos
 
         public static User GetUser(string UID)
         {
+
             XmlDocument doc = new XmlDocument();
             doc.Load(@"users.xml");
 
@@ -136,6 +142,7 @@ namespace Musics___Server.Usersinfos
 
                     return tmp;
                 }
+
             }
             return null;
         }
@@ -164,6 +171,7 @@ namespace Musics___Server.Usersinfos
             }
             return UsersList;
         }
+
 
         public static Rank GetRankOfUser(string UID)
         {
@@ -217,6 +225,7 @@ namespace Musics___Server.Usersinfos
                     xmlAttributeProtection = doc.CreateAttribute("Level");
                     xmlAttributeProtection.InnerText = playlist.Private.ToString();
 
+
                     playlistnode.Attributes.Append(xmlAttributeProtection);
                     playlistnode.Attributes.Append(xmlAttributeName);
 
@@ -226,6 +235,7 @@ namespace Musics___Server.Usersinfos
                         nodeMusic.InnerText = m.MID;
                         playlistnode.AppendChild(nodeMusic);
                     }
+
 
                     n["UserPlaylists"].AppendChild(playlistnode);
                 }
@@ -265,8 +275,10 @@ namespace Musics___Server.Usersinfos
                     {
                         playlist.Private = false;
                         playlists.Add(playlist);
-                    }                 
-                }               
+                    }
+                  
+                }
+                
             }
             return playlists;
         }
