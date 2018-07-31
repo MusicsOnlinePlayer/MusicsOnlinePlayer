@@ -26,12 +26,9 @@ namespace Musics___Server.Usersinfos
                             if (nM["MID"].InnerText == MID)
                             {
                                 nM.ParentNode.RemoveChild(nM);
-
                             }
-
                         }
                         doc.Save(@"users.xml");
-
                     }
                     else
                     {
@@ -46,7 +43,6 @@ namespace Musics___Server.Usersinfos
                     }
                 }
             }
-
         }
 
         public static List<Music> GetLikedMusics(string UserID)
