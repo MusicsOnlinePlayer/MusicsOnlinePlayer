@@ -14,8 +14,7 @@ using NAudio.CoreAudioApi;
 using Musics___Client.MusicsUtils;
 
 namespace Musics___Client
-{
-
+{ 
     public partial class Client : Form
     {
         public Socket _clientSocket { get; set; }
@@ -361,7 +360,6 @@ namespace Musics___Client
                 }
             }
         }
-
 
         Player p = new Player();
 
@@ -885,7 +883,6 @@ namespace Musics___Client
         #endregion
 
         #region Upload
-
 
         Upload uploadForm;
 
