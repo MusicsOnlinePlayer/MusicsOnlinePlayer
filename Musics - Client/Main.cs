@@ -14,7 +14,6 @@ using NAudio.CoreAudioApi;
 
 namespace Musics___Client
 {
-
     public partial class Client : Form
     {
         public Socket _clientSocket { get; set; }
@@ -26,8 +25,6 @@ namespace Musics___Client
         public Client()
         {
             InitializeComponent();
-
-
         }
 
         private void Client_Load(object sender, EventArgs e)
@@ -49,22 +46,18 @@ namespace Musics___Client
                     UIHueApi.Text = Properties.Settings.Default.HueKey;
                     UIHueIp.Text = Properties.Settings.Default.HueIp;
                 }
-            }
-            catch { }
+            } catch { }
 
             SendObject(new Request(Me.UID));
-
         }
 
         #region Network
 
         private void Client_FormClosed(object sender, FormClosedEventArgs e)
         {
-
             _clientSocket.Shutdown(SocketShutdown.Both);
             _clientSocket.Close();
         }
-
 
         public void Connect()
         {
@@ -77,20 +70,14 @@ namespace Musics___Client
                     ReceiveTimeout = 600000
                 };
                 _clientSocket.BeginConnect(ip, new AsyncCallback(ConnectCallBack), null);
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
             }
 
-
             p.player.PlayStateChange += Player_PlayStateChange;
-        }
-
-        
+        }        
        
         private void Player_PlayStateChange(int NewState)
         {
@@ -110,13 +97,10 @@ namespace Musics___Client
         {
             try
             {
-
                 _clientSocket.EndConnect(ar);
-
 
                 recevoir = new Thread(new ThreadStart(Receive));
                 recevoir.Start();
-
             }
             catch (Exception ex)
             {
@@ -128,7 +112,6 @@ namespace Musics___Client
         {
             _clientSocket.BeginReceive(recbuffer, 0, 100000000, SocketFlags.Partial,
                     new AsyncCallback(ReceiveCallback), null);
-
         }
 
         public event EventHandler LoginInfoReceived;
@@ -144,10 +127,7 @@ namespace Musics___Client
             {
                 MessageBox.Show(ex.ToString());
             }
-           
-            
-
-
+  
             TreatObject(Function.Deserialize(new MessageTCP(recbuffer)));
 
             recbuffer = new byte[100000000];
@@ -156,8 +136,7 @@ namespace Musics___Client
             {
                 _clientSocket.BeginReceive(recbuffer, 0, recbuffer.Length, SocketFlags.Partial,
                 new AsyncCallback(ReceiveCallback), null);
-            }
-            catch {}
+            }catch {}
         }
 
         protected virtual void OnloginInfoReceived(EventArgs e)
@@ -171,7 +150,6 @@ namespace Musics___Client
             try
             {
                 _clientSocket.BeginSend(msg.Data, 0, msg.Data.Length, SocketFlags.Partial, new AsyncCallback(SendCallback), null);
-
             }
             catch
             {
@@ -183,7 +161,6 @@ namespace Musics___Client
         {
             _clientSocket.EndSend(ar);
         }
-
 
         #endregion
 
@@ -199,7 +176,6 @@ namespace Musics___Client
                     Invoke((MethodInvoker)delegate
                     {
                         UISearchListbox.Items.Clear();
-
                     });
                     SearchlistboxItems.Clear();
 
@@ -259,9 +235,7 @@ namespace Musics___Client
                 if (searchAnswer.RequestsTypes == RequestsTypes.MusicsBinaries)
                 {
                     InPlaying = searchAnswer.Binaries;
-
                     
-
                     Invoke((MethodInvoker)delegate
                     {
                         if (PlaylistContainsMusic(InPlaying.MID))
@@ -285,12 +259,8 @@ namespace Musics___Client
                         UIPlayingMusic.Text = InPlaying.Title;
                         UIArtist.Text = InPlaying.Author.Name;
                     });
-
-                    
-
+                  
                     p.PlayMusic(InPlaying);
-
-
 
                     try
                     {
@@ -300,8 +270,6 @@ namespace Musics___Client
                     {
                         UIMusicImage.BackgroundImage = null;
                     }
-
-
                 }
                 if (searchAnswer.RequestsTypes == RequestsTypes.Favorites)
                 {
@@ -381,7 +349,6 @@ namespace Musics___Client
                     });
                 }
             }
-
         }
         Player p = new Player();
 
@@ -401,13 +368,10 @@ namespace Musics___Client
                 Image image = Image.FromStream(ms);
                 return image;
             }
-
-
         }
 
         private void UITextboxSearch_KeyDown(object sender, KeyEventArgs e)
         {
-
             if (e.KeyCode == Keys.Enter)
             {
                 if (UIRadioAlbum.Checked)
@@ -437,13 +401,10 @@ namespace Musics___Client
 
         private void UISearchListbox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             Invoke((MethodInvoker)delegate
             {
                 ChangeDescription();
             });
-
-
         }
         private void ChangeDescription()
         {
@@ -457,7 +418,6 @@ namespace Musics___Client
                     UIselectedartist.Text = (selected as Music).Author.Name;
                     UISelectedRating.Text = "Rating : " + (selected as Music).Rating;
                     UISelectedGenres.Text = "Genres : " + String.Join(" ",(selected as Music).Genre);
-
 
                     UIPathAuthor.Text = (selected as Music).Author.Name;
                     UIPathAlbum.Text = (selected as Music).Album.Name;
@@ -476,7 +436,6 @@ namespace Musics___Client
                     UIPathAuthor.Text = (selected as Album).Author.Name;
                     UIPathAlbum.Text = (selected as Album).Name;
                     UIPathMusic.Text = "";
-
                 }
                 if (SearchlistboxItems.First() is Author)
                 {
@@ -508,10 +467,8 @@ namespace Musics___Client
                         Playlist.Add(m);
                         UIPlaylist.Items.Add(m.Title);
                     }
-
                 }
             }
-
         }
 
         private void UIPlayBis_Click(object sender, EventArgs e)
@@ -534,8 +491,7 @@ namespace Musics___Client
             }
             else if(selected is Playlist)
             {
-                SendObject(new Request(Playlist.First()));
-                
+                SendObject(new Request(Playlist.First()));                
             }
         }
 
@@ -547,7 +503,6 @@ namespace Musics___Client
         private void UIPause_Click(object sender, EventArgs e)
         {
             p.player.controls.pause();
-
         }
 
         private void UITrackbarMusic_Scroll(object sender, EventArgs e)
@@ -559,13 +514,10 @@ namespace Musics___Client
         {
             p.player.close();
 
-
-
             foreach (var p in System.IO.Directory.GetFiles(@"c:\MusicsFiles"))
             {
                 System.IO.File.Delete(p);
             }
-
         }
 
         private void UISearchListbox_DoubleClick(object sender, EventArgs e)
@@ -606,7 +558,6 @@ namespace Musics___Client
                 if (SearchlistboxItems[UISearchListbox.SelectedIndex] is Music)
                 {
                     SendObject(new Request(SearchlistboxItems[UISearchListbox.SelectedIndex] as Music));
-;
                 }
                 if(SearchlistboxItems[UISearchListbox.SelectedIndex] is Playlist)
                 {
@@ -620,7 +571,6 @@ namespace Musics___Client
                     }
                     SendObject(new Request(Playlist.First()));
                 }
-
             }
         }
 
@@ -690,8 +640,7 @@ namespace Musics___Client
                 {
                     SendObject(new Request(UIPathAuthor.Text, Element.Author));
                 }
-            }
-            
+            }            
         }
 
         void UIPathAlbum_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -718,7 +667,6 @@ namespace Musics___Client
 
         #region Hue
 
-
         private void UIHueConnectKey_Click(object sender, EventArgs e)
         {
             if (UIHueApi != null && UIHueIp.Text != null)
@@ -739,8 +687,6 @@ namespace Musics___Client
                         Properties.Settings.Default.HueIp = UIHueIp.Text;
                         Properties.Settings.Default.Save();
 
-
-
                         UIHueConnection.Text = "Connected";
                         UIHueConnection.ForeColor = Color.Green;
 
@@ -754,17 +700,8 @@ namespace Musics___Client
                     UIHueConnectKey.Show();
                     UIHueConnectRegister.Show();
                 }
-
             }
-
-
-
-
         }
-
-
-
-
 
         private void UIHueConnectRegister_Click(object sender, EventArgs e)
         {
@@ -786,8 +723,6 @@ namespace Musics___Client
                         UIHueApi.Text = HueMusic.ApiKey;
                         Properties.Settings.Default.HueIp = UIHueIp.Text;
                         Properties.Settings.Default.Save();
-
-
 
                         UIHueConnection.Text = "Connected";
                         UIHueConnection.ForeColor = Color.Green;
@@ -816,13 +751,8 @@ namespace Musics___Client
             try
             {
                 await HueMusic.TurnOnLight(new Q42.HueApi.ColorConverters.RGBColor(100, 100, 100), Convert.ToByte(10 * scale));
-            }
-            catch { }
+            } catch { }
         }
-
-
-
-
 
         #endregion Hue
 
@@ -850,8 +780,6 @@ namespace Musics___Client
                 UIEditError.Text = "Passwords don't match";
             }
         }
-
-
 
         #endregion
 
@@ -891,14 +819,10 @@ namespace Musics___Client
             }
         }
 
-
-
         private void UIEditUserConfirm_Click(object sender, EventArgs e)
         {
-
             if (UIEditUserRank.SelectedIndex != (int)UserSearchResult[UIUsersResult.SelectedIndex].Userrank && Enum.TryParse(UIEditUserRank.SelectedItem.ToString(), out Rank rank))
             {
-
                 SendObject(new EditRequest(UserSearchResult[UIUsersResult.SelectedIndex].UID, rank));
             }
         }
@@ -935,7 +859,6 @@ namespace Musics___Client
                     UIEditMusicName.Visible = false;
                 }
             }
-
         }
 
         #endregion
@@ -949,20 +872,16 @@ namespace Musics___Client
                 UIEditPlaylist.Visible = true;
                 UIPlaylistName.Visible = true;
             }
-        }
-
-        
+        }       
 
         private void UIPlaylistName_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Enter)
             {
                 SendObject(new SavePlaylist(Me.UID, new Playlist(Me,UIPlaylistName.Text, Playlist,UIPlaylistPrivate.Checked)));
-            }
-         
+            }        
         }
 
         #endregion
-
     }
 }
