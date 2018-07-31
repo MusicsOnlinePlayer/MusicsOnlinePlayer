@@ -11,6 +11,7 @@ using TagLib;
 using Utility;
 using Musics___Client.Hue;
 using NAudio.CoreAudioApi;
+using Musics___Client.MusicUtils;
 
 namespace Musics___Client
 {
@@ -314,7 +315,7 @@ namespace Musics___Client
 
                 try
                 {
-                    UIMusicImage.BackgroundImage = GetMetaImage(p.player.URL);
+                    UIMusicImage.BackgroundImage = Tags.GetMetaImage(p.player.URL);
                 }
                 catch
                 {
@@ -368,19 +369,7 @@ namespace Musics___Client
 
         private List<object> SearchlistboxItems = new List<object>();
         private List<Music> LikedMusics = new List<Music>();
-
-        public static Image GetMetaImage(string MusicPath)
-        {
-            TagLib.File f = new TagLib.Mpeg.AudioFile(MusicPath);
-
-            TagLib.IPicture pic = f.Tag.Pictures[0];
-            using (MemoryStream ms = new MemoryStream(pic.Data.Data))
-            {
-                Image image = Image.FromStream(ms);
-                return image;
-            }
-        }
-
+      
         private void UITextboxSearch_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -759,7 +748,8 @@ namespace Musics___Client
             {
                 await HueMusic.TurnOnLight(new Q42.HueApi.ColorConverters.RGBColor(100, 100, 100), Convert.ToByte(10 * scale));
             }
-            catch { }
+            catch {
+            }
         }
 
         #endregion Hue
