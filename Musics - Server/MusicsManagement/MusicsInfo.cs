@@ -20,6 +20,7 @@ namespace Musics___Server.MusicsInformation
                     writer.WriteStartElement("Musics");
                     writer.WriteEndElement();
                     writer.WriteEndDocument();
+
                 }
             }
         }
@@ -45,7 +46,8 @@ namespace Musics___Server.MusicsInformation
                         return;
                     }
                 }
-            }           
+            }
+           
         }
 
         public static void SaveMusicInfo(Music music)
@@ -53,7 +55,8 @@ namespace Musics___Server.MusicsInformation
             XmlDocument doc = new XmlDocument();
 
             if (music.MID != null)
-            {               
+            {
+                
                 doc.Load(@"Musics.xml");
 
                 if (MusicsExisting(music.MID))
@@ -137,11 +140,14 @@ namespace Musics___Server.MusicsInformation
                         nodeMusic.AppendChild(nodeMID);
 
                         doc.DocumentElement.AppendChild(nodeMusic);
-                    }                   
+                    }
+
+                    
                 }
             }
             doc.Save(@"Musics.xml");
         }
+
 
         public static bool MusicsExisting(string MID)
         {
@@ -174,13 +180,12 @@ namespace Musics___Server.MusicsInformation
                     {
                         temp.Rating = Convert.ToInt32(n["Rating"].InnerText);
                     }
-                    catch
-                    {
-                    }
+                    catch { }
                     return temp;
                 }
             }
             return null;
         }
+
     }
 }
