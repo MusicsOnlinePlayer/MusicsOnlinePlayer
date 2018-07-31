@@ -220,7 +220,8 @@
     <Compile Include="LoginPage.Designer.cs">
       <DependentUpon>LoginPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Music\Player.cs" />
+    <Compile Include="MusicUtils\Player.cs" />
+    <Compile Include="MusicUtils\Tags.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs">

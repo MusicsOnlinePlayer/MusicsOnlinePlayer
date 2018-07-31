@@ -12,7 +12,6 @@ namespace Utility
 {
     public class Function
     {
-
         public static MessageTCP Serialize(object anySerializableObject)
         {
             using (var memoryStream = new MemoryStream())
@@ -28,7 +27,6 @@ namespace Utility
             {
                 return (new BinaryFormatter()).Deserialize(memoryStream);
             }
-
         }
     }
 
@@ -81,15 +79,12 @@ namespace Utility
         public string MID { get; set; }
         public string[] Genre { get; set; }
 
-
         public int Rating = 0;
         public byte[] FileBinary { get; set; }
 
         public Music()
         {
-
         }
-
         public Music(string title, Author author, byte[] Filebinary)
         {
             Title = title;
@@ -210,24 +205,20 @@ namespace Utility
             UID = Hash.SHA256Hash(name + UserPassword);
         }
 
-
         public User(string name, string UserPassword, Rank RankOf)
         {
             Name = name;
             Userrank = RankOf;
             Password = UserPassword;
             UID = Hash.SHA256Hash(name + UserPassword);
-        }
-
-        
+        }        
     }
     public enum Rank{
         Viewer = 0,
         User = 1,
         Admin = 2,
         Creator = 3
-    };
-
+    }
 
     public class ClientList
     {
@@ -250,7 +241,6 @@ namespace Utility
             int a = 0;
             foreach (var p in List)
             {
-
                 if (p.Value.UID == UID)
                 {
                     return a;
@@ -318,7 +308,6 @@ namespace Utility
         public int Count()
         {
             return List.Count;
-
         }
 
         private bool Contains(User User)
@@ -336,12 +325,9 @@ namespace Utility
         public void AddUser(User User, Socket socket)
         {
             if (Contains(User))
-
                 return;
             List.Add(socket, User);
-
         }
-
     }
 
     public enum RequestsTypes
@@ -352,7 +338,6 @@ namespace Utility
         Users,
         Trending
     }
-
 
     [Serializable]
     public class Request
@@ -475,9 +460,8 @@ namespace Utility
     }
 
     [Serializable]
-    public class Login{
-
-        
+    public class Login
+    {        
         public User LoginInfo { get; set; }
         public bool IsSignup { get; set; }
 
@@ -486,7 +470,6 @@ namespace Utility
             LoginInfo = Logininfo;
             IsSignup = Signup;
         }
-
     }
 
     [Serializable]
@@ -551,7 +534,6 @@ namespace Utility
             ReportOk = Reportok;
             MID = MusicID;
             UpdatedRating = NewRating;
-
         }
     }
 
@@ -595,5 +577,4 @@ namespace Utility
             TypeOfEdit = TypesEdit.Musics;
         }
     }
-
 }
