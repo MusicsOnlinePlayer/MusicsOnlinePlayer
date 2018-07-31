@@ -1,4 +1,4 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5ecd2c8e408d417b8685db15234f773e)](https://www.codacy.com/project/malaurydutour/MusicsOnlinePlayer/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MalauD/MusicsOnlinePlayer&amp;utm_campaign=Badge_Grade_Dashboard)
+[![CodeFactor](https://www.codefactor.io/repository/github/malaud/musicsonlineplayer/badge/master)](https://www.codefactor.io/repository/github/malaud/musicsonlineplayer/overview/master)
 
 # MusicsOnlinePlayer
 Free musics player made in c#. 
