@@ -78,22 +78,7 @@ namespace Musics___Client
             try
             {
                 UIUserEntry.Text = UIMusicInformation.SelectedItems[0].SubItems[1].Text;
-                switch (UIMusicInformation.SelectedItems[0].Index)
-                {
-                    case 0:
-                        music.Tag.Title = UIUserEntry.Text;
-                        break;
-                    case 1:
-                        music.Tag.Genres = UIUserEnter.Text.Split(';');
-                        break;
-                    case 2:
-                        music.Tag.Album = UIUserEntry.Text;
-                        break;
-                    case 3:  
-                        music.Tag.Performers[0] = UIUserEntry.Text;
-                        break;
-                }
-                music.Save();
+              
             }
             catch
             {
@@ -105,6 +90,22 @@ namespace Musics___Client
             try
             {
                 UIMusicInformation.SelectedItems[0].SubItems[1].Text = UIUserEntry.Text;
+                switch (UIMusicInformation.SelectedItems[0].Index)
+                {
+                    case 0:
+                        music.Tag.Title = UIUserEntry.Text;
+                        break;
+                    case 1:
+                        music.Tag.Genres = UIUserEnter.Text.Split(';');
+                        break;
+                    case 2:
+                        music.Tag.Album = UIUserEntry.Text;
+                        break;
+                    case 3:
+                        music.Tag.Performers[0] = UIUserEntry.Text;
+                        break;
+                }
+                music.Save();
             }
             catch
             {
