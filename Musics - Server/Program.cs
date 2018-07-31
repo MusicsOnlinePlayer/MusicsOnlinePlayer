@@ -47,7 +47,6 @@ namespace Musics___Server
                 if (entry == "-init")
                 {
                     Indexation.InitRepository();
-
                 }
                 else if (entry == "-index")
                 {
@@ -99,7 +98,6 @@ namespace Musics___Server
             Console.Write("~ Saving music info ... ");
             Indexation.SaveAllInfos();
             Console.WriteLine("Done.");
-
         }
 
         public static void PromoteUser(string UID,Rank rank)
@@ -114,8 +112,7 @@ namespace Musics___Server
                 Clients.List.Remove(tmpSocket);
                 Clients.AddUser(tmpUser, tmpSocket);
                 SendObject(new EditUserReport(true, Clients.GetUser(UID)), Clients.GetSocket(UID));
-            }
-          
+            }       
         }
 
         public static void SetupServer()
@@ -127,10 +124,7 @@ namespace Musics___Server
             }
             catch
             {
-
                 Console.WriteLine("Erreur Setup");
-
-
             }
             serverSocket.SendBufferSize = BUFFER_SIZE;
             serverSocket.Listen(0);
@@ -161,7 +155,6 @@ namespace Musics___Server
         {
             Socket current = (Socket)ar.AsyncState;
             int received = 0;
-
 
             try
             {
@@ -198,11 +191,9 @@ namespace Musics___Server
             try
             {
                 socket.Send(msg.Data, 0, msg.Data.Length, SocketFlags.Partial);
-
             }
             catch
             {
-
             }
         }
 
@@ -211,10 +202,12 @@ namespace Musics___Server
             object received;
             try
             {
-                received = Function.Deserialize(new MessageTCP(Buffer));
-               
+                received = Function.Deserialize(new MessageTCP(Buffer));             
             }
-            catch { return; }
+            catch
+            {
+                return;
+            }
 
             bool ClientLogin;
 
@@ -229,7 +222,6 @@ namespace Musics___Server
 
             if (ClientLogin)
             {
-
                 if (received is Request)
                 {
                     Request request = received as Request;
@@ -262,7 +254,6 @@ namespace Musics___Server
                                             return;
                                         }
                                     }
-
                                 }
                             }
                             break;
@@ -316,7 +307,6 @@ namespace Musics___Server
                             }
                         }
                     }
-
                 }
                 if (received is EditUser)
                 {
@@ -328,13 +318,11 @@ namespace Musics___Server
                         Clients.List.Remove(socket);
                         Clients.AddUser(tmp.NewUser, socket);
                         return;
-
                     }
                     else
                     {
                         SendObject(new EditUserReport(false, tmp.NewUser), socket);
                     }
-
                 }
                 if(received is EditRequest)
                 {
