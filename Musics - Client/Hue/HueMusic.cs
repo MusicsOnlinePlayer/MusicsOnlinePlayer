@@ -22,7 +22,6 @@ namespace Musics___Client.Hue
 
         public List<LocatedBridge> GetBridgesSync()
         {
-
             try
             {
                 IEnumerable<LocatedBridge> bridges = AsyncHelper.RunSync(() => locator.LocateBridgesAsync(new TimeSpan(50)));
@@ -30,17 +29,14 @@ namespace Musics___Client.Hue
             }
             catch
             {
-
             }
-            return null;
-            
+            return null;            
         }
 
         public void Connect(string BridgeIp, string ApiKey)
         {
             client = new LocalHueClient(BridgeIp);
-            client.Initialize(ApiKey);
-           
+            client.Initialize(ApiKey);          
         }
 
         public void ConnectRegister(string BridgeIp)
@@ -49,8 +45,6 @@ namespace Musics___Client.Hue
             ApiKey = AsyncHelper.RunSync(() => client.RegisterAsync("MusicsClient", "Windows"));
 
         }
-
-
 
         public async Task TurnOnLight(RGBColor RgbColor,byte Brightness)
         {
@@ -61,7 +55,9 @@ namespace Musics___Client.Hue
                 command.Brightness = Brightness;
                 await client.SendCommandAsync(command);
             }
-            catch { }
+            catch
+            {
+            }
         }
         public async Task TurnOffLight(List<string> Lights)
         {
@@ -71,29 +67,9 @@ namespace Musics___Client.Hue
                 command.TurnOff();
                 await client.SendCommandAsync(command, Lights);
             }
-            catch { }
+            catch
+            {
+            }
         }
-    }
-    public static class AsyncHelper
-    {
-        private static readonly TaskFactory _taskFactory = new
-            TaskFactory(CancellationToken.None,
-                        TaskCreationOptions.None,
-                        TaskContinuationOptions.None,
-                        TaskScheduler.Default);
-
-        public static TResult RunSync<TResult>(Func<Task<TResult>> func)
-            => _taskFactory
-                .StartNew(func)
-                .Unwrap()
-                .GetAwaiter()
-                .GetResult();
-
-        public static void RunSync(Func<Task> func)
-            => _taskFactory
-                .StartNew(func)
-                .Unwrap()
-                .GetAwaiter()
-                .GetResult();
     }
 }

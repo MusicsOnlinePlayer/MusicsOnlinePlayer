@@ -22,7 +22,6 @@ namespace Musics___Client
 
         string[] FilesPath;
 
-
         private void UIUploadButton_Click(object sender, EventArgs e)
         {
             Thread threadGetFile = new Thread(new ThreadStart(GetMusics));
@@ -47,12 +46,10 @@ namespace Musics___Client
 
                 });
             }
-
         }
 
         private void Upload_Load(object sender, EventArgs e)
         {
-
         }
 
         private void UIMusicsBoxList_SelectedIndexChanged(object sender, EventArgs e)
@@ -60,7 +57,6 @@ namespace Musics___Client
             UIMusicInformation.Items.Clear();
             AddItem(UIMusicsBoxList.SelectedIndex);
         }
-
 
         TagLib.File music;
         private void AddItem(int Index)
@@ -97,11 +93,12 @@ namespace Musics___Client
                     case 3:  
                         music.Tag.Performers[0] = UIUserEntry.Text;
                         break;
-
                 }
                 music.Save();
             }
-            catch { }
+            catch
+            {
+            }
         }
 
         private void UIUserEnter_Click(object sender, EventArgs e)
@@ -110,13 +107,13 @@ namespace Musics___Client
             {
                 UIMusicInformation.SelectedItems[0].SubItems[1].Text = UIUserEntry.Text;
             }
-            catch { }
-        
+            catch
+            {
+            }      
         }
 
         public Album AlbumToSend;
         public bool IsUploadValid = false;
-
 
         private void UISubmit_Click(object sender, EventArgs e)
         {
