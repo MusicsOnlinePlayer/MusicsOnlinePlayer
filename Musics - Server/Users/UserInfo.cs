@@ -258,7 +258,6 @@ namespace Musics___Server.Usersinfos
                         {
                             playlist.Private = true;
                             playlists.Add(playlist);
-
                         }
                     }
                     else

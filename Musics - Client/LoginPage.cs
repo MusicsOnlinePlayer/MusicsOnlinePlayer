@@ -40,17 +40,14 @@ namespace Musics___Client
                 {
                     this.Hide();
                 });
-                ClientForm.ShowDialog();
-                
-                
+                ClientForm.ShowDialog();                             
             }
             else
             {
                 Invoke((MethodInvoker)delegate
                 {
                     UIErrorLogin.Text = "Wrong password !";
-                });
-                
+                });               
             }
         }
 

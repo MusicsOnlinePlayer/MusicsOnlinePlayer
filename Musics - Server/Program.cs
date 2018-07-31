@@ -92,7 +92,6 @@ namespace Musics___Server
                     {
                         Console.WriteLine("~ Syntax not correct, please use -promote -UID -Rank");
                     }
-
                 }
             }
             Console.Write("~ Saving music info ... ");
