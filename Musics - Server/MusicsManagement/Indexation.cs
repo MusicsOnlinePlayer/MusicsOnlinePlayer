@@ -6,7 +6,6 @@ using Utility;
 using Musics___Server.MusicsInformation;
 using TagLib;
 
-
 namespace Musics___Server.MusicsManagement
 {
     static class Indexation
@@ -64,7 +63,7 @@ namespace Musics___Server.MusicsManagement
 
             foreach (var n in ArtistDirs)
             {
-                Author CurrentArtist = new Author(Path.GetFileName(n),n);
+                Author CurrentArtist = new Author(Path.GetFileName(n), n);
 
                 //Console.WriteLine(CurrentArtist.Name);
 
@@ -75,14 +74,10 @@ namespace Musics___Server.MusicsManagement
                 {
                     if (!Path.GetFileNameWithoutExtension(a).Contains("-ignore"))
                     {
-                        CurrentArtist.Albums.Add(new Album(CurrentArtist, Path.GetFileName(a),a));
-
+                        CurrentArtist.Albums.Add(new Album(CurrentArtist, Path.GetFileName(a), a));
                         //Console.WriteLine(" " + CurrentArtist.albums.Last().Name);
-
-
                         foreach (var m in Directory.GetFiles(a))
                         {
-
                             if (Path.GetExtension(m) == ".mp3" || Path.GetExtension(m) == ".flac")
                             {
                                 file = TagLib.File.Create(m);
@@ -115,14 +110,10 @@ namespace Musics___Server.MusicsManagement
 
                                 //Console.WriteLine("     " + current.Title);
                             }
-
-
                         }
                         i++;
                     }
-
                 }
-
                 ServerMusics.Add(CurrentArtist);
             }
 
@@ -203,7 +194,6 @@ namespace Musics___Server.MusicsManagement
                 //        return;
                 //    }
                 //}
-
             }
         }
 
@@ -211,6 +201,5 @@ namespace Musics___Server.MusicsManagement
         {
             MusicsInfo.SaveMusicsInfo(GetAllMusics());
         }
-
     }
 }

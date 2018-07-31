@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Utility
 {
+
     public class Function
     {
-
         public static MessageTCP Serialize(object anySerializableObject)
         {
             using (var memoryStream = new MemoryStream())
@@ -28,7 +28,6 @@ namespace Utility
             {
                 return (new BinaryFormatter()).Deserialize(memoryStream);
             }
-
         }
     }
 
@@ -60,7 +59,7 @@ namespace Utility
             Albums = new List<Album>();
             MID = Hash.SHA256Hash(Name + Element.Author);
         }
-        public Author(string name,string Path)
+        public Author(string name, string Path)
         {
             Name = name;
             Albums = new List<Album>();
@@ -81,15 +80,12 @@ namespace Utility
         public string MID { get; set; }
         public string[] Genre { get; set; }
 
-
         public int Rating = 0;
         public byte[] FileBinary { get; set; }
 
         public Music()
         {
-
         }
-
         public Music(string title, Author author, byte[] Filebinary)
         {
             Title = title;
@@ -104,7 +100,7 @@ namespace Utility
             ServerPath = Path;
             MID = Hash.SHA256Hash(Title + author.Name);
         }
-        public Music(string title, Author author, string Path,int rating)
+        public Music(string title, Author author, string Path, int rating)
         {
             Title = title;
             Author = author;
@@ -133,7 +129,14 @@ namespace Utility
             Musics = new List<Music>();
             MID = Hash.SHA256Hash(Name + Element.Album.ToString());
         }
-        public Album(Author author, string name,string Path)
+        public Album(Author author, string name,Music[] musics)
+        {
+            Author = author;
+            Name = name;
+            Musics = musics.ToList();
+            MID = Hash.SHA256Hash(Name + Element.Album.ToString());
+        }
+        public Album(Author author, string name, string Path)
         {
             Author = author;
             Name = name;
@@ -141,16 +144,6 @@ namespace Utility
             MID = Hash.SHA256Hash(Name + Element.Album.ToString());
             ServerPath = Path;
         }
-
-        public Album(Author author, string name, Music[] musics)
-        {
-            Author = author;
-            Name = name;
-            Musics = new List<Music>();
-            MID = Hash.SHA256Hash(Name + Element.Album.ToString());
-            Musics = musics.ToList();
-        }
-
         public Album(string name)
         {
             Name = name;
@@ -171,7 +164,7 @@ namespace Utility
         public List<Music> musics = new List<Music>();
         public bool Private { get; set; }
 
-        public Playlist(User creator,string name,List<Music> Musics,bool IsPrivate)
+        public Playlist(User creator, string name, List<Music> Musics, bool IsPrivate)
         {
             Creator = creator;
             Name = name;
@@ -206,7 +199,7 @@ namespace Utility
         public String Name { get; set; }
         public bool Connected { get; set; }
 
-        public User(){}
+        public User() { }
 
         public User(string UserName)
         {
@@ -220,7 +213,6 @@ namespace Utility
             UID = Hash.SHA256Hash(name + UserPassword);
         }
 
-
         public User(string name, string UserPassword, Rank RankOf)
         {
             Name = name;
@@ -228,16 +220,14 @@ namespace Utility
             Password = UserPassword;
             UID = Hash.SHA256Hash(name + UserPassword);
         }
-
-        
     }
-    public enum Rank{
+    public enum Rank
+    {
         Viewer = 0,
         User = 1,
         Admin = 2,
         Creator = 3
-    };
-
+    }
 
     public class ClientList
     {
@@ -260,7 +250,6 @@ namespace Utility
             int a = 0;
             foreach (var p in List)
             {
-
                 if (p.Value.UID == UID)
                 {
                     return a;
@@ -328,7 +317,6 @@ namespace Utility
         public int Count()
         {
             return List.Count;
-
         }
 
         private bool Contains(User User)
@@ -346,12 +334,9 @@ namespace Utility
         public void AddUser(User User, Socket socket)
         {
             if (Contains(User))
-
                 return;
             List.Add(socket, User);
-
         }
-
     }
 
     public enum RequestsTypes
@@ -362,7 +347,6 @@ namespace Utility
         Users,
         Trending
     }
-
 
     [Serializable]
     public class Request
@@ -420,7 +404,7 @@ namespace Utility
         }
     }
 
-    [Serializable] 
+    [Serializable]
     public class RequestAnswer
     {
         public RequestsTypes RequestsTypes { get; set; }
@@ -457,7 +441,7 @@ namespace Utility
             RequestsTypes = RequestsTypes.Favorites;
         }
 
-        public RequestAnswer(List<User> AnswerUsers,bool IsRequestAccepted)
+        public RequestAnswer(List<User> AnswerUsers, bool IsRequestAccepted)
         {
             IsAccepted = IsRequestAccepted;
             Users = AnswerUsers;
@@ -485,18 +469,16 @@ namespace Utility
     }
 
     [Serializable]
-    public class Login{
-
-        
+    public class Login
+    {
         public User LoginInfo { get; set; }
         public bool IsSignup { get; set; }
 
-        public Login(User Logininfo,bool Signup)
+        public Login(User Logininfo, bool Signup)
         {
             LoginInfo = Logininfo;
             IsSignup = Signup;
         }
-
     }
 
     [Serializable]
@@ -505,7 +487,7 @@ namespace Utility
         public string UIDOld { get; set; }
         public User NewUser { get; set; }
 
-        public EditUser(string UserIdOld,User Newuser)
+        public EditUser(string UserIdOld, User Newuser)
         {
             UIDOld = UserIdOld;
             NewUser = Newuser;
@@ -531,7 +513,7 @@ namespace Utility
         public bool IsAccepted { get; set; }
         public Rank RankofAuthUser { get; set; }
 
-        public AuthInfo(bool Accepted,Rank RankOfUser)
+        public AuthInfo(bool Accepted, Rank RankOfUser)
         {
             IsAccepted = Accepted;
             RankofAuthUser = RankOfUser;
@@ -556,16 +538,16 @@ namespace Utility
         public string MID { get; set; }
         public int UpdatedRating { get; set; }
 
-        public RateReport(bool Reportok,string MusicID, int NewRating)
+        public RateReport(bool Reportok, string MusicID, int NewRating)
         {
             ReportOk = Reportok;
             MID = MusicID;
             UpdatedRating = NewRating;
-
         }
     }
 
-    public enum TypesEdit{
+    public enum TypesEdit
+    {
         Users,
         Musics
     }
@@ -590,14 +572,14 @@ namespace Utility
         public string NewName { get; set; }
         public Element TypeOfObject { get; set; }
 
-        public EditRequest(string UIDToEdit,Rank NewRank)
+        public EditRequest(string UIDToEdit, Rank NewRank)
         {
             UserToEdit = UIDToEdit;
             NewRankOfUser = NewRank;
             TypeOfEdit = TypesEdit.Users;
         }
 
-        public EditRequest(object ToEdit,string NewTitle,Element TypeOf)
+        public EditRequest(object ToEdit, string NewTitle, Element TypeOf)
         {
             ObjectToEdit = ToEdit;
             NewName = NewTitle;

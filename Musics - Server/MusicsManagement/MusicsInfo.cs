@@ -20,12 +20,11 @@ namespace Musics___Server.MusicsInformation
                     writer.WriteStartElement("Musics");
                     writer.WriteEndElement();
                     writer.WriteEndDocument();
-
                 }
             }
         }
 
-        public static void EditMusicsInfo(string OldMID,Music NewMusicInfo)
+        public static void EditMusicsInfo(string OldMID, Music NewMusicInfo)
         {
             XmlDocument doc = new XmlDocument();
 
@@ -47,7 +46,6 @@ namespace Musics___Server.MusicsInformation
                     }
                 }
             }
-           
         }
 
         public static void SaveMusicInfo(Music music)
@@ -56,7 +54,6 @@ namespace Musics___Server.MusicsInformation
 
             if (music.MID != null)
             {
-                
                 doc.Load(@"Musics.xml");
 
                 if (MusicsExisting(music.MID))
@@ -93,7 +90,7 @@ namespace Musics___Server.MusicsInformation
 
                     doc.DocumentElement.AppendChild(nodeMusic);
                 }
-                
+
                 doc.Save(@"Musics.xml");
             }
         }
@@ -141,13 +138,10 @@ namespace Musics___Server.MusicsInformation
 
                         doc.DocumentElement.AppendChild(nodeMusic);
                     }
-
-                    
                 }
             }
             doc.Save(@"Musics.xml");
         }
-
 
         public static bool MusicsExisting(string MID)
         {
@@ -175,17 +169,18 @@ namespace Musics___Server.MusicsInformation
             {
                 if (n["MID"].InnerText == MID)
                 {
-                    Music temp = new Music(n["Title"].InnerText,new Author(n["Author"].InnerText),"");
+                    Music temp = new Music(n["Title"].InnerText, new Author(n["Author"].InnerText), "");
                     try
                     {
                         temp.Rating = Convert.ToInt32(n["Rating"].InnerText);
                     }
-                    catch { }
+                    catch
+                    {
+                    }
                     return temp;
                 }
             }
             return null;
         }
-
     }
 }

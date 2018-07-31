@@ -47,7 +47,6 @@ namespace Musics___Server
                 if (entry == "-init")
                 {
                     Indexation.InitRepository();
-
                 }
                 else if (entry == "-index")
                 {
@@ -86,7 +85,7 @@ namespace Musics___Server
                     {
                         Console.WriteLine("~ Promote " + UID + " to " + rank.ToString());
                         PromoteUser(UID, rank);
-                       
+
                         Console.WriteLine("Ok.");
                     }
                     else
@@ -99,10 +98,9 @@ namespace Musics___Server
             Console.Write("~ Saving music info ... ");
             Indexation.SaveAllInfos();
             Console.WriteLine("Done.");
-
         }
 
-        public static void PromoteUser(string UID,Rank rank)
+        public static void PromoteUser(string UID, Rank rank)
         {
             UsersInfos.SetRankOfUser(UID, rank);
 
@@ -115,7 +113,6 @@ namespace Musics___Server
                 Clients.AddUser(tmpUser, tmpSocket);
                 SendObject(new EditUserReport(true, Clients.GetUser(UID)), Clients.GetSocket(UID));
             }
-          
         }
 
         public static void SetupServer()
@@ -127,10 +124,7 @@ namespace Musics___Server
             }
             catch
             {
-
                 Console.WriteLine("Erreur Setup");
-
-
             }
             serverSocket.SendBufferSize = BUFFER_SIZE;
             serverSocket.Listen(0);
@@ -154,15 +148,13 @@ namespace Musics___Server
 
             socket.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.Partial, ReceiveCallback, socket);
             Clients.AddUser(new User(), socket);
-            Console.WriteLine("Client connected with ip : "+ socket.RemoteEndPoint.ToString());
+            Console.WriteLine("Client connected with ip : " + socket.RemoteEndPoint.ToString());
             serverSocket.BeginAccept(AcceptCallback, null);
         }
-
         private static void ReceiveCallback(IAsyncResult ar)
         {
             Socket current = (Socket)ar.AsyncState;
             int received = 0;
-
 
             try
             {
@@ -195,21 +187,15 @@ namespace Musics___Server
         {
             //buffer = new byte[BUFFER_SIZE];
             var msg = Function.Serialize(obj);
-            
+
             try
             {
                 socket.Send(msg.Data, 0, msg.Data.Length, SocketFlags.Partial);
-
             }
             catch
             {
-
             }
         }
-
-
-
-
 
         private static void TreatRequest(byte[] Buffer, Socket socket)
         {
@@ -217,9 +203,11 @@ namespace Musics___Server
             try
             {
                 received = Function.Deserialize(new MessageTCP(Buffer));
-               
             }
-            catch { return; }
+            catch
+            {
+                return;
+            }
 
             bool ClientLogin;
 
@@ -234,7 +222,6 @@ namespace Musics___Server
 
             if (ClientLogin)
             {
-
                 if (received is Request)
                 {
                     Request request = received as Request;
@@ -267,7 +254,6 @@ namespace Musics___Server
                                             return;
                                         }
                                     }
-
                                 }
                             }
                             break;
@@ -275,17 +261,17 @@ namespace Musics___Server
                             SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(request.UserID)), socket);
                             break;
                         case RequestsTypes.Users:
-                            if(Clients.GetUser(socket).Userrank != Rank.Viewer)
+                            if (Clients.GetUser(socket).Userrank != Rank.Viewer)
                             {
-                                SendObject(new RequestAnswer(UsersInfos.SearchUser(request.Username), true),socket);
+                                SendObject(new RequestAnswer(UsersInfos.SearchUser(request.Username), true), socket);
                             }
                             else
                             {
-                                SendObject(new RequestAnswer(null, false),socket);
+                                SendObject(new RequestAnswer(null, false), socket);
                             }
                             break;
                         case RequestsTypes.Trending:
-                            SendObject(new RequestAnswer(Manager.GenreTrending),socket);
+                            SendObject(new RequestAnswer(Manager.GenreTrending), socket);
                             break;
                     }
                 }
@@ -321,7 +307,6 @@ namespace Musics___Server
                             }
                         }
                     }
-
                 }
                 if (received is EditUser)
                 {
@@ -333,41 +318,39 @@ namespace Musics___Server
                         Clients.List.Remove(socket);
                         Clients.AddUser(tmp.NewUser, socket);
                         return;
-
                     }
                     else
                     {
                         SendObject(new EditUserReport(false, tmp.NewUser), socket);
                     }
-
                 }
-                if(received is EditRequest)
+                if (received is EditRequest)
                 {
                     EditRequest tmp = received as EditRequest;
 
                     switch (tmp.TypeOfEdit)
                     {
                         case TypesEdit.Users:
-                            if((int)UsersInfos.GetRankOfUser(Clients.GetUser(socket).UID) > (int)tmp.NewRankOfUser && (int)UsersInfos.GetRankOfUser(Clients.GetUser(socket).UID) > (int)UsersInfos.GetRankOfUser(tmp.UserToEdit))
+                            if ((int)UsersInfos.GetRankOfUser(Clients.GetUser(socket).UID) > (int)tmp.NewRankOfUser && (int)UsersInfos.GetRankOfUser(Clients.GetUser(socket).UID) > (int)UsersInfos.GetRankOfUser(tmp.UserToEdit))
                             {
                                 PromoteUser(tmp.UserToEdit, tmp.NewRankOfUser);
                                 List<User> tmpU = new List<User>
                                 {
                                     UsersInfos.GetUser(tmp.UserToEdit)
                                 };
-                                SendObject(new RequestAnswer(tmpU,true),socket);
+                                SendObject(new RequestAnswer(tmpU, true), socket);
                                 Console.WriteLine("~ User promoted " + tmp.UserToEdit + " to " + tmp.NewRankOfUser.ToString());
                             }
                             break;
                         case TypesEdit.Musics:
-                            if((int)Clients.GetUser(socket).Userrank > 1)
+                            if ((int)Clients.GetUser(socket).Userrank > 1)
                             {
                                 Indexation.ModifyElement(tmp.ObjectToEdit, tmp.NewName);
                             }
                             break;
                     }
                 }
-                if(received is SavePlaylist)
+                if (received is SavePlaylist)
                 {
                     SavePlaylist tmp = received as SavePlaylist;
                     UsersInfos.SaveUserPlaylist(tmp.UID, tmp.Playlist);
@@ -393,7 +376,7 @@ namespace Musics___Server
                         if (AuthService.SigninUser(auth.LoginInfo) && !Clients.Contains(auth.LoginInfo.UID))
                         {
                             Rank RankUser = UsersInfos.GetRankOfUser(auth.LoginInfo.UID);
-                            SendObject(new AuthInfo(true, RankUser ), socket);
+                            SendObject(new AuthInfo(true, RankUser), socket);
                             Clients.List.Remove(socket);
                             auth.LoginInfo.Userrank = RankUser;
                             Clients.AddUser(auth.LoginInfo, socket);
@@ -405,11 +388,6 @@ namespace Musics___Server
                     }
                 }
             }
-
-
         }
-
-       
-
     }
 }
