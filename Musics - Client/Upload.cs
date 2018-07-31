@@ -43,7 +43,6 @@ namespace Musics___Client
                 {
                     UIMusicsBoxList.Items.Clear();
                     UIMusicsBoxList.Items.AddRange((from file in FilesPath let name = Path.GetFileName(file) select name).ToArray());
-
                 });
             }
         }

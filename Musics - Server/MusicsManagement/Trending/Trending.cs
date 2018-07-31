@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Utility;
 using Musics___Server.MusicsManagement;
 
-
 namespace Musics___Server.MusicsManagement.Trending
 {
     public class Trending
@@ -14,7 +13,6 @@ namespace Musics___Server.MusicsManagement.Trending
         static public List<Music> GetMostLikedMusic(int length)
         {
             Dictionary<Music, int> musics = new Dictionary<Music, int>();
-
 
             foreach(var m in Indexation.GetAllMusics())
             {
@@ -29,7 +27,6 @@ namespace Musics___Server.MusicsManagement.Trending
         static public List<Music> GetMostLikedMusicByGenre(string Genre, int length)
         {
             Dictionary<Music, int> musics = new Dictionary<Music, int>();
-
 
             foreach (var m in Indexation.GetAllMusics())
             {                
@@ -48,7 +45,6 @@ namespace Musics___Server.MusicsManagement.Trending
         {
             var LikedMusic = GetMostLikedMusic(10);
             return (from val in LikedMusic select val.Genre).Cast<string>().ToList();
-
         }
     }
 }

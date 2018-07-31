@@ -6,8 +6,7 @@ using Utility;
 namespace Musics___Server.Authentification
 {
     class AuthentificationService
-    {
-        
+    {       
         public void SetupAuth()
         {
             if (!File.Exists(@"users.xml"))
@@ -17,8 +16,7 @@ namespace Musics___Server.Authentification
                     writer.WriteStartDocument();
                     writer.WriteStartElement("Users");
                     writer.WriteEndElement();
-                    writer.WriteEndDocument();
-                    
+                    writer.WriteEndDocument();                
                 }
             }
         }
@@ -87,8 +85,6 @@ namespace Musics___Server.Authentification
             docs.Load(@"users.xml");
             XmlNodeList nodes = docs.DocumentElement.SelectNodes("User");
 
-
-
             foreach (XmlNode n in nodes)
             {
                 if (n["UID"].InnerText == OldUID)
@@ -105,8 +101,7 @@ namespace Musics___Server.Authentification
                     {
                         return false;
                     }
-                }
-                    
+                }                    
             }
             return false;
         }

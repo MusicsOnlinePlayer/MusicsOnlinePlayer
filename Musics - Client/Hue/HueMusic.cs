@@ -43,7 +43,6 @@ namespace Musics___Client.Hue
         {
             client = new LocalHueClient(BridgeIp);
             ApiKey = AsyncHelper.RunSync(() => client.RegisterAsync("MusicsClient", "Windows"));
-
         }
 
         public async Task TurnOnLight(RGBColor RgbColor,byte Brightness)

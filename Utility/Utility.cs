@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace Utility
 {
-
     public class Function
     {
         public static MessageTCP Serialize(object anySerializableObject)

@@ -42,16 +42,12 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                             result.Add(author);
                             Console.WriteLine("  " + a.Name);
                         }
-
-
                     }
                     Musics___Server.Program.SendObject(new RequestAnswer(result, Element.Author), asker);
-
                 }
                 if (requestSearch.Requested == Element.Album)
                 {
                     List<Album> result = new List<Album>();
-
                     foreach (Author a in Indexation.ServerMusics)
                     {
                         foreach (Album al in a.Albums)
@@ -101,10 +97,8 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                                     Console.WriteLine("  " + m.Title);
                                 }
                             }
-
                         }
                     }
-
                     Musics___Server.Program.SendObject(new RequestAnswer(result, Element.Music), asker);
                 }
                 if (requestSearch.Requested == Element.Playlist)
@@ -119,7 +113,6 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                     }
                     Musics___Server.Program.SendObject(new RequestAnswer(tmp, Element.Playlist), asker);
                 }
-
             }
         }
     }

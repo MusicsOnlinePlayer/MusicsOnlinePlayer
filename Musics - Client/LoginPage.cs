@@ -18,10 +18,8 @@ namespace Musics___Client
             InitializeComponent();
         }
 
-
         Client ClientForm = new Client();
         
-
         private void LoginPage_Load(object sender, EventArgs e)
         {
             ClientForm.Connect();
@@ -117,8 +115,7 @@ namespace Musics___Client
 
         void UISettings_Click(object sender, EventArgs e)
         {   
-            settingsForm.ShowDialog();
-            
+            settingsForm.ShowDialog();            
         }
 
         void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)

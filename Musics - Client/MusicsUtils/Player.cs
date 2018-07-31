@@ -25,13 +25,11 @@ namespace Musics___Client
                 
             string path = @"c:\MusicsFiles\" + music.Title + music.Format;
 
-
             if (!File.Exists(path))
             {
                 File.WriteAllBytes(path, music.FileBinary);
             }
             
-
             player.URL = path;
             player.controls.play();
         }
@@ -41,6 +39,5 @@ namespace Musics___Client
             FileInfo fileInfo = new FileInfo(player.URL);
             return fileInfo.Length;
         }
-
     }
 }
