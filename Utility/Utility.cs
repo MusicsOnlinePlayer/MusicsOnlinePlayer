@@ -141,6 +141,16 @@ namespace Utility
             MID = Hash.SHA256Hash(Name + Element.Album.ToString());
             ServerPath = Path;
         }
+
+        public Album(Author author, string name, Music[] musics)
+        {
+            Author = author;
+            Name = name;
+            Musics = new List<Music>();
+            MID = Hash.SHA256Hash(Name + Element.Album.ToString());
+            Musics = musics.ToList();
+        }
+
         public Album(string name)
         {
             Name = name;
@@ -596,4 +606,14 @@ namespace Utility
         }
     }
 
+    [Serializable]
+    public class UploadMusic
+    {
+        public Album MusicPart { get; set; }
+
+        public UploadMusic(Album Part)
+        {
+            MusicPart = Part;
+        }
+    }
 }

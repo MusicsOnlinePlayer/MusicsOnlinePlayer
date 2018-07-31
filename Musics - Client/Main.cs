@@ -973,6 +973,19 @@ namespace Musics___Client
         {
             uploadForm = new Upload();
             uploadForm.ShowDialog();
+            uploadForm.FormClosed += UploadForm_FormClosed;
+        }
+
+        private void UploadForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (uploadForm.IsUploadValid)
+            {
+                foreach(var m in uploadForm.AlbumToSend.Musics)
+                {
+                    SendObject(new UploadMusic(new Album(m.Author, uploadForm.AlbumToSend.Name, new Music[] { m }));
+                }
+                MessageBox.Show("Musics has been sent to the server");
+            }
         }
 
         #endregion

@@ -34,6 +34,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.UIMusicInformation = new System.Windows.Forms.ListView();
             this.UIMusicsBoxList = new System.Windows.Forms.ComboBox();
+            this.UIUserEntry = new System.Windows.Forms.TextBox();
+            this.UIUserEnter = new System.Windows.Forms.Button();
+            this.UISubmit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -88,6 +91,7 @@
             this.UIMusicInformation.Size = new System.Drawing.Size(376, 133);
             this.UIMusicInformation.TabIndex = 5;
             this.UIMusicInformation.UseCompatibleStateImageBehavior = false;
+            this.UIMusicInformation.SelectedIndexChanged += new System.EventHandler(this.UIMusicInformation_SelectedIndexChanged);
             // 
             // UIMusicsBoxList
             // 
@@ -98,11 +102,48 @@
             this.UIMusicsBoxList.TabIndex = 6;
             this.UIMusicsBoxList.SelectedIndexChanged += new System.EventHandler(this.UIMusicsBoxList_SelectedIndexChanged);
             // 
+            // UIUserEntry
+            // 
+            this.UIUserEntry.Location = new System.Drawing.Point(22, 352);
+            this.UIUserEntry.Name = "UIUserEntry";
+            this.UIUserEntry.Size = new System.Drawing.Size(291, 20);
+            this.UIUserEntry.TabIndex = 7;
+            // 
+            // UIUserEnter
+            // 
+            this.UIUserEnter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.UIUserEnter.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.UIUserEnter.Location = new System.Drawing.Point(319, 351);
+            this.UIUserEnter.Name = "UIUserEnter";
+            this.UIUserEnter.Size = new System.Drawing.Size(79, 21);
+            this.UIUserEnter.TabIndex = 8;
+            this.UIUserEnter.Text = "Enter";
+            this.UIUserEnter.UseVisualStyleBackColor = false;
+            this.UIUserEnter.Click += new System.EventHandler(this.UIUserEnter_Click);
+            // 
+            // UISubmit
+            // 
+            this.UISubmit.BackColor = System.Drawing.Color.LimeGreen;
+            this.UISubmit.FlatAppearance.BorderSize = 0;
+            this.UISubmit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UISubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UISubmit.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.UISubmit.Location = new System.Drawing.Point(279, 473);
+            this.UISubmit.Name = "UISubmit";
+            this.UISubmit.Size = new System.Drawing.Size(119, 36);
+            this.UISubmit.TabIndex = 17;
+            this.UISubmit.Text = "Submit";
+            this.UISubmit.UseVisualStyleBackColor = false;
+            this.UISubmit.Click += new System.EventHandler(this.UISubmit_Click);
+            // 
             // Upload
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(410, 521);
+            this.Controls.Add(this.UISubmit);
+            this.Controls.Add(this.UIUserEnter);
+            this.Controls.Add(this.UIUserEntry);
             this.Controls.Add(this.UIMusicsBoxList);
             this.Controls.Add(this.UIMusicInformation);
             this.Controls.Add(this.label3);
@@ -124,5 +165,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ListView UIMusicInformation;
         private System.Windows.Forms.ComboBox UIMusicsBoxList;
+        private System.Windows.Forms.TextBox UIUserEntry;
+        private System.Windows.Forms.Button UIUserEnter;
+        private System.Windows.Forms.Button UISubmit;
     }
 }
