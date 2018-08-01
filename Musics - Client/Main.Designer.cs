@@ -207,7 +207,7 @@
             this.UIUpload.FlatAppearance.BorderSize = 0;
             this.UIUpload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.UIUpload.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.UIUpload.Location = new System.Drawing.Point(6, 720);
+            this.UIUpload.Location = new System.Drawing.Point(29, 695);
             this.UIUpload.Name = "UIUpload";
             this.UIUpload.Size = new System.Drawing.Size(119, 36);
             this.UIUpload.TabIndex = 25;
@@ -313,7 +313,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.23116F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.76884F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 254F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 255F));
             this.tableLayoutPanel1.Controls.Add(this.UIPathMusic, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAlbum, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAuthor, 0, 0);
@@ -330,7 +330,7 @@
             this.UIPathMusic.AutoSize = true;
             this.UIPathMusic.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathMusic.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathMusic.Location = new System.Drawing.Point(368, 0);
+            this.UIPathMusic.Location = new System.Drawing.Point(367, 0);
             this.UIPathMusic.Name = "UIPathMusic";
             this.UIPathMusic.Size = new System.Drawing.Size(42, 14);
             this.UIPathMusic.TabIndex = 19;
@@ -342,7 +342,7 @@
             this.UIPathAlbum.AutoSize = true;
             this.UIPathAlbum.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathAlbum.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathAlbum.Location = new System.Drawing.Point(172, 0);
+            this.UIPathAlbum.Location = new System.Drawing.Point(171, 0);
             this.UIPathAlbum.Name = "UIPathAlbum";
             this.UIPathAlbum.Size = new System.Drawing.Size(42, 14);
             this.UIPathAlbum.TabIndex = 18;
@@ -1227,7 +1227,7 @@
             this.UIPlayingMusic.AutoSize = true;
             this.UIPlayingMusic.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPlayingMusic.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.UIPlayingMusic.Location = new System.Drawing.Point(50, 12);
+            this.UIPlayingMusic.Location = new System.Drawing.Point(11, 10);
             this.UIPlayingMusic.Name = "UIPlayingMusic";
             this.UIPlayingMusic.Size = new System.Drawing.Size(127, 31);
             this.UIPlayingMusic.TabIndex = 2;
