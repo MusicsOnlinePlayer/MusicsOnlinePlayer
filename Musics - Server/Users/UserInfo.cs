@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Xml;
 using Utility;
 using Musics___Server.MusicsManagement;
+using Utility.Musics;
+using Utility.Network.Users;
+
 namespace Musics___Server.Usersinfos
 {
     static class UsersInfos

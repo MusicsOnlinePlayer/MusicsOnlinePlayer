@@ -47,11 +47,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Utility.cs" />
+    <Compile Include="Musics\Album.cs" />
+    <Compile Include="Musics\Author.cs" />
+    <Compile Include="Musics\Music.cs" />
+    <Compile Include="Musics\Playlist.cs" />
+    <Compile Include="Network\Dialog\Authentification\AuthInfo.cs" />
+    <Compile Include="Network\Dialog\Authentification\Login.cs" />
+    <Compile Include="Network\Dialog\Edits\EditRequest.cs" />
+    <Compile Include="Network\Dialog\Edits\EditUser.cs" />
+    <Compile Include="Network\Dialog\Edits\EditUserReport.cs" />
+    <Compile Include="Network\Dialog\Rating\Rate.cs" />
+    <Compile Include="Network\Dialog\Rating\RateReport.cs" />
+    <Compile Include="Network\Dialog\Requests\Request.cs" />
+    <Compile Include="Network\Dialog\Requests\RequestAnswer.cs" />
+    <Compile Include="Network\Dialog\Uploads\SavePlaylist.cs" />
+    <Compile Include="Network\Dialog\Uploads\UploadMusic.cs" />
+    <Compile Include="Network\Function.cs" />
+    <Compile Include="Network\MessageTCP.cs" />
+    <Compile Include="Network\Users\ClientList.cs" />
+    <Compile Include="Network\Users\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

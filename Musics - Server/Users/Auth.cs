@@ -2,6 +2,7 @@
 using System.IO;
 using System.Xml;
 using Utility;
+using Utility.Network.Users;
 
 namespace Musics___Server.Authentification
 {

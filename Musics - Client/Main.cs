@@ -12,6 +12,14 @@ using Utility;
 using Musics___Client.Hue;
 using NAudio.CoreAudioApi;
 using Musics___Client.MusicsUtils;
+using Utility.Network.Dialog.Edits;
+using Utility.Network.Users;
+using Utility.Network.Dialog;
+using Utility.Network;
+using Utility.Network.Dialog.Rating;
+using Utility.Network.Dialog.Authentification;
+using Utility.Musics;
+using Utility.Network.Dialog.Uploads;
 
 namespace Musics___Client
 { 
@@ -451,7 +459,7 @@ namespace Musics___Client
                 if (SearchlistboxItems.First() is Playlist)
                 {
                     typeOfSelected = Element.Playlist;
-                    selected = SearchlistboxItems[UISearchListbox.SelectedIndex] as Utility.Playlist;
+                    selected = SearchlistboxItems[UISearchListbox.SelectedIndex] as Utility.Musics.Playlist;
                     UISelectedname.Text = (selected as Playlist).Name;
                     UIselectedartist.Text = (selected as Playlist).Creator.Name;
                     UIPathAuthor.Text = "";

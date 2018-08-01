@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Utility;
 using Musics___Server.Usersinfos;
 using System.Net.Sockets;
+using Utility.Network.Dialog;
+using Utility.Musics;
 
 namespace Musics___Server.MusicsManagement.ClientSearch
 {
@@ -19,7 +20,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                 {
                     List<Author> result = new List<Author>();
 
-                    foreach (Author a in Indexation.ServerMusics)
+                    foreach(Author a in Indexation.ServerMusics)
                     {
                         bool Found = Search.Find(requestSearch.Name, a.Name);
                         if (Found)

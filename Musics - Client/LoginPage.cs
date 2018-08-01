@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Utility;
+using Utility.Network.Dialog.Authentification;
+using Utility.Network.Users;
 
 namespace Musics___Client
 {

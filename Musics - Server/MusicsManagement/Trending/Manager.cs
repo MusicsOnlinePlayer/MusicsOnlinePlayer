@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Utility;
+using Utility.Musics;
 
 namespace Musics___Server.MusicsManagement.Trending
 {

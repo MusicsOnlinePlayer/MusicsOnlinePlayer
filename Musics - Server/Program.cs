@@ -10,6 +10,14 @@ using Musics___Server.MusicsInformation;
 using Musics___Server.MusicsManagement;
 using Musics___Server.MusicsManagement.ClientSearch;
 using Musics___Server.MusicsManagement.Trending;
+using Utility.Network.Users;
+using Utility.Network;
+using Utility.Network.Dialog;
+using Utility.Musics;
+using Utility.Network.Dialog.Rating;
+using Utility.Network.Dialog.Edits;
+using Utility.Network.Dialog.Uploads;
+using Utility.Network.Dialog.Authentification;
 
 namespace Musics___Server
 {

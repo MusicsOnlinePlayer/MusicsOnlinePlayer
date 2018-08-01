@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Utility;
 using Musics___Server.MusicsManagement;
+using Utility.Musics;
 
 namespace Musics___Server.MusicsManagement.Trending
 {
