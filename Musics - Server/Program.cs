@@ -362,6 +362,14 @@ namespace Musics___Server
                     SavePlaylist tmp = received as SavePlaylist;
                     UsersInfos.SaveUserPlaylist(tmp.UID, tmp.Playlist);
                 }
+                if(received is UploadMusic)
+                {
+                    UploadMusic tmp = received as UploadMusic;
+                    if (Indexation.AddElement(tmp) && (int)Clients.GetUser(socket).Userrank > 1)
+                    {
+                        SendObject(new UploadReport(null, true),socket);
+                    }
+                }
             }
             else
             {

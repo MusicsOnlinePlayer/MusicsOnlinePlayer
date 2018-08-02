@@ -42,6 +42,7 @@ namespace Utility.Musics
         public Album(string name)
         {
             Name = name;
+            Musics = new List<Music>();
             MID = Hash.SHA256Hash(Name + Element.Album.ToString());
         }
 

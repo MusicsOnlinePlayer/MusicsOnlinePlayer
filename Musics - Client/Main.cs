@@ -22,7 +22,7 @@ using Utility.Musics;
 using Utility.Network.Dialog.Uploads;
 
 namespace Musics___Client
-{ 
+{
     public partial class Client : Form
     {
         public Socket _clientSocket { get; set; }
@@ -225,6 +225,23 @@ namespace Musics___Client
                     {
                         UIEditError.Text = "Username use by another person !";
                     });
+                }
+            }
+            if(obj is UploadReport)
+            {
+                if((obj as UploadReport).UploadPartOk)
+                {
+                    if(UploadStatus < MusicsToSend.Musics.Count)
+                    {
+                        SendObject(new UploadMusic(new Album(MusicsToSend.Musics[UploadStatus].Author, MusicsToSend.Name, new Music[] { MusicsToSend.Musics[UploadStatus] })));
+                        UploadStatus++;
+                    }
+                    else
+                    {
+                        UploadStatus = 0;
+                        MessageBox.Show("Upload is finished !");
+                        MusicsToSend = null;
+                    }
                 }
             }
         }
@@ -893,26 +910,40 @@ namespace Musics___Client
         #region Upload
 
         Upload uploadForm;
+        int UploadStatus;
+        public Album MusicsToSend;
 
         private void UIUpload_Click(object sender, EventArgs e)
         {
-            uploadForm = new Upload();
-            uploadForm.ShowDialog();
-            uploadForm.FormClosed += UploadForm_FormClosed;
-        }
-
-        private void UploadForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (uploadForm.IsUploadValid)
+            if(MusicsToSend == null)
             {
-                foreach(var m in uploadForm.AlbumToSend.Musics)
-                {
-                    SendObject(new UploadMusic(new Album(m.Author, uploadForm.AlbumToSend.Name, new Music[] { m })));
-                }
-                MessageBox.Show("Musics has been sent to the server");
+                uploadForm = new Upload();
+                uploadForm.Show();
+                uploadForm.FormClosing += UploadForm_FormClosing;
+            }
+            else
+            {
+                MessageBox.Show("Please wait for the previous Upload to finish");
             }
         }
 
+        private void UploadForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (uploadForm.IsUploadValid)
+            {
+                MusicsToSend = uploadForm.AlbumToSend;
+
+                SendObject(new UploadMusic(new Album(MusicsToSend.Musics[0].Author, uploadForm.AlbumToSend.Name,new Music[] { MusicsToSend.Musics[0] })));
+
+                UploadStatus = 1;
+
+                MessageBox.Show("Musics has been sent to the server");
+            }
+            else
+            {
+                MessageBox.Show("Error");
+            }
+        }
         #endregion
     }
 }

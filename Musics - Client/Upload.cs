@@ -117,12 +117,17 @@ namespace Musics___Client
 
         private void UISubmit_Click(object sender, EventArgs e)
         {
+            music = TagLib.File.Create(FilesPath[0]);
             AlbumToSend  = new Album(music.Tag.Album);
 
             foreach(var p in FilesPath)
             {
+                music = TagLib.File.Create(p);
                 var tmpFile = TagLib.File.Create(p);
-                Music MusicUpload = new Music(tmpFile.Tag.Title, new Author(tmpFile.Tag.Performers[0]), System.IO.File.ReadAllBytes(p));
+                Music MusicUpload = new Music(tmpFile.Tag.Title, new Author(tmpFile.Tag.Performers[0]), System.IO.File.ReadAllBytes(p))
+                {
+                    Format = Path.GetExtension(p)
+                };
                 AlbumToSend.Add(MusicUpload);
             }
 

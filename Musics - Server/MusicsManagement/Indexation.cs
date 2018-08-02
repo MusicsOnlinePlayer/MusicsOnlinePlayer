@@ -5,6 +5,7 @@ using System.IO;
 using Musics___Server.MusicsInformation;
 using TagLib;
 using Utility.Musics;
+using Utility.Network.Dialog.Uploads;
 
 namespace Musics___Server.MusicsManagement
 {
@@ -52,6 +53,43 @@ namespace Musics___Server.MusicsManagement
             return tmp;
         }
 
+        public static bool IsElementExisting(object element, Element type)
+        {
+            switch (type)
+            {
+                case Element.Author:
+                    Author tmp = element as Author;
+                    foreach (var a in ServerMusics)
+                    {
+                        if (a.MID == tmp.MID)
+                        {
+                            return true;
+                        }
+                    }
+                    break;
+                case Element.Album:
+                    Album Albumtmp = element as Album;
+                    foreach (var a in ServerMusics)
+                    {
+                        foreach (var al in a.Albums)
+                        {
+                            if (al.MID == Albumtmp.MID)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                    break;
+                case Element.Music:
+                    if (MusicsInfo.MusicsExisting((element as Music).MID))
+                    {
+                        return true;
+                    }
+                    break;
+            }
+            return false;
+        }
+
         public static int DoIndexation()
         {
             //Console.WriteLine("Starting Indexation");
@@ -65,8 +103,6 @@ namespace Musics___Server.MusicsManagement
             {
                 Author CurrentArtist = new Author(Path.GetFileName(n), n);
 
-                //Console.WriteLine(CurrentArtist.Name);
-
                 string[] AlbumOfArtist = Directory.GetDirectories(n);
 
                 int i = 0;
@@ -75,7 +111,7 @@ namespace Musics___Server.MusicsManagement
                     if (!Path.GetFileNameWithoutExtension(a).Contains("-ignore"))
                     {
                         CurrentArtist.Albums.Add(new Album(CurrentArtist, Path.GetFileName(a), a));
-                        //Console.WriteLine(" " + CurrentArtist.albums.Last().Name);
+
                         foreach (var m in Directory.GetFiles(a))
                         {
                             if (Path.GetExtension(m) == ".mp3" || Path.GetExtension(m) == ".flac")
@@ -108,7 +144,6 @@ namespace Musics___Server.MusicsManagement
 
                                 CurrentArtist.Albums[i].Musics.Add(current);
 
-                                //Console.WriteLine("     " + current.Title);
                             }
                         }
                         i++;
@@ -200,6 +235,107 @@ namespace Musics___Server.MusicsManagement
         public static void SaveAllInfos()
         {
             MusicsInfo.SaveMusicsInfo(GetAllMusics());
+        }
+
+        public static bool AddElement(UploadMusic tmp)
+        {
+            if (Indexation.IsElementExisting(tmp.MusicPart.Musics.First().Author, Element.Author))
+            {
+                if (Indexation.IsElementExisting(tmp.MusicPart, Element.Album))
+                {
+                    if (Indexation.IsElementExisting(tmp.MusicPart.Musics.First(), Element.Music))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        string path = Path.Combine(GetElementPath(tmp.MusicPart.MID, Element.Album), tmp.MusicPart.Musics[0].Title + tmp.MusicPart.Musics[0].Format);
+                        System.IO.File.WriteAllBytes(path, tmp.MusicPart.Musics.First().FileBinary);
+                        MusicsInfo.SaveMusicInfo(tmp.MusicPart.Musics.First());
+                        foreach (var a in ServerMusics)
+                        {
+                            foreach (var al in a.Albums)
+                            {
+                                if (al.MID == tmp.MusicPart.MID)
+                                {
+                                    tmp.MusicPart.Musics[0].FileBinary = null;
+                                    tmp.MusicPart.Musics[0].ServerPath = path;
+                                    tmp.MusicPart.Musics[0].Author = a;
+                                    tmp.MusicPart.Musics[0].Album = al;
+                                    al.Add(tmp.MusicPart.Musics[0]);
+                                    return true;
+                                }
+
+                            }
+                        }
+
+                    }
+                }
+                else
+                {
+                    tmp.MusicPart.Name = string.Join("", tmp.MusicPart.Name.Split(Path.GetInvalidFileNameChars()));
+                    string path = Path.Combine(GetElementPath(tmp.MusicPart.Musics.First().Author.MID, Element.Author), tmp.MusicPart.Name);
+                    
+                    Directory.CreateDirectory(path);
+                    string MusicPath = Path.Combine(path, tmp.MusicPart.Musics[0].Title + tmp.MusicPart.Musics[0].Format);
+                    System.IO.File.WriteAllBytes(MusicPath, tmp.MusicPart.Musics.First().FileBinary);
+                    MusicsInfo.SaveMusicInfo(tmp.MusicPart.Musics.First());
+                    foreach (var a in ServerMusics)
+                    {
+                        if(a.MID == tmp.MusicPart.Musics[0].MID)
+                        {
+                            tmp.MusicPart.Musics[0].FileBinary = null;
+                            tmp.MusicPart.Musics[0].ServerPath = MusicPath;
+                            tmp.MusicPart.Musics[0].Author = a;
+
+                            Album tmpAl = new Album(a, tmp.MusicPart.Name, path);
+                            tmpAl.Add(tmp.MusicPart.Musics[0]);
+                            tmpAl.Musics[0].Album = tmpAl;
+                            a.Albums.Add(tmpAl);
+                            return true;
+                        }                       
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static string GetElementPath(string ID, Element type)
+        {
+            switch (type)
+            {
+                case Element.Author:
+                    foreach (var a in ServerMusics)
+                    {
+                        if (a.MID == ID)
+                        {
+                            return a.ServerPath;
+                        }
+                    }
+                    break;
+                case Element.Album:
+                    foreach (var a in ServerMusics)
+                    {
+                        foreach (var al in a.Albums)
+                        {
+                            if (ID == al.MID)
+                            {
+                                return al.ServerPath;
+                            }
+                        }
+                    }
+                    break;
+                case Element.Music:
+                    foreach (var a in GetAllMusics())
+                    {
+                        if (ID == a.MID)
+                        {
+                            return a.ServerPath;
+                        }
+                    }
+                    break;
+            }
+            return null;
         }
     }
 }
