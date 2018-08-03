@@ -89,23 +89,27 @@ namespace Musics___Client
         {
             try
             {
+                music = TagLib.File.Create(FilesPath[UIMusicsBoxList.SelectedIndex]);
                 UIMusicInformation.SelectedItems[0].SubItems[1].Text = UIUserEntry.Text;
                 switch (UIMusicInformation.SelectedItems[0].Index)
                 {
                     case 0:
                         music.Tag.Title = UIUserEntry.Text;
+                        music.Save();
                         break;
                     case 1:
                         music.Tag.Genres = UIUserEnter.Text.Split(';');
+                        music.Save();
                         break;
                     case 2:
                         music.Tag.Album = UIUserEntry.Text;
+                        music.Save();
                         break;
                     case 3:
                         music.Tag.Performers[0] = UIUserEntry.Text;
+                        music.Save();
                         break;
-                }
-                music.Save();
+                }               
             }
             catch
             {
@@ -126,7 +130,8 @@ namespace Musics___Client
                 var tmpFile = TagLib.File.Create(p);
                 Music MusicUpload = new Music(tmpFile.Tag.Title, new Author(tmpFile.Tag.Performers[0]), System.IO.File.ReadAllBytes(p))
                 {
-                    Format = Path.GetExtension(p)
+                    Format = Path.GetExtension(p),
+                    Genre = music.Tag.Genres                   
                 };
                 AlbumToSend.Add(MusicUpload);
             }

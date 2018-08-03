@@ -239,66 +239,71 @@ namespace Musics___Server.MusicsManagement
 
         public static bool AddElement(UploadMusic tmp)
         {
-            if (Indexation.IsElementExisting(tmp.MusicPart.Musics.First().Author, Element.Author))
+            if (!Indexation.IsElementExisting(tmp.MusicPart.Musics.First().Author, Element.Author))
             {
-                if (Indexation.IsElementExisting(tmp.MusicPart, Element.Album))
+                string path = Path.Combine("c:\\AllMusics", tmp.MusicPart.Musics[0].Author.Name);
+                Directory.CreateDirectory(path);
+                ServerMusics.Add(new Author(tmp.MusicPart.Musics[0].Author.Name,path));
+            }
+
+            if (Indexation.IsElementExisting(tmp.MusicPart, Element.Album))
+            {
+                if (Indexation.IsElementExisting(tmp.MusicPart.Musics.First(), Element.Music))
                 {
-                    if (Indexation.IsElementExisting(tmp.MusicPart.Musics.First(), Element.Music))
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        string path = Path.Combine(GetElementPath(tmp.MusicPart.MID, Element.Album), tmp.MusicPart.Musics[0].Title + tmp.MusicPart.Musics[0].Format);
-                        System.IO.File.WriteAllBytes(path, tmp.MusicPart.Musics.First().FileBinary);
-                        MusicsInfo.SaveMusicInfo(tmp.MusicPart.Musics.First());
-                        foreach (var a in ServerMusics)
-                        {
-                            foreach (var al in a.Albums)
-                            {
-                                if (al.MID == tmp.MusicPart.MID)
-                                {
-                                    tmp.MusicPart.Musics[0].FileBinary = null;
-                                    tmp.MusicPart.Musics[0].ServerPath = path;
-                                    tmp.MusicPart.Musics[0].Author = a;
-                                    tmp.MusicPart.Musics[0].Album = al;
-                                    al.Add(tmp.MusicPart.Musics[0]);
-                                    return true;
-                                }
-
-                            }
-                        }
-
-                    }
+                    return false;
                 }
                 else
                 {
-                    tmp.MusicPart.Name = string.Join("", tmp.MusicPart.Name.Split(Path.GetInvalidFileNameChars()));
-                    string path = Path.Combine(GetElementPath(tmp.MusicPart.Musics.First().Author.MID, Element.Author), tmp.MusicPart.Name);
-                    
-                    Directory.CreateDirectory(path);
-                    string MusicPath = Path.Combine(path, tmp.MusicPart.Musics[0].Title + tmp.MusicPart.Musics[0].Format);
-                    System.IO.File.WriteAllBytes(MusicPath, tmp.MusicPart.Musics.First().FileBinary);
+                    string path = Path.Combine(GetElementPath(tmp.MusicPart.MID, Element.Album), tmp.MusicPart.Musics[0].Title + tmp.MusicPart.Musics[0].Format);
+                    System.IO.File.WriteAllBytes(path, tmp.MusicPart.Musics.First().FileBinary);
                     MusicsInfo.SaveMusicInfo(tmp.MusicPart.Musics.First());
                     foreach (var a in ServerMusics)
                     {
-                        if(a.MID == tmp.MusicPart.Musics[0].MID)
+                        foreach (var al in a.Albums)
                         {
-                            tmp.MusicPart.Musics[0].FileBinary = null;
-                            tmp.MusicPart.Musics[0].ServerPath = MusicPath;
-                            tmp.MusicPart.Musics[0].Author = a;
+                            if (al.MID == tmp.MusicPart.MID)
+                            {
+                                tmp.MusicPart.Musics[0].FileBinary = null;
+                                tmp.MusicPart.Musics[0].ServerPath = path;
+                                tmp.MusicPart.Musics[0].Author = a;
+                                tmp.MusicPart.Musics[0].Album = al;
+                                al.Add(tmp.MusicPart.Musics[0]);
+                                return true;
+                            }
 
-                            Album tmpAl = new Album(a, tmp.MusicPart.Name, path);
-                            tmpAl.Add(tmp.MusicPart.Musics[0]);
-                            tmpAl.Musics[0].Album = tmpAl;
-                            a.Albums.Add(tmpAl);
-                            return true;
-                        }                       
+                        }
+                    }
+
+                }
+            }
+            else
+            {
+                string path = Path.Combine(GetElementPath(tmp.MusicPart.Musics.First().Author.MID, Element.Author), string.Join("", tmp.MusicPart.Name.Split(Path.GetInvalidFileNameChars())));
+
+                Directory.CreateDirectory(path);
+                string MusicPath = Path.Combine(path, tmp.MusicPart.Musics[0].Title + tmp.MusicPart.Musics[0].Format);
+                System.IO.File.WriteAllBytes(MusicPath, tmp.MusicPart.Musics.First().FileBinary);
+                MusicsInfo.SaveMusicInfo(tmp.MusicPart.Musics.First());
+                foreach (var a in ServerMusics)
+                {
+                    if (a.MID == tmp.MusicPart.Musics[0].Author.MID)
+                    {
+                        tmp.MusicPart.Musics[0].FileBinary = null;
+                        tmp.MusicPart.Musics[0].ServerPath = MusicPath;
+                        tmp.MusicPart.Musics[0].Author = a;
+
+                        Album tmpAl = new Album(a, tmp.MusicPart.Name, path);
+                        tmpAl.Add(tmp.MusicPart.Musics[0]);
+                        tmpAl.Musics[0].Album = tmpAl;
+                        a.Albums.Add(tmpAl);
+                        return true;
                     }
                 }
             }
             return false;
         }
+
+
 
         public static string GetElementPath(string ID, Element type)
         {
