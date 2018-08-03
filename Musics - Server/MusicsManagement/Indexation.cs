@@ -143,7 +143,6 @@ namespace Musics___Server.MusicsManagement
                                 NumberofMusics++;
 
                                 CurrentArtist.Albums[i].Musics.Add(current);
-
                             }
                         }
                         i++;
@@ -270,10 +269,8 @@ namespace Musics___Server.MusicsManagement
                                 al.Add(tmp.MusicPart.Musics[0]);
                                 return true;
                             }
-
                         }
                     }
-
                 }
             }
             else
@@ -302,8 +299,6 @@ namespace Musics___Server.MusicsManagement
             }
             return false;
         }
-
-
 
         public static string GetElementPath(string ID, Element type)
         {
