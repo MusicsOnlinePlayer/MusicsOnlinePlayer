@@ -315,6 +315,11 @@ namespace Musics___Server
                         }
                     }
                 }
+                if(received is Disconnect)
+                {
+                    Console.WriteLine("Client disconnected =(");
+                    Clients.List.Remove(socket);
+                }
                 if (received is EditUser)
                 {
                     EditUser tmp = received as EditUser;

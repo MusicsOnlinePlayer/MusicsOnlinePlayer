@@ -63,6 +63,7 @@
     <Compile Include="Network\Dialog\Uploads\SavePlaylist.cs" />
     <Compile Include="Network\Dialog\Uploads\UploadMusic.cs" />
     <Compile Include="Network\Dialog\Uploads\UploadReport.cs" />
+    <Compile Include="Network\Disconnect.cs" />
     <Compile Include="Network\Function.cs" />
     <Compile Include="Network\MessageTCP.cs" />
     <Compile Include="Network\Users\ClientList.cs" />

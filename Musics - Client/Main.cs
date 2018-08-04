@@ -47,7 +47,10 @@ namespace Musics___Client
             UIAccountId.Text = Me.UID;
             this.Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + authInfo.RankofAuthUser.ToString();
             UIRank.Text = authInfo.RankofAuthUser.ToString();
-
+            if (authInfo.RankofAuthUser == Rank.Viewer)
+            {
+                UIUpload.Enabled = false;
+            }
             try
             {
                 if (Properties.Settings.Default.HueKey != null && Properties.Settings.Default.HueIp != null)
@@ -67,8 +70,9 @@ namespace Musics___Client
 
         private void Client_FormClosed(object sender, FormClosedEventArgs e)
         {
+            SendObject(new Disconnect());
             _clientSocket.Shutdown(SocketShutdown.Both);
-            _clientSocket.Close();
+            _clientSocket.Close(1000);
         }
 
         public void Connect()
@@ -140,7 +144,9 @@ namespace Musics___Client
                 MessageBox.Show(ex.ToString());
             }
 
+
             TreatObject(Function.Deserialize(new MessageTCP(recbuffer)));
+
 
             recbuffer = new byte[100000000];
 
@@ -174,7 +180,11 @@ namespace Musics___Client
 
         private void SendCallback(IAsyncResult ar)
         {
-            _clientSocket.EndSend(ar);
+            try
+            {
+                _clientSocket.EndSend(ar);
+            }
+            catch { }
         }
 
         #endregion
@@ -217,6 +227,15 @@ namespace Musics___Client
                         UIAccountId.Text = Me.UID;
                         this.Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + Me.Userrank.ToString();
                         UIRank.Text = Me.Userrank.ToString();
+                        if (Me.Userrank == Rank.Viewer)
+                        {
+                            UIUpload.Enabled = false;
+                        }
+                        else
+                        {
+                            UIUpload.Enabled = true;
+                        }
+
                     });
                 }
                 else
@@ -227,11 +246,11 @@ namespace Musics___Client
                     });
                 }
             }
-            if(obj is UploadReport)
+            if (obj is UploadReport)
             {
-                if((obj as UploadReport).UploadPartOk)
+                if ((obj as UploadReport).UploadPartOk)
                 {
-                    if(UploadStatus < MusicsToSend.Musics.Count)
+                    if (UploadStatus < MusicsToSend.Musics.Count)
                     {
                         SendObject(new UploadMusic(new Album(MusicsToSend.Musics[UploadStatus].Author, MusicsToSend.Name, new Music[] { MusicsToSend.Musics[UploadStatus] })));
                         UploadStatus++;
@@ -915,7 +934,7 @@ namespace Musics___Client
 
         private void UIUpload_Click(object sender, EventArgs e)
         {
-            if(MusicsToSend == null)
+            if (MusicsToSend == null)
             {
                 uploadForm = new Upload();
                 uploadForm.Show();
@@ -933,7 +952,7 @@ namespace Musics___Client
             {
                 MusicsToSend = uploadForm.AlbumToSend;
 
-                SendObject(new UploadMusic(new Album(MusicsToSend.Musics[0].Author, uploadForm.AlbumToSend.Name,new Music[] { MusicsToSend.Musics[0] })));
+                SendObject(new UploadMusic(new Album(MusicsToSend.Musics[0].Author, uploadForm.AlbumToSend.Name, new Music[] { MusicsToSend.Musics[0] })));
 
                 UploadStatus = 1;
 
