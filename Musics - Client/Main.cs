@@ -461,6 +461,7 @@ namespace Musics___Client
                     UIselectedartist.Text = (selected as Music).Author.Name;
                     UISelectedRating.Text = "Rating : " + (selected as Music).Rating;
                     UISelectedGenres.Text = "Genres : " + String.Join(" ", (selected as Music).Genre);
+                    UIThumbup.Visible = true;
 
                     UIPathAuthor.Text = (selected as Music).Author.Name;
                     UIPathAlbum.Text = (selected as Music).Album.Name;
@@ -479,6 +480,7 @@ namespace Musics___Client
                     UIPathAuthor.Text = (selected as Album).Author.Name;
                     UIPathAlbum.Text = (selected as Album).Name;
                     UIPathMusic.Text = "";
+                    UIThumbup.Visible = false;
                 }
                 if (SearchlistboxItems.First() is Author)
                 {
@@ -491,6 +493,7 @@ namespace Musics___Client
                     UIPathAuthor.Text = (selected as Author).Name;
                     UIPathAlbum.Text = "";
                     UIPathMusic.Text = "";
+                    UIThumbup.Visible = false;
                 }
                 if (SearchlistboxItems.First() is Playlist)
                 {
@@ -501,6 +504,7 @@ namespace Musics___Client
                     UIPathAuthor.Text = "";
                     UIPathAlbum.Text = "";
                     UIPathMusic.Text = "";
+                    UIThumbup.Visible = false;
 
                     Playlist.Clear();
                     PlaylistIndex = 0;
