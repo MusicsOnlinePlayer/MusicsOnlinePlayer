@@ -144,9 +144,7 @@ namespace Musics___Client
                 MessageBox.Show(ex.ToString());
             }
 
-
             TreatObject(Function.Deserialize(new MessageTCP(recbuffer)));
-
 
             recbuffer = new byte[100000000];
 
@@ -184,7 +182,9 @@ namespace Musics___Client
             {
                 _clientSocket.EndSend(ar);
             }
-            catch { }
+            catch
+            {
+            }
         }
 
         #endregion
@@ -235,7 +235,6 @@ namespace Musics___Client
                         {
                             UIUpload.Enabled = true;
                         }
-
                     });
                 }
                 else
