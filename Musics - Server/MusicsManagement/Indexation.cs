@@ -154,7 +154,7 @@ namespace Musics___Server.MusicsManagement
             return NumberofMusics;
         }
 
-        public static void ModifyElement(object Origin, string NewName)
+        public static void ModifyElement(object Origin, string NewName,string[] Genres)
         {
             if (Origin is Music)
             {
@@ -172,6 +172,13 @@ namespace Musics___Server.MusicsManagement
 
                                 TagLib.File file = TagLib.File.Create(m.ServerPath);
                                 file.Tag.Title = m.Title;
+
+                                if(Genres != null)
+                                {
+                                    m.Genre = Genres;
+                                    file.Tag.Genres = Genres;
+                                }
+
                                 file.Save();
 
                                 MusicsInfo.EditMusicsInfo(tmpOrigin.MID, m);

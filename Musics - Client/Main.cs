@@ -879,10 +879,16 @@ namespace Musics___Client
 
         private void UIEditMusic_Click(object sender, EventArgs e)
         {
-            if (selected != null)
+            if (selected != null && !(selected is Playlist))
             {
-                UIEditMusicName.Visible = true;
+                UIEditMusicName.Visible = true;               
                 UIEditMusicName.Text = UISelectedname.Text;
+
+                if(selected is Music)
+                {
+                    UIEditMusicGenres.Text = string.Join(";", (selected as Music).Genre);
+                    UIEditMusicGenres.Visible = true;
+                }               
             }
             if (UIEditMusicName.Visible)
             {
@@ -896,13 +902,22 @@ namespace Musics___Client
             {
                 if ((int)Me.Userrank > 1 && UIEditMusicName.Text != null)
                 {
-                    SendObject(new EditRequest(selected, UIEditMusicName.Text, typeOfSelected));
+                    if(selected is Music)
+                    {
+                        SendObject(new EditRequest(selected, UIEditMusicName.Text, UIEditMusicGenres.Text.Split(';'), typeOfSelected));
+                    }
+                    else
+                    {
+                        SendObject(new EditRequest(selected, UIEditMusicName.Text, typeOfSelected));
+                    }
                     UIEditMusicName.Visible = false;
+                    UIEditMusicGenres.Visible = false;
                 }
                 else
                 {
                     MessageBox.Show("You have to be at least a user to edit this music");
                     UIEditMusicName.Visible = false;
+                    UIEditMusicGenres.Visible = false;
                 }
             }
         }

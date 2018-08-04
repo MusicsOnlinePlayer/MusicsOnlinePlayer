@@ -14,6 +14,7 @@ namespace Utility.Network.Dialog.Edits
 
         public object ObjectToEdit { get; set; }
         public string NewName { get; set; }
+        public string[] NewGenres { get; set; }
         public Element TypeOfObject { get; set; }
 
         public EditRequest(string UIDToEdit, Rank NewRank)
@@ -29,6 +30,14 @@ namespace Utility.Network.Dialog.Edits
             NewName = NewTitle;
             TypeOfObject = TypeOf;
             TypeOfEdit = TypesEdit.Musics;
+        }
+        public EditRequest(object ToEdit, string NewTitle,string[] Genres, Element TypeOf)
+        {
+            ObjectToEdit = ToEdit;
+            NewName = NewTitle;
+            TypeOfObject = TypeOf;
+            TypeOfEdit = TypesEdit.Musics;
+            NewGenres = Genres;
         }
     }
     public enum TypesEdit

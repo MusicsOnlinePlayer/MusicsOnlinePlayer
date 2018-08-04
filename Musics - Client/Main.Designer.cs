@@ -123,6 +123,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.HueTimer = new System.Windows.Forms.Timer(this.components);
+            this.UIEditMusicGenres = new System.Windows.Forms.TextBox();
             this.Tabs.SuspendLayout();
             this.UISearch.SuspendLayout();
             this.UIEditPlaylist.SuspendLayout();
@@ -176,6 +177,7 @@
             // 
             // UISearch
             // 
+            this.UISearch.Controls.Add(this.UIEditMusicGenres);
             this.UISearch.Controls.Add(this.UIUpload);
             this.UISearch.Controls.Add(this.UIEditPlaylist);
             this.UISearch.Controls.Add(this.UISavePlaylist);
@@ -313,7 +315,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.23116F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.76884F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 255F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 256F));
             this.tableLayoutPanel1.Controls.Add(this.UIPathMusic, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAlbum, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAuthor, 0, 0);
@@ -330,7 +332,7 @@
             this.UIPathMusic.AutoSize = true;
             this.UIPathMusic.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathMusic.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathMusic.Location = new System.Drawing.Point(367, 0);
+            this.UIPathMusic.Location = new System.Drawing.Point(366, 0);
             this.UIPathMusic.Name = "UIPathMusic";
             this.UIPathMusic.Size = new System.Drawing.Size(42, 14);
             this.UIPathMusic.TabIndex = 19;
@@ -1261,6 +1263,14 @@
             this.HueTimer.Interval = 200;
             this.HueTimer.Tick += new System.EventHandler(this.HueTimer_Tick);
             // 
+            // UIEditMusicGenres
+            // 
+            this.UIEditMusicGenres.Location = new System.Drawing.Point(29, 546);
+            this.UIEditMusicGenres.Name = "UIEditMusicGenres";
+            this.UIEditMusicGenres.Size = new System.Drawing.Size(171, 31);
+            this.UIEditMusicGenres.TabIndex = 26;
+            this.UIEditMusicGenres.Visible = false;
+            // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1406,6 +1416,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button UIUpload;
+        private System.Windows.Forms.TextBox UIEditMusicGenres;
     }
 }
 
