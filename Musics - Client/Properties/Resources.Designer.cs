@@ -103,6 +103,16 @@ namespace Musics___Client.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap IconMusic3 {
+            get {
+                object obj = ResourceManager.GetObject("IconMusic3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Icopause {
             get {
                 object obj = ResourceManager.GetObject("Icopause", resourceCulture);

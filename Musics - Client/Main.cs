@@ -352,6 +352,7 @@ namespace Musics___Client
                     }
                     UIPlayingMusic.Text = InPlaying.Title;
                     UIArtist.Text = InPlaying.Author.Name;
+                    UIFormat.Text = InPlaying.Format;
                 });
 
                 p.PlayMusic(InPlaying);
