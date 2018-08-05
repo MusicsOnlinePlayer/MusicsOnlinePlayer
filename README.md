@@ -1,4 +1,4 @@
-![Image of the tree](https://github.com/MalauD/MusicsOnlinePlayer/blob/master/Image/MusicicoLarge.PNG)
+![Image of the tree](https://github.com/MalauD/MusicsOnlinePlayer/blob/master/Image/MusicicoLarge.png)
 
 [![CodeFactor](https://www.codefactor.io/repository/github/malaud/musicsonlineplayer/badge/master)](https://www.codefactor.io/repository/github/malaud/musicsonlineplayer/overview/master)
 
