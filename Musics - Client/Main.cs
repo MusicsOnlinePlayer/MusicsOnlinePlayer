@@ -34,6 +34,7 @@ namespace Musics___Client
         public Client()
         {
             InitializeComponent();
+            UIMusicImage.BackgroundImage = Properties.Resources.No_Cover_Image;
         }
 
         private void Client_Load(object sender, EventArgs e)
@@ -363,7 +364,7 @@ namespace Musics___Client
                 }
                 catch
                 {
-                    UIMusicImage.BackgroundImage = null;
+                    UIMusicImage.BackgroundImage = Properties.Resources.No_Cover_Image;
                 }
             }
             if (searchAnswer.RequestsTypes == RequestsTypes.Favorites)
