@@ -13,7 +13,7 @@ namespace Musics___Client
 
         private void Settings_Load(object sender, EventArgs e)
         {
-            UISettingsIp.Text = Properties.Settings.Default.ServerIp;
+            UISettingsIp.Text = AppSettings.ApplicationSettings.Get().ServerIp;
         }
 
         public IPAddress result;

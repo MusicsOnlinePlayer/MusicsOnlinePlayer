@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Musics___Client.AppSettings;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,6 +19,7 @@ namespace Musics___Client
         public LoginPage()
         {
             InitializeComponent();
+            ApplicationSettings.Setup();
         }
 
         Client ClientForm = new Client();
@@ -126,8 +128,8 @@ namespace Musics___Client
             {
                 ip = settingsForm.result
             };
-            Properties.Settings.Default.ServerIp = settingsForm.result.ToString();
-            Properties.Settings.Default.Save();
+           
+            ApplicationSettings.Save(new AppSettings.Settings(null, null, settingsForm.result.ToString()));
             ClientForm.Connect();
             ClientForm.LoginInfoReceived += ClientForm_LoginInfoReceived;
         }

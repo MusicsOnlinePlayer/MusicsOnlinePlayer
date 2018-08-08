@@ -20,6 +20,7 @@ using Utility.Network.Dialog.Rating;
 using Utility.Network.Dialog.Authentification;
 using Utility.Musics;
 using Utility.Network.Dialog.Uploads;
+using Musics___Client.AppSettings;
 
 namespace Musics___Client
 {
@@ -54,10 +55,11 @@ namespace Musics___Client
             }
             try
             {
-                if (Properties.Settings.Default.HueKey != null && Properties.Settings.Default.HueIp != null)
+                AppSettings.Settings settings = ApplicationSettings.Get();
+                if (settings.HueKey != null && settings.HueIP != null)
                 {
-                    UIHueApi.Text = Properties.Settings.Default.HueKey;
-                    UIHueIp.Text = Properties.Settings.Default.HueIp;
+                    UIHueApi.Text = settings.HueKey;
+                    UIHueIp.Text = settings.HueIP;
                 }
             }
             catch
@@ -78,22 +80,25 @@ namespace Musics___Client
 
         public void Connect()
         {
-            IPEndPoint ip = new IPEndPoint(IPAddress.Parse(Properties.Settings.Default.ServerIp), 2003);
-            try
+            if(IPAddress.TryParse(AppSettings.ApplicationSettings.Get().ServerIp,out IPAddress iPAddress))
             {
-                _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
+                IPEndPoint ip = new IPEndPoint(iPAddress, 2003);
+                try
                 {
-                    SendTimeout = 600000,
-                    ReceiveTimeout = 600000
-                };
-                _clientSocket.BeginConnect(ip, new AsyncCallback(ConnectCallBack), null);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                    _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
+                    {
+                        SendTimeout = 600000,
+                        ReceiveTimeout = 600000
+                    };
+                    _clientSocket.BeginConnect(ip, new AsyncCallback(ConnectCallBack), null);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
-            p.player.PlayStateChange += Player_PlayStateChange;
+                p.player.PlayStateChange += Player_PlayStateChange;
+            }      
         }
 
         private void Player_PlayStateChange(int NewState)
@@ -773,9 +778,7 @@ namespace Musics___Client
 
         void EndConnectHue()
         {
-            Properties.Settings.Default.HueKey = UIHueApi.Text;
-            Properties.Settings.Default.HueIp = UIHueIp.Text;
-            Properties.Settings.Default.Save();
+            ApplicationSettings.Save(new AppSettings.Settings(UIHueIp.Text, UIHueApi.Text,null));
 
             UIHueConnection.Text = "Connected";
             UIHueConnection.ForeColor = Color.Green;

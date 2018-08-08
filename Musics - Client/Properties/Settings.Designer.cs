@@ -22,41 +22,5 @@ namespace Musics___Client.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string HueKey {
-            get {
-                return ((string)(this["HueKey"]));
-            }
-            set {
-                this["HueKey"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string HueIp {
-            get {
-                return ((string)(this["HueIp"]));
-            }
-            set {
-                this["HueIp"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ServerIp {
-            get {
-                return ((string)(this["ServerIp"]));
-            }
-            set {
-                this["ServerIp"] = value;
-            }
-        }
     }
 }
