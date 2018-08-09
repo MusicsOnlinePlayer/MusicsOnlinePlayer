@@ -359,6 +359,8 @@ namespace Musics___Client
                     UIPlayingMusic.Text = InPlaying.Title;
                     UIArtist.Text = InPlaying.Author.Name;
                     UIFormat.Text = InPlaying.Format;
+                    UIForward.Enabled = true;
+                    UIBackward.Enabled = true;
                 });
 
                 p.PlayMusic(InPlaying);
@@ -664,6 +666,8 @@ namespace Musics___Client
             if (PlaylistIndex - 1 >= 0)
             {
                 PlaylistIndex--;
+                UIForward.Enabled = false;
+                UIBackward.Enabled = false;
                 SendObject(new Request(Playlist[PlaylistIndex]));
             }
         }
@@ -674,15 +678,19 @@ namespace Musics___Client
             {
                 PlaylistIndex++;
                 UIForward.Enabled = false;
+                UIBackward.Enabled = false;
                 SendObject(new Request(Playlist[PlaylistIndex]));
             }
         }
 
         private void UIThumbup_Click(object sender, EventArgs e)
         {
-            if (SearchlistboxItems[UISearchListbox.SelectedIndex] != null && SearchlistboxItems[UISearchListbox.SelectedIndex] is Music)
+            if (SearchlistboxItems[UISearchListbox.SelectedIndex] != null)
             {
-                SendObject(new Rate((SearchlistboxItems[UISearchListbox.SelectedIndex] as Music).MID));
+                if(SearchlistboxItems[UISearchListbox.SelectedIndex] is Music)
+                {
+                    SendObject(new Rate((SearchlistboxItems[UISearchListbox.SelectedIndex] as Music).MID));
+                }
             }
         }
 
