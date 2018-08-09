@@ -99,6 +99,7 @@
             this.UIPassword.Size = new System.Drawing.Size(350, 49);
             this.UIPassword.TabIndex = 3;
             this.UIPassword.TextChanged += new System.EventHandler(this.UIPassword_TextChanged);
+            this.UIPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UIPassword_KeyDown);
             // 
             // label3
             // 

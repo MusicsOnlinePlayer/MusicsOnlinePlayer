@@ -133,5 +133,21 @@ namespace Musics___Client
             ClientForm.Connect();
             ClientForm.LoginInfoReceived += ClientForm_LoginInfoReceived;
         }
+
+        private void UIPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                if (UILogin.Text != null && UIPassword.Text != null)
+                {
+                    RequestedUser = new User(UILogin.Text, UIPassword.Text);
+                    ClientForm.SendObject(new Login(RequestedUser, false));
+                }
+                else
+                {
+                    UIErrorLogin.Text = "Please enter your username and password";
+                }
+            }
+        }
     }
 }
