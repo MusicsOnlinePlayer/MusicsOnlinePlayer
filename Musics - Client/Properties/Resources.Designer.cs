@@ -153,6 +153,16 @@ namespace Musics___Client.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap MusicicodLarge {
+            get {
+                object obj = ResourceManager.GetObject("MusicicodLarge", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap No_Cover_Image {
             get {
                 object obj = ResourceManager.GetObject("No_Cover_Image", resourceCulture);

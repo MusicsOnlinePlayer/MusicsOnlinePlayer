@@ -673,6 +673,7 @@ namespace Musics___Client
             if (PlaylistIndex + 1 < Playlist.Count)
             {
                 PlaylistIndex++;
+                UIForward.Enabled = false;
                 SendObject(new Request(Playlist[PlaylistIndex]));
             }
         }
@@ -713,6 +714,35 @@ namespace Musics___Client
             {
                 Tabs.SelectedIndex = 1;
                 SendObject(new Request(LikedMusics[UILikedMusicsList.SelectedIndex].Title, Element.Music));
+            }
+        }
+
+
+        private void UIHomeSearchBar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Tabs.SelectedIndex = 1;
+                if (UIHomeAlbum.Checked)
+                {
+                    SendObject(new Request(UIHomeSearchBar.Text, Element.Album));
+                    return;
+                }
+                if (UIHomeArtist.Checked)
+                {
+                    SendObject(new Request(UIHomeSearchBar.Text, Element.Author));
+                    return;
+                }
+                if (UIHomeMusic.Checked)
+                {
+                    SendObject(new Request(UIHomeSearchBar.Text, Element.Music));
+                    return;
+                }
+                if (UIHomePlaylist.Checked)
+                {
+                    SendObject(new Request(UIHomeSearchBar.Text, Element.Playlist));
+                    return;
+                }
             }
         }
 
