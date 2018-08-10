@@ -21,7 +21,8 @@ namespace Utility.Network.Dialog
 
         public bool IsAccepted { get; set; }
 
-        public List<Music[]> Trending = new List<Music[]>();
+        public object MusicByGenre { get; set; }
+        public Element Type { get; set; }
 
         public RequestAnswer(object answerlist, Element requested)
         {
@@ -49,10 +50,11 @@ namespace Utility.Network.Dialog
             RequestsTypes = RequestsTypes.Users;
         }
 
-        public RequestAnswer(List<Music[]> Servertrending)
+        public RequestAnswer(Element type,object MusicbyGenre)
         {
-            Trending = Servertrending;
-            RequestsTypes = RequestsTypes.Trending;
+            MusicByGenre = MusicbyGenre;
+            Type = type;
+            RequestsTypes = RequestsTypes.Genres;
         }
     }
 }

@@ -277,9 +277,9 @@ namespace Musics___Server
                                 SendObject(new RequestAnswer(null, false), socket);
                             }
                             break;
-                        case RequestsTypes.Trending:
-                            SendObject(new RequestAnswer(Manager.GenreTrending), socket);
-                            break;
+                        //case RequestsTypes.Trending:
+                        //    SendObject(new RequestAnswer(Manager.GenreTrending), socket);
+                        //    break;
                     }
                 }
                 if (received is Rate)
@@ -289,30 +289,38 @@ namespace Musics___Server
                     bool VoteExist = UsersInfos.VoteExist(temp.MusicRatedMID, Clients.List[socket].UID);
                     UsersInfos.AddVoteMusic(temp.MusicRatedMID, Clients.List[socket].UID);
                     //VoteExist = UsersInfos.VoteExist(temp.MusicRatedMID, Clients.List[socket].UID);
-
-                    foreach (var a in Indexation.ServerMusics)
+                    
+                    if(temp.Type == Element.Music)
                     {
-                        foreach (var al in a.Albums)
+                        foreach (var a in Indexation.ServerMusics)
                         {
-                            foreach (var m in al.Musics)
+                            foreach (var al in a.Albums)
                             {
-                                if (m.MID == temp.MusicRatedMID)
+                                foreach (var m in al.Musics)
                                 {
-                                    if (VoteExist)
+                                    if (m.MID == temp.MusicRatedMID)
                                     {
-                                        m.Rating--;
-                                    }
-                                    else
-                                    {
-                                        m.Rating++;
+                                        if (VoteExist)
+                                        {
+                                            m.Rating--;
+                                        }
+                                        else
+                                        {
+                                            m.Rating++;
 
-                                        Clients.List.TryGetValue(socket, out User value);
-                                        SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(value.UID)), socket);
+                                            Clients.List.TryGetValue(socket, out User value);
+                                            SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(value.UID)), socket);
+                                        }
+                                        SendObject(new RateReport(true, temp.MusicRatedMID, m.Rating), socket);
                                     }
-                                    SendObject(new RateReport(true, temp.MusicRatedMID, m.Rating), socket);
                                 }
                             }
                         }
+                    }
+                    else
+                    {
+                        UsersInfos.RatePlaylist(temp.MusicRatedMID, !VoteExist);
+                        SendObject(new RateReport(true, temp.MusicRatedMID, UsersInfos.GetPlaylist(temp.MusicRatedMID).Rating),socket);
                     }
                 }
                 if(received is Disconnect)

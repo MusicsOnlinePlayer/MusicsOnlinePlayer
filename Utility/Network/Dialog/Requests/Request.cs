@@ -23,6 +23,8 @@ namespace Utility.Network.Dialog
         public string Username { get; set; }
 
         //Trending
+        public Element Type { get; set; }
+        public string Genre { get; set; }
 
         //Search
         public Request(string name, Element requested)
@@ -53,10 +55,12 @@ namespace Utility.Network.Dialog
             RequestsTypes = RequestsTypes.Users;
         }
 
-        //User
-        public Request()
+        //Genre
+        public Request(Element type, string genre)
         {
-            RequestsTypes = RequestsTypes.Trending;
+            Type = type;
+            Genre = genre;
+            RequestsTypes = RequestsTypes.Genres;
         }
     }
     public enum RequestsTypes
@@ -65,6 +69,6 @@ namespace Utility.Network.Dialog
         MusicsBinaries,
         Favorites,
         Users,
-        Trending
+        Genres
     }
 }

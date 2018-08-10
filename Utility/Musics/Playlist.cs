@@ -13,6 +13,8 @@ namespace Utility.Musics
         public string Name { get; set; }
         public List<Music> musics = new List<Music>();
         public bool Private { get; set; }
+        public int Rating { get; set; }
+        public string MID { get; set; }
 
         public Playlist(User creator, string name, List<Music> Musics, bool IsPrivate)
         {
@@ -20,11 +22,13 @@ namespace Utility.Musics
             Name = name;
             musics = Musics;
             Private = IsPrivate;
+            MID = Hash.SHA256Hash(Name + Private + Element.Playlist.ToString());
         }
         public Playlist(User creator, string name)
         {
             Creator = creator;
             Name = name;
+            MID = Hash.SHA256Hash(Name + Private + Element.Playlist.ToString());
         }
     }
 

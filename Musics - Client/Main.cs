@@ -212,12 +212,29 @@ namespace Musics___Client
             {
                 RateReport temp = obj as RateReport;
 
-                if (selected != null && selected is Music)
+                if (selected != null)
                 {
-                    if (temp.MID == (selected as Music).MID)
+                    if(selected is Music)
                     {
-                        (selected as Music).Rating = temp.UpdatedRating;
-                        ChangeDescription();
+                        if (temp.MID == (selected as Music).MID)
+                        {
+                            (selected as Music).Rating = temp.UpdatedRating;
+                            Invoke((MethodInvoker)delegate
+                            {
+                                ChangeDescription();
+                            });
+                        }
+                    }
+                    if(selected is Playlist)
+                    {
+                        if (temp.MID == (selected as Playlist).MID)
+                        {
+                            (selected as Playlist).Rating = temp.UpdatedRating;
+                            Invoke((MethodInvoker)delegate
+                            {
+                                ChangeDescription();
+                            });
+                        }
                     }
                 }
             }
@@ -509,10 +526,11 @@ namespace Musics___Client
                     selected = SearchlistboxItems[UISearchListbox.SelectedIndex] as Utility.Musics.Playlist;
                     UISelectedname.Text = (selected as Playlist).Name;
                     UIselectedartist.Text = (selected as Playlist).Creator.Name;
+                    UISelectedRating.Text = "Rating : "+ (selected as Playlist).Rating;
                     UIPathAuthor.Text = "";
                     UIPathAlbum.Text = "";
                     UIPathMusic.Text = "";
-                    UIThumbup.Visible = false;
+                    UIThumbup.Visible = true;
 
                     Playlist.Clear();
                     PlaylistIndex = 0;
@@ -689,7 +707,11 @@ namespace Musics___Client
             {
                 if(SearchlistboxItems[UISearchListbox.SelectedIndex] is Music)
                 {
-                    SendObject(new Rate((SearchlistboxItems[UISearchListbox.SelectedIndex] as Music).MID));
+                    SendObject(new Rate((SearchlistboxItems[UISearchListbox.SelectedIndex] as Music).MID,Element.Music));
+                }
+                if (SearchlistboxItems[UISearchListbox.SelectedIndex] is Playlist)
+                {
+                    SendObject(new Rate((SearchlistboxItems[UISearchListbox.SelectedIndex] as Playlist).MID, Element.Playlist));
                 }
             }
         }

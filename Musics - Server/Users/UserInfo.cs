@@ -207,6 +207,8 @@ namespace Musics___Server.Usersinfos
             XmlNodeList nodes = doc.DocumentElement.SelectNodes("User");
             XmlAttribute xmlAttributeName;
             XmlAttribute xmlAttributeProtection;
+            XmlAttribute xmlAttributeRate;
+            XmlAttribute xmlAttributeMID;
 
             foreach (XmlNode n in nodes)
             {
@@ -220,8 +222,16 @@ namespace Musics___Server.Usersinfos
                     xmlAttributeProtection = doc.CreateAttribute("Level");
                     xmlAttributeProtection.InnerText = playlist.Private.ToString();
 
+                    xmlAttributeRate = doc.CreateAttribute("Rating");
+                    xmlAttributeRate.InnerText = "0";
+
+                    xmlAttributeMID = doc.CreateAttribute("MID");
+                    xmlAttributeMID.InnerText = playlist.MID;
+
                     playlistnode.Attributes.Append(xmlAttributeProtection);
                     playlistnode.Attributes.Append(xmlAttributeName);
+                    playlistnode.Attributes.Append(xmlAttributeRate);
+                    playlistnode.Attributes.Append(xmlAttributeMID);
 
                     foreach (var m in playlist.musics)
                     {
@@ -255,6 +265,7 @@ namespace Musics___Server.Usersinfos
                     {
                         playlist.musics.Add(Indexation.GetMusicByID(m.InnerText));
                     }
+                    playlist.Rating = Convert.ToInt32(p.Attributes["Rating"].InnerText);
                     if (p.Attributes["Level"].InnerText == true.ToString())
                     {
                         if (n["UID"].InnerText == UID)
@@ -271,6 +282,71 @@ namespace Musics___Server.Usersinfos
                 }
             }
             return playlists;
+        }
+        public static void RatePlaylist(string MID, bool isPositive)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"users.xml");
+
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("User");
+            foreach (XmlNode n in nodes)
+            {
+                XmlNodeList PlaylistNode = n.SelectNodes("UserPlaylists/Playlist");
+
+                foreach (XmlNode p in PlaylistNode)
+                {
+                    if (p.Attributes["MID"].InnerText == MID)
+                    {
+                        if (isPositive)
+                        {
+                            p.Attributes["Rating"].InnerText = (Convert.ToInt32(p.Attributes["Rating"].InnerText) + 1).ToString();
+                        }
+                        else
+                        {
+                            p.Attributes["Rating"].InnerText = (Convert.ToInt32(p.Attributes["Rating"].InnerText) - 1).ToString();
+                        }
+                        doc.Save(@"users.xml");
+                        return;
+                    }
+                }
+            }
+        }
+        public static Playlist GetPlaylist(string MID)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"users.xml");
+
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("User");
+            foreach (XmlNode n in nodes)
+            {
+                XmlNodeList PlaylistNode = n.SelectNodes("UserPlaylists/Playlist");
+
+                foreach (XmlNode p in PlaylistNode)
+                {
+                    if (p.Attributes["MID"].InnerText == MID)
+                    {
+                        Playlist playlist = new Playlist(new User(n["Name"].InnerText), p.Attributes["Name"].InnerText);
+                        foreach (XmlNode m in p.SelectNodes("Music"))
+                        {
+                            playlist.musics.Add(Indexation.GetMusicByID(m.InnerText));
+                        }
+                        playlist.Rating = Convert.ToInt32(p.Attributes["Rating"].InnerText);
+                        if (p.Attributes["Level"].InnerText == true.ToString())
+                        {
+
+                            playlist.Private = true;
+                            return playlist;
+
+                        }
+                        else
+                        {
+                            playlist.Private = false;
+                            return playlist;
+                        }
+                    }
+                }
+            }
+            return null;
         }
     }
 }
