@@ -64,9 +64,12 @@ namespace Musics___Server.Usersinfos
                     XmlNodeList nodesMusics = n.SelectNodes("RatedMusics/Music");
                     foreach (XmlNode nM in nodesMusics)
                     {
-                        Music tmpM = Indexation.GetMusicByID(nM["MID"].InnerText);
-                        tmpM.FileBinary = null;
-                        tmp.Add(tmpM);
+                        if (GetPlaylist(nM["MID"].InnerText) == null)
+                        {
+                            Music tmpM = Indexation.GetMusicByID(nM["MID"].InnerText);
+                            tmpM.FileBinary = null;
+                            tmp.Add(tmpM);
+                        }                      
                     }
                 }
             }
