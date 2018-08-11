@@ -288,145 +288,164 @@ namespace Musics___Client
         }
         void TreatRequestAnswer(RequestAnswer searchAnswer)
         {
-            if (searchAnswer.RequestsTypes == RequestsTypes.Search)
+            switch (searchAnswer.RequestsTypes)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    UISearchListbox.Items.Clear();
-                });
-                SearchlistboxItems.Clear();
+                case RequestsTypes.Search:
+                    RequestAnswerSearch(searchAnswer);
+                    break;
+                case RequestsTypes.MusicsBinaries:
+                    RequestAnswerBinaries(searchAnswer);
+                    break;
+                case RequestsTypes.Favorites:
+                    RequestAnswerBinaries(searchAnswer);
+                    break;
+                case RequestsTypes.Users:
+                    RequestAnswerUsers(searchAnswer);
+                    break;
 
-                if (searchAnswer.Requested == Element.Author)
-                {
-                    List<Author> authors = searchAnswer.AnswerList as List<Author>;
-                    foreach (Author a in authors)
-                    {
-                        Invoke((MethodInvoker)delegate
-                        {
-                            UISearchListbox.Items.Add(a.Name);
-                            SearchlistboxItems.Add(a);
-                        });
-                    }
-                }
-                if (searchAnswer.Requested == Element.Album)
-                {
-                    List<Album> albums = searchAnswer.AnswerList as List<Album>;
-                    foreach (Album a in albums)
-                    {
-                        Invoke((MethodInvoker)delegate
-                        {
-                            UISearchListbox.Items.Add(a.Name);
-                            SearchlistboxItems.Add(a);
-                        });
-                    }
-                }
-                if (searchAnswer.Requested == Element.Music)
-                {
-                    List<Music> musics = searchAnswer.AnswerList as List<Music>;
-                    foreach (Music a in musics)
-                    {
-                        Invoke((MethodInvoker)delegate
-                        {
-                            UISearchListbox.Items.Add(a.Title);
-                            SearchlistboxItems.Add(a);
-                        });
-                    }
-                }
-                if (searchAnswer.Requested == Element.Playlist)
-                {
-                    List<Playlist> playlists = searchAnswer.AnswerList as List<Playlist>;
-                    foreach (Playlist a in playlists)
-                    {
-                        Invoke((MethodInvoker)delegate
-                        {
-                            UISearchListbox.Items.Add(a.Name);
-                            SearchlistboxItems.Add(a);
-                        });
-                    }
-                }
-                Invoke((MethodInvoker)delegate
-                {
-                    ChangeDescription();
-                });
             }
-            if (searchAnswer.RequestsTypes == RequestsTypes.MusicsBinaries)
+        }
+        public void RequestAnswerSearch(RequestAnswer searchAnswer)
+        {
+            Invoke((MethodInvoker)delegate
             {
-                InPlaying = searchAnswer.Binaries;
+                UISearchListbox.Items.Clear();
+            });
+            SearchlistboxItems.Clear();
 
-                Invoke((MethodInvoker)delegate
-                {
-                    if (PlaylistContainsMusic(InPlaying.MID))
-                    {
-                        UIPlaylist.SelectedIndex = PlaylistIndex;
-                    }
-                    else
-                    {
-                        Playlist.Clear();
-                        PlaylistIndex = 0;
-                        UIPlaylist.Items.Clear();
-                        Music m = new Music
-                        {
-                            MID = InPlaying.MID
-                        };
-                        Playlist.Add(InPlaying);
-                        UIPlaylist.Items.Add(InPlaying.Title);
-                        PlaylistIndex = 0;
-                        UIPlaylist.SelectedIndex = PlaylistIndex;
-                    }
-                    UIPlayingMusic.Text = InPlaying.Title;
-                    UIArtist.Text = InPlaying.Author.Name;
-                    UIFormat.Text = InPlaying.Format;
-                    UIForward.Enabled = true;
-                    UIBackward.Enabled = true;
-                });
-
-                p.PlayMusic(InPlaying);
-
-                try
-                {
-                    UIMusicImage.BackgroundImage = Tags.GetMetaImage(p.player.URL);
-                }
-                catch
-                {
-                    UIMusicImage.BackgroundImage = Properties.Resources.No_Cover_Image;
-                }
-            }
-            if (searchAnswer.RequestsTypes == RequestsTypes.Favorites)
+            if (searchAnswer.Requested == Element.Author)
             {
-                UILikedMusicsList.Items.Clear();
-                LikedMusics.Clear();
-                foreach (var m in searchAnswer.Favorites)
-                {
-                    UILikedMusicsList.Items.Add(m.Title);
-                    LikedMusics.Add(m);
-                }
-            }
-            if (searchAnswer.RequestsTypes == RequestsTypes.Users)
-            {
-                if (searchAnswer.IsAccepted)
+                List<Author> authors = searchAnswer.AnswerList as List<Author>;
+                foreach (Author a in authors)
                 {
                     Invoke((MethodInvoker)delegate
                     {
-                        UserSearchResult.Clear();
-                        UIUsersResult.Items.Clear();
-                        foreach (var u in searchAnswer.Users)
-                        {
-                            if (u.UID != Me.UID)
-                            {
-                                UserSearchResult.Add(u);
-                                UIUsersResult.Items.Add(u.Name);
-                            }
-                        }
-                        if (UserSearchResult.Count != 0)
-                        {
-                            UIUsersResult.SelectedIndex = 0;
-                        }
+                        UISearchListbox.Items.Add(a.Name);
+                        SearchlistboxItems.Add(a);
                     });
+                }
+            }
+            if (searchAnswer.Requested == Element.Album)
+            {
+                List<Album> albums = searchAnswer.AnswerList as List<Album>;
+                foreach (Album a in albums)
+                {
+                    Invoke((MethodInvoker)delegate
+                    {
+                        UISearchListbox.Items.Add(a.Name);
+                        SearchlistboxItems.Add(a);
+                    });
+                }
+            }
+            if (searchAnswer.Requested == Element.Music)
+            {
+                List<Music> musics = searchAnswer.AnswerList as List<Music>;
+                foreach (Music a in musics)
+                {
+                    Invoke((MethodInvoker)delegate
+                    {
+                        UISearchListbox.Items.Add(a.Title);
+                        SearchlistboxItems.Add(a);
+                    });
+                }
+            }
+            if (searchAnswer.Requested == Element.Playlist)
+            {
+                List<Playlist> playlists = searchAnswer.AnswerList as List<Playlist>;
+                foreach (Playlist a in playlists)
+                {
+                    Invoke((MethodInvoker)delegate
+                    {
+                        UISearchListbox.Items.Add(a.Name);
+                        SearchlistboxItems.Add(a);
+                    });
+                }
+            }
+            Invoke((MethodInvoker)delegate
+            {
+                ChangeDescription();
+            });
+        }
+
+        public void RequestAnswerBinaries(RequestAnswer searchAnswer)
+        {
+            InPlaying = searchAnswer.Binaries;
+
+            Invoke((MethodInvoker)delegate
+            {
+                if (PlaylistContainsMusic(InPlaying.MID))
+                {
+                    UIPlaylist.SelectedIndex = PlaylistIndex;
                 }
                 else
                 {
-                    MessageBox.Show("Invalid rank, you must be at least a -User-");
+                    Playlist.Clear();
+                    PlaylistIndex = 0;
+                    UIPlaylist.Items.Clear();
+                    Music m = new Music
+                    {
+                        MID = InPlaying.MID
+                    };
+                    Playlist.Add(InPlaying);
+                    UIPlaylist.Items.Add(InPlaying.Title);
+                    PlaylistIndex = 0;
+                    UIPlaylist.SelectedIndex = PlaylistIndex;
                 }
+                UIPlayingMusic.Text = InPlaying.Title;
+                UIArtist.Text = InPlaying.Author.Name;
+                UIFormat.Text = InPlaying.Format;
+                UIForward.Enabled = true;
+                UIBackward.Enabled = true;
+            });
+
+            p.PlayMusic(InPlaying);
+
+            try
+            {
+                UIMusicImage.BackgroundImage = Tags.GetMetaImage(p.player.URL);
+            }
+            catch
+            {
+                UIMusicImage.BackgroundImage = Properties.Resources.No_Cover_Image;
+            }
+        }
+
+        public void RequestAnswerFavorites(RequestAnswer searchAnswer)
+        {
+            UILikedMusicsList.Items.Clear();
+            LikedMusics.Clear();
+            foreach (var m in searchAnswer.Favorites)
+            {
+                UILikedMusicsList.Items.Add(m.Title);
+                LikedMusics.Add(m);
+            }
+        }
+
+        public void RequestAnswerUsers(RequestAnswer searchAnswer)
+        {
+            if (searchAnswer.IsAccepted)
+            {
+                Invoke((MethodInvoker)delegate
+                {
+                    UserSearchResult.Clear();
+                    UIUsersResult.Items.Clear();
+                    foreach (var u in searchAnswer.Users)
+                    {
+                        if (u.UID != Me.UID)
+                        {
+                            UserSearchResult.Add(u);
+                            UIUsersResult.Items.Add(u.Name);
+                        }
+                    }
+                    if (UserSearchResult.Count != 0)
+                    {
+                        UIUsersResult.SelectedIndex = 0;
+                    }
+                });
+            }
+            else
+            {
+                MessageBox.Show("Invalid rank, you must be at least a -User-");
             }
         }
 
@@ -746,7 +765,6 @@ namespace Musics___Client
                 SendObject(new Request(LikedMusics[UILikedMusicsList.SelectedIndex].Title, Element.Music));
             }
         }
-
 
         private void UIHomeSearchBar_KeyDown(object sender, KeyEventArgs e)
         {
