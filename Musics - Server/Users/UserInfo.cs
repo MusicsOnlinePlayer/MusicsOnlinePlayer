@@ -204,6 +204,9 @@ namespace Musics___Server.Usersinfos
 
         public static void SaveUserPlaylist(string UID, Playlist playlist)
         {
+            if (GetPlaylist(playlist.MID) != null)
+                return;
+
             XmlDocument doc = new XmlDocument();
             doc.Load(@"users.xml");
 

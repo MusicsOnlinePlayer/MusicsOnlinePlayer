@@ -284,6 +284,12 @@ namespace Musics___Client
                         MusicsToSend = null;
                     }
                 }
+                else
+                {
+                    UploadStatus = 0;
+                    MessageBox.Show("Something is not working !");
+                    MusicsToSend = null;
+                }
             }
         }
         void TreatRequestAnswer(RequestAnswer searchAnswer)
@@ -1064,7 +1070,7 @@ namespace Musics___Client
             }
             else
             {
-                MessageBox.Show("Error");
+                //MessageBox.Show("Error");
             }
         }
         #endregion

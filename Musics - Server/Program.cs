@@ -382,6 +382,10 @@ namespace Musics___Server
                     {
                         SendObject(new UploadReport(null, true),socket);
                     }
+                    else
+                    {
+                        SendObject(new UploadReport(null, false), socket);
+                    }
                 }
             }
             else
