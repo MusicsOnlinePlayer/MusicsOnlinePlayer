@@ -248,7 +248,7 @@ namespace Musics___Server
                                 {
                                     foreach (Music m in al.Musics)
                                     {
-                                        if (m.Title == request.RequestedBinaries.Title)
+                                        if (m.MID == request.RequestedBinaries.MID)
                                         {
                                             Music answer = new Music(m.Title, new Author(m.Author.Name), Indexation.GetFileBinary(m))
                                             {
