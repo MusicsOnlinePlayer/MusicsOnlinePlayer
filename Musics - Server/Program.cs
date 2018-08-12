@@ -312,6 +312,7 @@ namespace Musics___Server
                                             SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(value.UID)), socket);
                                         }
                                         SendObject(new RateReport(true, temp.MusicRatedMID, m.Rating), socket);
+                                        MusicsInfo.SaveMusicInfo(m);
                                     }
                                 }
                             }
