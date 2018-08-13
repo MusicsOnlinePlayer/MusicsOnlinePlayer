@@ -111,47 +111,53 @@ namespace Musics___Server.MusicsManagement
                     if (!Path.GetFileNameWithoutExtension(a).Contains("-ignore"))
                     {
                         CurrentArtist.Albums.Add(new Album(CurrentArtist, Path.GetFileName(a), a));
-
-                        foreach (var m in Directory.GetFiles(a))
-                        {
-                            if (Path.GetExtension(m) == ".mp3" || Path.GetExtension(m) == ".flac")
-                            {
-                                file = TagLib.File.Create(m);
-                                string Musicname = file.Tag.Title;
-                                if (Musicname == null)
-                                {
-                                    try
-                                    {
-                                        Musicname = Path.GetFileNameWithoutExtension(m).Split('-')[1].Remove(0, 1);
-                                    }
-                                    catch
-                                    {
-                                        Musicname = Path.GetFileNameWithoutExtension(m);
-                                    }
-                                }
-
-                                Music current = new Music(Musicname, CurrentArtist, m)
-                                {
-                                    Format = Path.GetExtension(m),
-                                    Genre = file.Tag.Genres
-                                };
-                                if (MusicsInfo.MusicsExisting(current.MID))
-                                {
-                                    current.Rating = MusicsInfo.GetMusicInfo(current.MID).Rating;
-                                }
-
-                                NumberofMusics++;
-
-                                CurrentArtist.Albums[i].Musics.Add(current);
-                            }
-                        }
-                        i++;
+                        file = GetMusicsOfArtist(ref NumberofMusics, CurrentArtist, ref i, a);
                     }
                 }
                 ServerMusics.Add(CurrentArtist);
             }
 
             return NumberofMusics;
+        }
+
+        private static TagLib.File GetMusicsOfArtist(ref int NumberofMusics, Author CurrentArtist, ref int i, string a)
+        {
+            TagLib.File file = TagLib.File.Create("");
+            foreach (var m in Directory.GetFiles(a))
+            {
+                if (Path.GetExtension(m) == ".mp3" || Path.GetExtension(m) == ".flac")
+                {
+                    file = TagLib.File.Create(m);
+                    string Musicname = file.Tag.Title;
+                    if (Musicname == null)
+                    {
+                        try
+                        {
+                            Musicname = Path.GetFileNameWithoutExtension(m).Split('-')[1].Remove(0, 1);
+                        }
+                        catch
+                        {
+                            Musicname = Path.GetFileNameWithoutExtension(m);
+                        }
+                    }
+
+                    Music current = new Music(Musicname, CurrentArtist, m)
+                    {
+                        Format = Path.GetExtension(m),
+                        Genre = file.Tag.Genres
+                    };
+                    if (MusicsInfo.MusicsExisting(current.MID))
+                    {
+                        current.Rating = MusicsInfo.GetMusicInfo(current.MID).Rating;
+                    }
+
+                    NumberofMusics++;
+
+                    CurrentArtist.Albums[i].Musics.Add(current);
+                }
+            }
+            i++;
+            return file;
         }
 
         public static void ModifyElement(object Origin, string NewName,string[] Genres)
