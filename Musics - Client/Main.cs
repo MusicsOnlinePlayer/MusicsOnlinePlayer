@@ -303,7 +303,7 @@ namespace Musics___Client
                     RequestAnswerBinaries(searchAnswer);
                     break;
                 case RequestsTypes.Favorites:
-                    RequestAnswerBinaries(searchAnswer);
+                    RequestAnswerFavorites(searchAnswer);
                     break;
                 case RequestsTypes.Users:
                     RequestAnswerUsers(searchAnswer);
