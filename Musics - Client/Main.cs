@@ -1027,9 +1027,9 @@ namespace Musics___Client
         {
             if (e.KeyCode == Keys.Enter)
             {
-                SendObject(new SavePlaylist(Me.UID, new Playlist(Me, UIPlaylistName.Text, Playlist, UIPlaylistPrivate.Checked)));
                 UIEditPlaylist.Visible = false;
                 UIPlaylistName.Visible = false;
+                SendObject(new SavePlaylist(Me.UID, new Playlist(Me, UIPlaylistName.Text, Playlist, UIPlaylistPrivate.Checked)));
             }
         }
 

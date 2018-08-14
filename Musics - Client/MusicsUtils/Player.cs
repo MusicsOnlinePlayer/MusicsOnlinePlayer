@@ -18,7 +18,7 @@ namespace Musics___Client
                 Directory.CreateDirectory(@"c:\MusicsFiles");
             }
                 
-            string path = @"c:\MusicsFiles\" + music.Title + music.Format;
+            string path = @"c:\MusicsFiles\" + string.Join("_", music.Title.Split(Path.GetInvalidFileNameChars())) + music.Format;     
 
             if (!File.Exists(path))
             {
