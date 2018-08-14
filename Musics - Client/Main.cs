@@ -192,7 +192,6 @@ namespace Musics___Client
             {
             }
         }
-
         #endregion
 
         #region PlayerSearch
