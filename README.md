@@ -53,5 +53,11 @@ You can also create your own playlist and save it to your account through the se
 ### Hue
 The client can handle the hue sytem and create a dico like ambiance. In the `Settings` menu you can connect to you own hue bridge to get an **API key** or if you already know it you can enter directly.
 
+## Rank
+In this music player there is multiple rank. Each rank have different permissions. Here is a list with some details :
+ - `Viewer` the lowest rank. This allows the user to listen music and rate it nothing more.
+ - `User` : In addition to the previous rank this one allows the user to upload his own musics or albums.
+ - `Admin` :  This grade has got all permissions in the server, he can promote user, modify musics etc..
+
 ## How to install ?
 First, download the client and / or server installer, open it and follow all the instruction. If you installed the client you just have to enter the ip of the server. If you launch the server for the first it will create a Musics directory in the `c://` folder. In this folder you can place all of your musics following the method shown just above and you are finally ready !
