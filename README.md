@@ -53,7 +53,7 @@ You can also create your own playlist and save it to your account through the se
 ### Hue
 The client can handle the hue sytem and create a dico like ambiance. In the `Settings` menu you can connect to you own hue bridge to get an **API key** or if you already know it you can enter directly.
 
-## Rank
+### Rank
 In this music player there is multiple rank. Each rank have different permissions. Here is a list with some details :
  - `Viewer` the lowest rank. This allows the user to listen music and rate it nothing more.
  - `User` : In addition to the previous rank this one allows the user to upload his own musics or albums.
