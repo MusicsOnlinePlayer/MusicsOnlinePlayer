@@ -98,7 +98,7 @@ namespace Musics___Client
                 }
 
                 p.player.PlayStateChange += Player_PlayStateChange;
-            }      
+            }
         }
 
         private void Player_PlayStateChange(int NewState)
@@ -987,14 +987,14 @@ namespace Musics___Client
         {
             if (selected != null && !(selected is Playlist))
             {
-                UIEditMusicName.Visible = true;               
+                UIEditMusicName.Visible = true;
                 UIEditMusicName.Text = UISelectedname.Text;
 
                 if(selected is Music)
                 {
                     UIEditMusicGenres.Text = string.Join(";", (selected as Music).Genre);
                     UIEditMusicGenres.Visible = true;
-                }               
+                }
             }
             if (UIEditMusicName.Visible)
             {
