@@ -800,6 +800,24 @@ namespace Musics___Client
             }
         }
 
+
+        private void UIPlayFavorites_Click(object sender, EventArgs e)
+        {
+            if(LikedMusics.Count >= 1)
+            {
+                Playlist.Clear();
+                PlaylistIndex = 0;
+                UIPlaylist.Items.Clear();
+                foreach (var m in LikedMusics)
+                {
+                    Playlist.Add(m);
+                    UIPlaylist.Items.Add(m.Title);
+                }
+                SendObject(new Request(Playlist.First()));
+                Tabs.SelectedIndex = 1;
+            }
+        }
+
         #endregion
 
         #region Hue

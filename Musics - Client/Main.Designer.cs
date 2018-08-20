@@ -128,6 +128,7 @@
             this.Tabs = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.UIPlayFavorites = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -790,6 +791,7 @@
             // 
             // UIFavorites
             // 
+            this.UIFavorites.Controls.Add(this.UIPlayFavorites);
             this.UIFavorites.Controls.Add(this.UILikedMusicsList);
             this.UIFavorites.Controls.Add(this.checkedListBox1);
             this.UIFavorites.Controls.Add(this.label12);
@@ -951,7 +953,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.23116F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.76884F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 269F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 270F));
             this.tableLayoutPanel1.Controls.Add(this.UIPathMusic, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAlbum, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAuthor, 0, 0);
@@ -968,7 +970,7 @@
             this.UIPathMusic.AutoSize = true;
             this.UIPathMusic.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathMusic.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathMusic.Location = new System.Drawing.Point(353, 0);
+            this.UIPathMusic.Location = new System.Drawing.Point(352, 0);
             this.UIPathMusic.Name = "UIPathMusic";
             this.UIPathMusic.Size = new System.Drawing.Size(42, 14);
             this.UIPathMusic.TabIndex = 19;
@@ -980,7 +982,7 @@
             this.UIPathAlbum.AutoSize = true;
             this.UIPathAlbum.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathAlbum.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathAlbum.Location = new System.Drawing.Point(165, 0);
+            this.UIPathAlbum.Location = new System.Drawing.Point(164, 0);
             this.UIPathAlbum.Name = "UIPathAlbum";
             this.UIPathAlbum.Size = new System.Drawing.Size(42, 14);
             this.UIPathAlbum.TabIndex = 18;
@@ -1320,6 +1322,19 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // UIPlayFavorites
+            // 
+            this.UIPlayFavorites.BackgroundImage = global::Musics___Client.Properties.Resources.Icoplay;
+            this.UIPlayFavorites.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.UIPlayFavorites.FlatAppearance.BorderSize = 0;
+            this.UIPlayFavorites.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UIPlayFavorites.Location = new System.Drawing.Point(214, 6);
+            this.UIPlayFavorites.Name = "UIPlayFavorites";
+            this.UIPlayFavorites.Size = new System.Drawing.Size(30, 30);
+            this.UIPlayFavorites.TabIndex = 17;
+            this.UIPlayFavorites.UseVisualStyleBackColor = true;
+            this.UIPlayFavorites.Click += new System.EventHandler(this.UIPlayFavorites_Click);
+            // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1472,6 +1487,7 @@
         private System.Windows.Forms.RadioButton UIHomeArtist;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Button UIPlayFavorites;
     }
 }
 
