@@ -171,7 +171,6 @@
             // UIFileDialog
             // 
             this.UIFileDialog.FileName = "openFileDialog1";
-            this.UIFileDialog.Filter = "*.mp3|*.flac";
             this.UIFileDialog.Multiselect = true;
             // 
             // Main

@@ -48,27 +48,30 @@ namespace ServerCreator
                 return;
             }
             UIProgress.Maximum = UserSelection.Length;
-            try
-            {
+            UIProgress.Value = 0;
+            //try
+            //{
                 foreach(var s in UserSelection)
                 {
                     TagLib.File tmpTag = TagLib.File.Create(s);
-                    if (!Directory.Exists(Path.Combine(UIPath.Text, tmpTag.Tag.FirstComposer))){
-                        Directory.CreateDirectory(Path.Combine(UIPath.Text, tmpTag.Tag.FirstComposer));
+                    if (!Directory.Exists(Path.Combine(UIPath.Text, tmpTag.Tag.FirstPerformer))){
+                        Directory.CreateDirectory(Path.Combine(UIPath.Text, tmpTag.Tag.FirstPerformer));
                     }
-                    if (!Directory.Exists(Path.Combine(new string[] { UIPath.Text , tmpTag.Tag.FirstComposer, tmpTag.Tag.Album })))
+                    if (!Directory.Exists(Path.Combine(new string[] { UIPath.Text , tmpTag.Tag.FirstPerformer, tmpTag.Tag.Album })))
                     {
-                        Directory.CreateDirectory(Path.Combine(new string[] { UIPath.Text, tmpTag.Tag.FirstComposer, tmpTag.Tag.Album }));
+                        Directory.CreateDirectory(Path.Combine(new string[] { UIPath.Text, tmpTag.Tag.FirstPerformer, tmpTag.Tag.Album }));
                     }
-                    File.Copy(s, Path.Combine(new string[] { UIPath.Text, tmpTag.Tag.FirstComposer, tmpTag.Tag.Album ,tmpTag.Tag.Title}),true);
+                    string title = string.Join("_", tmpTag.Tag.Title.Split(Path.GetInvalidFileNameChars()));
+                    File.Copy(s, Path.Combine(new string[] { UIPath.Text, tmpTag.Tag.FirstPerformer, tmpTag.Tag.Album ,title}) + Path.GetExtension(s), true);
                     UIProgress.Value++;
                 }
                 MessageBox.Show("Done");
-            }
-            catch
-            {
-                MessageBox.Show("Error");
-            }
+            //}
+            //catch(Exception ex)
+            //{
+            //    MessageBox.Show("Error");
+            //    throw ex;
+            //}
         }
     }
 }
