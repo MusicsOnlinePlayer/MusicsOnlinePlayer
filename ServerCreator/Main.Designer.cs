@@ -39,8 +39,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.UIFinnish = new System.Windows.Forms.Button();
             this.UIProgress = new System.Windows.Forms.ProgressBar();
-            this.UITextProgression = new System.Windows.Forms.Label();
             this.UIFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.UIFolderPath = new System.Windows.Forms.FolderBrowserDialog();
             this.SuspendLayout();
             // 
             // label1
@@ -133,6 +133,7 @@
             this.UIExplore.TabIndex = 23;
             this.UIExplore.Text = "Explorer";
             this.UIExplore.UseVisualStyleBackColor = false;
+            this.UIExplore.Click += new System.EventHandler(this.UIExplore_Click);
             // 
             // label5
             // 
@@ -158,23 +159,14 @@
             this.UIFinnish.TabIndex = 25;
             this.UIFinnish.Text = "Finish";
             this.UIFinnish.UseVisualStyleBackColor = false;
+            this.UIFinnish.Click += new System.EventHandler(this.UIFinnish_Click);
             // 
             // UIProgress
             // 
             this.UIProgress.Location = new System.Drawing.Point(23, 524);
             this.UIProgress.Name = "UIProgress";
-            this.UIProgress.Size = new System.Drawing.Size(531, 23);
+            this.UIProgress.Size = new System.Drawing.Size(602, 23);
             this.UIProgress.TabIndex = 26;
-            // 
-            // UITextProgression
-            // 
-            this.UITextProgression.AutoSize = true;
-            this.UITextProgression.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UITextProgression.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.UITextProgression.Location = new System.Drawing.Point(560, 524);
-            this.UITextProgression.Name = "UITextProgression";
-            this.UITextProgression.Size = new System.Drawing.Size(0, 20);
-            this.UITextProgression.TabIndex = 27;
             // 
             // UIFileDialog
             // 
@@ -187,7 +179,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(637, 559);
-            this.Controls.Add(this.UITextProgression);
             this.Controls.Add(this.UIProgress);
             this.Controls.Add(this.UIFinnish);
             this.Controls.Add(this.label5);
@@ -218,8 +209,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button UIFinnish;
         private System.Windows.Forms.ProgressBar UIProgress;
-        private System.Windows.Forms.Label UITextProgression;
         private System.Windows.Forms.OpenFileDialog UIFileDialog;
+        private System.Windows.Forms.FolderBrowserDialog UIFolderPath;
     }
 }
 
