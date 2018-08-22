@@ -16,5 +16,16 @@ namespace ServerCreator
         {
             InitializeComponent();
         }
+
+        private string[] UserSelection;
+
+        private void UIButtonSelectFile_Click(object sender, EventArgs e)
+        {
+            if(UIFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                UserSelection = UIFileDialog.FileNames;
+                UIInfos.Text = UserSelection.Length.ToString();
+            }
+        }
     }
 }

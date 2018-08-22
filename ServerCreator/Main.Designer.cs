@@ -40,6 +40,7 @@
             this.UIFinnish = new System.Windows.Forms.Button();
             this.UIProgress = new System.Windows.Forms.ProgressBar();
             this.UITextProgression = new System.Windows.Forms.Label();
+            this.UIFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // label1
@@ -77,6 +78,7 @@
             this.UIButtonSelectFile.TabIndex = 17;
             this.UIButtonSelectFile.Text = "Select ...";
             this.UIButtonSelectFile.UseVisualStyleBackColor = false;
+            this.UIButtonSelectFile.Click += new System.EventHandler(this.UIButtonSelectFile_Click);
             // 
             // label3
             // 
@@ -150,7 +152,7 @@
             this.UIFinnish.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.UIFinnish.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIFinnish.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.UIFinnish.Location = new System.Drawing.Point(510, 452);
+            this.UIFinnish.Location = new System.Drawing.Point(23, 463);
             this.UIFinnish.Name = "UIFinnish";
             this.UIFinnish.Size = new System.Drawing.Size(115, 36);
             this.UIFinnish.TabIndex = 25;
@@ -159,9 +161,9 @@
             // 
             // UIProgress
             // 
-            this.UIProgress.Location = new System.Drawing.Point(12, 524);
+            this.UIProgress.Location = new System.Drawing.Point(23, 524);
             this.UIProgress.Name = "UIProgress";
-            this.UIProgress.Size = new System.Drawing.Size(542, 23);
+            this.UIProgress.Size = new System.Drawing.Size(531, 23);
             this.UIProgress.TabIndex = 26;
             // 
             // UITextProgression
@@ -173,6 +175,12 @@
             this.UITextProgression.Name = "UITextProgression";
             this.UITextProgression.Size = new System.Drawing.Size(0, 20);
             this.UITextProgression.TabIndex = 27;
+            // 
+            // UIFileDialog
+            // 
+            this.UIFileDialog.FileName = "openFileDialog1";
+            this.UIFileDialog.Filter = "*.mp3|*.flac";
+            this.UIFileDialog.Multiselect = true;
             // 
             // Main
             // 
@@ -211,6 +219,7 @@
         private System.Windows.Forms.Button UIFinnish;
         private System.Windows.Forms.ProgressBar UIProgress;
         private System.Windows.Forms.Label UITextProgression;
+        private System.Windows.Forms.OpenFileDialog UIFileDialog;
     }
 }
 
