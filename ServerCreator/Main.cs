@@ -61,8 +61,8 @@ namespace ServerCreator
                     {
                         Directory.CreateDirectory(Path.Combine(new string[] { UIPath.Text, tmpTag.Tag.FirstPerformer, tmpTag.Tag.Album }));
                     }
-                    string title = string.Join("_", tmpTag.Tag.Title.Split(Path.GetInvalidFileNameChars()));
-                    File.Copy(s, Path.Combine(new string[] { UIPath.Text, tmpTag.Tag.FirstPerformer, tmpTag.Tag.Album ,title}) + Path.GetExtension(s), true);
+                    //string title = string.Join("_", tmpTag.Tag.Title.Split(Path.GetInvalidFileNameChars()));
+                    File.Copy(s, Path.Combine(new string[] { UIPath.Text, tmpTag.Tag.FirstPerformer, tmpTag.Tag.Album ,Path.GetFileNameWithoutExtension(s)}) + Path.GetExtension(s), true);
                     UIProgress.Value++;
                 }
                 MessageBox.Show("Done");
