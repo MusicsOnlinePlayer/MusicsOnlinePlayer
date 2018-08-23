@@ -49,8 +49,8 @@ namespace ServerCreator
             }
             UIProgress.Maximum = UserSelection.Length;
             UIProgress.Value = 0;
-            //try
-            //{
+            try
+            {
                 foreach(var s in UserSelection)
                 {
                     TagLib.File tmpTag = TagLib.File.Create(s);
@@ -66,12 +66,12 @@ namespace ServerCreator
                     UIProgress.Value++;
                 }
                 MessageBox.Show("Done");
-            //}
-            //catch(Exception ex)
-            //{
-            //    MessageBox.Show("Error");
-            //    throw ex;
-            //}
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error");
+                throw ex;
+            }
         }
     }
 }
