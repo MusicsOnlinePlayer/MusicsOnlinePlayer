@@ -265,7 +265,8 @@ namespace Musics___Server
                             }
                             break;
                         case RequestsTypes.Favorites:
-                            SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(request.UserID)), socket);
+                            List<Music> tmp = UsersInfos.GetLikedMusics(request.UserID);
+                            SendObject(new RequestAnswer(tmp), socket);
                             break;
                         case RequestsTypes.Users:
                             if (Clients.GetUser(socket).Userrank != Rank.Viewer)

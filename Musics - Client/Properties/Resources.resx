@@ -121,14 +121,17 @@
   <data name="IcoSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IcoSettings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="IcoBackward" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\IcoBackward.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="MusicicodLarge" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MusicicodLarge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Icoplay" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icoplay.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="No_Cover_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\No_Cover_Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="IcoSave" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IcoSave.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icopause" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icopause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="IcoEdit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IcoEdit.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -142,16 +145,16 @@
   <data name="IconMusic3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconMusic3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Icopause" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Icopause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="No_Cover_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\No_Cover_Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="thumbup" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\thumbup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MusicicodLarge" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MusicicodLarge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Icoplay" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icoplay.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcoBackward" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IcoBackward.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IcoBack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IcoBack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

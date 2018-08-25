@@ -302,7 +302,11 @@ namespace Musics___Client
                     RequestAnswerBinaries(searchAnswer);
                     break;
                 case RequestsTypes.Favorites:
-                    RequestAnswerFavorites(searchAnswer);
+                    LikedMusics.Clear();
+                    Invoke((MethodInvoker)delegate
+                    {
+                        RequestAnswerFavorites(searchAnswer);
+                    });                   
                     break;
                 case RequestsTypes.Users:
                     RequestAnswerUsers(searchAnswer);
@@ -419,12 +423,44 @@ namespace Musics___Client
         public void RequestAnswerFavorites(RequestAnswer searchAnswer)
         {
             UILikedMusicsList.Items.Clear();
-            LikedMusics.Clear();
-            foreach (var m in searchAnswer.Favorites)
+            
+            foreach (var m in (from val in searchAnswer.Favorites select val.Genre.First()).Cast<string>().Distinct().ToList())
             {
-                UILikedMusicsList.Items.Add(m.Title);
-                LikedMusics.Add(m);
+                UILikedMusicsList.Items.Add(m);
+                //LikedMusics.Add(m);
             }
+            var tmp = searchAnswer.Favorites;
+            //LikedMusics.Clear();
+            LikedMusics = tmp;
+        }
+
+        private List<Music> SelectedFavorites = new List<Music>();
+
+        private void UILikedMusicsList_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (UILikedMusicsList.SelectedItem != null && SelectedFavorites.Count == 0)
+            {
+                SelectedFavorites.Clear();
+                SelectedFavorites = (from val in LikedMusics
+                                            where val.Genre.First() == UILikedMusicsList.SelectedItem.ToString()
+                                            select val).ToList();
+                UILikedMusicsList.Items.Clear();
+                foreach(var m in SelectedFavorites)
+                {
+                    UILikedMusicsList.Items.Add(m.Title);
+                }
+            }
+            else if(UILikedMusicsList.SelectedItem != null)
+            {
+                Tabs.SelectedIndex = 1;
+                SendObject(new Request(SelectedFavorites[UILikedMusicsList.SelectedIndex].Title, Element.Music));
+            }
+        }
+
+        private void UIFavoritesBack_Click(object sender, EventArgs e)
+        {
+            SelectedFavorites.Clear();
+            RequestAnswerFavorites(new RequestAnswer(LikedMusics));
         }
 
         public void RequestAnswerUsers(RequestAnswer searchAnswer)
@@ -760,15 +796,6 @@ namespace Musics___Client
                 {
                     SendObject(new Request(UIPathAlbum.Text, Element.Album));
                 }
-            }
-        }
-
-        private void UILikedMusicsList_DoubleClick(object sender, EventArgs e)
-        {
-            if (UILikedMusicsList.SelectedItem != null)
-            {
-                Tabs.SelectedIndex = 1;
-                SendObject(new Request(LikedMusics[UILikedMusicsList.SelectedIndex].Title, Element.Music));
             }
         }
 

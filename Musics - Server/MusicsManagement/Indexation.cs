@@ -46,7 +46,7 @@ namespace Musics___Server.MusicsManagement
                 {
                     foreach (var m in al.Musics)
                     {
-                        tmp.Add(new Music(m.Title, new Author(m.Author.Name), "", m.Rating));
+                        tmp.Add(m);
                     }
                 }
             }
@@ -135,6 +135,10 @@ namespace Musics___Server.MusicsManagement
                                     Format = Path.GetExtension(m),
                                     Genre = file.Tag.Genres
                                 };
+                                if (current.Genre.Length == 0)
+                                {
+                                    current.Genre = new string[] { "Unknown" };
+                                }
                                 if (MusicsInfo.MusicsExisting(current.MID))
                                 {
                                     current.Rating = MusicsInfo.GetMusicInfo(current.MID).Rating;
