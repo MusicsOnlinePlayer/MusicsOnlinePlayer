@@ -194,6 +194,7 @@ namespace Musics___Client
         }
         #endregion
 
+        
         #region PlayerSearch
         private void TreatObject(object obj)
         {

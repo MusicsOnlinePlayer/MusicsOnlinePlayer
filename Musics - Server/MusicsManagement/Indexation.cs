@@ -133,7 +133,8 @@ namespace Musics___Server.MusicsManagement
                                 Music current = new Music(Musicname, CurrentArtist, m)
                                 {
                                     Format = Path.GetExtension(m),
-                                    Genre = file.Tag.Genres
+                                    Genre = file.Tag.Genres,
+                                    N = file.Tag.Track
                                 };
                                 if (current.Genre.Length == 0)
                                 {
@@ -149,6 +150,7 @@ namespace Musics___Server.MusicsManagement
                                 CurrentArtist.Albums[i].Musics.Add(current);
                             }
                         }
+                        CurrentArtist.Albums[i].Musics = (from m in CurrentArtist.Albums[i].Musics orderby m.N select m).ToList();
                         i++;
                     }
                 }

@@ -17,6 +17,7 @@ namespace Utility.Musics
 
         public int Rating = 0;
         public byte[] FileBinary { get; set; }
+        public uint N { get; set; }
 
         public Music()
         {
