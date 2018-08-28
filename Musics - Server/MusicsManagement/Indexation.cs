@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Threading;
 using Musics___Server.MusicsInformation;
 using TagLib;
 using Utility.Musics;
 using Utility.Network.Dialog.Uploads;
+using System.Threading.Tasks;
 
 namespace Musics___Server.MusicsManagement
 {
@@ -112,44 +114,44 @@ namespace Musics___Server.MusicsManagement
                     {
                         CurrentArtist.Albums.Add(new Album(CurrentArtist, Path.GetFileName(a), a));
 
-                        foreach (var m in Directory.GetFiles(a))
-                        {
-                            if (Path.GetExtension(m) == ".mp3" || Path.GetExtension(m) == ".flac")
-                            {
-                                file = TagLib.File.Create(m);
-                                string Musicname = file.Tag.Title;
-                                if (Musicname == null)
-                                {
-                                    try
-                                    {
-                                        Musicname = Path.GetFileNameWithoutExtension(m).Split('-')[1].Remove(0, 1);
-                                    }
-                                    catch
-                                    {
-                                        Musicname = Path.GetFileNameWithoutExtension(m);
-                                    }
-                                }
+                        Parallel.ForEach(Directory.GetFiles(a), m =>
+                         {
+                             if (Path.GetExtension(m) == ".mp3" || Path.GetExtension(m) == ".flac")
+                             {
+                                 file = TagLib.File.Create(m);
+                                 string Musicname = file.Tag.Title;
+                                 if (Musicname == null)
+                                 {
+                                     try
+                                     {
+                                         Musicname = Path.GetFileNameWithoutExtension(m).Split('-')[1].Remove(0, 1);
+                                     }
+                                     catch
+                                     {
+                                         Musicname = Path.GetFileNameWithoutExtension(m);
+                                     }
+                                 }
 
-                                Music current = new Music(Musicname, CurrentArtist, m)
-                                {
-                                    Format = Path.GetExtension(m),
-                                    Genre = file.Tag.Genres,
-                                    N = file.Tag.Track
-                                };
-                                if (current.Genre.Length == 0)
-                                {
-                                    current.Genre = new string[] { "Unknown" };
-                                }
-                                if (MusicsInfo.MusicsExisting(current.MID))
-                                {
-                                    current.Rating = MusicsInfo.GetMusicInfo(current.MID).Rating;
-                                }
+                                 Music current = new Music(Musicname, CurrentArtist, m)
+                                 {
+                                     Format = Path.GetExtension(m),
+                                     Genre = file.Tag.Genres,
+                                     N = file.Tag.Track
+                                 };
+                                 if (current.Genre.Length == 0)
+                                 {
+                                     current.Genre = new string[] { "Unknown" };
+                                 }
+                                 if (MusicsInfo.MusicsExisting(current.MID))
+                                 {
+                                     current.Rating = MusicsInfo.GetMusicInfo(current.MID).Rating;
+                                 }
 
-                                NumberofMusics++;
+                                 NumberofMusics++;
 
-                                CurrentArtist.Albums[i].Musics.Add(current);
-                            }
-                        }
+                                 CurrentArtist.Albums[i].Musics.Add(current);
+                             }
+                         });
                         CurrentArtist.Albums[i].Musics = (from m in CurrentArtist.Albums[i].Musics orderby m.N select m).ToList();
                         i++;
                     }
