@@ -101,6 +101,10 @@ namespace Musics___Server
                         Console.WriteLine("~ Syntax not correct, please use -promote -UID -Rank");
                     }
                 }
+                else
+                {
+                    Console.WriteLine("~ Unkown Command " + entry);
+                }
             }
             Console.Write("~ Saving music info ... ");
             Indexation.SaveAllInfos();
