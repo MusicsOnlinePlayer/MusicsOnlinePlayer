@@ -94,7 +94,6 @@ namespace Musics___Server.MusicsManagement
 
         public static int DoIndexation()
         {
-            //Console.WriteLine("Starting Indexation");
             string[] ArtistDirs = Directory.GetDirectories(@"c:\AllMusics");
 
             int NumberofMusics = 0;

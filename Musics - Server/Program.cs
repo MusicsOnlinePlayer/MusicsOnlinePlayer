@@ -196,7 +196,6 @@ namespace Musics___Server
 
         public static void SendObject(object obj, Socket socket)
         {
-            //buffer = new byte[BUFFER_SIZE];
             var msg = Function.Serialize(obj);
 
             try
@@ -282,9 +281,6 @@ namespace Musics___Server
                                 SendObject(new RequestAnswer(null, false), socket);
                             }
                             break;
-                        //case RequestsTypes.Trending:
-                        //    SendObject(new RequestAnswer(Manager.GenreTrending), socket);
-                        //    break;
                     }
                 }
                 if (received is Rate)
@@ -293,7 +289,6 @@ namespace Musics___Server
 
                     bool VoteExist = UsersInfos.VoteExist(temp.MusicRatedMID, Clients.List[socket].UID);
                     UsersInfos.AddVoteMusic(temp.MusicRatedMID, Clients.List[socket].UID);
-                    //VoteExist = UsersInfos.VoteExist(temp.MusicRatedMID, Clients.List[socket].UID);
                     
                     if(temp.Type == Element.Music)
                     {
