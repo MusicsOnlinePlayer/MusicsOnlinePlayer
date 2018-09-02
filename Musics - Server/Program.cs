@@ -34,7 +34,6 @@ namespace Musics___Server
         static void Main(string[] args)
         {
             SetupServer();
-            //serverSocket.SendBufferSize = BUFFER_SIZE;
 
             AuthService.SetupAuth();
             MusicsInfo.SetupMusics();
