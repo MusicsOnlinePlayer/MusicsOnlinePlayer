@@ -77,7 +77,7 @@ namespace Musics___Server
                     }
                     Console.WriteLine("End.");
                 }
-                else if (entry == "-users -all" && entry == "-users -a")
+                else if (entry == "-users -all" || entry == "-users -a")
                 {
                     Console.WriteLine("~ Getting all users");
                     foreach (User u in UsersInfos.GetAllUsers())
