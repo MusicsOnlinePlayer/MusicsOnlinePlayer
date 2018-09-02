@@ -25,13 +25,9 @@ namespace Musics___Server.MusicsManagement
             {
                 return true;
             }
-
-            //if (t.ToLower().Contains(s.ToLower()))
-            //{
-            //    return true;
-            //}
             return false;
         }
     }
 
 }
+
