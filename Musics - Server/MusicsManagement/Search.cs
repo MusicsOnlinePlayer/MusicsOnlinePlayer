@@ -6,8 +6,8 @@ namespace Musics___Server.MusicsManagement
     {
         public static bool Find(string s, string t)
         {
-            string[] st = s.Split(' ');
-            string[] tt = t.Split(' ');
+            string[] st = s.Split(' ','.','\'');
+            string[] tt = t.Split(' ','.','\'');
 
             int i =0;
 
