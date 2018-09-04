@@ -19,9 +19,7 @@ namespace Utility.Musics
         public byte[] FileBinary { get; set; }
         public uint N { get; set; }
 
-        public Music()
-        {
-        }
+        public Music() { }
         public Music(string title, Author author, byte[] Filebinary)
         {
             Title = title;
