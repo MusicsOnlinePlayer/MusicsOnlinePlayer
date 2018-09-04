@@ -10,6 +10,7 @@ using Musics___Server.MusicsInformation;
 using Musics___Server.MusicsManagement;
 using Musics___Server.MusicsManagement.ClientSearch;
 using Musics___Server.MusicsManagement.Trending;
+using Musics___Server.Commands;
 using Utility.Network.Users;
 using Utility.Network;
 using Utility.Network.Dialog;
@@ -51,59 +52,7 @@ namespace Musics___Server
             while (entry != "-quit")
             {
                 entry = Console.ReadLine();
-                if (entry == "-init")
-                {
-                    Indexation.InitRepository();
-                }
-                else if (entry == "-index")
-                {
-                    Console.Write("~ Indexation of all musics....  ");
-                    Console.WriteLine(Indexation.DoIndexation() + "Musics");
-                    Console.WriteLine("~ Indexation done.");
-                }
-                else if (entry == "-save")
-                {
-                    Console.Write("~ Saving music info ... ");
-                    Indexation.SaveAllInfos();
-                    Console.WriteLine("Done.");
-                }
-                else if (entry == "-users")
-                {
-                    Console.WriteLine("~ Getting all connected users");
-                    foreach (User u in Clients.List.Values)
-                    {
-                        Console.WriteLine(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
-                    }
-                    Console.WriteLine("End.");
-                }
-                else if (entry == "-users -all" || entry == "-users -a")
-                {
-                    Console.WriteLine("~ Getting all users");
-                    foreach (User u in UsersInfos.GetAllUsers())
-                    {
-                        Console.WriteLine(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
-                    }
-                    Console.WriteLine("End.");
-                }
-                else if (entry.Contains("-promote"))
-                {
-                    string UID = entry.Split('-')[2].Replace(" ", "");
-                    if (Enum.TryParse(entry.Split('-')[3], out Rank rank))
-                    {
-                        Console.WriteLine("~ Promote " + UID + " to " + rank.ToString());
-                        PromoteUser(UID, rank);
-
-                        Console.WriteLine("Ok.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("~ Syntax not correct, please use -promote -UID -Rank");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("~ Unkown Command " + entry);
-                }
+                Commands.Commands.Do(entry);
             }
             Console.Write("~ Saving music info ... ");
             Indexation.SaveAllInfos();
