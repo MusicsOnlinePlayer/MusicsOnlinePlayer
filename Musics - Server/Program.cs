@@ -7,6 +7,7 @@ using Musics___Server.Authentification;
 using Musics___Server.Usersinfos;
 using Musics___Server.MusicsInformation;
 using Musics___Server.MusicsManagement;
+using Musics___Server.Network;
 using Musics___Server.MusicsManagement.ClientSearch;
 using Utility.Network.Users;
 using Utility.Network;
@@ -21,19 +22,13 @@ namespace Musics___Server
 {
     class Program
     {
-        private static readonly Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        private const int BUFFER_SIZE = 100000000;
-        private static readonly int PORT = 2003;
-        private static byte[] buffer = new byte[BUFFER_SIZE];
-
-        public static ClientList Clients = new ClientList();
-        private static AuthentificationService AuthService = new AuthentificationService();
+        public static Server MyServer = new Server();
 
         static void Main(string[] args)
         {
-            SetupServer();
+            MyServer.Setup();
 
-            AuthService.SetupAuth();
+            MyServer.AuthService.SetupAuth();
             MusicsInfo.SetupMusics();
 
             Console.Write("~ Indexation of all musics....  ");
@@ -60,99 +55,18 @@ namespace Musics___Server
         {
             UsersInfos.SetRankOfUser(UID, rank);
 
-            User tmpUser = Clients.GetUser(UID);
+            User tmpUser = MyServer.Clients.GetUser(UID);
             if (tmpUser != null)
             {
                 tmpUser.Userrank = rank;
-                Socket tmpSocket = Clients.GetSocket(UID);
-                Clients.List.Remove(tmpSocket);
-                Clients.AddUser(tmpUser, tmpSocket);
-                SendObject(new EditUserReport(true, Clients.GetUser(UID)), Clients.GetSocket(UID));
+                Socket tmpSocket = MyServer.Clients.GetSocket(UID);
+                MyServer.Clients.List.Remove(tmpSocket);
+                MyServer.Clients.AddUser(tmpUser, tmpSocket);
+                MyServer.SendObject(new EditUserReport(true, MyServer.Clients.GetUser(UID)), MyServer.Clients.GetSocket(UID));
             }
         }
 
-        public static void SetupServer()
-        {
-            try
-            {
-                serverSocket.Bind(new IPEndPoint(IPAddress.Any, PORT));
-                Console.WriteLine("Setup server Ok");
-            }
-            catch
-            {
-                Console.WriteLine("Erreur Setup");
-            }
-            serverSocket.SendBufferSize = BUFFER_SIZE;
-            serverSocket.Listen(0);
-            serverSocket.BeginAccept(AcceptCallback, null);
-        }
-
-        private static void AcceptCallback(IAsyncResult ar)
-        {
-            Socket socket;
-
-            try
-            {
-                socket = serverSocket.EndAccept(ar);
-                socket.SendTimeout = 600000;
-                socket.ReceiveTimeout = 600000;
-            }
-            catch (ObjectDisposedException)
-            {
-                return;
-            }
-
-            socket.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.Partial, ReceiveCallback, socket);
-            Clients.AddUser(new User(), socket);
-            Console.WriteLine("Client connected with ip : " + socket.RemoteEndPoint.ToString());
-            serverSocket.BeginAccept(AcceptCallback, null);
-        }
-        private static void ReceiveCallback(IAsyncResult ar)
-        {
-            Socket current = (Socket)ar.AsyncState;
-            int received = 0;
-
-            try
-            {
-                received = current.EndReceive(ar);
-            }
-            catch
-            {
-                Console.WriteLine("Client disconnected =(");
-                Clients.List.Remove(current);
-            }
-
-            byte[] recBuf = new byte[received];
-            Array.Copy(buffer, recBuf, received);
-
-            TreatRequest(recBuf, current);
-            recBuf = new byte[BUFFER_SIZE];
-
-            try
-            {
-                current.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.Partial, ReceiveCallback, current);
-            }
-            catch
-            {
-                Console.WriteLine("Client disconnected =(");
-                Clients.List.Remove(current);
-            }
-        }
-
-        public static void SendObject(object obj, Socket socket)
-        {
-            var msg = Function.Serialize(obj);
-
-            try
-            {
-                socket.Send(msg.Data, 0, msg.Data.Length, SocketFlags.Partial);
-            }
-            catch
-            {
-            }
-        }
-
-        private static void TreatRequest(byte[] Buffer, Socket socket)
+        public static void TreatRequest(byte[] Buffer, Socket socket)
         {
             object received;
             try
@@ -168,7 +82,7 @@ namespace Musics___Server
 
             try
             {
-                ClientLogin = Clients.GetUser(socket).UID != null;
+                ClientLogin = MyServer.Clients.GetUser(socket).UID != null;
             }
             catch
             {
@@ -205,7 +119,7 @@ namespace Musics___Server
                                             };
                                             Console.Write("Sending binaries for " + m.Title);
 
-                                            SendObject(new RequestAnswer(answer), socket);
+                                            MyServer.SendObject(new RequestAnswer(answer), socket);
                                             return;
                                         }
                                     }
@@ -214,16 +128,16 @@ namespace Musics___Server
                             break;
                         case RequestsTypes.Favorites:
                             List<Music> tmp = UsersInfos.GetLikedMusics(request.UserID);
-                            SendObject(new RequestAnswer(tmp), socket);
+                            MyServer.SendObject(new RequestAnswer(tmp), socket);
                             break;
                         case RequestsTypes.Users:
-                            if (Clients.GetUser(socket).Userrank != Rank.Viewer)
+                            if (MyServer.Clients.GetUser(socket).Userrank != Rank.Viewer)
                             {
-                                SendObject(new RequestAnswer(UsersInfos.SearchUser(request.Username), true), socket);
+                                MyServer.SendObject(new RequestAnswer(UsersInfos.SearchUser(request.Username), true), socket);
                             }
                             else
                             {
-                                SendObject(new RequestAnswer(null, false), socket);
+                                MyServer.SendObject(new RequestAnswer(null, false), socket);
                             }
                             break;
                     }
@@ -232,8 +146,8 @@ namespace Musics___Server
                 {
                     Rate temp = received as Rate;
 
-                    bool VoteExist = UsersInfos.VoteExist(temp.MusicRatedMID, Clients.List[socket].UID);
-                    UsersInfos.AddVoteMusic(temp.MusicRatedMID, Clients.List[socket].UID);
+                    bool VoteExist = UsersInfos.VoteExist(temp.MusicRatedMID, MyServer.Clients.List[socket].UID);
+                    UsersInfos.AddVoteMusic(temp.MusicRatedMID, MyServer.Clients.List[socket].UID);
                     
                     if(temp.Type == Element.Music)
                     {
@@ -253,10 +167,10 @@ namespace Musics___Server
                                         {
                                             m.Rating++;
 
-                                            Clients.List.TryGetValue(socket, out User value);
-                                            SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(value.UID)), socket);
+                                            MyServer.Clients.List.TryGetValue(socket, out User value);
+                                            MyServer.SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(value.UID)), socket);
                                         }
-                                        SendObject(new RateReport(true, temp.MusicRatedMID, m.Rating), socket);
+                                        MyServer.SendObject(new RateReport(true, temp.MusicRatedMID, m.Rating), socket);
                                         MusicsInfo.SaveMusicInfo(m);
                                     }
                                 }
@@ -266,28 +180,28 @@ namespace Musics___Server
                     else
                     {
                         UsersInfos.RatePlaylist(temp.MusicRatedMID, !VoteExist);
-                        SendObject(new RateReport(true, temp.MusicRatedMID, UsersInfos.GetPlaylist(temp.MusicRatedMID).Rating),socket);
+                        MyServer.SendObject(new RateReport(true, temp.MusicRatedMID, UsersInfos.GetPlaylist(temp.MusicRatedMID).Rating),socket);
                     }
                 }
                 if(received is Disconnect)
                 {
                     Console.WriteLine("Client disconnected =(");
-                    Clients.List.Remove(socket);
+                    MyServer.Clients.List.Remove(socket);
                 }
                 if (received is EditUser)
                 {
                     EditUser tmp = received as EditUser;
-                    if (AuthService.EditUser(tmp.UIDOld, tmp.NewUser))
+                    if (MyServer.AuthService.EditUser(tmp.UIDOld, tmp.NewUser))
                     {
-                        SendObject(new EditUserReport(true, tmp.NewUser), socket);
+                        MyServer.SendObject(new EditUserReport(true, tmp.NewUser), socket);
 
-                        Clients.List.Remove(socket);
-                        Clients.AddUser(tmp.NewUser, socket);
+                        MyServer.Clients.List.Remove(socket);
+                        MyServer.Clients.AddUser(tmp.NewUser, socket);
                         return;
                     }
                     else
                     {
-                        SendObject(new EditUserReport(false, tmp.NewUser), socket);
+                        MyServer.SendObject(new EditUserReport(false, tmp.NewUser), socket);
                     }
                 }
                 if (received is EditRequest)
@@ -297,19 +211,19 @@ namespace Musics___Server
                     switch (tmp.TypeOfEdit)
                     {
                         case TypesEdit.Users:
-                            if ((int)UsersInfos.GetRankOfUser(Clients.GetUser(socket).UID) > (int)tmp.NewRankOfUser && (int)UsersInfos.GetRankOfUser(Clients.GetUser(socket).UID) > (int)UsersInfos.GetRankOfUser(tmp.UserToEdit))
+                            if ((int)UsersInfos.GetRankOfUser(MyServer.Clients.GetUser(socket).UID) > (int)tmp.NewRankOfUser && (int)UsersInfos.GetRankOfUser(MyServer.Clients.GetUser(socket).UID) > (int)UsersInfos.GetRankOfUser(tmp.UserToEdit))
                             {
                                 PromoteUser(tmp.UserToEdit, tmp.NewRankOfUser);
                                 List<User> tmpU = new List<User>
                                 {
                                     UsersInfos.GetUser(tmp.UserToEdit)
                                 };
-                                SendObject(new RequestAnswer(tmpU, true), socket);
+                                MyServer.SendObject(new RequestAnswer(tmpU, true), socket);
                                 Console.WriteLine("~ User promoted " + tmp.UserToEdit + " to " + tmp.NewRankOfUser.ToString());
                             }
                             break;
                         case TypesEdit.Musics:
-                            if ((int)Clients.GetUser(socket).Userrank > 1)
+                            if ((int)MyServer.Clients.GetUser(socket).Userrank > 1)
                             {
                                 Indexation.ModifyElement(tmp.ObjectToEdit, tmp.NewName ,tmp.NewGenres);
                             }
@@ -324,13 +238,13 @@ namespace Musics___Server
                 if(received is UploadMusic)
                 {
                     UploadMusic tmp = received as UploadMusic;
-                    if (Indexation.AddElement(tmp) && (int)Clients.GetUser(socket).Userrank > 1)
+                    if (Indexation.AddElement(tmp) && (int)MyServer.Clients.GetUser(socket).Userrank > 1)
                     {
-                        SendObject(new UploadReport(null, true),socket);
+                        MyServer.SendObject(new UploadReport(null, true),socket);
                     }
                     else
                     {
-                        SendObject(new UploadReport(null, false), socket);
+                        MyServer.SendObject(new UploadReport(null, false), socket);
                     }
                 }
             }
@@ -344,24 +258,24 @@ namespace Musics___Server
 
                     if (auth.IsSignup)
                     {
-                        AuthService.SignupUser(auth.LoginInfo);
-                        Clients.List.Remove(socket);
-                        Clients.AddUser(auth.LoginInfo, socket);
-                        SendObject(new AuthInfo(true, Rank.Viewer), socket);
+                        MyServer.AuthService.SignupUser(auth.LoginInfo);
+                        MyServer.Clients.List.Remove(socket);
+                        MyServer.Clients.AddUser(auth.LoginInfo, socket);
+                        MyServer.SendObject(new AuthInfo(true, Rank.Viewer), socket);
                     }
                     else
                     {
-                        if (AuthService.SigninUser(auth.LoginInfo) && !Clients.Contains(auth.LoginInfo.UID))
+                        if (MyServer.AuthService.SigninUser(auth.LoginInfo) && !MyServer.Clients.Contains(auth.LoginInfo.UID))
                         {
                             Rank RankUser = UsersInfos.GetRankOfUser(auth.LoginInfo.UID);
-                            SendObject(new AuthInfo(true, RankUser), socket);
-                            Clients.List.Remove(socket);
+                            MyServer.SendObject(new AuthInfo(true, RankUser), socket);
+                            MyServer.Clients.List.Remove(socket);
                             auth.LoginInfo.Userrank = RankUser;
-                            Clients.AddUser(auth.LoginInfo, socket);
+                            MyServer.Clients.AddUser(auth.LoginInfo, socket);
                         }
                         else
                         {
-                            SendObject(new AuthInfo(false, Rank.Viewer), socket);
+                            MyServer.SendObject(new AuthInfo(false, Rank.Viewer), socket);
                         }
                     }
                 }

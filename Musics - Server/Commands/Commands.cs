@@ -28,7 +28,7 @@ namespace Musics___Server.Commands
             else if (entry == "-users")
             {
                 Console.WriteLine("~ Getting all connected users");
-                foreach (User u in Program.Clients.List.Values)
+                foreach (User u in Program.MyServer.Clients.List.Values)
                 {
                     Console.WriteLine(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
                 }

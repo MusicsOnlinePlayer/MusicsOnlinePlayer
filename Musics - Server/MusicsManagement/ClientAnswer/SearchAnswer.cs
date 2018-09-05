@@ -12,7 +12,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
     {
         public static void Do(Request requestSearch, Socket asker)
         {
-            if (Musics___Server.Program.Clients.GetUser(asker).UID != null)
+            if (Musics___Server.Program.MyServer.Clients.GetUser(asker).UID != null)
             {
                 Console.WriteLine("Sending to the client :");
 
@@ -44,7 +44,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                             Console.WriteLine("  " + a.Name);
                         }
                     }
-                    Musics___Server.Program.SendObject(new RequestAnswer(result, Element.Author), asker);
+                    Musics___Server.Program.MyServer.SendObject(new RequestAnswer(result, Element.Author), asker);
                 }
                 if (requestSearch.Requested == Element.Album)
                 {
@@ -72,7 +72,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                             }
                         }
                     }
-                    Musics___Server.Program.SendObject(new RequestAnswer(result, Element.Album), asker);
+                    Musics___Server.Program.MyServer.SendObject(new RequestAnswer(result, Element.Album), asker);
                 }
                 if (requestSearch.Requested == Element.Music)
                 {
@@ -100,19 +100,19 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                             }
                         }
                     }
-                    Musics___Server.Program.SendObject(new RequestAnswer(result, Element.Music), asker);
+                    Musics___Server.Program.MyServer.SendObject(new RequestAnswer(result, Element.Music), asker);
                 }
                 if (requestSearch.Requested == Element.Playlist)
                 {
                     List<Playlist> tmp = new List<Playlist>();
-                    foreach (Playlist p in UsersInfos.GetPlaylists(Program.Clients.GetUser(asker).UID))
+                    foreach (Playlist p in UsersInfos.GetPlaylists(Program.MyServer.Clients.GetUser(asker).UID))
                     {
                         if (Search.Find(requestSearch.Name, p.Name))
                         {
                             tmp.Add(p);
                         }
                     }
-                    Musics___Server.Program.SendObject(new RequestAnswer(tmp, Element.Playlist), asker);
+                    Musics___Server.Program.MyServer.SendObject(new RequestAnswer(tmp, Element.Playlist), asker);
                 }
             }
         }
