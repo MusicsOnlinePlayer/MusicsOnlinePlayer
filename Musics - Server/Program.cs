@@ -93,95 +93,11 @@ namespace Musics___Server
             {
                 if (received is Request)
                 {
-                    Request request = received as Request;
-
-                    switch (request.RequestsTypes)
-                    {
-                        case RequestsTypes.Search:
-                            Console.WriteLine("Request by client :" + request.Name);
-                            SearchAnswer.Do(request, socket);
-                            break;
-
-                        case RequestsTypes.MusicsBinaries:
-
-                            foreach (Author a in Indexation.ServerMusics)
-                            {
-                                foreach (Album al in a.Albums)
-                                {
-                                    foreach (Music m in al.Musics)
-                                    {
-                                        if (m.MID == request.RequestedBinaries.MID)
-                                        {
-                                            Music answer = new Music(m.Title, new Author(m.Author.Name), Indexation.GetFileBinary(m))
-                                            {
-                                                Format = m.Format,
-                                                Rating = m.Rating
-                                            };
-                                            Console.Write("Sending binaries for " + m.Title);
-
-                                            MyServer.SendObject(new RequestAnswer(answer), socket);
-                                            return;
-                                        }
-                                    }
-                                }
-                            }
-                            break;
-                        case RequestsTypes.Favorites:
-                            List<Music> tmp = UsersInfos.GetLikedMusics(request.UserID);
-                            MyServer.SendObject(new RequestAnswer(tmp), socket);
-                            break;
-                        case RequestsTypes.Users:
-                            if (MyServer.Clients.GetUser(socket).Userrank != Rank.Viewer)
-                            {
-                                MyServer.SendObject(new RequestAnswer(UsersInfos.SearchUser(request.Username), true), socket);
-                            }
-                            else
-                            {
-                                MyServer.SendObject(new RequestAnswer(null, false), socket);
-                            }
-                            break;
-                    }
+                    Network.Handle.Requests.Handle(received as Request,socket);
                 }
                 if (received is Rate)
                 {
-                    Rate temp = received as Rate;
-
-                    bool VoteExist = UsersInfos.VoteExist(temp.MusicRatedMID, MyServer.Clients.List[socket].UID);
-                    UsersInfos.AddVoteMusic(temp.MusicRatedMID, MyServer.Clients.List[socket].UID);
-                    
-                    if(temp.Type == Element.Music)
-                    {
-                        foreach (var a in Indexation.ServerMusics)
-                        {
-                            foreach (var al in a.Albums)
-                            {
-                                foreach (var m in al.Musics)
-                                {
-                                    if (m.MID == temp.MusicRatedMID)
-                                    {
-                                        if (VoteExist)
-                                        {
-                                            m.Rating--;
-                                        }
-                                        else
-                                        {
-                                            m.Rating++;
-
-                                            MyServer.Clients.List.TryGetValue(socket, out User value);
-                                            MyServer.SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(value.UID)), socket);
-                                        }
-                                        MyServer.SendObject(new RateReport(true, temp.MusicRatedMID, m.Rating), socket);
-                                        MusicsInfo.SaveMusicInfo(m);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        UsersInfos.RatePlaylist(temp.MusicRatedMID, !VoteExist);
-                        MyServer.SendObject(new RateReport(true, temp.MusicRatedMID, UsersInfos.GetPlaylist(temp.MusicRatedMID).Rating),socket);
-                    }
+                    Network.Handle.Rates.Handle(received as Rate, socket);
                 }
                 if(received is Disconnect)
                 {

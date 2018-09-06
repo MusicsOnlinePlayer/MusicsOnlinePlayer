@@ -9,13 +9,13 @@ namespace Musics___Server.MusicsManagement
             string[] st = s.Split(' ','.','\'');
             string[] tt = t.Split(' ','.','\'');
 
-            int i =0;
+            int i = 0;
 
             foreach(var c in st)
             {
                 foreach (var cs in tt)
                 {
-                    if(cs.ToLower() == c.ToLower())
+                    if(c.ToLower().Contains(cs.ToLower()))
                     {
                         i++;
                     }
