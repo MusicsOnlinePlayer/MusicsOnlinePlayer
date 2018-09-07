@@ -6,7 +6,7 @@ namespace Utility.Musics
     [Serializable]
     public class Author
     {
-        public Element type = Element.Author;
+        public Element Type { get; } = Element.Author;
 
         public string Name { get; set; }
         public int Rating = 0;

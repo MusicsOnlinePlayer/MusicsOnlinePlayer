@@ -9,6 +9,8 @@ namespace Utility.Musics
     [Serializable]
     public class Playlist
     {
+        public Element Type { get; } = Element.Album;
+
         public User Creator { get; set; }
         public string Name { get; set; }
         public List<Music> musics = new List<Music>();

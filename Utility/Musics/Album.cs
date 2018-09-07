@@ -7,7 +7,7 @@ namespace Utility.Musics
     [Serializable]
     public class Album
     {
-        public Element type = Element.Album;
+        public Element Type { get; } = Element.Album;
 
         public string MID { get; set; }
 

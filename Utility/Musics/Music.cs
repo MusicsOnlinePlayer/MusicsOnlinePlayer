@@ -5,7 +5,7 @@ namespace Utility.Musics
     [Serializable]
     public class Music
     {
-        public Element type = Element.Music;
+        public Element Type { get; } = Element.Music;
 
         public string Title { get; set; }
         public Author Author { get; set; }
