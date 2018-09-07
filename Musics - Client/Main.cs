@@ -311,7 +311,6 @@ namespace Musics___Client
                 case RequestsTypes.Users:
                     RequestAnswerUsers(searchAnswer);
                     break;
-
             }
         }
 
@@ -593,12 +592,12 @@ namespace Musics___Client
                     UIPathMusic.Text = "";
                     UIThumbup.Visible = true;
 
-                    Playlist.Clear();
-                    PlaylistIndex = 0;
+                    //Playlist.Clear();
+                    //PlaylistIndex = 0;
                     UIPlaylist.Items.Clear();
                     foreach (var m in (selected as Playlist).musics)
                     {
-                        Playlist.Add(m);
+                        //Playlist.Add(m);
                         UIPlaylist.Items.Add(m.Title);
                     }
                 }
@@ -625,6 +624,14 @@ namespace Musics___Client
             }
             else if (selected is Playlist)
             {
+                Playlist.Clear();
+                PlaylistIndex = 0;
+                UIPlaylist.Items.Clear();
+                foreach (var m in (selected as Playlist).musics)
+                {
+                    Playlist.Add(m);
+                    UIPlaylist.Items.Add(m.Title);
+                }
                 SendObject(new Request(Playlist.First()));
             }
         }

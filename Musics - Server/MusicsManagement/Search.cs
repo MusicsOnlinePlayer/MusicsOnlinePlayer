@@ -15,7 +15,7 @@ namespace Musics___Server.MusicsManagement
             {
                 foreach (var cs in tt)
                 {
-                    if(c.ToLower().Contains(cs.ToLower()))
+                    if(cs.ToLower().Contains(c.ToLower()))
                     {
                         i++;
                     }
