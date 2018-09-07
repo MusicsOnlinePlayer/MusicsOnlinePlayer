@@ -39,21 +39,9 @@ namespace Musics___Server.MusicsManagement
             return null;
         }
 
-        public static List<Music> GetAllMusics()
-        {
-            List<Music> tmp = new List<Music>();
-            foreach (var a in Indexation.ServerMusics)
-            {
-                foreach (var al in a.Albums)
-                {
-                    foreach (var m in al.Musics)
-                    {
-                        tmp.Add(m);
-                    }
-                }
-            }
-            return tmp;
-        }
+        public static IEnumerable<Music> GetAllMusics()
+            => ServerMusics.SelectMany(x => x.Albums).SelectMany(x => x.Musics);
+
 
         public static bool IsElementExisting(object element, Element type)
         {
@@ -161,7 +149,7 @@ namespace Musics___Server.MusicsManagement
             return NumberofMusics;
         }
 
-        public static void ModifyElement(object Origin, string NewName,string[] Genres)
+        public static void ModifyElement(object Origin, string NewName, string[] Genres)
         {
             if (Origin is Music)
             {
@@ -180,7 +168,7 @@ namespace Musics___Server.MusicsManagement
                                 TagLib.File file = TagLib.File.Create(m.ServerPath);
                                 file.Tag.Title = m.Title;
 
-                                if(Genres != null)
+                                if (Genres != null)
                                 {
                                     m.Genre = Genres;
                                     file.Tag.Genres = Genres;
@@ -256,7 +244,7 @@ namespace Musics___Server.MusicsManagement
             {
                 string path = Path.Combine("c:\\AllMusics", tmp.MusicPart.Musics[0].Author.Name);
                 Directory.CreateDirectory(path);
-                ServerMusics.Add(new Author(tmp.MusicPart.Musics[0].Author.Name,path));
+                ServerMusics.Add(new Author(tmp.MusicPart.Musics[0].Author.Name, path));
             }
 
             if (Indexation.IsElementExisting(tmp.MusicPart, Element.Album))
@@ -318,38 +306,11 @@ namespace Musics___Server.MusicsManagement
         {
             switch (type)
             {
-                case Element.Author:
-                    foreach (var a in ServerMusics)
-                    {
-                        if (a.MID == ID)
-                        {
-                            return a.ServerPath;
-                        }
-                    }
-                    break;
-                case Element.Album:
-                    foreach (var a in ServerMusics)
-                    {
-                        foreach (var al in a.Albums)
-                        {
-                            if (ID == al.MID)
-                            {
-                                return al.ServerPath;
-                            }
-                        }
-                    }
-                    break;
-                case Element.Music:
-                    foreach (var a in GetAllMusics())
-                    {
-                        if (ID == a.MID)
-                        {
-                            return a.ServerPath;
-                        }
-                    }
-                    break;
+                case Element.Author: return ServerMusics.SingleOrDefault(x => x.MID == ID)?.ServerPath;
+                case Element.Album: return ServerMusics.SelectMany(x => x.Albums).SingleOrDefault(x => x.MID == ID)?.ServerPath;
+                case Element.Music: return GetAllMusics().Single(x => x.MID == ID)?.ServerPath;
+                default: throw new InvalidOperationException();
             }
-            return null;
         }
     }
 }

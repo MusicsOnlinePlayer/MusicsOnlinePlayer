@@ -93,7 +93,7 @@ namespace Musics___Server.MusicsInformation
             }
         }
 
-        public static void SaveMusicsInfo(List<Music> musics)
+        public static void SaveMusicsInfo(IEnumerable<Music> musics)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(@"Musics.xml");
