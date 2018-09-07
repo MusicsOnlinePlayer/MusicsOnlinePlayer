@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
@@ -147,14 +148,7 @@ namespace Musics___Server.MusicsInformation
             doc.Load(@"Musics.xml");
             XmlNodeList nodes = doc.DocumentElement.SelectNodes("Music");
 
-            foreach (XmlNode n in nodes)
-            {
-                if (n["MID"].InnerText == MID)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return nodes.Cast<XmlNode>().Any(n => n["MID"].InnerText == MID);
         }
 
         public static Music GetMusicInfo(string MID)
