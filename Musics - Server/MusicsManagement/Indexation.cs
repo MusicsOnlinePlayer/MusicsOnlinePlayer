@@ -24,25 +24,14 @@ namespace Musics___Server.MusicsManagement
         }
 
         public static byte[] GetFileBinary(Music m)
-        {
-            return System.IO.File.ReadAllBytes(m.ServerPath);
-        }
+            => System.IO.File.ReadAllBytes(m.ServerPath);
+
 
         public static Music GetMusicByID(string MID)
-        {
-            foreach (var p in GetAllMusics())
-            {
-                if (p.MID == MID)
-                {
-                    return p;
-                }
-            }
-            return null;
-        }
+            => GetAllMusics().SingleOrDefault(m => m.MID == MID);
 
         public static IEnumerable<Music> GetAllMusics()
             => ServerMusics.SelectMany(x => x.Albums).SelectMany(x => x.Musics);
-
 
         public static bool IsElementExisting(IElement element, Element type)
         {
@@ -53,7 +42,7 @@ namespace Musics___Server.MusicsManagement
                 case Element.Music: return MusicsInfo.TryFindMusic(element.MID, out XmlNode node);
                 case Element.Playlist: throw new NotImplementedException();
                 default: throw new InvalidOperationException();
-            } 
+            }
         }
 
         public static int DoIndexation()
@@ -125,88 +114,87 @@ namespace Musics___Server.MusicsManagement
             return NumberofMusics;
         }
 
-        public static void ModifyElement(object Origin, string NewName, string[] Genres)
+        public static void ModifyMusic(IElement originalElement, string newName, string[] genres)
         {
-            if (Origin is Music)
+            Music foundMusic = GetMusic(originalElement);
+            if (null != foundMusic)
             {
-                Music tmpOrigin = Origin as Music;
-                foreach (var a in Indexation.ServerMusics)
+                foundMusic.Title = newName;
+                foundMusic.MID = Hash.SHA256Hash(foundMusic.Title + foundMusic.Author.Name);
+
+                TagLib.File file = TagLib.File.Create(foundMusic.ServerPath);
+                file.Tag.Title = foundMusic.Title;
+
+                if (genres != null)
                 {
-                    foreach (var al in a.Albums)
-                    {
-                        foreach (var m in al.Musics)
-                        {
-                            if (tmpOrigin.MID == m.MID)
-                            {
-                                m.Title = NewName;
-                                m.MID = Hash.SHA256Hash(m.Title + m.Author.Name);
-
-                                TagLib.File file = TagLib.File.Create(m.ServerPath);
-                                file.Tag.Title = m.Title;
-
-                                if (Genres != null)
-                                {
-                                    m.Genre = Genres;
-                                    file.Tag.Genres = Genres;
-                                }
-
-                                file.Save();
-
-                                MusicsInfo.EditMusicsInfo(tmpOrigin.MID, m);
-                                return;
-                            }
-                        }
-                    }
+                    foundMusic.Genre = genres;
+                    file.Tag.Genres = genres;
                 }
+
+                file.Save();
+
+                MusicsInfo.EditMusicsInfo(originalElement.MID, foundMusic);
             }
-            if (Origin is Album)
+        }
+
+        public static void ModifyAlbum(IElement originalElement, string newName)
+        {
+            Album foundAlbum = GetAlbum(originalElement);
+            if (null != foundAlbum)
             {
-                Album tmpOrigin = Origin as Album;
-                foreach (var a in Indexation.ServerMusics)
-                {
-                    foreach (var al in a.Albums)
-                    {
-                        if (al.MID == tmpOrigin.MID)
-                        {
-                            al.Name = NewName;
-                            al.MID = Hash.SHA256Hash(al.Name + Element.Album);
+                foundAlbum.Name = newName;
+                foundAlbum.MID = Hash.SHA256Hash(foundAlbum.Name + Element.Album);
 
-                            Directory.Move(al.ServerPath, Directory.GetParent(al.ServerPath) + "/" + al.Name);
+                Directory.Move(foundAlbum.ServerPath, Directory.GetParent(foundAlbum.ServerPath) + "/" + foundAlbum.Name);
+                foundAlbum.Musics.ForEach(m => m.Album = foundAlbum);
 
-                            foreach (var m in al.Musics)
-                            {
-                                m.Album = al;
-                            }
-                            return;
-                        }
-                    }
-                }
             }
-            if (Origin is Author)
+        }
+
+        public static void ModifyElement(IElement originalElement, string newName, string[] genres)
+        {
+            switch (originalElement.Type)
             {
-                //Author tmpOrigin = Origin as Author;
-                //foreach (var a in Indexation.ServerMusics)
-                //{
-                //    if(tmpOrigin.MID == a.MID)
-                //    {
-                //        a.Name = NewName;
-                //        a.MID = Hash.SHA256Hash(a.Name + Element.Author);
+                case Element.Music:
+                    ModifyMusic(originalElement, newName, genres);
+                    break;
 
-                //        //Directory.Move(a.ServerPath, Directory.GetParent(a.ServerPath) + "/" + a.Name);
+                case Element.Album:
+                    ModifyAlbum(originalElement, newName);
+                    break;
+                case Element.Author:
+                case Element.Playlist:
+                    throw new NotImplementedException();
+                default:
+                    throw new InvalidOperationException();
 
-                //        foreach (var al in a.albums)
-                //        {
-                //            al.Author = a;
-                //            foreach(var m in al.Musics)
-                //            {
-                //                m.Author = a;
-                //            }
-                //        }
-
-                //        return;
-                //    }
-                //}
             }
+ 
+            //if (originalElement is Author)
+            //{
+            //    //Author tmpOrigin = Origin as Author;
+            //    //foreach (var a in Indexation.ServerMusics)
+            //    //{
+            //    //    if(tmpOrigin.MID == a.MID)
+            //    //    {
+            //    //        a.Name = NewName;
+            //    //        a.MID = Hash.SHA256Hash(a.Name + Element.Author);
+
+            //    //        //Directory.Move(a.ServerPath, Directory.GetParent(a.ServerPath) + "/" + a.Name);
+
+            //    //        foreach (var al in a.albums)
+            //    //        {
+            //    //            al.Author = a;
+            //    //            foreach(var m in al.Musics)
+            //    //            {
+            //    //                m.Author = a;
+            //    //            }
+            //    //        }
+
+            //    //        return;
+            //    //    }
+            //    //}
+            //}
         }
 
         public static void SaveAllInfos()
@@ -231,7 +219,7 @@ namespace Musics___Server.MusicsManagement
                 }
                 else
                 {
-                    string path = Path.Combine(GetElementPath(tmp.MusicPart.MID, Element.Album), tmp.MusicPart.Musics[0].Title + tmp.MusicPart.Musics[0].Format);
+                    string path = Path.Combine(GetElementPath(tmp.MusicPart), tmp.MusicPart.Musics[0].Title + tmp.MusicPart.Musics[0].Format);
                     System.IO.File.WriteAllBytes(path, tmp.MusicPart.Musics.First().FileBinary);
                     MusicsInfo.SaveMusicInfo(tmp.MusicPart.Musics.First());
                     foreach (var a in ServerMusics)
@@ -253,7 +241,7 @@ namespace Musics___Server.MusicsManagement
             }
             else
             {
-                string path = Path.Combine(GetElementPath(tmp.MusicPart.Musics.First().Author.MID, Element.Author), string.Join("", tmp.MusicPart.Name.Split(Path.GetInvalidFileNameChars())));
+                string path = Path.Combine(GetElementPath(tmp.MusicPart.Musics.First().Author), string.Join("", tmp.MusicPart.Name.Split(Path.GetInvalidFileNameChars())));
 
                 Directory.CreateDirectory(path);
                 string MusicPath = Path.Combine(path, tmp.MusicPart.Musics[0].Title + tmp.MusicPart.Musics[0].Format);
@@ -278,13 +266,20 @@ namespace Musics___Server.MusicsManagement
             return false;
         }
 
-        public static string GetElementPath(string ID, Element type)
+        public static Album GetAlbum(IElement element)
+            => ServerMusics.SelectMany(x => x.Albums).SingleOrDefault(x => x.MID == element.MID);
+        public static Author GetAuthor(IElement element)
+            => ServerMusics.SingleOrDefault(x => x.MID == element.MID);
+        public static Music GetMusic(IElement element)
+            => GetAllMusics().Single(x => x.MID == element.MID);
+
+        public static string GetElementPath(IElement element)
         {
-            switch (type)
+            switch (element.Type)
             {
-                case Element.Author: return ServerMusics.SingleOrDefault(x => x.MID == ID)?.ServerPath;
-                case Element.Album: return ServerMusics.SelectMany(x => x.Albums).SingleOrDefault(x => x.MID == ID)?.ServerPath;
-                case Element.Music: return GetAllMusics().Single(x => x.MID == ID)?.ServerPath;
+                case Element.Author: return GetAuthor(element)?.ServerPath;
+                case Element.Album: return GetAlbum(element)?.ServerPath;
+                case Element.Music: return GetMusic(element)?.ServerPath;
                 default: throw new InvalidOperationException();
             }
         }

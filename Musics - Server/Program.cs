@@ -141,7 +141,7 @@ namespace Musics___Server
                         case TypesEdit.Musics:
                             if ((int)MyServer.Clients.GetUser(socket).Userrank > 1)
                             {
-                                Indexation.ModifyElement(tmp.ObjectToEdit, tmp.NewName ,tmp.NewGenres);
+                                Indexation.ModifyElement(tmp.ObjectToEdit as IElement, tmp.NewName ,tmp.NewGenres);
                             }
                             break;
                     }
