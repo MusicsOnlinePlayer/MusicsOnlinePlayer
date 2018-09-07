@@ -8,6 +8,7 @@ using TagLib;
 using Utility.Musics;
 using Utility.Network.Dialog.Uploads;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Musics___Server.MusicsManagement
 {
@@ -43,41 +44,16 @@ namespace Musics___Server.MusicsManagement
             => ServerMusics.SelectMany(x => x.Albums).SelectMany(x => x.Musics);
 
 
-        public static bool IsElementExisting(object element, Element type)
+        public static bool IsElementExisting(IElement element, Element type)
         {
             switch (type)
             {
-                case Element.Author:
-                    Author tmp = element as Author;
-                    foreach (var a in ServerMusics)
-                    {
-                        if (a.MID == tmp.MID)
-                        {
-                            return true;
-                        }
-                    }
-                    break;
-                case Element.Album:
-                    Album Albumtmp = element as Album;
-                    foreach (var a in ServerMusics)
-                    {
-                        foreach (var al in a.Albums)
-                        {
-                            if (al.MID == Albumtmp.MID)
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                    break;
-                case Element.Music:
-                    if (MusicsInfo.MusicsExisting((element as Music).MID))
-                    {
-                        return true;
-                    }
-                    break;
-            }
-            return false;
+                case Element.Author: return ServerMusics.Any(a => a.MID == element.MID);
+                case Element.Album: return ServerMusics.SelectMany(x => x.Albums).Any(a => a.MID == element.MID);
+                case Element.Music: return MusicsInfo.TryFindMusic(element.MID, out XmlNode node);
+                case Element.Playlist: throw new NotImplementedException();
+                default: throw new InvalidOperationException();
+            } 
         }
 
         public static int DoIndexation()
@@ -129,7 +105,7 @@ namespace Musics___Server.MusicsManagement
                                  {
                                      current.Genre = new string[] { "Unknown" };
                                  }
-                                 if (MusicsInfo.MusicsExisting(current.MID))
+                                 if (MusicsInfo.TryFindMusic(current.MID, out XmlNode node))
                                  {
                                      current.Rating = MusicsInfo.GetMusicInfo(current.MID).Rating;
                                  }
