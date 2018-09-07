@@ -20,29 +20,25 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                 {
                     List<Author> result = new List<Author>();
 
-                    foreach(Author a in Indexation.ServerMusics)
+                    foreach(Author a in Indexation.ServerMusics.Where( x=> Search.Find(requestSearch.Name, x.Name)))
                     {
-                        bool Found = Search.Find(requestSearch.Name, a.Name);
-                        if (Found)
+                        Author author = new Author(a.Name);
+                        foreach (var al in a.Albums)
                         {
-                            Author author = new Author(a.Name);
-                            foreach (var al in a.Albums)
+                            author.Albums.Add(new Album(new Author(a.Name), al.Name));
+                            foreach (var m in al.Musics)
                             {
-                                author.Albums.Add(new Album(new Author(a.Name), al.Name));
-                                foreach (var m in al.Musics)
+                                Music temp = new Music(m.Title, author, "")
                                 {
-                                    Music temp = new Music(m.Title, author, "")
-                                    {
-                                        Rating = m.Rating,
-                                        Album = new Album(al.Name),
-                                        Genre = m.Genre
-                                    };
-                                    author.Albums.Last().Add(temp);
-                                }
+                                    Rating = m.Rating,
+                                    Album = new Album(al.Name),
+                                    Genre = m.Genre
+                                };
+                                author.Albums.Last().Add(temp);
                             }
-                            result.Add(author);
-                            Console.WriteLine("  " + a.Name);
                         }
+                        result.Add(author);
+                        Console.WriteLine("  " + a.Name);
                     }
                     Musics___Server.Program.MyServer.SendObject(new RequestAnswer(result, Element.Author), asker);
                 }

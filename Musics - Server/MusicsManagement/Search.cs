@@ -21,11 +21,9 @@ namespace Musics___Server.MusicsManagement
                     }
                 }
             }
-            if(i >= st.Length)
-            {
-                return true;
-            }
-            return false;
+
+            return i >= st.Length;
+         
         }
     }
 

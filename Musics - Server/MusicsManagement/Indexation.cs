@@ -27,8 +27,7 @@ namespace Musics___Server.MusicsManagement
             => System.IO.File.ReadAllBytes(m.ServerPath);
 
 
-        public static Music GetMusicByID(string MID)
-            => GetAllMusics().SingleOrDefault(m => m.MID == MID);
+
 
         public static IEnumerable<Music> GetAllMusics()
             => ServerMusics.SelectMany(x => x.Albums).SelectMany(x => x.Musics);
@@ -114,7 +113,7 @@ namespace Musics___Server.MusicsManagement
             return NumberofMusics;
         }
 
-       
+
         public static void ModifyElement(IElement originalElement, string newName, string[] genres)
         {
             switch (originalElement.Type)
@@ -133,7 +132,7 @@ namespace Musics___Server.MusicsManagement
                     throw new InvalidOperationException();
 
             }
- 
+
             //if (originalElement is Author)
             //{
             //    //Author tmpOrigin = Origin as Author;
@@ -270,7 +269,9 @@ namespace Musics___Server.MusicsManagement
         public static Author GetAuthor(IElement element)
             => ServerMusics.SingleOrDefault(x => x.MID == element.MID);
         public static Music GetMusic(IElement element)
-            => GetAllMusics().Single(x => x.MID == element.MID);
+            => GetMusicByID(element.MID);
+        public static Music GetMusicByID(string MID)
+          => GetAllMusics().SingleOrDefault(m => m.MID == MID);
 
         public static string GetElementPath(IElement element)
         {

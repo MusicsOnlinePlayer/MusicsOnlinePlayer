@@ -11,37 +11,27 @@ namespace Musics___Server.Network.Handle
 {
     public static class Rates
     {
-        public static void Handle(Rate temp,Socket socket)
+        public static void Handle(Rate temp, Socket socket)
         {
             bool VoteExist = UsersInfos.VoteExist(temp.MusicRatedMID, Program.MyServer.Clients.List[socket].UID);
-            UsersInfos.AddVoteMusic(temp.MusicRatedMID,Program.MyServer.Clients.List[socket].UID);
+            UsersInfos.AddVoteMusic(temp.MusicRatedMID, Program.MyServer.Clients.List[socket].UID);
 
             if (temp.Type == Element.Music)
             {
-                foreach (var a in Indexation.ServerMusics)
+                var m = Indexation.GetMusicByID(temp.MusicRatedMID);
+                if (null != m)
                 {
-                    foreach (var al in a.Albums)
+                    if (VoteExist)
+                        m.Rating--;
+                    else
                     {
-                        foreach (var m in al.Musics)
-                        {
-                            if (m.MID == temp.MusicRatedMID)
-                            {
-                                if (VoteExist)
-                                {
-                                    m.Rating--;
-                                }
-                                else
-                                {
-                                    m.Rating++;
+                        m.Rating++;
 
-                                    Program.MyServer.Clients.List.TryGetValue(socket, out User value);
-                                    Program.MyServer.SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(value.UID)), socket);
-                                }
-                                Program.MyServer.SendObject(new RateReport(true, temp.MusicRatedMID, m.Rating), socket);
-                                MusicsInfo.SaveMusicInfo(m);
-                            }
-                        }
+                        Program.MyServer.Clients.List.TryGetValue(socket, out User value);
+                        Program.MyServer.SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(value.UID)), socket);
                     }
+                    Program.MyServer.SendObject(new RateReport(true, temp.MusicRatedMID, m.Rating), socket);
+                    MusicsInfo.SaveMusicInfo(m);
                 }
             }
             else
