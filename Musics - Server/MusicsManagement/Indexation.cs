@@ -114,43 +114,7 @@ namespace Musics___Server.MusicsManagement
             return NumberofMusics;
         }
 
-        public static void ModifyMusic(IElement originalElement, string newName, string[] genres)
-        {
-            Music foundMusic = GetMusic(originalElement);
-            if (null != foundMusic)
-            {
-                foundMusic.Title = newName;
-                foundMusic.MID = Hash.SHA256Hash(foundMusic.Title + foundMusic.Author.Name);
-
-                TagLib.File file = TagLib.File.Create(foundMusic.ServerPath);
-                file.Tag.Title = foundMusic.Title;
-
-                if (genres != null)
-                {
-                    foundMusic.Genre = genres;
-                    file.Tag.Genres = genres;
-                }
-
-                file.Save();
-
-                MusicsInfo.EditMusicsInfo(originalElement.MID, foundMusic);
-            }
-        }
-
-        public static void ModifyAlbum(IElement originalElement, string newName)
-        {
-            Album foundAlbum = GetAlbum(originalElement);
-            if (null != foundAlbum)
-            {
-                foundAlbum.Name = newName;
-                foundAlbum.MID = Hash.SHA256Hash(foundAlbum.Name + Element.Album);
-
-                Directory.Move(foundAlbum.ServerPath, Directory.GetParent(foundAlbum.ServerPath) + "/" + foundAlbum.Name);
-                foundAlbum.Musics.ForEach(m => m.Album = foundAlbum);
-
-            }
-        }
-
+       
         public static void ModifyElement(IElement originalElement, string newName, string[] genres)
         {
             switch (originalElement.Type)
@@ -195,6 +159,41 @@ namespace Musics___Server.MusicsManagement
             //    //    }
             //    //}
             //}
+        }
+        public static void ModifyMusic(IElement originalElement, string newName, string[] genres)
+        {
+            Music foundMusic = GetMusic(originalElement);
+            if (null != foundMusic)
+            {
+                foundMusic.Title = newName;
+                foundMusic.MID = Hash.SHA256Hash(foundMusic.Title + foundMusic.Author.Name);
+
+                TagLib.File file = TagLib.File.Create(foundMusic.ServerPath);
+                file.Tag.Title = foundMusic.Title;
+
+                if (genres != null)
+                {
+                    foundMusic.Genre = genres;
+                    file.Tag.Genres = genres;
+                }
+
+                file.Save();
+
+                MusicsInfo.EditMusicsInfo(originalElement.MID, foundMusic);
+            }
+        }
+
+        public static void ModifyAlbum(IElement originalElement, string newName)
+        {
+            Album foundAlbum = GetAlbum(originalElement);
+            if (null != foundAlbum)
+            {
+                foundAlbum.Name = newName;
+                foundAlbum.MID = Hash.SHA256Hash(foundAlbum.Name + Element.Album);
+
+                Directory.Move(foundAlbum.ServerPath, Directory.GetParent(foundAlbum.ServerPath) + "/" + foundAlbum.Name);
+                foundAlbum.Musics.ForEach(m => m.Album = foundAlbum);
+            }
         }
 
         public static void SaveAllInfos()
