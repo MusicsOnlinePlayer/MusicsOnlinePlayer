@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Utility.Musics
 {
     [Serializable]
-    public class Author
+    public class Author : IElement
     {
         public Element Type { get; } = Element.Author;
 

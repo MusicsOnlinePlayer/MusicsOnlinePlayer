@@ -7,7 +7,7 @@ using Utility.Network.Users;
 namespace Utility.Musics
 {
     [Serializable]
-    public class Playlist
+    public class Playlist : IElement
     {
         public Element Type { get; } = Element.Album;
 
