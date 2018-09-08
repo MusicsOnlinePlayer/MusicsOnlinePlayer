@@ -95,7 +95,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                 {
                     string userUID = Program.MyServer.Clients.GetUser(asker).UID;
                     var playlists = UsersInfos.GetPlaylists(userUID).Where(p => Search.Find(requestSearch.Name, p.Name));
-                    Musics___Server.Program.MyServer.SendObject(new RequestAnswer(playlists, Element.Playlist), asker);
+                    Musics___Server.Program.MyServer.SendObject(new RequestAnswer(playlists.ToList(), Element.Playlist), asker);
                 }
             }
         }
