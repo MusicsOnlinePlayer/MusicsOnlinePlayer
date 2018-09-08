@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Sockets;
-using Musics___Server.Authentification;
 using Musics___Server.Usersinfos;
 using Musics___Server.MusicsInformation;
 using Musics___Server.MusicsManagement;
 using Musics___Server.Network;
-using Musics___Server.MusicsManagement.ClientSearch;
 using Utility.Network.Users;
 using Utility.Network;
 using Utility.Network.Dialog;

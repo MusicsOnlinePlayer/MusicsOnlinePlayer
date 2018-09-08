@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Musics___Server.MusicsManagement
+﻿namespace Musics___Server.MusicsManagement
 {
     static class Search
     {
@@ -23,7 +21,6 @@ namespace Musics___Server.MusicsManagement
             }
 
             return i >= st.Length;
-         
         }
     }
 

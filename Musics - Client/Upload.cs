@@ -3,7 +3,6 @@ using System.Data;
 using System.Linq;
 using System.IO;
 using System.Windows.Forms;
-using TagLib;
 using System.Threading;
 using Utility.Musics;
 

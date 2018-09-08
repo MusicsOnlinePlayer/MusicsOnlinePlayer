@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
-using System.Threading;
 using Musics___Server.MusicsInformation;
-using TagLib;
 using Utility.Musics;
 using Utility.Network.Dialog.Uploads;
 using System.Threading.Tasks;
@@ -109,7 +107,6 @@ namespace Musics___Server.MusicsManagement
 
             return NumberofMusics;
         }
-
 
         public static void ModifyElement(IElement originalElement, string newName, string[] genres)
         {
