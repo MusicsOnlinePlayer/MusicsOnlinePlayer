@@ -89,7 +89,6 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                     foreach (var m in result)
                         Console.WriteLine("  " + m.Title);
 
-
                     Musics___Server.Program.MyServer.SendObject(new RequestAnswer(result.ToList(), Element.Music), asker);
                 }
                 if (requestSearch.Requested == Element.Playlist)

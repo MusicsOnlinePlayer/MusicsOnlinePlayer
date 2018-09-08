@@ -126,7 +126,6 @@ namespace Musics___Server.MusicsManagement
                     throw new NotImplementedException();
                 default:
                     throw new InvalidOperationException();
-
             }
 
             //if (originalElement is Author)
@@ -158,7 +157,7 @@ namespace Musics___Server.MusicsManagement
         public static void ModifyMusic(IElement originalElement, string newName, string[] genres)
         {
             Music foundMusic = GetMusic(originalElement);
-            if (null != foundMusic)
+            if (foundMusic != null)
             {
                 foundMusic.Title = newName;
                 foundMusic.MID = Hash.SHA256Hash(foundMusic.Title + foundMusic.Author.Name);
@@ -181,7 +180,7 @@ namespace Musics___Server.MusicsManagement
         public static void ModifyAlbum(IElement originalElement, string newName)
         {
             Album foundAlbum = GetAlbum(originalElement);
-            if (null != foundAlbum)
+            if (foundAlbum != null)
             {
                 foundAlbum.Name = newName;
                 foundAlbum.MID = Hash.SHA256Hash(foundAlbum.Name + Element.Album);
