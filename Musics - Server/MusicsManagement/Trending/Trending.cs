@@ -11,41 +11,18 @@ namespace Musics___Server.MusicsManagement.Trending
 {
     public class Trending
     {
-        static public List<Music> GetMostLikedMusic(int length)
-        {
-            Dictionary<Music, int> musics = new Dictionary<Music, int>();
+        static public IEnumerable<Music> GetMostLikedMusic(int length)
+            => Indexation.GetAllMusics()
+                .OrderBy(m => m.Rating)
+                .Take(length);
 
-            foreach(var m in Indexation.GetAllMusics())
-            {
-                musics.Add(m, m.Rating);
-            }
+        static public IEnumerable<Music> GetMostLikedMusicByGenre(string genre, int length)
+            => Indexation.GetAllMusics()
+                            .Where(m => m.Genre.Contains(genre))
+                            .OrderBy(m => m.Rating)
+                            .Take(length);
 
-            musics.ToList().Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
-
-            return (from val in musics.Take(length) select val.Key).ToList();
-        }
-
-        static public List<Music> GetMostLikedMusicByGenre(string Genre, int length)
-        {
-            Dictionary<Music, int> musics = new Dictionary<Music, int>();
-
-            foreach (var m in Indexation.GetAllMusics())
-            {                
-                if (m.Genre.Contains(Genre))
-                {
-                    musics.Add(new Music(m.Title,new Author(m.Author.Name),null,m.Rating), m.Rating);
-                }              
-            }
-
-            musics.ToList().Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
-
-            return (from val in musics.Take(length) select val.Key).ToList();
-        }                   
-
-        static public List<string> GetMostPopularGenre()
-        {
-            var LikedMusic = GetMostLikedMusic(10);
-            return (from val in LikedMusic select val.Genre).Cast<string>().ToList();
-        }
+        static public IEnumerable<string> GetMostPopularGenre()
+            => GetMostLikedMusic(10).SelectMany(x => x.Genre);
     }
 }
