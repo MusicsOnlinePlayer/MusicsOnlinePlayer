@@ -20,7 +20,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                 {
                     List<Author> result = new List<Author>();
 
-                    foreach(Author a in Indexation.ServerMusics.Where( x=> Search.Find(requestSearch.Name, x.Name)))
+                    foreach (Author a in Indexation.ServerMusics.Where(x => Search.Find(requestSearch.Name, x.Name)))
                     {
                         Author author = new Author(a.Name);
                         foreach (var al in a.Albums)
@@ -72,43 +72,29 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                 }
                 if (requestSearch.Requested == Element.Music)
                 {
-                    List<Music> result = new List<Music>();
+                    var result = Indexation.GetAllMusics()
+                         .Where(m => Search.Find(requestSearch.Name, m.Title))
+                         .Select(m =>
+                             new Music()
+                             {
+                                 Title = m.Title,
+                                 Author = new Author(m.Author.Name),
+                                 Rating = m.Rating,
+                                 Album = new Album(m.Album.Name),
+                                 Genre = m.Genre
+                             }
+                         );
+                    foreach (var m in result)
+                        Console.WriteLine("  " + m.Title);
 
-                    foreach (Author a in Indexation.ServerMusics)
-                    {
-                        foreach (Album al in a.Albums)
-                        {
-                            foreach (Music m in al.Musics)
-                            {
-                                bool Found = Search.Find(requestSearch.Name, m.Title);
-                                if (Found)
-                                {
-                                    Music temp = new Music(m.Title, new Author(a.Name), "")
-                                    {
-                                        Rating = m.Rating,
-                                        Album = new Album(al.Name),
-                                        Genre = m.Genre
-                                    };
 
-                                    result.Add(temp);
-                                    Console.WriteLine("  " + m.Title);
-                                }
-                            }
-                        }
-                    }
                     Musics___Server.Program.MyServer.SendObject(new RequestAnswer(result, Element.Music), asker);
                 }
                 if (requestSearch.Requested == Element.Playlist)
                 {
-                    List<Playlist> tmp = new List<Playlist>();
-                    foreach (Playlist p in UsersInfos.GetPlaylists(Program.MyServer.Clients.GetUser(asker).UID))
-                    {
-                        if (Search.Find(requestSearch.Name, p.Name))
-                        {
-                            tmp.Add(p);
-                        }
-                    }
-                    Musics___Server.Program.MyServer.SendObject(new RequestAnswer(tmp, Element.Playlist), asker);
+                    string userUID = Program.MyServer.Clients.GetUser(asker).UID;
+                    var playlists = UsersInfos.GetPlaylists(userUID).Where(p => Search.Find(requestSearch.Name, p.Name));
+                    Musics___Server.Program.MyServer.SendObject(new RequestAnswer(playlists, Element.Playlist), asker);
                 }
             }
         }
