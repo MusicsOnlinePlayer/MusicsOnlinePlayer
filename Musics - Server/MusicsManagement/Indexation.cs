@@ -26,15 +26,12 @@ namespace Musics___Server.MusicsManagement
         public static byte[] GetFileBinary(Music m)
             => System.IO.File.ReadAllBytes(m.ServerPath);
 
-
-
-
         public static IEnumerable<Music> GetAllMusics()
             => ServerMusics.SelectMany(x => x.Albums).SelectMany(x => x.Musics);
 
-        public static bool IsElementExisting(IElement element, Element type)
+        public static bool IsElementExisting(IElement element)
         {
-            switch (type)
+            switch (element.Type)
             {
                 case Element.Author: return ServerMusics.Any(a => a.MID == element.MID);
                 case Element.Album: return ServerMusics.SelectMany(x => x.Albums).Any(a => a.MID == element.MID);
@@ -202,16 +199,16 @@ namespace Musics___Server.MusicsManagement
 
         public static bool AddElement(UploadMusic tmp)
         {
-            if (!Indexation.IsElementExisting(tmp.MusicPart.Musics.First().Author, Element.Author))
+            if (!Indexation.IsElementExisting(tmp.MusicPart.Musics.First().Author ))
             {
                 string path = Path.Combine("c:\\AllMusics", tmp.MusicPart.Musics[0].Author.Name);
                 Directory.CreateDirectory(path);
                 ServerMusics.Add(new Author(tmp.MusicPart.Musics[0].Author.Name, path));
             }
 
-            if (Indexation.IsElementExisting(tmp.MusicPart, Element.Album))
+            if (Indexation.IsElementExisting(tmp.MusicPart ))
             {
-                if (Indexation.IsElementExisting(tmp.MusicPart.Musics.First(), Element.Music))
+                if (Indexation.IsElementExisting(tmp.MusicPart.Musics.First() ))
                 {
                     return false;
                 }
