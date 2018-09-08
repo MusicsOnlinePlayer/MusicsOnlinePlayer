@@ -127,7 +127,7 @@ namespace Musics___Client
             {
                 music = TagLib.File.Create(p);
                 var tmpFile = TagLib.File.Create(p);
-                Music MusicUpload = new Music(tmpFile.Tag.Title, new Author(tmpFile.Tag.Performers[0]), System.IO.File.ReadAllBytes(p))
+                Music MusicUpload = new Music(tmpFile.Tag.Title, new Author(tmpFile.Tag.Performers[0]),new Album(AlbumToSend.Name),System.IO.File.ReadAllBytes(p))
                 {
                     Format = Path.GetExtension(p),
                     Genre = music.Tag.Genres                   

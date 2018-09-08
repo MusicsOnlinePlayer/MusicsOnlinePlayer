@@ -28,7 +28,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                             author.Albums.Add(new Album(new Author(a.Name), al.Name));
                             foreach (var m in al.Musics)
                             {
-                                Music temp = new Music(m.Title, author, "")
+                                Music temp = new Music(m.Title, author,al, "")
                                 {
                                     Rating = m.Rating,
                                     Album = new Album(al.Name),
@@ -55,7 +55,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                                 Album tmp = new Album(new Author(al.Author.Name), al.Name);
                                 foreach (var z in al.Musics)
                                 {
-                                    Music temp = new Music(z.Title, new Author(z.Author.Name), "")
+                                    Music temp = new Music(z.Title, new Author(z.Author.Name),al, "")
                                     {
                                         Rating = z.Rating,
                                         Album = new Album(al.Name),

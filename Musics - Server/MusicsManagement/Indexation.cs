@@ -78,13 +78,11 @@ namespace Musics___Server.MusicsManagement
                                     }
                                 }
 
-                                Music current = new Music(Musicname, CurrentArtist, m)
+                                Music current = new Music(Musicname, CurrentArtist, CurrentArtist.Albums[i], m)
                                 {
                                     Format = Path.GetExtension(m),
                                     Genre = file.Tag.Genres,
-                                    N = file.Tag.Track,
-                                    Album = CurrentArtist.Albums[i]
-
+                                    N = file.Tag.Track
                                 };
                                 if (current.Genre.Length == 0)
                                 {

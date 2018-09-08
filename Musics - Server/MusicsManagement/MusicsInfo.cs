@@ -120,7 +120,7 @@ namespace Musics___Server.MusicsInformation
             doc.Load(@"Musics.xml");
             XmlNodeList nodes = doc.DocumentElement.SelectNodes("Music");
 
-            node = nodes.Cast<XmlNode>().FirstOrDefault(n => n["MID"].InnerText == MID);
+            node = nodes.Cast<XmlNode>().SingleOrDefault(n => n["MID"].InnerText == MID);
             return null != node;
         }
 
@@ -129,7 +129,7 @@ namespace Musics___Server.MusicsInformation
             XmlDocument doc = new XmlDocument();
             doc.Load(@"Musics.xml");
             XmlNodeList nodes = doc.DocumentElement.SelectNodes("Music");
-            var node = nodes.Cast<XmlNode>().FirstOrDefault(n => n["MID"].InnerText == MID);
+            var node = nodes.Cast<XmlNode>().SingleOrDefault(n => n["MID"].InnerText == MID);
             return null != node ? GetMusicInfo(node) : null;
 
         }
