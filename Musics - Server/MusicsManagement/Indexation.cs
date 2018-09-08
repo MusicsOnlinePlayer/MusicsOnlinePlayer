@@ -60,44 +60,46 @@ namespace Musics___Server.MusicsManagement
                     {
                         CurrentArtist.Albums.Add(new Album(CurrentArtist, Path.GetFileName(a), a));
 
-                        Parallel.ForEach(Directory.GetFiles(a), m =>
-                         {
-                             if (Path.GetExtension(m) == ".mp3" || Path.GetExtension(m) == ".flac")
-                             {
-                                 file = TagLib.File.Create(m);
-                                 string Musicname = file.Tag.Title;
-                                 if (Musicname == null)
-                                 {
-                                     try
-                                     {
-                                         Musicname = Path.GetFileNameWithoutExtension(m).Split('-')[1].Remove(0, 1);
-                                     }
-                                     catch
-                                     {
-                                         Musicname = Path.GetFileNameWithoutExtension(m);
-                                     }
-                                 }
+                        foreach (var m in Directory.GetFiles(a))
+                        {
+                            if (Path.GetExtension(m) == ".mp3" || Path.GetExtension(m) == ".flac")
+                            {
+                                file = TagLib.File.Create(m);
+                                string Musicname = file.Tag.Title;
+                                if (Musicname == null)
+                                {
+                                    try
+                                    {
+                                        Musicname = Path.GetFileNameWithoutExtension(m).Split('-')[1].Remove(0, 1);
+                                    }
+                                    catch
+                                    {
+                                        Musicname = Path.GetFileNameWithoutExtension(m);
+                                    }
+                                }
 
-                                 Music current = new Music(Musicname, CurrentArtist, m)
-                                 {
-                                     Format = Path.GetExtension(m),
-                                     Genre = file.Tag.Genres,
-                                     N = file.Tag.Track
-                                 };
-                                 if (current.Genre.Length == 0)
-                                 {
-                                     current.Genre = new string[] { "Unknown" };
-                                 }
-                                 if (MusicsInfo.TryFindMusic(current.MID, out XmlNode node))
-                                 {
-                                     current.Rating = MusicsInfo.GetMusicInfo(current.MID).Rating;
-                                 }
+                                Music current = new Music(Musicname, CurrentArtist, m)
+                                {
+                                    Format = Path.GetExtension(m),
+                                    Genre = file.Tag.Genres,
+                                    N = file.Tag.Track,
+                                    Album = CurrentArtist.Albums[i]
 
-                                 NumberofMusics++;
+                                };
+                                if (current.Genre.Length == 0)
+                                {
+                                    current.Genre = new string[] { "Unknown" };
+                                }
+                                if (MusicsInfo.TryFindMusic(current.MID, out XmlNode node))
+                                {
+                                    current.Rating = MusicsInfo.GetMusicInfo(current.MID).Rating;
+                                }
 
-                                 CurrentArtist.Albums[i].Musics.Add(current);
-                             }
-                         });
+                                NumberofMusics++;
+
+                                CurrentArtist.Albums[i].Musics.Add(current);
+                            }
+                        }
                         CurrentArtist.Albums[i].Musics = (from m in CurrentArtist.Albums[i].Musics orderby m.N select m).ToList();
                         i++;
                     }
@@ -196,16 +198,16 @@ namespace Musics___Server.MusicsManagement
 
         public static bool AddElement(UploadMusic tmp)
         {
-            if (!Indexation.IsElementExisting(tmp.MusicPart.Musics.First().Author ))
+            if (!Indexation.IsElementExisting(tmp.MusicPart.Musics.First().Author))
             {
                 string path = Path.Combine("c:\\AllMusics", tmp.MusicPart.Musics[0].Author.Name);
                 Directory.CreateDirectory(path);
                 ServerMusics.Add(new Author(tmp.MusicPart.Musics[0].Author.Name, path));
             }
 
-            if (Indexation.IsElementExisting(tmp.MusicPart ))
+            if (Indexation.IsElementExisting(tmp.MusicPart))
             {
-                if (Indexation.IsElementExisting(tmp.MusicPart.Musics.First() ))
+                if (Indexation.IsElementExisting(tmp.MusicPart.Musics.First()))
                 {
                     return false;
                 }

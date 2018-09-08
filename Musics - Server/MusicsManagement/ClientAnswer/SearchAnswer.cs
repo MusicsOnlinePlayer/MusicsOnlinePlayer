@@ -75,7 +75,8 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                     var result = Indexation.GetAllMusics()
                          .Where(m => Search.Find(requestSearch.Name, m.Title))
                          .Select(m =>
-                             new Music()
+                             
+                         new Music()
                              {
                                  Title = m.Title,
                                  Author = new Author(m.Author.Name),
@@ -88,7 +89,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                         Console.WriteLine("  " + m.Title);
 
 
-                    Musics___Server.Program.MyServer.SendObject(new RequestAnswer(result, Element.Music), asker);
+                    Musics___Server.Program.MyServer.SendObject(new RequestAnswer(result.ToList(), Element.Music), asker);
                 }
                 if (requestSearch.Requested == Element.Playlist)
                 {
