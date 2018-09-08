@@ -82,7 +82,8 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                                  Author = new Author(m.Author.Name),
                                  Rating = m.Rating,
                                  Album = new Album(m.Album.Name),
-                                 Genre = m.Genre
+                                 Genre = m.Genre,
+                                 MID = m.MID
                              }
                          );
                     foreach (var m in result)
