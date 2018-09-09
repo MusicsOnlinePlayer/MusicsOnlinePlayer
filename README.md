@@ -2,6 +2,8 @@
 
 [![CodeFactor](https://www.codefactor.io/repository/github/malaud/musicsonlineplayer/badge/master)](https://www.codefactor.io/repository/github/malaud/musicsonlineplayer/overview/master)
 
+[![Slack Status](https://slack.musicsonlineplayer.com/badge.svg)](https://musicsonlineplayer.slack.com/messages/CCPGPKRK6/details/)
+
 # MusicsOnlinePlayer
 Free musics player made in c#. 
 Any help is welcome, i can also speack french if you want.
