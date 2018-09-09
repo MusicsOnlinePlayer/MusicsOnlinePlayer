@@ -77,8 +77,6 @@ namespace Musics___Server.MusicsInformation
             XmlDocument doc = new XmlDocument();
             doc.Load(@"Musics.xml");
 
-
-
             foreach (var m in musics)
             {
                 if (m.MID != null)

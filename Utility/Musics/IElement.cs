@@ -4,7 +4,7 @@ namespace Utility.Musics
     [Serializable]
     public class IElement
     {
-        public Element Type { get; }
-        public string MID { get; }
+        public Element Type { get; set; }
+        public string MID { get; set; }
     }
 }

@@ -232,7 +232,8 @@ namespace Musics___Server.MusicsManagement
             }
             else
             {
-                string path = Path.Combine(GetElementPath(tmp.MusicPart.Musics.First().Author), string.Join("", tmp.MusicPart.Name.Split(Path.GetInvalidFileNameChars())));
+                string firstpath = GetElementPath(tmp.MusicPart.Musics.First().Author);
+                string path = Path.Combine(firstpath, string.Join("", tmp.MusicPart.Name.Split(Path.GetInvalidFileNameChars())));
 
                 Directory.CreateDirectory(path);
                 string MusicPath = Path.Combine(path, tmp.MusicPart.Musics[0].Title + tmp.MusicPart.Musics[0].Format);
@@ -264,7 +265,7 @@ namespace Musics___Server.MusicsManagement
         public static Music GetMusic(IElement element)
             => GetMusicByID(element.MID);
         public static Music GetMusicByID(string MID)
-          => GetAllMusics().SingleOrDefault(m => m.MID == MID);
+            => GetAllMusics().SingleOrDefault(m => m.MID == MID);
 
         public static string GetElementPath(IElement element)
         {
