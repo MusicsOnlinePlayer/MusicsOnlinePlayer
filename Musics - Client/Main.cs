@@ -1041,6 +1041,7 @@ namespace Musics___Client
                 {
                     if(selected is Music)
                     {
+                        (selected as Music).Type = Element.Music;
                         SendObject(new EditRequest(selected, UIEditMusicName.Text, UIEditMusicGenres.Text.Split(';'), typeOfSelected));
                     }
                     else
