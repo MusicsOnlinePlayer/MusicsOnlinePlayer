@@ -28,7 +28,7 @@ namespace Musics___Server
             MusicsInfo.SetupMusics();
 
             Console.Write("~ Indexation of all musics....  ");
-            Console.WriteLine(Indexation.DoIndexation() + "Musics");
+            Console.WriteLine(Indexation.DoIndexation(Properties.Settings.Default.UseMultiThreading) + "Musics");
             Console.WriteLine("~ Indexation done.");
 
             Indexation.SaveAllInfos();

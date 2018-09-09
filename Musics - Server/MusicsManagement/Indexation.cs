@@ -39,7 +39,7 @@ namespace Musics___Server.MusicsManagement
             }
         }
 
-        public static int DoIndexation()
+        public static int DoIndexation(bool UseMultiThreading)
         {
             string[] ArtistDirs = Directory.GetDirectories(@"c:\AllMusics");
 
@@ -60,44 +60,19 @@ namespace Musics___Server.MusicsManagement
                     {
                         CurrentArtist.Albums.Add(new Album(CurrentArtist, Path.GetFileName(a), a));
 
-                        foreach (var m in Directory.GetFiles(a))
+                        if (Properties.Settings.Default.UseMultiThreading)
                         {
-                            if (Path.GetExtension(m) == ".mp3" || Path.GetExtension(m) == ".flac")
-                            {
-                                file = TagLib.File.Create(m);
-                                string Musicname = file.Tag.Title;
-                                if (Musicname == null)
-                                {
-                                    try
-                                    {
-                                        Musicname = Path.GetFileNameWithoutExtension(m).Split('-')[1].Remove(0, 1);
-                                    }
-                                    catch
-                                    {
-                                        Musicname = Path.GetFileNameWithoutExtension(m);
-                                    }
-                                }
-
-                                Music current = new Music(Musicname, CurrentArtist, CurrentArtist.Albums[i], m)
-                                {
-                                    Format = Path.GetExtension(m),
-                                    Genre = file.Tag.Genres,
-                                    N = file.Tag.Track
-                                };
-                                if (current.Genre.Length == 0)
-                                {
-                                    current.Genre = new string[] { "Unknown" };
-                                }
-                                if (MusicsInfo.TryFindMusic(current.MID, out XmlNode node))
-                                {
-                                    current.Rating = MusicsInfo.GetMusicInfo(current.MID).Rating;
-                                }
-
-                                NumberofMusics++;
-
-                                CurrentArtist.Albums[i].Musics.Add(current);
-                            }
+                            Parallel.ForEach(Directory.GetFiles(a),m => {
+                                file = AddMusic(ref NumberofMusics, CurrentArtist, i, m);
+                            });
                         }
+                        else
+                        {
+                            foreach (var m in Directory.GetFiles(a))
+                            {
+                                file = AddMusic(ref NumberofMusics, CurrentArtist, i, m);
+                            }
+                        }                      
                         CurrentArtist.Albums[i].Musics = (from m in CurrentArtist.Albums[i].Musics orderby m.N select m).ToList();
                         i++;
                     }
@@ -106,6 +81,48 @@ namespace Musics___Server.MusicsManagement
             }
 
             return NumberofMusics;
+        }
+
+        private static TagLib.File AddMusic(ref int NumberofMusics, Author CurrentArtist, int i, string m)
+        {
+            TagLib.File file;
+            if (Path.GetExtension(m) == ".mp3" || Path.GetExtension(m) == ".flac")
+            {
+                file = TagLib.File.Create(m);
+                string Musicname = file.Tag.Title;
+                if (Musicname == null)
+                {
+                    try
+                    {
+                        Musicname = Path.GetFileNameWithoutExtension(m).Split('-')[1].Remove(0, 1);
+                    }
+                    catch
+                    {
+                        Musicname = Path.GetFileNameWithoutExtension(m);
+                    }
+                }
+
+                Music current = new Music(Musicname, CurrentArtist, CurrentArtist.Albums[i], m)
+                {
+                    Format = Path.GetExtension(m),
+                    Genre = file.Tag.Genres,
+                    N = file.Tag.Track
+                };
+                if (current.Genre.Length == 0)
+                {
+                    current.Genre = new string[] { "Unknown" };
+                }
+                if (MusicsInfo.TryFindMusic(current.MID, out XmlNode node))
+                {
+                    current.Rating = MusicsInfo.GetMusicInfo(current.MID).Rating;
+                }
+
+                NumberofMusics++;
+
+                CurrentArtist.Albums[i].Musics.Add(current);
+                return file;
+            }
+            return null;
         }
 
         public static void ModifyElement(IElement originalElement, string newName, string[] genres)
