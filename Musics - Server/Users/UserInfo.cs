@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
-using Utility;
 using Musics___Server.MusicsManagement;
 using Utility.Musics;
 using Utility.Network.Users;
@@ -252,7 +251,7 @@ namespace Musics___Server.Usersinfos
             doc.Save(@"users.xml");
         }
 
-        public static List<Playlist> GetPlaylists(string UID)
+        public static IEnumerable<Playlist> GetPlaylists(string UID)
         {
             List<Playlist> playlists = new List<Playlist>();
 

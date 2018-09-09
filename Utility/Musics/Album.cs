@@ -5,11 +5,11 @@ using System.Linq;
 namespace Utility.Musics
 {
     [Serializable]
-    public class Album
+    public class Album : IElement
     {
-        public Element type = Element.Album;
+        //public Element Type { get; } = Element.Album;
 
-        public string MID { get; set; }
+        //public string MID { get; set; }
 
         public string Name { get; set; }
         public Author Author { get; set; }
@@ -22,6 +22,7 @@ namespace Utility.Musics
             Author = author;
             Name = name;
             Musics = new List<Music>();
+            Type = Element.Album;
             MID = Hash.SHA256Hash(Name + Element.Album.ToString());
         }
         public Album(Author author, string name, Music[] musics)
@@ -29,6 +30,7 @@ namespace Utility.Musics
             Author = author;
             Name = name;
             Musics = musics.ToList();
+            Type = Element.Album;
             MID = Hash.SHA256Hash(Name + Element.Album.ToString());
         }
         public Album(Author author, string name, string Path)
@@ -36,6 +38,7 @@ namespace Utility.Musics
             Author = author;
             Name = name;
             Musics = new List<Music>();
+            Type = Element.Album;
             MID = Hash.SHA256Hash(Name + Element.Album.ToString());
             ServerPath = Path;
         }
@@ -43,6 +46,7 @@ namespace Utility.Musics
         {
             Name = name;
             Musics = new List<Music>();
+            Type = Element.Album;
             MID = Hash.SHA256Hash(Name + Element.Album.ToString());
         }
 

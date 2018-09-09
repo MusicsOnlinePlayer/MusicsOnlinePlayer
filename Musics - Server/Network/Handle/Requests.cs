@@ -30,7 +30,7 @@ namespace Musics___Server.Network.Handle
                             {
                                 if (m.MID == request.RequestedBinaries.MID)
                                 {
-                                    Music answer = new Music(m.Title, new Author(m.Author.Name), Indexation.GetFileBinary(m))
+                                    Music answer = new Music(m.Title, new Author(m.Author.Name),al, Indexation.GetFileBinary(m))
                                     {
                                         Format = m.Format,
                                         Rating = m.Rating
