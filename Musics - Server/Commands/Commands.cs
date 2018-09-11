@@ -19,7 +19,7 @@ namespace Musics___Server.Commands
                 Indexation.ServerMusics.Clear();
                 Console.WriteLine("~ Done.");
                 Console.Write("~ Indexation of all musics....  ");
-                Console.WriteLine(Indexation.DoIndexation(Properties.Settings.Default.UseMultiThreading) + "Musics");
+                Console.WriteLine(Indexation.Do(Properties.Settings.Default.UseMultiThreading) + "Musics");
                 Console.WriteLine("~ Indexation done.");
             }
             else if (entry == "-save")

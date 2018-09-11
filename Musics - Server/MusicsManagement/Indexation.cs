@@ -39,7 +39,7 @@ namespace Musics___Server.MusicsManagement
             }
         }
 
-        public static int DoIndexation(bool UseMultiThreading)
+        public static int Do(bool UseMultiThreading)
         {
             string[] ArtistDirs = Directory.GetDirectories(@"c:\AllMusics");
 
