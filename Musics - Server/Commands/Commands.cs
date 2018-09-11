@@ -48,11 +48,18 @@ namespace Musics___Server.Commands
             }
             else if (entry.Contains("-promote"))
             {
-                string UID = entry.Split('-')[2].Replace(" ", "");
+
+                string[] entryArgument = entry.Split('-');
+                if(entryArgument.Length != 4)
+                {
+                    Console.WriteLine("~ Syntax not correct, please use -promote -UID -Rank");
+                    return;
+                }
+                string UID_ = entryArgument[2].Replace(" ", "");
                 if (Enum.TryParse(entry.Split('-')[3], out Rank rank))
                 {
-                    Console.WriteLine("~ Promote " + UID + " to " + rank.ToString());
-                    Musics___Server.Program.PromoteUser(UID, rank);
+                    Console.WriteLine("~ Promote " + UID_ + " to " + rank.ToString());
+                    Musics___Server.Program.PromoteUser(UID_, rank);
 
                     Console.WriteLine("~ Ok.");
                 }
