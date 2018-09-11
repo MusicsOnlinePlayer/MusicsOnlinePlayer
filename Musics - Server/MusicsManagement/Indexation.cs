@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.IO;
 using System.Threading;
@@ -94,24 +95,28 @@ namespace Musics___Server.MusicsManagement
 
         public static int DoIndexation()
         {
-            string[] ArtistDirs = Directory.GetDirectories(@"c:\AllMusics");
+            string[] ArtistDirs = Directory.GetDirectories(@"c:\AllMusics");// );@"Y:\"
 
             int NumberofMusics = 0;
 
             TagLib.File file;
-
+            Console.WriteLine();
             foreach (var n in ArtistDirs)
             {
                 Author CurrentArtist = new Author(Path.GetFileName(n), n);
 
                 string[] AlbumOfArtist = Directory.GetDirectories(n);
 
-                int i = 0;
+                Console.WriteLine(n);
                 foreach (var a in AlbumOfArtist)
                 {
+
                     if (!Path.GetFileNameWithoutExtension(a).Contains("-ignore"))
                     {
-                        CurrentArtist.Albums.Add(new Album(CurrentArtist, Path.GetFileName(a), a));
+                        var CurrentAlbum = new Album(CurrentArtist, Path.GetFileName(a), a);
+                        var musics = new ConcurrentBag<Music>();
+                        CurrentArtist.Albums.Add(CurrentAlbum);
+                        Console.Write($"  {CurrentAlbum.Name} [");
 
                         Parallel.ForEach(Directory.GetFiles(a), m =>
                          {
@@ -147,12 +152,13 @@ namespace Musics___Server.MusicsManagement
                                  }
 
                                  NumberofMusics++;
-
-                                 CurrentArtist.Albums[i].Musics.Add(current);
+                                 musics.Add(current);
+                              
+                                 Console.Write(".");
                              }
                          });
-                        CurrentArtist.Albums[i].Musics = (from m in CurrentArtist.Albums[i].Musics orderby m.N select m).ToList();
-                        i++;
+                        CurrentAlbum.Musics = musics.OrderBy(x => x.N).ToList();
+                        Console.WriteLine("]");
                     }
                 }
                 ServerMusics.Add(CurrentArtist);
@@ -161,7 +167,7 @@ namespace Musics___Server.MusicsManagement
             return NumberofMusics;
         }
 
-        public static void ModifyElement(object Origin, string NewName,string[] Genres)
+        public static void ModifyElement(object Origin, string NewName, string[] Genres)
         {
             if (Origin is Music)
             {
@@ -180,7 +186,7 @@ namespace Musics___Server.MusicsManagement
                                 TagLib.File file = TagLib.File.Create(m.ServerPath);
                                 file.Tag.Title = m.Title;
 
-                                if(Genres != null)
+                                if (Genres != null)
                                 {
                                     m.Genre = Genres;
                                     file.Tag.Genres = Genres;
@@ -256,7 +262,7 @@ namespace Musics___Server.MusicsManagement
             {
                 string path = Path.Combine("c:\\AllMusics", tmp.MusicPart.Musics[0].Author.Name);
                 Directory.CreateDirectory(path);
-                ServerMusics.Add(new Author(tmp.MusicPart.Musics[0].Author.Name,path));
+                ServerMusics.Add(new Author(tmp.MusicPart.Musics[0].Author.Name, path));
             }
 
             if (Indexation.IsElementExisting(tmp.MusicPart, Element.Album))
