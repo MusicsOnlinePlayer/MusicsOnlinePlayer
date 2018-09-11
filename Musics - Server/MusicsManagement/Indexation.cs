@@ -214,45 +214,24 @@ namespace Musics___Server.MusicsManagement
         {
             if (!Indexation.IsElementExisting(tmp.MusicPart.Musics.First().Author))
             {
-                string path = Path.Combine("c:\\AllMusics", tmp.MusicPart.Musics[0].Author.Name);
-                Directory.CreateDirectory(path);
-                ServerMusics.Add(new Author(tmp.MusicPart.Musics[0].Author.Name, path));
+                AddAuthor(tmp);
             }
 
             if (Indexation.IsElementExisting(tmp.MusicPart))
             {
-                if (Indexation.IsElementExisting(tmp.MusicPart.Musics.First()))
+                if (IsElementExisting(tmp.MusicPart.Musics.First()))
                 {
                     return false;
                 }
                 else
                 {
-                    string path = Path.Combine(GetElementPath(tmp.MusicPart), tmp.MusicPart.Musics[0].Title + tmp.MusicPart.Musics[0].Format);
-                    System.IO.File.WriteAllBytes(path, tmp.MusicPart.Musics.First().FileBinary);
-                    MusicsInfo.SaveMusicInfo(tmp.MusicPart.Musics.First());
-                    foreach (var a in ServerMusics)
-                    {
-                        foreach (var al in a.Albums)
-                        {
-                            if (al.MID == tmp.MusicPart.MID)
-                            {
-                                tmp.MusicPart.Musics[0].FileBinary = null;
-                                tmp.MusicPart.Musics[0].ServerPath = path;
-                                tmp.MusicPart.Musics[0].Author = a;
-                                tmp.MusicPart.Musics[0].Album = al;
-                                al.Add(tmp.MusicPart.Musics[0]);
-                                return true;
-                            }
-                        }
-                    }
+                    if (AddMusic(tmp))
+                        return true;
                 }
             }
             else
             {
-                string firstpath = GetElementPath(tmp.MusicPart.Musics.First().Author);
-                string path = Path.Combine(firstpath, string.Join("", tmp.MusicPart.Name.Split(Path.GetInvalidFileNameChars())));
-
-                Directory.CreateDirectory(path);
+                string path = AddAlbum(tmp);
                 string MusicPath = Path.Combine(path, tmp.MusicPart.Musics[0].Title + tmp.MusicPart.Musics[0].Format);
                 System.IO.File.WriteAllBytes(MusicPath, tmp.MusicPart.Musics.First().FileBinary);
                 MusicsInfo.SaveMusicInfo(tmp.MusicPart.Musics.First());
@@ -273,6 +252,44 @@ namespace Musics___Server.MusicsManagement
                 }
             }
             return false;
+        }
+
+        private static string AddAlbum(UploadMusic tmp)
+        {
+            string firstpath = GetElementPath(tmp.MusicPart.Musics.First().Author);
+            string path = Path.Combine(firstpath, string.Join("", tmp.MusicPart.Name.Split(Path.GetInvalidFileNameChars())));
+            Directory.CreateDirectory(path);
+            return path;
+        }
+
+        private static bool AddMusic(UploadMusic tmp)
+        {
+            string path = Path.Combine(GetElementPath(tmp.MusicPart), tmp.MusicPart.Musics[0].Title + tmp.MusicPart.Musics[0].Format);
+            System.IO.File.WriteAllBytes(path, tmp.MusicPart.Musics.First().FileBinary);
+            MusicsInfo.SaveMusicInfo(tmp.MusicPart.Musics.First());
+            foreach (var a in ServerMusics)
+            {
+                foreach (var al in a.Albums)
+                {
+                    if (al.MID == tmp.MusicPart.MID)
+                    {
+                        tmp.MusicPart.Musics[0].FileBinary = null;
+                        tmp.MusicPart.Musics[0].ServerPath = path;
+                        tmp.MusicPart.Musics[0].Author = a;
+                        tmp.MusicPart.Musics[0].Album = al;
+                        al.Add(tmp.MusicPart.Musics[0]);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private static void AddAuthor(UploadMusic tmp)
+        {
+            string path = Path.Combine("c:\\AllMusics", tmp.MusicPart.Musics[0].Author.Name);
+            Directory.CreateDirectory(path);
+            ServerMusics.Add(new Author(tmp.MusicPart.Musics[0].Author.Name, path));
         }
 
         public static Album GetAlbum(IElement element)

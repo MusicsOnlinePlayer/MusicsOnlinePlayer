@@ -45,7 +45,6 @@ namespace Musics___Server.MusicsManagement.ClientSearch
             var result = Indexation.GetAllMusics()
                  .Where(m => Search.Find(requestSearch.Name, m.Title))
                  .Select(m =>
-
                  new Music()
                  {
                      Title = m.Title,
