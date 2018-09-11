@@ -95,7 +95,7 @@ namespace Musics___Server.MusicsManagement
 
         public static int DoIndexation()
         {
-            string[] ArtistDirs = Directory.GetDirectories(@"c:\AllMusics");// );@"Y:\"
+            string[] ArtistDirs = Directory.GetDirectories(@"c:\AllMusics");
 
             int NumberofMusics = 0;
 
@@ -110,7 +110,6 @@ namespace Musics___Server.MusicsManagement
                 Console.WriteLine(n);
                 foreach (var a in AlbumOfArtist)
                 {
-
                     if (!Path.GetFileNameWithoutExtension(a).Contains("-ignore"))
                     {
                         var CurrentAlbum = new Album(CurrentArtist, Path.GetFileName(a), a);
