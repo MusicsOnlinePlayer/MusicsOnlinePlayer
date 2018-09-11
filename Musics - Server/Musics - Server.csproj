@@ -49,7 +49,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>31CD0C65DF9D202F596BBA1B3530D07C1C8474ED</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>95BB589D68B6A2251B49EFB7B977719FB53EFE18</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>Musics - Server_TemporaryKey.pfx</ManifestKeyFile>
