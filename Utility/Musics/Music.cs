@@ -13,8 +13,7 @@ namespace Utility.Musics
         public string Format { get; set; }
         public string ServerPath { get; set; }
         //public string MID { get; set; }
-        public string[] Genre { get; set; }
-
+        public string[] Genre { get; set; } 
         public int Rating = 0;
         public byte[] FileBinary { get; set; }
         public uint N { get; set; }

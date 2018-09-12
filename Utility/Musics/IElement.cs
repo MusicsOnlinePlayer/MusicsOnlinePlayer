@@ -6,5 +6,7 @@ namespace Utility.Musics
     {
         public Element Type { get; set; }
         public string MID { get; set; }
+        
     }
+
 }

@@ -15,7 +15,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
             if (Program.MyServer.Clients.GetUser(asker).UID != null)
             {
                 Console.WriteLine("Sending to the client :");
-                switch(requestSearch.Requested)
+                switch (requestSearch.Requested)
                 {
                     case Element.Author:
                         DoAuthor(requestSearch, asker);
@@ -63,29 +63,25 @@ namespace Musics___Server.MusicsManagement.ClientSearch
 
         private static void DoAlbum(Request requestSearch, Socket asker)
         {
-
             List<Album> result = new List<Album>();
             foreach (Author a in Indexation.ServerMusics)
             {
-                foreach (Album al in a.Albums)
+                foreach (Album al in a.Albums.Where(x => Search.Find(requestSearch.Name, x.Name)))
                 {
-                    bool Found = Search.Find(requestSearch.Name, al.Name);
-                    if (Found)
+                    Album tmp = new Album(new Author(al.Author.Name), al.Name);
+                    foreach (var z in al.Musics)
                     {
-                        Album tmp = new Album(new Author(al.Author.Name), al.Name);
-                        foreach (var z in al.Musics)
+                        Music temp = new Music(z.Title, new Author(z.Author.Name), al, "")
                         {
-                            Music temp = new Music(z.Title, new Author(z.Author.Name), al, "")
-                            {
-                                Rating = z.Rating,
-                                Album = new Album(al.Name),
-                                Genre = z.Genre
-                            };
-                            tmp.Add(temp);
-                        }
-                        result.Add(tmp);
-                        Console.WriteLine("  " + al.Name);
+                            Rating = z.Rating,
+                            Album = new Album(al.Name),
+                            Genre = z.Genre
+                        };
+                        tmp.Add(temp);
                     }
+                    result.Add(tmp);
+                    Console.WriteLine("  " + al.Name);
+
                 }
             }
             Program.MyServer.SendObject(new RequestAnswer(result, Element.Album), asker);
