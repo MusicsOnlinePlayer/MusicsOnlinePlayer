@@ -28,7 +28,7 @@ namespace Musics___Server.MusicsManagement
         public static IEnumerable<Music> GetAllMusics()
             => ServerMusics.SelectMany(x => x.Albums).SelectMany(x => x.Musics);
 
-        public static bool IsElementExisting(IElement element)
+        public static bool IsElementExisting(Element element)
         {
             switch (element.Type)
             {
@@ -131,7 +131,7 @@ namespace Musics___Server.MusicsManagement
             return null;
         }
 
-        public static void ModifyElement(IElement originalElement, string newName, string[] genres)
+        public static void ModifyElement(Element originalElement, string newName, string[] genres)
         {
             switch (originalElement.Type)
             {
@@ -175,7 +175,7 @@ namespace Musics___Server.MusicsManagement
             //    //}
             //}
         }
-        public static void ModifyMusic(IElement originalElement, string newName, string[] genres)
+        public static void ModifyMusic(Element originalElement, string newName, string[] genres)
         {
             Music foundMusic = GetMusic(originalElement);
             if (foundMusic != null)
@@ -198,7 +198,7 @@ namespace Musics___Server.MusicsManagement
             }
         }
 
-        public static void ModifyAlbum(IElement originalElement, string newName)
+        public static void ModifyAlbum(Element originalElement, string newName)
         {
             Album foundAlbum = GetAlbum(originalElement);
             if (foundAlbum != null)
@@ -300,16 +300,16 @@ namespace Musics___Server.MusicsManagement
             ServerMusics.Add(new Author(tmp.MusicPart.Musics[0].Author.Name, path));
         }
 
-        public static Album GetAlbum(IElement element)
+        public static Album GetAlbum(Element element)
             => ServerMusics.SelectMany(x => x.Albums).SingleOrDefault(x => x.MID == element.MID);
-        public static Author GetAuthor(IElement element)
+        public static Author GetAuthor(Element element)
             => ServerMusics.SingleOrDefault(x => x.MID == element.MID);
-        public static Music GetMusic(IElement element)
+        public static Music GetMusic(Element element)
             => GetMusicByID(element.MID);
         public static Music GetMusicByID(string MID)
             => GetAllMusics().SingleOrDefault(m => m.MID == MID);
 
-        public static string GetElementPath(IElement element)
+        public static string GetElementPath(Element element)
         {
             switch (element.Type)
             {

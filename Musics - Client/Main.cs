@@ -370,7 +370,7 @@ namespace Musics___Client
             });
         }
 
-        //private void  UpdateSearchList(IEnumerable<IElement>)
+        //private void  UpdateSearchList(IEnumerable<Element>)
 
         public void RequestAnswerBinaries(RequestAnswer searchAnswer)
         {

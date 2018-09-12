@@ -5,7 +5,7 @@ using System.Linq;
 namespace Utility.Musics
 {
     [Serializable]
-    public class Album : IElement
+    public class Album : Element
     {
         //public ElementType Type { get; } = ElementType.Album;
 
