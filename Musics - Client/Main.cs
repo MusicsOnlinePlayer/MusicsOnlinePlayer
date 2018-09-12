@@ -322,14 +322,11 @@ namespace Musics___Client
             if (searchAnswer.Requested == Element.Author)
             {
                 List<Author> authors = searchAnswer.AnswerList as List<Author>;
-                foreach (Author a in authors)
+                Invoke((MethodInvoker)delegate
                 {
-                    Invoke((MethodInvoker)delegate
-                    {
-                        UISearchListbox.Items.Add(a.Name);
-                        SearchlistboxItems.Add(a);
-                    });
-                }
+                    UISearchListbox.Items.AddRange(authors.Select(a=>a.Name).ToArray());
+                    SearchlistboxItems.AddRange(authors);
+                });
             }
             if (searchAnswer.Requested == Element.Album)
             {
@@ -372,6 +369,8 @@ namespace Musics___Client
                 ChangeDescription();
             });
         }
+
+        private void  UpdateSearchList(IEnumerable<IElement>)
 
         public void RequestAnswerBinaries(RequestAnswer searchAnswer)
         {
@@ -662,34 +661,35 @@ namespace Musics___Client
         {
             if (UISearchListbox.SelectedItem != null)
             {
-                if (SearchlistboxItems[UISearchListbox.SelectedIndex] is Author)
+                if (SearchlistboxItems[UISearchListbox.SelectedIndex] is Author author)
                 {
-                    Author tmp = SearchlistboxItems[UISearchListbox.SelectedIndex] as Author;
-
                     UISearchListbox.Items.Clear();
                     SearchlistboxItems.Clear();
 
-                    foreach (var m in tmp.Albums)
+                    UISearchListbox.Items.AddRange(author.Albums.Select(al => al.Name).ToArray());
+                    SearchlistboxItems.AddRange(author.Albums);
+                    /*foreach (var m in author.Albums)
                     {
                         UISearchListbox.Items.Add(m.Name);
                         SearchlistboxItems.Add(m);
-                    }
+                    }*/
                     return;
                 }
-                if (SearchlistboxItems[UISearchListbox.SelectedIndex] is Album)
+                if (SearchlistboxItems[UISearchListbox.SelectedIndex] is Album album)
                 {
-                    Album tmp = SearchlistboxItems[UISearchListbox.SelectedIndex] as Album;
-
-                    if (tmp.Musics != null)
+                    if (album.Musics != null)
                     {
                         UISearchListbox.Items.Clear();
                         SearchlistboxItems.Clear();
 
-                        foreach (var m in tmp.Musics)
-                        {
-                            UISearchListbox.Items.Add(m.Title);
-                            SearchlistboxItems.Add(m);
-                        }
+                        UISearchListbox.Items.AddRange(album.Musics.Select(al => al.Title).ToArray());
+                        SearchlistboxItems.AddRange(album.Musics);
+
+                        //foreach (var m in album.Musics)
+                        //{
+                        //    UISearchListbox.Items.Add(m.Title);
+                        //    SearchlistboxItems.Add(m);
+                        //}
                         return;
                     }
                 }

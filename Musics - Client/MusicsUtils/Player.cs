@@ -17,22 +17,19 @@ namespace Musics___Client
             {
                 Directory.CreateDirectory(@"c:\MusicsFiles");
             }
-                
-            string path = @"c:\MusicsFiles\" + string.Join("_", music.Title.Split(Path.GetInvalidFileNameChars())) + music.Format;     
+
+            string path = @"c:\MusicsFiles\" + string.Join("_", music.Title.Split(Path.GetInvalidFileNameChars())) + music.Format;
 
             if (!File.Exists(path))
             {
                 File.WriteAllBytes(path, music.FileBinary);
             }
-            
+
             player.URL = path;
             player.controls.play();
         }
 
         public long GetMusiclength()
-        {
-            FileInfo fileInfo = new FileInfo(player.URL);
-            return fileInfo.Length;
-        }
+            => new FileInfo(player.URL).Length;
     }
 }
