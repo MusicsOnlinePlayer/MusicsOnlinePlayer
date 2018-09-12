@@ -319,7 +319,7 @@ namespace Musics___Client
             });
             SearchlistboxItems.Clear();
 
-            if (searchAnswer.Requested == Element.Author)
+            if (searchAnswer.Requested == ElementType.Author)
             {
                 List<Author> authors = searchAnswer.AnswerList as List<Author>;
                 Invoke((MethodInvoker)delegate
@@ -328,7 +328,7 @@ namespace Musics___Client
                     SearchlistboxItems.AddRange(authors);
                 });
             }
-            if (searchAnswer.Requested == Element.Album)
+            if (searchAnswer.Requested == ElementType.Album)
             {
                 List<Album> albums = searchAnswer.AnswerList as List<Album>;
                 foreach (Album a in albums)
@@ -340,7 +340,7 @@ namespace Musics___Client
                     });
                 }
             }
-            if (searchAnswer.Requested == Element.Music)
+            if (searchAnswer.Requested == ElementType.Music)
             {
                 List<Music> musics = searchAnswer.AnswerList as List<Music>;
                 foreach (Music a in musics)
@@ -352,7 +352,7 @@ namespace Musics___Client
                     });
                 }
             }
-            if (searchAnswer.Requested == Element.Playlist)
+            if (searchAnswer.Requested == ElementType.Playlist)
             {
                 List<Playlist> playlists = searchAnswer.AnswerList as List<Playlist>;
                 foreach (Playlist a in playlists)
@@ -370,7 +370,7 @@ namespace Musics___Client
             });
         }
 
-        private void  UpdateSearchList(IEnumerable<IElement>)
+        //private void  UpdateSearchList(IEnumerable<IElement>)
 
         public void RequestAnswerBinaries(RequestAnswer searchAnswer)
         {
@@ -448,7 +448,7 @@ namespace Musics___Client
             else if(UILikedMusicsList.SelectedItem != null)
             {
                 Tabs.SelectedIndex = 1;
-                SendObject(new Request(SelectedFavorites[UILikedMusicsList.SelectedIndex].Title, Element.Music));
+                SendObject(new Request(SelectedFavorites[UILikedMusicsList.SelectedIndex].Title, ElementType.Music));
             }
         }
 
@@ -500,28 +500,28 @@ namespace Musics___Client
             {
                 if (UIRadioAlbum.Checked)
                 {
-                    SendObject(new Request(UITextboxSearch.Text, Element.Album));
+                    SendObject(new Request(UITextboxSearch.Text, ElementType.Album));
                     return;
                 }
                 if (UIRadioArtist.Checked)
                 {
-                    SendObject(new Request(UITextboxSearch.Text, Element.Author));
+                    SendObject(new Request(UITextboxSearch.Text, ElementType.Author));
                     return;
                 }
                 if (UIRadioMusic.Checked)
                 {
-                    SendObject(new Request(UITextboxSearch.Text, Element.Music));
+                    SendObject(new Request(UITextboxSearch.Text, ElementType.Music));
                     return;
                 }
                 if (UIRadioPlaylist.Checked)
                 {
-                    SendObject(new Request(UITextboxSearch.Text, Element.Playlist));
+                    SendObject(new Request(UITextboxSearch.Text, ElementType.Playlist));
                 }
             }
         }
 
         object selected;
-        Element typeOfSelected;
+        ElementType typeOfSelected;
 
         private void UISearchListbox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -537,7 +537,7 @@ namespace Musics___Client
                 if (SearchlistboxItems.First() is Music)
                 {
                     selected = SearchlistboxItems[UISearchListbox.SelectedIndex] as Music;
-                    typeOfSelected = Element.Music;
+                    typeOfSelected = ElementType.Music;
                     UISelectedname.Text = (selected as Music).Title;
                     UIselectedartist.Text = (selected as Music).Author.Name;
                     UISelectedRating.Text = "Rating : " + (selected as Music).Rating;
@@ -552,7 +552,7 @@ namespace Musics___Client
                 if (SearchlistboxItems.First() is Album)
                 {
                     selected = SearchlistboxItems[UISearchListbox.SelectedIndex] as Album;
-                    typeOfSelected = Element.Album;
+                    typeOfSelected = ElementType.Album;
                     UISelectedname.Text = (selected as Album).Name;
                     UIselectedartist.Text = (selected as Album).Author.Name;
                     UISelectedRating.Text = "Rating : ";
@@ -565,7 +565,7 @@ namespace Musics___Client
                 }
                 if (SearchlistboxItems.First() is Author)
                 {
-                    typeOfSelected = Element.Author;
+                    typeOfSelected = ElementType.Author;
                     selected = SearchlistboxItems[UISearchListbox.SelectedIndex] as Author;
                     UISelectedname.Text = (selected as Author).Name;
                     UIselectedartist.Text = "";
@@ -578,7 +578,7 @@ namespace Musics___Client
                 }
                 if (SearchlistboxItems.First() is Playlist)
                 {
-                    typeOfSelected = Element.Playlist;
+                    typeOfSelected = ElementType.Playlist;
                     selected = SearchlistboxItems[UISearchListbox.SelectedIndex] as Utility.Musics.Playlist;
                     UISelectedname.Text = (selected as Playlist).Name;
                     UIselectedartist.Text = (selected as Playlist).Creator.Name;
@@ -772,11 +772,11 @@ namespace Musics___Client
             {
                 if(SearchlistboxItems[UISearchListbox.SelectedIndex] is Music)
                 {
-                    SendObject(new Rate((SearchlistboxItems[UISearchListbox.SelectedIndex] as Music).MID,Element.Music));
+                    SendObject(new Rate((SearchlistboxItems[UISearchListbox.SelectedIndex] as Music).MID,ElementType.Music));
                 }
                 if (SearchlistboxItems[UISearchListbox.SelectedIndex] is Playlist)
                 {
-                    SendObject(new Rate((SearchlistboxItems[UISearchListbox.SelectedIndex] as Playlist).MID, Element.Playlist));
+                    SendObject(new Rate((SearchlistboxItems[UISearchListbox.SelectedIndex] as Playlist).MID, ElementType.Playlist));
                 }
             }
         }
@@ -787,7 +787,7 @@ namespace Musics___Client
             {
                 if (!(SearchlistboxItems.First() is Author))
                 {
-                    SendObject(new Request(UIPathAuthor.Text, Element.Author));
+                    SendObject(new Request(UIPathAuthor.Text, ElementType.Author));
                 }
             }
         }
@@ -798,7 +798,7 @@ namespace Musics___Client
             {
                 if (!(SearchlistboxItems.First() is Album))
                 {
-                    SendObject(new Request(UIPathAlbum.Text, Element.Album));
+                    SendObject(new Request(UIPathAlbum.Text, ElementType.Album));
                 }
             }
         }
@@ -810,22 +810,22 @@ namespace Musics___Client
                 Tabs.SelectedIndex = 1;
                 if (UIHomeAlbum.Checked)
                 {
-                    SendObject(new Request(UIHomeSearchBar.Text, Element.Album));
+                    SendObject(new Request(UIHomeSearchBar.Text, ElementType.Album));
                     return;
                 }
                 if (UIHomeArtist.Checked)
                 {
-                    SendObject(new Request(UIHomeSearchBar.Text, Element.Author));
+                    SendObject(new Request(UIHomeSearchBar.Text, ElementType.Author));
                     return;
                 }
                 if (UIHomeMusic.Checked)
                 {
-                    SendObject(new Request(UIHomeSearchBar.Text, Element.Music));
+                    SendObject(new Request(UIHomeSearchBar.Text, ElementType.Music));
                     return;
                 }
                 if (UIHomePlaylist.Checked)
                 {
-                    SendObject(new Request(UIHomeSearchBar.Text, Element.Playlist));
+                    SendObject(new Request(UIHomeSearchBar.Text, ElementType.Playlist));
                     return;
                 }
             }
@@ -1041,7 +1041,7 @@ namespace Musics___Client
                 {
                     if(selected is Music)
                     {
-                        (selected as Music).Type = Element.Music;
+                        (selected as Music).Type = ElementType.Music;
                         SendObject(new EditRequest(selected, UIEditMusicName.Text, UIEditMusicGenres.Text.Split(';'), typeOfSelected));
                     }
                     else

@@ -32,10 +32,10 @@ namespace Musics___Server.MusicsManagement
         {
             switch (element.Type)
             {
-                case Element.Author: return ServerMusics.Any(a => a.MID == element.MID);
-                case Element.Album: return ServerMusics.SelectMany(x => x.Albums).Any(a => a.MID == element.MID);
-                case Element.Music: return MusicsInfo.TryFindMusic(element.MID, out XmlNode node);
-                case Element.Playlist: throw new NotImplementedException();
+                case ElementType.Author: return ServerMusics.Any(a => a.MID == element.MID);
+                case ElementType.Album: return ServerMusics.SelectMany(x => x.Albums).Any(a => a.MID == element.MID);
+                case ElementType.Music: return MusicsInfo.TryFindMusic(element.MID, out XmlNode node);
+                case ElementType.Playlist: throw new NotImplementedException();
                 default: throw new InvalidOperationException();
             }
         }
@@ -135,15 +135,15 @@ namespace Musics___Server.MusicsManagement
         {
             switch (originalElement.Type)
             {
-                case Element.Music:
+                case ElementType.Music:
                     ModifyMusic(originalElement, newName, genres);
                     break;
 
-                case Element.Album:
+                case ElementType.Album:
                     ModifyAlbum(originalElement, newName);
                     break;
-                case Element.Author:
-                case Element.Playlist:
+                case ElementType.Author:
+                case ElementType.Playlist:
                     throw new NotImplementedException();
                 default:
                     throw new InvalidOperationException();
@@ -157,7 +157,7 @@ namespace Musics___Server.MusicsManagement
             //    //    if(tmpOrigin.MID == a.MID)
             //    //    {
             //    //        a.Name = NewName;
-            //    //        a.MID = Hash.SHA256Hash(a.Name + Element.Author);
+            //    //        a.MID = Hash.SHA256Hash(a.Name + ElementType.Author);
 
             //    //        //Directory.Move(a.ServerPath, Directory.GetParent(a.ServerPath) + "/" + a.Name);
 
@@ -204,7 +204,7 @@ namespace Musics___Server.MusicsManagement
             if (foundAlbum != null)
             {
                 foundAlbum.Name = newName;
-                foundAlbum.MID = Hash.SHA256Hash(foundAlbum.Name + Element.Album);
+                foundAlbum.MID = Hash.SHA256Hash(foundAlbum.Name + ElementType.Album);
 
                 Directory.Move(foundAlbum.ServerPath, Directory.GetParent(foundAlbum.ServerPath) + "/" + foundAlbum.Name);
                 foundAlbum.Musics.ForEach(m => m.Album = foundAlbum);
@@ -313,9 +313,9 @@ namespace Musics___Server.MusicsManagement
         {
             switch (element.Type)
             {
-                case Element.Author: return GetAuthor(element)?.ServerPath;
-                case Element.Album: return GetAlbum(element)?.ServerPath;
-                case Element.Music: return GetMusic(element)?.ServerPath;
+                case ElementType.Author: return GetAuthor(element)?.ServerPath;
+                case ElementType.Album: return GetAlbum(element)?.ServerPath;
+                case ElementType.Music: return GetMusic(element)?.ServerPath;
                 default: throw new InvalidOperationException();
             }
         }

@@ -7,7 +7,7 @@ namespace Utility.Musics
     [Serializable]
     public class Album : IElement
     {
-        //public Element Type { get; } = Element.Album;
+        //public ElementType Type { get; } = ElementType.Album;
 
         //public string MID { get; set; }
 
@@ -22,32 +22,32 @@ namespace Utility.Musics
             Author = author;
             Name = name;
             Musics = new List<Music>();
-            Type = Element.Album;
-            MID = Hash.SHA256Hash(Name + Element.Album.ToString());
+            Type = ElementType.Album;
+            MID = Hash.SHA256Hash(Name + ElementType.Album.ToString());
         }
         public Album(Author author, string name, Music[] musics)
         {
             Author = author;
             Name = name;
             Musics = musics.ToList();
-            Type = Element.Album;
-            MID = Hash.SHA256Hash(Name + Element.Album.ToString());
+            Type = ElementType.Album;
+            MID = Hash.SHA256Hash(Name + ElementType.Album.ToString());
         }
         public Album(Author author, string name, string Path)
         {
             Author = author;
             Name = name;
             Musics = new List<Music>();
-            Type = Element.Album;
-            MID = Hash.SHA256Hash(Name + Element.Album.ToString());
+            Type = ElementType.Album;
+            MID = Hash.SHA256Hash(Name + ElementType.Album.ToString());
             ServerPath = Path;
         }
         public Album(string name)
         {
             Name = name;
             Musics = new List<Music>();
-            Type = Element.Album;
-            MID = Hash.SHA256Hash(Name + Element.Album.ToString());
+            Type = ElementType.Album;
+            MID = Hash.SHA256Hash(Name + ElementType.Album.ToString());
         }
 
         public void Add(Music music)
