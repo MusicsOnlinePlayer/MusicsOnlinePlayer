@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.IO;
 using Musics___Server.MusicsInformation;
@@ -46,35 +47,39 @@ namespace Musics___Server.MusicsManagement
             int NumberofMusics = 0;
 
             TagLib.File file;
-
+            Console.WriteLine();
             foreach (var n in ArtistDirs)
             {
                 Author CurrentArtist = new Author(Path.GetFileName(n), n);
 
                 string[] AlbumOfArtist = Directory.GetDirectories(n);
 
-                int i = 0;
+                Console.WriteLine(n);
                 foreach (var a in AlbumOfArtist)
                 {
                     if (!Path.GetFileNameWithoutExtension(a).Contains("-ignore"))
                     {
-                        CurrentArtist.Albums.Add(new Album(CurrentArtist, Path.GetFileName(a), a));
+                        var CurrentAlbum = new Album(CurrentArtist, Path.GetFileName(a), a);
+                        var musics = new ConcurrentBag<Music>();
+                        CurrentArtist.Albums.Add(CurrentAlbum);
+                        Console.Write($"  {CurrentAlbum.Name} [");
 
-                        if (Properties.Settings.Default.UseMultiThreading)
+                        if (UseMultiThreading)
                         {
-                            Parallel.ForEach(Directory.GetFiles(a),m => {
-                                file = AddMusic(ref NumberofMusics, CurrentArtist, i, m);
+                            Parallel.ForEach(Directory.GetFiles(a), m =>
+                            {
+                                file = AddMusicToindexation(m, ref NumberofMusics, CurrentArtist, CurrentAlbum, musics);
                             });
                         }
                         else
                         {
-                            foreach (var m in Directory.GetFiles(a))
+                            foreach(var m in Directory.GetFiles(a))
                             {
-                                file = AddMusic(ref NumberofMusics, CurrentArtist, i, m);
+                                file = AddMusicToindexation(m, ref NumberofMusics, CurrentArtist, CurrentAlbum, musics);
                             }
-                        }                      
-                        CurrentArtist.Albums[i].Musics = (from m in CurrentArtist.Albums[i].Musics orderby m.N select m).ToList();
-                        i++;
+                        }
+                        CurrentAlbum.Musics = musics.OrderBy(x => x.N).ToList();
+                        Console.WriteLine("]");
                     }
                 }
                 ServerMusics.Add(CurrentArtist);
@@ -83,7 +88,7 @@ namespace Musics___Server.MusicsManagement
             return NumberofMusics;
         }
 
-        private static TagLib.File AddMusic(ref int NumberofMusics, Author CurrentArtist, int i, string m)
+        private static TagLib.File AddMusicToindexation(string m, ref int NumberofMusics, Author CurrentArtist, Album CurrentAlbum, ConcurrentBag<Music> musics)
         {
             TagLib.File file;
             if (Path.GetExtension(m) == ".mp3" || Path.GetExtension(m) == ".flac")
@@ -102,7 +107,7 @@ namespace Musics___Server.MusicsManagement
                     }
                 }
 
-                Music current = new Music(Musicname, CurrentArtist, CurrentArtist.Albums[i], m)
+                Music current = new Music(Musicname, CurrentArtist, CurrentAlbum, m)
                 {
                     Format = Path.GetExtension(m),
                     Genre = file.Tag.Genres,
@@ -118,8 +123,9 @@ namespace Musics___Server.MusicsManagement
                 }
 
                 NumberofMusics++;
+                musics.Add(current);
 
-                CurrentArtist.Albums[i].Musics.Add(current);
+                Console.Write(".");
                 return file;
             }
             return null;
@@ -214,7 +220,9 @@ namespace Musics___Server.MusicsManagement
         {
             if (!Indexation.IsElementExisting(tmp.MusicPart.Musics.First().Author))
             {
+
                 AddAuthor(tmp);
+
             }
 
             if (Indexation.IsElementExisting(tmp.MusicPart))
