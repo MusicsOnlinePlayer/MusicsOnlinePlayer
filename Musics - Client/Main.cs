@@ -348,12 +348,15 @@ namespace Musics___Client
             });
         }
 
+<<<<<<< HEAD
         private void FillSearchListBoxesThreadSafe(IEnumerable<IElement> elements)
         {
             UISearchListbox.Items.AddRange(elements.Select(a => a.Name).ToArray());
             SearchlistboxItems.AddRange(elements);
         }
 
+=======
+>>>>>>> Rename IElement to Element (it 's not an interface but a base class)
         //private void  UpdateSearchList(IEnumerable<Element>)
 
         public void RequestAnswerBinaries(RequestAnswer searchAnswer)

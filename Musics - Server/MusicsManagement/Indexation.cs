@@ -29,7 +29,7 @@ namespace Musics___Server.MusicsManagement
         public static IEnumerable<Music> GetAllMusics()
             => ServerMusics.SelectMany(x => x.Albums).SelectMany(x => x.Musics);
 
-        public static bool IsElementExisting(IElement element)
+        public static bool IsElementExisting(Element element)
         {
             switch (element.Type)
             {
@@ -304,6 +304,7 @@ namespace Musics___Server.MusicsManagement
         }
 
         public static Album GetAlbum(Element element)
+<<<<<<< HEAD
             => GetAlbum(element.MID);
         public static Album GetAlbum(string MID)
             => ServerMusics.SelectMany(x => x.Albums).SingleOrDefault(x => x.MID == MID);
@@ -316,6 +317,14 @@ namespace Musics___Server.MusicsManagement
         public static Music GetMusic(Element element)
             => GetMusic(element.MID);
         public static Music GetMusic(string MID)
+=======
+            => ServerMusics.SelectMany(x => x.Albums).SingleOrDefault(x => x.MID == element.MID);
+        public static Author GetAuthor(Element element)
+            => ServerMusics.SingleOrDefault(x => x.MID == element.MID);
+        public static Music GetMusic(Element element)
+            => GetMusicByID(element.MID);
+        public static Music GetMusicByID(string MID)
+>>>>>>> Rename IElement to Element (it 's not an interface but a base class)
             => GetAllMusics().SingleOrDefault(m => m.MID == MID);
 
         public static string GetElementPath(Element element)
