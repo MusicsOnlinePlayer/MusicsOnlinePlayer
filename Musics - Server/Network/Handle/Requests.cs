@@ -21,7 +21,7 @@ namespace Musics___Server.Network.Handle
                     break;
 
                 case RequestsTypes.MusicsBinaries:
-                    var m = Indexation.GetMusic(request.RequestedBinaries.MID);
+                    var m = Indexation.GetMusicByID(request.RequestedBinaries.MID);
                     Music answer = new Music(m.Title, new Author(m.Author.Name), m.Album, Indexation.GetFileBinary(m))
                     {
                         Format = m.Format,
