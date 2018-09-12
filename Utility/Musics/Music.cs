@@ -5,7 +5,7 @@ namespace Utility.Musics
     [Serializable]
     public class Music : IElement
     {
-        //public Element Type { get; } = Element.Music;
+        //public ElementType Type { get; } = ElementType.Music;
 
         public string Title { get; set; }
         public Author Author { get; set; }
@@ -26,7 +26,7 @@ namespace Utility.Musics
             FileBinary = Filebinary;
             Album = album;
             MID = Hash.SHA256Hash(Title + author.Name + Album.Name);
-            Type = Element.Music;
+            Type = ElementType.Music;
         }
         public Music(string title, Author author, Album album, string Path)
         {
@@ -35,7 +35,7 @@ namespace Utility.Musics
             ServerPath = Path;
             Album = album;
             MID = Hash.SHA256Hash(Title + author.Name + Album.Name);
-            Type = Element.Music;
+            Type = ElementType.Music;
         }
         public Music(string title, Author author, Album album, string Path, int rating)
         {
@@ -44,11 +44,11 @@ namespace Utility.Musics
             ServerPath = Path;
             Album = album;
             MID = Hash.SHA256Hash(Title + author.Name + Album.Name);
-            Type = Element.Music;
+            Type = ElementType.Music;
             Rating = rating;
         }
     }
-    public enum Element
+    public enum ElementType
     {
         Author,
         Album,

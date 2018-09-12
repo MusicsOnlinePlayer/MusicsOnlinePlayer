@@ -16,7 +16,7 @@ namespace Musics___Server.Network.Handle
             bool VoteExist = UsersInfos.VoteExist(temp.MusicRatedMID, Program.MyServer.Clients.List[socket].UID);
             UsersInfos.AddVoteMusic(temp.MusicRatedMID, Program.MyServer.Clients.List[socket].UID);
 
-            if (temp.Type == Element.Music)
+            if (temp.Type == ElementType.Music)
             {
                 var m = Indexation.GetMusicByID(temp.MusicRatedMID);
                 if (m != null)

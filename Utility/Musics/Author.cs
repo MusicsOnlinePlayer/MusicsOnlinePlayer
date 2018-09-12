@@ -6,7 +6,7 @@ namespace Utility.Musics
     [Serializable]
     public class Author : IElement
     {
-        //public Element Type { get; } = Element.Author;
+        //public ElementType Type { get; } = ElementType.Author;
 
         public string Name { get; set; }
         public int Rating = 0;
@@ -19,16 +19,16 @@ namespace Utility.Musics
         {
             Name = name;
             Albums = new List<Album>();
-            MID = Hash.SHA256Hash(Name + Element.Author);
-            Type = Element.Author;
+            MID = Hash.SHA256Hash(Name + ElementType.Author);
+            Type = ElementType.Author;
         }
         public Author(string name, string Path)
         {
             Name = name;
             Albums = new List<Album>();
-            MID = Hash.SHA256Hash(Name + Element.Author);
+            MID = Hash.SHA256Hash(Name + ElementType.Author);
             ServerPath = Path;
-            Type = Element.Author;
+            Type = ElementType.Author;
         }
     }
 }

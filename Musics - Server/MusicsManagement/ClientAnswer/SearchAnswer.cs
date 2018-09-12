@@ -17,16 +17,16 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                 Console.WriteLine("Sending to the client :");
                 switch (requestSearch.Requested)
                 {
-                    case Element.Author:
+                    case ElementType.Author:
                         DoAuthor(requestSearch, asker);
                         break;
-                    case Element.Album:
+                    case ElementType.Album:
                         DoAlbum(requestSearch, asker);
                         break;
-                    case Element.Music:
+                    case ElementType.Music:
                         DoMusic(requestSearch, asker);
                         break;
-                    case Element.Playlist:
+                    case ElementType.Playlist:
                         DoPlaylist(requestSearch, asker);
                         break;
                 }
@@ -37,7 +37,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
         {
             string userUID = Program.MyServer.Clients.GetUser(asker).UID;
             var playlists = UsersInfos.GetPlaylists(userUID).Where(p => Search.Find(requestSearch.Name, p.Name));
-            Program.MyServer.SendObject(new RequestAnswer(playlists.ToList(), Element.Playlist), asker);
+            Program.MyServer.SendObject(new RequestAnswer(playlists.ToList(), ElementType.Playlist), asker);
         }
 
         private static void DoMusic(Request requestSearch, Socket asker)
@@ -58,7 +58,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
             foreach (var m in result)
                 Console.WriteLine("  " + m.Title);
 
-            Program.MyServer.SendObject(new RequestAnswer(result.ToList(), Element.Music), asker);
+            Program.MyServer.SendObject(new RequestAnswer(result.ToList(), ElementType.Music), asker);
         }
 
         private static void DoAlbum(Request requestSearch, Socket asker)
@@ -84,7 +84,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
 
                 }
             }
-            Program.MyServer.SendObject(new RequestAnswer(result, Element.Album), asker);
+            Program.MyServer.SendObject(new RequestAnswer(result, ElementType.Album), asker);
         }
 
         private static void DoAuthor(Request requestSearch, Socket asker)
@@ -111,7 +111,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                 result.Add(author);
                 Console.WriteLine("  " + a.Name);
             }
-            Program.MyServer.SendObject(new RequestAnswer(result, Element.Author), asker);
+            Program.MyServer.SendObject(new RequestAnswer(result, ElementType.Author), asker);
         }
     }
 }

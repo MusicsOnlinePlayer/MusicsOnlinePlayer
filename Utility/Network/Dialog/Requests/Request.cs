@@ -11,7 +11,7 @@ namespace Utility.Network.Dialog
 
         //Search
         public string Name { get; set; }
-        public Element Requested { get; set; }
+        public ElementType Requested { get; set; }
 
         //Binaries
         public Music RequestedBinaries { get; set; }
@@ -23,11 +23,11 @@ namespace Utility.Network.Dialog
         public string Username { get; set; }
 
         //Trending
-        public Element Type { get; set; }
+        public ElementType Type { get; set; }
         public string Genre { get; set; }
 
         //Search
-        public Request(string name, Element requested)
+        public Request(string name, ElementType requested)
         {
             Requested = requested;
             Name = name;
@@ -56,7 +56,7 @@ namespace Utility.Network.Dialog
         }
 
         //Genre
-        public Request(Element type, string genre)
+        public Request(ElementType type, string genre)
         {
             Type = type;
             Genre = genre;
