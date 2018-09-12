@@ -48,7 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>4DC75F1CFED51C351ECE016062A7AB9D6B572148</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>0FFE17A3E0D4E878B17CE88AE75DABF46E6835D1</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>ServerCreator_TemporaryKey.pfx</ManifestKeyFile>

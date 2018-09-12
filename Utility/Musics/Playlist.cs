@@ -7,14 +7,16 @@ using Utility.Network.Users;
 namespace Utility.Musics
 {
     [Serializable]
-    public class Playlist
+    public class Playlist : IElement
     {
+        //public Element Type { get; } = Element.Album;
+
         public User Creator { get; set; }
         public string Name { get; set; }
         public List<Music> musics = new List<Music>();
         public bool Private { get; set; }
         public int Rating { get; set; }
-        public string MID { get; set; }
+        //public string MID { get; set; }
 
         public Playlist(User creator, string name, List<Music> Musics, bool IsPrivate)
         {
@@ -22,12 +24,14 @@ namespace Utility.Musics
             Name = name;
             musics = Musics;
             Private = IsPrivate;
+            Type = Element.Playlist;
             MID = Hash.SHA256Hash(Name + Private + Element.Playlist.ToString());
         }
         public Playlist(User creator, string name)
         {
             Creator = creator;
             Name = name;
+            Type = Element.Playlist;
             MID = Hash.SHA256Hash(Name + Private + Element.Playlist.ToString());
         }
     }

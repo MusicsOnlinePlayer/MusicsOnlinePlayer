@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Sockets;
-using Musics___Server.Authentification;
 using Musics___Server.Usersinfos;
 using Musics___Server.MusicsInformation;
 using Musics___Server.MusicsManagement;
 using Musics___Server.Network;
-using Musics___Server.MusicsManagement.ClientSearch;
 using Utility.Network.Users;
 using Utility.Network;
 using Utility.Network.Dialog;
@@ -32,7 +28,7 @@ namespace Musics___Server
             MusicsInfo.SetupMusics();
 
             Console.Write("~ Indexation of all musics....  ");
-            Console.WriteLine(Indexation.DoIndexation() + "Musics");
+            Console.WriteLine(Indexation.Do(Properties.Settings.Default.UseMultiThreading) + "Musics");
             Console.WriteLine("~ Indexation done.");
 
             Indexation.SaveAllInfos();
@@ -141,7 +137,7 @@ namespace Musics___Server
                         case TypesEdit.Musics:
                             if ((int)MyServer.Clients.GetUser(socket).Userrank > 1)
                             {
-                                Indexation.ModifyElement(tmp.ObjectToEdit, tmp.NewName ,tmp.NewGenres);
+                                Indexation.ModifyElement(tmp.ObjectToEdit as IElement, tmp.NewName ,tmp.NewGenres);
                             }
                             break;
                     }

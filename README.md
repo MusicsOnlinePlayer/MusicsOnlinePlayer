@@ -2,6 +2,8 @@
 
 [![CodeFactor](https://www.codefactor.io/repository/github/malaud/musicsonlineplayer/badge/master)](https://www.codefactor.io/repository/github/malaud/musicsonlineplayer/overview/master)
 
+[![Slack Status](https://img.shields.io/badge/Chat-Slack-blue.svg)](https://musicsonlineplayer.slack.com/messages/CCPGPKRK6/details/)
+
 # MusicsOnlinePlayer
 Free musics player made in c#. 
 Any help is welcome, i can also speack french if you want.
@@ -36,7 +38,7 @@ There is multiple server command that can help you quite a lot.The command alway
  - `-users` will get all connected users and display his `Name`,`User ID` and his `Rank` you can add the `-all` parameters to get all registered users.
  - `-promote` will upgrade the grade of the specified users. Please use this syntax : `-promote -UID -NewRank`.
  - `-quit` will save all music information and stop the server application.
- 
+ - `-set multithreading true/false` set the use of one or all thread of your cpu (true (experimental) : Faster indexation at startup ; false is set by default)
 
  
 ## Client

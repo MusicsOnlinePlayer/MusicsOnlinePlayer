@@ -1,14 +1,6 @@
 ﻿using Musics___Client.AppSettings;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Utility;
 using Utility.Network.Dialog.Authentification;
 using Utility.Network.Users;
 

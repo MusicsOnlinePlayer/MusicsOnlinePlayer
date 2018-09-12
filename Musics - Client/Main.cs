@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
-using TagLib;
-using Utility;
 using Musics___Client.Hue;
 using NAudio.CoreAudioApi;
 using Musics___Client.MusicsUtils;
@@ -1044,6 +1041,7 @@ namespace Musics___Client
                 {
                     if(selected is Music)
                     {
+                        (selected as Music).Type = Element.Music;
                         SendObject(new EditRequest(selected, UIEditMusicName.Text, UIEditMusicGenres.Text.Split(';'), typeOfSelected));
                     }
                     else
