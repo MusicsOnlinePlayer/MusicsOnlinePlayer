@@ -3,7 +3,7 @@
 namespace Utility.Musics
 {
     [Serializable]
-    public class Music : IElement
+    public class Music : Element
     {
         //public ElementType Type { get; } = ElementType.Music;
 
