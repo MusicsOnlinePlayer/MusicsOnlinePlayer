@@ -89,7 +89,6 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                 }
             }
             Program.MyServer.SendObject(new RequestAnswer(result, Element.Album), asker);
-
         }
 
         private static void DoAuthor(Request requestSearch, Socket asker)
@@ -117,7 +116,6 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                 Console.WriteLine("  " + a.Name);
             }
             Program.MyServer.SendObject(new RequestAnswer(result, Element.Author), asker);
-
         }
     }
 }

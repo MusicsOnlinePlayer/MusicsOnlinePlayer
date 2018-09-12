@@ -64,45 +64,20 @@ namespace Musics___Server.MusicsManagement
                         CurrentArtist.Albums.Add(CurrentAlbum);
                         Console.Write($"  {CurrentAlbum.Name} [");
 
-                        Parallel.ForEach(Directory.GetFiles(a), m =>
-                         {
-                             if (Path.GetExtension(m) == ".mp3" || Path.GetExtension(m) == ".flac")
-                             {
-                                 file = TagLib.File.Create(m);
-                                 string Musicname = file.Tag.Title;
-                                 if (Musicname == null)
-                                 {
-                                     try
-                                     {
-                                         Musicname = Path.GetFileNameWithoutExtension(m).Split('-')[1].Remove(0, 1);
-                                     }
-                                     catch
-                                     {
-                                         Musicname = Path.GetFileNameWithoutExtension(m);
-                                     }
-                                 }
-
-                                 Music current = new Music(Musicname, CurrentArtist, m)
-                                 {
-                                     Format = Path.GetExtension(m),
-                                     Genre = file.Tag.Genres,
-                                     N = file.Tag.Track
-                                 };
-                                 if (current.Genre.Length == 0)
-                                 {
-                                     current.Genre = new string[] { "Unknown" };
-                                 }
-                                 if (MusicsInfo.MusicsExisting(current.MID))
-                                 {
-                                     current.Rating = MusicsInfo.GetMusicInfo(current.MID).Rating;
-                                 }
-
-                                 NumberofMusics++;
-                                 musics.Add(current);
-                              
-                                 Console.Write(".");
-                             }
-                         });
+                        if (UseMultiThreading)
+                        {
+                            Parallel.ForEach(Directory.GetFiles(a), m =>
+                            {
+                                file = AddMusicToindexation(m, ref NumberofMusics, CurrentArtist, CurrentAlbum, musics);
+                            });
+                        }
+                        else
+                        {
+                            foreach(var m in Directory.GetFiles(a))
+                            {
+                                file = AddMusicToindexation(m, ref NumberofMusics, CurrentArtist, CurrentAlbum, musics);
+                            }
+                        }
                         CurrentAlbum.Musics = musics.OrderBy(x => x.N).ToList();
                         Console.WriteLine("]");
                     }
@@ -112,9 +87,8 @@ namespace Musics___Server.MusicsManagement
 
             return NumberofMusics;
         }
-      
-        private static TagLib.File AddMusic(ref int NumberofMusics, Author CurrentArtist, int i, string m)
 
+        private static TagLib.File AddMusicToindexation(string m, ref int NumberofMusics, Author CurrentArtist, Album CurrentAlbum, ConcurrentBag<Music> musics)
         {
             TagLib.File file;
             if (Path.GetExtension(m) == ".mp3" || Path.GetExtension(m) == ".flac")
@@ -133,7 +107,7 @@ namespace Musics___Server.MusicsManagement
                     }
                 }
 
-                Music current = new Music(Musicname, CurrentArtist, CurrentArtist.Albums[i], m)
+                Music current = new Music(Musicname, CurrentArtist, CurrentAlbum, m)
                 {
                     Format = Path.GetExtension(m),
                     Genre = file.Tag.Genres,
@@ -148,15 +122,10 @@ namespace Musics___Server.MusicsManagement
                     current.Rating = MusicsInfo.GetMusicInfo(current.MID).Rating;
                 }
 
+                NumberofMusics++;
+                musics.Add(current);
 
-                                if (Genres != null)
-                                {
-                                    m.Genre = Genres;
-                                    file.Tag.Genres = Genres;
-                                }
-
-
-                CurrentArtist.Albums[i].Musics.Add(current);
+                Console.Write(".");
                 return file;
             }
             return null;
