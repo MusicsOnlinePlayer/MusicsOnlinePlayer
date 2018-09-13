@@ -504,7 +504,7 @@ namespace Musics___Client
             }
         }
 
-        object selected;
+        IElement selected;
         ElementType typeOfSelected;
 
         private void UISearchListbox_SelectedIndexChanged(object sender, EventArgs e)
@@ -514,74 +514,74 @@ namespace Musics___Client
                 ChangeDescription();
             });
         }
+
         private void ChangeDescription()
         {
-            if (UISearchListbox.SelectedItem != null)
+            if (UISearchListbox.SelectedItem == null) return;
+            selected = SearchlistboxItems[UISearchListbox.SelectedIndex] as IElement;
+
+            switch (selected)
             {
-                if (SearchlistboxItems.First() is Music)
-                {
-                    selected = SearchlistboxItems[UISearchListbox.SelectedIndex] as Music;
-                    typeOfSelected = ElementType.Music;
-                    UISelectedname.Text = (selected as Music).Title;
-                    UIselectedartist.Text = (selected as Music).Author.Name;
-                    UISelectedRating.Text = "Rating : " + (selected as Music).Rating;
-                    UISelectedGenres.Text = "Genres : " + string.Join(" ", (selected as Music).Genre);
-                    UIThumbup.Visible = true;
-
-                    UIPathAuthor.Text = (selected as Music).Author.Name;
-                    UIPathAlbum.Text = (selected as Music).Album.Name;
-                    UIPathMusic.Text = (selected as Music).Title;
-                }
-
-                if (SearchlistboxItems.First() is Album)
-                {
-                    selected = SearchlistboxItems[UISearchListbox.SelectedIndex] as Album;
-                    typeOfSelected = ElementType.Album;
-                    UISelectedname.Text = (selected as Album).Name;
-                    UIselectedartist.Text = (selected as Album).Author.Name;
-                    UISelectedRating.Text = "Rating : ";
-                    UISelectedGenres.Text = "Genres : " + string.Join(" ", (selected as Album).Musics.First().Genre);
-
-                    UIPathAuthor.Text = (selected as Album).Author.Name;
-                    UIPathAlbum.Text = (selected as Album).Name;
-                    UIPathMusic.Text = "";
-                    UIThumbup.Visible = false;
-                }
-                if (SearchlistboxItems.First() is Author)
-                {
-                    typeOfSelected = ElementType.Author;
-                    selected = SearchlistboxItems[UISearchListbox.SelectedIndex] as Author;
-                    UISelectedname.Text = (selected as Author).Name;
-                    UIselectedartist.Text = "";
-                    UISelectedRating.Text = "Rating : ";
-
-                    UIPathAuthor.Text = (selected as Author).Name;
-                    UIPathAlbum.Text = "";
-                    UIPathMusic.Text = "";
-                    UIThumbup.Visible = false;
-                }
-                if (SearchlistboxItems.First() is Playlist)
-                {
-                    typeOfSelected = ElementType.Playlist;
-                    selected = SearchlistboxItems[UISearchListbox.SelectedIndex] as Utility.Musics.Playlist;
-                    UISelectedname.Text = (selected as Playlist).Name;
-                    UIselectedartist.Text = (selected as Playlist).Creator.Name;
-                    UISelectedRating.Text = "Rating : " + (selected as Playlist).Rating;
-                    UIPathAuthor.Text = "";
-                    UIPathAlbum.Text = "";
-                    UIPathMusic.Text = "";
-                    UIThumbup.Visible = true;
-
-                    //Playlist.Clear();
-                    //PlaylistIndex = 0;
-                    UIPlaylist.Items.Clear();
-                    foreach (var m in (selected as Playlist).musics)
-                    {
-                        //Playlist.Add(m);
-                        UIPlaylist.Items.Add(m.Title);
-                    }
-                }
+                case Music music: ChangeDescription(music); break;
+                case Album album: ChangeDescription(album); break;
+                case Author author: ChangeDescription(author); break;
+                case Playlist playlist: ChangeDescription(playlist); break;
+                default: throw new InvalidCastException();
             }
+        }
+
+        private void ChangeDescription(Playlist playlist)
+        {
+            UISelectedname.Text = playlist.Name;
+            UIselectedartist.Text = playlist.Creator.Name;
+            UISelectedRating.Text = $"Rating : {playlist.Rating}";
+            UIPathAuthor.Text = string.Empty;
+            UIPathAlbum.Text = string.Empty;
+            UIPathMusic.Text = string.Empty;
+            UIThumbup.Visible = true;
+
+            //Playlist.Clear();
+            //PlaylistIndex = 0;
+            UIPlaylist.Items.Clear();
+            UIPlaylist.Items.AddRange(playlist.musics.Select(x => x.Title).ToArray());
+        }
+
+        private void ChangeDescription(Author author)
+        {
+            UISelectedname.Text = author.Name;
+            UIselectedartist.Text = string.Empty;
+            UISelectedRating.Text = "Rating : ";
+
+            UIPathAuthor.Text = author.Name;
+            UIPathAlbum.Text = string.Empty;
+            UIPathMusic.Text = string.Empty;
+            UIThumbup.Visible = false;
+        }
+
+        private void ChangeDescription(Album album)
+        {
+            UISelectedname.Text = album.Name;
+            UIselectedartist.Text = album.Author.Name;
+            UISelectedRating.Text = "Rating : ";
+            UISelectedGenres.Text = $"Genres : {string.Join(" ", album.Musics.First().Genre)}";
+
+            UIPathAuthor.Text = album.Author.Name;
+            UIPathAlbum.Text = album.Name;
+            UIPathMusic.Text = string.Empty;
+            UIThumbup.Visible = false;
+        }
+
+        private void ChangeDescription(Music music)
+        {
+            UISelectedname.Text = music.Title;
+            UIselectedartist.Text = music.Author.Name;
+            UISelectedRating.Text = $"Rating : {music.Rating}";
+            UISelectedGenres.Text = $"Genres :  {string.Join(" ", music.Genre)}";
+            UIThumbup.Visible = true;
+
+            UIPathAuthor.Text = music.Author.Name;
+            UIPathAlbum.Text = music.Album.Name;
+            UIPathMusic.Text = music.Title;
         }
 
         private void UIPlayBis_Click(object sender, EventArgs e)
@@ -643,29 +643,22 @@ namespace Musics___Client
 
         private void UISearchListbox_DoubleClick(object sender, EventArgs e)
         {
-            if (UISearchListbox.SelectedItem != null)
+            if (UISearchListbox == null) return;
+            var selectedItem = SearchlistboxItems[UISearchListbox.SelectedIndex];
+            switch (selectedItem)
             {
-                if (SearchlistboxItems[UISearchListbox.SelectedIndex] is Author author)
-                {
+                case Author author:
                     ClearSearchListBoxesThreadSafe();
                     FillSearchListBoxesThreadSafe(author.Albums);
-                    return;
-                }
-                if (SearchlistboxItems[UISearchListbox.SelectedIndex] is Album album)
-                {
-                    if (album.Musics != null)
-                    {
-                        ClearSearchListBoxesThreadSafe();
-                        FillSearchListBoxesThreadSafe(album.Musics); 
-                        return;
-                    }
-                }
-                if (SearchlistboxItems[UISearchListbox.SelectedIndex] is Music)
-                {
-                    SendObject(new Request(SearchlistboxItems[UISearchListbox.SelectedIndex] as Music));
-                }
-                if (SearchlistboxItems[UISearchListbox.SelectedIndex] is Playlist)
-                {
+                    break;
+                case Album album:
+                    ClearSearchListBoxesThreadSafe();
+                    FillSearchListBoxesThreadSafe(album.Musics);
+                    break;
+                case Music music:
+                    SendObject(new Request(music));
+                    break;
+                case Playlist playlist:
                     Playlist.Clear();
                     PlaylistIndex = 0;
                     UIPlaylist.Items.Clear();
@@ -675,13 +668,10 @@ namespace Musics___Client
                         UIPlaylist.Items.Add(m.Title);
                     }
                     SendObject(new Request(Playlist.First()));
-                }
+                    break;
+                default: throw new InvalidCastException();
             }
         }
-
-
-
-
 
         private readonly List<Music> Playlist = new List<Music>();
         private int PlaylistIndex;
