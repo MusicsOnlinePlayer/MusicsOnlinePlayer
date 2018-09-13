@@ -8,6 +8,7 @@ using Utility.Musics;
 using Utility.Network.Dialog.Uploads;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Diagnostics;
 
 namespace Musics___Server.MusicsManagement
 {
@@ -48,6 +49,10 @@ namespace Musics___Server.MusicsManagement
 
             TagLib.File file;
             Console.WriteLine();
+
+            Stopwatch indexationStopWatch = new Stopwatch();
+            indexationStopWatch.Start();
+
             foreach (var n in ArtistDirs)
             {
                 Author CurrentArtist = new Author(Path.GetFileName(n), n);
@@ -84,7 +89,8 @@ namespace Musics___Server.MusicsManagement
                 }
                 ServerMusics.Add(CurrentArtist);
             }
-
+            indexationStopWatch.Stop();
+            Console.WriteLine("Indexation finished in {0} Ms", indexationStopWatch.ElapsedMilliseconds);
             return NumberofMusics;
         }
 
