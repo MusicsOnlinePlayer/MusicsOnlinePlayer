@@ -220,9 +220,7 @@ namespace Musics___Server.MusicsManagement
         {
             if (!Indexation.IsElementExisting(tmp.MusicPart.Musics.First().Author))
             {
-
                 AddAuthor(tmp);
-
             }
 
             if (Indexation.IsElementExisting(tmp.MusicPart))
@@ -277,20 +275,15 @@ namespace Musics___Server.MusicsManagement
             string path = Path.Combine(GetElementPath(tmp.MusicPart), music.Title + music.Format);
             System.IO.File.WriteAllBytes(path, tmp.MusicPart.Musics.First().FileBinary);
             MusicsInfo.SaveMusicInfo(tmp.MusicPart.Musics.First());
-            foreach (var a in ServerMusics)
+            var album = GetAlbum(tmp.MusicPart.MID);
+            if (album != null)
             {
-                foreach (var al in a.Albums)
-                {
-                    if (al.MID == tmp.MusicPart.MID)
-                    {
-                        music.FileBinary = null;
-                        music.ServerPath = path;
-                        music.Author = a;
-                        music.Album = al;
-                        al.Add(music);
-                        return true;
-                    }
-                }
+                music.FileBinary = null;
+                music.ServerPath = path;
+                music.Author = album.Author ;
+                music.Album = album;
+                album.Add(music);
+                return true;
             }
             return false;
         }
