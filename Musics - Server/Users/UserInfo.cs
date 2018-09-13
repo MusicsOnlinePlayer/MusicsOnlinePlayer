@@ -65,7 +65,7 @@ namespace Musics___Server.Usersinfos
                     {
                         if (GetPlaylist(nM["MID"].InnerText) == null)
                         {
-                            Music tmpM = Indexation.GetMusicByID(nM["MID"].InnerText);
+                            Music tmpM = Indexation.GetMusic(nM["MID"].InnerText);
                             tmpM.FileBinary = null;
                             tmp.Add(tmpM);
                         }                      
@@ -268,7 +268,7 @@ namespace Musics___Server.Usersinfos
                     Playlist playlist = new Playlist(new User(n["Name"].InnerText), p.Attributes["Name"].InnerText);
                     foreach (XmlNode m in p.SelectNodes("Music"))
                     {
-                        playlist.musics.Add(Indexation.GetMusicByID(m.InnerText));
+                        playlist.musics.Add(Indexation.GetMusic(m.InnerText));
                     }
                     playlist.Rating = Convert.ToInt32(p.Attributes["Rating"].InnerText);
                     if (p.Attributes["Level"].InnerText == true.ToString())
@@ -333,7 +333,7 @@ namespace Musics___Server.Usersinfos
                         Playlist playlist = new Playlist(new User(n["Name"].InnerText), p.Attributes["Name"].InnerText);
                         foreach (XmlNode m in p.SelectNodes("Music"))
                         {
-                            playlist.musics.Add(Indexation.GetMusicByID(m.InnerText));
+                            playlist.musics.Add(Indexation.GetMusic(m.InnerText));
                         }
                         playlist.Rating = Convert.ToInt32(p.Attributes["Rating"].InnerText);
                         if (p.Attributes["Level"].InnerText == true.ToString())

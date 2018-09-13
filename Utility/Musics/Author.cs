@@ -8,7 +8,7 @@ namespace Utility.Musics
     {
         //public ElementType Type { get; } = ElementType.Author;
 
-        public string Name { get; set; }
+        public override string Name { get; set; }
         public int Rating = 0;
 
         //public string MID { get; set; }

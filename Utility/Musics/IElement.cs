@@ -1,12 +1,9 @@
-﻿using System;
-namespace Utility.Musics
+﻿namespace Utility.Musics
 {
-    [Serializable]
-    public class Element
+    public interface IElement
     {
-        public ElementType Type { get; set; }
-        public string MID { get; set; }
+        ElementType Type { get; set; }
+        string MID { get; set; }
+        string Name { get; }
     }
-
-    
 }

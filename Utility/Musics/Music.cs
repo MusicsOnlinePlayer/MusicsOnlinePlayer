@@ -17,7 +17,7 @@ namespace Utility.Musics
         public int Rating = 0;
         public byte[] FileBinary { get; set; }
         public uint N { get; set; }
-
+        public override string Name { get => Title; set => Title = value; }
         public Music() { }
         public Music(string title, Author author,Album album, byte[] Filebinary)
         {

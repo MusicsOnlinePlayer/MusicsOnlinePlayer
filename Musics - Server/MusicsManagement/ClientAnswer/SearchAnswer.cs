@@ -37,7 +37,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
         {
             string userUID = Program.MyServer.Clients.GetUser(asker).UID;
             var playlists = UsersInfos.GetPlaylists(userUID).Where(p => Search.Find(requestSearch.Name, p.Name));
-            Program.MyServer.SendObject(new RequestAnswer(playlists.ToList(), ElementType.Playlist), asker);
+            Program.MyServer.SendObject(new RequestAnswer(playlists.Cast<IElement>().ToList(), ElementType.Playlist), asker);
         }
 
         private static void DoMusic(Request requestSearch, Socket asker)
@@ -58,7 +58,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
             foreach (var m in result)
                 Console.WriteLine("  " + m.Title);
 
-            Program.MyServer.SendObject(new RequestAnswer(result.ToList(), ElementType.Music), asker);
+            Program.MyServer.SendObject(new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Music), asker);
         }
 
         private static void DoAlbum(Request requestSearch, Socket asker)
@@ -84,13 +84,13 @@ namespace Musics___Server.MusicsManagement.ClientSearch
 
                 }
             }
-            Program.MyServer.SendObject(new RequestAnswer(result, ElementType.Album), asker);
+            Program.MyServer.SendObject(new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Album), asker);
         }
 
         private static void DoAuthor(Request requestSearch, Socket asker)
         {
-            List<Author> result = new List<Author>();
-
+            // List<Author> result = new List<Author>();
+            List<IElement> result = new List<IElement>();
             foreach (Author a in Indexation.ServerMusics.Where(x => Search.Find(requestSearch.Name, x.Name)))
             {
                 Author author = new Author(a.Name);
@@ -108,7 +108,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                         author.Albums.Last().Add(temp);
                     }
                 }
-                result.Add(author);
+               result.Add(author);
                 Console.WriteLine("  " + a.Name);
             }
             Program.MyServer.SendObject(new RequestAnswer(result, ElementType.Author), asker);

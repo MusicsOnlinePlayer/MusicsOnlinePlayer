@@ -10,7 +10,16 @@ namespace Utility.Network.Dialog
     {
         public RequestsTypes RequestsTypes { get; set; }
 
-        public object AnswerList { get; set; }
+        private readonly List<IElement> answerList = new List<IElement>();
+        public IReadOnlyList<IElement> AnswerList
+        {
+            get { return answerList; }
+            set
+            {
+                answerList.Clear();
+                answerList.AddRange(value);
+            }
+        }
         public ElementType Requested { get; set; }
 
         public Music Binaries { get; set; }
@@ -24,7 +33,7 @@ namespace Utility.Network.Dialog
         public object MusicByGenre { get; set; }
         public ElementType Type { get; set; }
 
-        public RequestAnswer(object answerlist, ElementType requested)
+        public RequestAnswer(List<IElement> answerlist, ElementType requested)
         {
             Requested = requested;
             AnswerList = answerlist;
@@ -50,7 +59,7 @@ namespace Utility.Network.Dialog
             RequestsTypes = RequestsTypes.Users;
         }
 
-        public RequestAnswer(ElementType type,object MusicbyGenre)
+        public RequestAnswer(ElementType type, object MusicbyGenre)
         {
             MusicByGenre = MusicbyGenre;
             Type = type;
