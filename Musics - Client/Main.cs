@@ -348,15 +348,12 @@ namespace Musics___Client
             });
         }
 
-<<<<<<< HEAD
         private void FillSearchListBoxesThreadSafe(IEnumerable<IElement> elements)
         {
             UISearchListbox.Items.AddRange(elements.Select(a => a.Name).ToArray());
             SearchlistboxItems.AddRange(elements);
         }
 
-=======
->>>>>>> Rename IElement to Element (it 's not an interface but a base class)
         //private void  UpdateSearchList(IEnumerable<Element>)
 
         public void RequestAnswerBinaries(RequestAnswer searchAnswer)
@@ -585,20 +582,6 @@ namespace Musics___Client
             UIPathAuthor.Text = music.Author.Name;
             UIPathAlbum.Text = music.Album.Name;
             UIPathMusic.Text = music.Title;
-        }
-
-        private void UIPlaylistClear_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Playlist.Clear();
-            PlaylistIndex = 0;
-            UIPlaylist.Items.Clear();           
-            UIPlayingMusic.Text = "No music";
-            UIArtist.Text = "Artist";
-            UIFormat.Text = "Format";
-            UIForward.Enabled = false;
-            UIBackward.Enabled = false;
-            UIMusicImage.BackgroundImage = null;
-            p.player.controls.stop();
         }
 
         private void UIPlayBis_Click(object sender, EventArgs e)
