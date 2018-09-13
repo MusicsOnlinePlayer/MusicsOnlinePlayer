@@ -12,7 +12,7 @@ namespace Utility.Musics
         //public ElementType Type { get; } = ElementType.Album;
 
         public User Creator { get; set; }
-        public string Name { get; set; }
+        public override string Name { get; set; }
         public List<Music> musics = new List<Music>();
         public bool Private { get; set; }
         public int Rating { get; set; }

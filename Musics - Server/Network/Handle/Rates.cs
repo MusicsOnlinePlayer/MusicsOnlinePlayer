@@ -18,7 +18,7 @@ namespace Musics___Server.Network.Handle
 
             if (temp.Type == ElementType.Music)
             {
-                var m = Indexation.GetMusicByID(temp.MusicRatedMID);
+                var m = Indexation.GetMusic(temp.MusicRatedMID);
                 if (m != null)
                 {
                     if (VoteExist)

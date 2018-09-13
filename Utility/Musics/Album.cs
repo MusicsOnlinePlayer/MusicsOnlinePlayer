@@ -11,48 +11,53 @@ namespace Utility.Musics
 
         //public string MID { get; set; }
 
-        public string Name { get; set; }
+        public override string Name { get; set; }
         public Author Author { get; set; }
         public int Rating { get; set; }
-        public List<Music> Musics { get; set; }
+        private readonly  List<Music> musics = new List<Music>();
+        public IEnumerable<Music> Musics
+        {
+            get => musics;
+            set
+            {
+                musics.Clear();
+                musics.AddRange(value);
+            }
+        }
         public string ServerPath { get; set; }
 
         public Album(Author author, string name)
         {
             Author = author;
-            Name = name;
-            Musics = new List<Music>();
+            Name = name; 
             Type = ElementType.Album;
             MID = Hash.SHA256Hash(Name + ElementType.Album.ToString());
         }
         public Album(Author author, string name, Music[] musics)
         {
             Author = author;
-            Name = name;
-            Musics = musics.ToList();
+            Name = name; 
             Type = ElementType.Album;
             MID = Hash.SHA256Hash(Name + ElementType.Album.ToString());
         }
         public Album(Author author, string name, string Path)
         {
             Author = author;
-            Name = name;
-            Musics = new List<Music>();
+            Name = name; 
             Type = ElementType.Album;
             MID = Hash.SHA256Hash(Name + ElementType.Album.ToString());
             ServerPath = Path;
         }
         public Album(string name)
         {
-            Name = name;
-            Musics = new List<Music>();
+            Name = name; 
             Type = ElementType.Album;
             MID = Hash.SHA256Hash(Name + ElementType.Album.ToString());
         }
 
         public void Add(Music music)
         {
-            Musics.Add(music);
+            musics.Add(music);
         }
     }
 }
