@@ -584,6 +584,20 @@ namespace Musics___Client
             UIPathMusic.Text = music.Title;
         }
 
+        private void UIPlaylistClear_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Playlist.Clear();
+            PlaylistIndex = 0;
+            UIPlaylist.Items.Clear();           
+            UIPlayingMusic.Text = "No music";
+            UIArtist.Text = "Artist";
+            UIFormat.Text = "Format";
+            UIForward.Enabled = false;
+            UIBackward.Enabled = false;
+            UIMusicImage.BackgroundImage = null;
+            p.player.controls.stop();
+        }
+
         private void UIPlayBis_Click(object sender, EventArgs e)
         {
             if (selected is Music)
