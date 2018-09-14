@@ -52,6 +52,7 @@ namespace Musics___Server.MusicsManagement
 
             Stopwatch indexationStopWatch = new Stopwatch();
             indexationStopWatch.Start();
+            long startMemory = GC.GetTotalMemory(false);
 
             foreach (var n in ArtistDirs)
             {
@@ -90,7 +91,7 @@ namespace Musics___Server.MusicsManagement
                 ServerMusics.Add(CurrentArtist);
             }
             indexationStopWatch.Stop();
-            Console.WriteLine("Indexation finished in {0} Ms", indexationStopWatch.ElapsedMilliseconds);
+            Console.WriteLine("Indexation finished in {0} Ms, with {1} Mo of memory", indexationStopWatch.ElapsedMilliseconds, (GC.GetTotalMemory(false) - startMemory)/ 1000000);
             return NumberofMusics;
         }
 
