@@ -3,9 +3,9 @@
 namespace Utility.Musics
 {
     [Serializable]
-    public class Music : IElement
+    public class Music : Element
     {
-        //public Element Type { get; } = Element.Music;
+        //public ElementType Type { get; } = ElementType.Music;
 
         public string Title { get; set; }
         public Author Author { get; set; }
@@ -13,12 +13,11 @@ namespace Utility.Musics
         public string Format { get; set; }
         public string ServerPath { get; set; }
         //public string MID { get; set; }
-        public string[] Genre { get; set; }
-
+        public string[] Genre { get; set; } 
         public int Rating = 0;
         public byte[] FileBinary { get; set; }
         public uint N { get; set; }
-
+        public override string Name { get => Title; set => Title = value; }
         public Music() { }
         public Music(string title, Author author,Album album, byte[] Filebinary)
         {
@@ -27,7 +26,7 @@ namespace Utility.Musics
             FileBinary = Filebinary;
             Album = album;
             MID = Hash.SHA256Hash(Title + author.Name + Album.Name);
-            Type = Element.Music;
+            Type = ElementType.Music;
         }
         public Music(string title, Author author, Album album, string Path)
         {
@@ -36,7 +35,7 @@ namespace Utility.Musics
             ServerPath = Path;
             Album = album;
             MID = Hash.SHA256Hash(Title + author.Name + Album.Name);
-            Type = Element.Music;
+            Type = ElementType.Music;
         }
         public Music(string title, Author author, Album album, string Path, int rating)
         {
@@ -45,11 +44,11 @@ namespace Utility.Musics
             ServerPath = Path;
             Album = album;
             MID = Hash.SHA256Hash(Title + author.Name + Album.Name);
-            Type = Element.Music;
+            Type = ElementType.Music;
             Rating = rating;
         }
     }
-    public enum Element
+    public enum ElementType
     {
         Author,
         Album,

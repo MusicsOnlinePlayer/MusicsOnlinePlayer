@@ -7,9 +7,9 @@ namespace Utility.Network.Dialog.Rating
     public class Rate
     {
         public string MusicRatedMID { get; set; }
-        public Element Type { get; set; }
+        public ElementType Type { get; set; }
 
-        public Rate(string RatedMusicMID,Element element)
+        public Rate(string RatedMusicMID,ElementType element)
         {
             MusicRatedMID = RatedMusicMID;
             Type = element;

@@ -15,18 +15,18 @@ namespace Musics___Server.MusicsManagement.ClientSearch
             if (Program.MyServer.Clients.GetUser(asker).UID != null)
             {
                 Console.WriteLine("Sending to the client :");
-                switch(requestSearch.Requested)
+                switch (requestSearch.Requested)
                 {
-                    case Element.Author:
+                    case ElementType.Author:
                         DoAuthor(requestSearch, asker);
                         break;
-                    case Element.Album:
+                    case ElementType.Album:
                         DoAlbum(requestSearch, asker);
                         break;
-                    case Element.Music:
+                    case ElementType.Music:
                         DoMusic(requestSearch, asker);
                         break;
-                    case Element.Playlist:
+                    case ElementType.Playlist:
                         DoPlaylist(requestSearch, asker);
                         break;
                 }
@@ -37,7 +37,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
         {
             string userUID = Program.MyServer.Clients.GetUser(asker).UID;
             var playlists = UsersInfos.GetPlaylists(userUID).Where(p => Search.Find(requestSearch.Name, p.Name));
-            Program.MyServer.SendObject(new RequestAnswer(playlists.ToList(), Element.Playlist), asker);
+            Program.MyServer.SendObject(new RequestAnswer(playlists.Cast<IElement>().ToList(), ElementType.Playlist), asker);
         }
 
         private static void DoMusic(Request requestSearch, Socket asker)
@@ -58,43 +58,39 @@ namespace Musics___Server.MusicsManagement.ClientSearch
             foreach (var m in result)
                 Console.WriteLine("  " + m.Title);
 
-            Program.MyServer.SendObject(new RequestAnswer(result.ToList(), Element.Music), asker);
+            Program.MyServer.SendObject(new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Music), asker);
         }
 
         private static void DoAlbum(Request requestSearch, Socket asker)
         {
-
             List<Album> result = new List<Album>();
             foreach (Author a in Indexation.ServerMusics)
             {
-                foreach (Album al in a.Albums)
+                foreach (Album al in a.Albums.Where(x => Search.Find(requestSearch.Name, x.Name)))
                 {
-                    bool Found = Search.Find(requestSearch.Name, al.Name);
-                    if (Found)
+                    Album tmp = new Album(new Author(al.Author.Name), al.Name);
+                    foreach (var z in al.Musics)
                     {
-                        Album tmp = new Album(new Author(al.Author.Name), al.Name);
-                        foreach (var z in al.Musics)
+                        Music temp = new Music(z.Title, new Author(z.Author.Name), al, "")
                         {
-                            Music temp = new Music(z.Title, new Author(z.Author.Name), al, "")
-                            {
-                                Rating = z.Rating,
-                                Album = new Album(al.Name),
-                                Genre = z.Genre
-                            };
-                            tmp.Add(temp);
-                        }
-                        result.Add(tmp);
-                        Console.WriteLine("  " + al.Name);
+                            Rating = z.Rating,
+                            Album = new Album(al.Name),
+                            Genre = z.Genre
+                        };
+                        tmp.Add(temp);
                     }
+                    result.Add(tmp);
+                    Console.WriteLine("  " + al.Name);
+
                 }
             }
-            Program.MyServer.SendObject(new RequestAnswer(result, Element.Album), asker);
+            Program.MyServer.SendObject(new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Album), asker);
         }
 
         private static void DoAuthor(Request requestSearch, Socket asker)
         {
-            List<Author> result = new List<Author>();
-
+            // List<Author> result = new List<Author>();
+            List<IElement> result = new List<IElement>();
             foreach (Author a in Indexation.ServerMusics.Where(x => Search.Find(requestSearch.Name, x.Name)))
             {
                 Author author = new Author(a.Name);
@@ -112,10 +108,10 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                         author.Albums.Last().Add(temp);
                     }
                 }
-                result.Add(author);
+               result.Add(author);
                 Console.WriteLine("  " + a.Name);
             }
-            Program.MyServer.SendObject(new RequestAnswer(result, Element.Author), asker);
+            Program.MyServer.SendObject(new RequestAnswer(result, ElementType.Author), asker);
         }
     }
 }
