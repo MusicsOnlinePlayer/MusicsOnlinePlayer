@@ -74,14 +74,28 @@ namespace Musics___Server.Commands
                 {
                     case "-set multithreading false":
                         Properties.Settings.Default.UseMultiThreading = false;
+                        Properties.Settings.Default.Save();
                         Console.WriteLine("~ Multithreading has been set to false");
                         break;
                     case "-set multithreading true":
                         Properties.Settings.Default.UseMultiThreading = true;
+                        Properties.Settings.Default.Save();
                         Console.WriteLine("~ Multithreading has been set to true");
                         break;
                     default:
                         Console.WriteLine("~ Syntax not correct, please use -set 'property' 'value' ");
+                        break;
+                }
+            }
+            else if (entry.Contains("-get"))
+            {
+                switch (entry)
+                {
+                    case "-get multithreading":
+                        Console.WriteLine("~ Multithreading is set to {0}", Properties.Settings.Default.UseMultiThreading.ToString());
+                        break;                  
+                    default:
+                        Console.WriteLine("~ Syntax not correct, please use -get 'property'");
                         break;
                 }
             }
