@@ -39,6 +39,7 @@ There is multiple server command that can help you quite a lot.The command alway
  - `-promote` will upgrade the grade of the specified users. Please use this syntax : `-promote -UID -NewRank`.
  - `-quit` will save all music information and stop the server application.
  - `-set multithreading true/false` set the use of one or all thread of your cpu (true (experimental) : Faster indexation at startup ; false is set by default)
+ - `-get multithreading` check if multithreading is active.
 
  
 ## Client
