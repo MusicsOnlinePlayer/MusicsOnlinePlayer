@@ -11,12 +11,12 @@ Please consider that my code isn't perfect (and my english) so to enchance it yo
 
 ## Introduction
 The project is made arround 3 mains subjects : The Server, the client and the utility file ( a common library ).
-Here is a simple summary and how it works :
+Here is a simple summary on how it works :
 
 ## Server
 At launch the server will do an indexation in the directory `c:/AllMusics` or creates this directory if it doesn't exist.
 The indexation consists of two parts :
- - Indentify all musics files and put in a list of *Music* with only the path of the file. With that we can know the artist and the album of the music without having the audio track. You can put `-ignore` at the end of the album directory to not index it in the server. The music title is pick with the `Taglib` library. The Musics "tree" must be like this to work correctly and recognize all informations:
+ - Indentify all musics files and put in a list of *Music* with only the path of the file. With that we can know the artist and the album of the music without having the audio track. You can put `-ignore` at the end of the album directory to not index it in the server. The music title is pick with the `Taglib` library. The Musics "tree" must be like this to work correctly and recognize all informations but you could also test our ServerCreator to make your life easier (not stable):
 ![Image of the tree](https://github.com/MalauD/MusicsOnlinePlayer/blob/master/Image/GitHubImage.PNG)
          
  * Creates or completes a *xml* file wich contains all the "MetaData" of every *musics*. For exemple : Who liked the musics.
