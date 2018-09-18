@@ -51,14 +51,14 @@ Once the client is connected with the form *Login.form*. He can access to differ
 To play music the client will first ask for the filebinnaries of the music to the server. Once the client receive it, he converts it to a file in the directory `c:/MusicsFiles`. The application will play it using `Wmplib.dll`. 
 
 ### Playlists
-You can also create your own playlist and save it to your account through the server. With that you can share it to every user by making a search and check `Playlist` button.
+You can also create your own playlist and save it to your account through the server. With that you can share it to every user by making a search and check `Playlist` button you could also make it private by clicking th check box when you create your playlist.
 
 ### Hue
 The client can handle the hue sytem and create a dico like ambiance. In the `Settings` menu you can connect to you own hue bridge to get an **API key** or if you already know it you can enter directly.
 
 ### Rank
 In this music player there is multiple rank. Each rank have different permissions. Here is a list with some details :
- - `Viewer` the lowest rank. This allows the user to listen music and rate it nothing more.
+ - `Viewer` the lowest rank. This allows the user to listen music and rate it, nothing more.
  - `User` : In addition to the previous rank this one allows the user to upload his own musics or albums.
  - `Admin` :  This grade has got all permissions in the server, he can promote user, modify musics etc..
 
