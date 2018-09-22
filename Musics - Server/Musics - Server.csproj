@@ -97,7 +97,10 @@
     <Compile Include="Network\Handle\Login.cs" />
     <Compile Include="Network\Handle\Rates.cs" />
     <Compile Include="Network\Handle\Requests.cs" />
+    <Compile Include="Network\ReceiveArgs.cs" />
     <Compile Include="Network\Server.cs" />
+    <Compile Include="Network\ServerClient.cs" />
+    <Compile Include="Network\ServerComHandler.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
