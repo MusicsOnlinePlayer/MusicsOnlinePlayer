@@ -12,7 +12,7 @@ namespace Musics___Server.Network
         public Thread ReceivingThread { get; private set; }
         private byte[] recBuffer;
 
-        public event EventHandler ReceivingObject;
+        public event EventHandler<ReceiveArgs> ReceivingObject;
 
         public ServerClient()
         {
