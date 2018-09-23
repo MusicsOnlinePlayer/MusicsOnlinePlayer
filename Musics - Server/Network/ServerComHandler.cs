@@ -10,6 +10,8 @@ namespace Musics___Server.Network
         public List<ServerClient> _ServersClient { get; private set; }
 
         public ServerComHandler()
+
+
         {            
         }
 
@@ -19,13 +21,12 @@ namespace Musics___Server.Network
             serverClient.Connect(Ip);
             serverClient.StartReceive();
             serverClient.ReceivingObject += ServerClient_ReceivingObject;
-            _ServersClient.Add(serverClient);
-            
+            _ServersClient.Add(serverClient);            
         }
 
         private void ServerClient_ReceivingObject(object sender, ReceiveArgs e)
         {
-            
+            Program.MyServer.SendData(e.Data, Program.MyServer.Clients.GetSocket(((IPacket)Function.Deserialize(new MessageTCP(e.Data))).SenderUID));
         }
 
         public void GlobalSend(object obj)
