@@ -98,5 +98,16 @@ namespace Musics___Server.Network
             {
             }
         }
+
+        public void SendData(byte[] data, Socket socket)
+        {
+            try
+            {
+                socket.Send(data, 0, data.Length, SocketFlags.Partial);
+            }
+            catch
+            {
+            }
+        }
     } 
 }
