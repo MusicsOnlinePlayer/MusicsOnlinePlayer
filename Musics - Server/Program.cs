@@ -45,9 +45,7 @@ namespace Musics___Server
             Console.Write("~ Saving music info ... ");
             Indexation.SaveAllInfos();
             Console.WriteLine("Done.");
-
-            RateReport rateReport = new RateReport(true, "", 10);
-            rateReport.SenderUID = "";
+            
         }
 
         public static void PromoteUser(string UID, Rank rank)
