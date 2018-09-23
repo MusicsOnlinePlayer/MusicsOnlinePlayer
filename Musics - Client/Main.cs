@@ -64,6 +64,7 @@ namespace Musics___Client
             }
 
             SendObject(new Request(Me.UID));
+            
         }
 
         #region Network

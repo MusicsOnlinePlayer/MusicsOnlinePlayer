@@ -191,7 +191,7 @@
       <HintPath>..\packages\taglib.2.1.0.0\lib\taglib-sharp.dll</HintPath>
     </Reference>
     <Reference Include="Utility">
-      <HintPath>..\Utility\bin\Debug\Utility.dll</HintPath>
+      <HintPath>..\Utility\bin\Release\Utility.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
