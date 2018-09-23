@@ -9,8 +9,8 @@ namespace Utility.Network.Dialog.Rating
         public string MID { get; set; }
         public int UpdatedRating { get; set; }
 
-        string IPacket.SenderUID { get; set; }
-        bool IPacket.IsFromServer { get; set; }
+        public string SenderUID { get; set; }
+        public bool IsFromServer { get; set; }
 
         public RateReport(bool Reportok, string MusicID, int NewRating)
         {

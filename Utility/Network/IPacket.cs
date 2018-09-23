@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Utility.Network
 {
-    interface IPacket
+    public interface IPacket
     {
         string SenderUID { get; set; }
         bool IsFromServer { get; set; }
