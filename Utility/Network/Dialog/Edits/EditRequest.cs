@@ -5,7 +5,7 @@ using Utility.Musics;
 namespace Utility.Network.Dialog.Edits
 {
     [Serializable]
-    public class EditRequest
+    public class EditRequest : IPacket
     {
         public TypesEdit TypeOfEdit { get; set; }
 
@@ -16,6 +16,9 @@ namespace Utility.Network.Dialog.Edits
         public string NewName { get; set; }
         public string[] NewGenres { get; set; }
         public ElementType TypeOfObject { get; set; }
+
+        public string SenderUID { get; set; }
+        public bool IsFromServer { get; set; }
 
         public EditRequest(string UIDToEdit, Rank NewRank)
         {
