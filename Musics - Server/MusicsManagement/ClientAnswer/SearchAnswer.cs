@@ -58,6 +58,10 @@ namespace Musics___Server.MusicsManagement.ClientSearch
             foreach (var m in result)
                 Console.WriteLine("  " + m.Title);
 
+            requestSearch.SenderUID = Program.MyServer.Clients.GetUser(asker).UID;
+
+            Program.ServerCom.GlobalSend(requestSearch);
+
             Program.MyServer.SendObject(new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Music), asker);
         }
 
