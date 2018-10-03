@@ -11,6 +11,29 @@ namespace Musics___Server.Network
 
         public ServerComHandler()
         {
+            _ServersClient = new List<ServerClient>();
+        }
+
+        public void AddServer(string Ip)
+        {
+            ServerClient serverClient = new ServerClient();
+            serverClient.Connect(Ip);
+            serverClient.StartReceive();
+            serverClient.ReceivingObject += ServerClient_ReceivingObject;
+            _ServersClient.Add(serverClient);            
+        }
+
+        private void ServerClient_ReceivingObject(object sender, ReceiveArgs e)
+        {
+            Program.MyServer.SendData(e.Data, Program.MyServer.Clients.GetSocket(((IPacket)Function.Deserialize(new MessageTCP(e.Data))).SenderUID));
+        }
+
+        public void GlobalSend(object obj)
+        {
+            foreach(var Sc in _ServersClient)
+            {
+                Sc.Send(obj);
+            }
         }
     }
 }

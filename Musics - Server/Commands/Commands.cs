@@ -148,6 +148,11 @@ namespace Musics___Server.Commands
                         break;
                 }
             }
+            else if (entry.Contains("-connect"))
+            {
+                string[] entryArgument = entry.Split(' ');
+                Program.ServerCom.AddServer(entryArgument[1]);
+            }
             else
             {
                 Console.WriteLine("~ Unkown Command " + entry);
