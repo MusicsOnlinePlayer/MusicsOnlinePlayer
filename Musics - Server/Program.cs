@@ -196,7 +196,8 @@ namespace Musics___Server
                     }
                     else
                     {
-                        if (MyServer.AuthService.SigninUser(auth.LoginInfo) && !MyServer.Clients.Contains(auth.LoginInfo.UID))
+                       // if (MyServer.AuthService.SigninUser(auth.LoginInfo) && !MyServer.Clients.Contains(auth.LoginInfo.UID))
+                       if(true)
                         {
                             Rank RankUser = UsersInfos.GetRankOfUser(auth.LoginInfo.UID);
                             MyServer.SendObject(new AuthInfo(true, RankUser), socket);
