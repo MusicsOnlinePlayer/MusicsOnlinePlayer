@@ -10,9 +10,8 @@ namespace Musics___Server.Network
         public List<ServerClient> _ServersClient { get; private set; }
 
         public ServerComHandler()
-
-
-        {            
+        {
+            _ServersClient = new List<ServerClient>();
         }
 
         public void AddServer(string Ip)
