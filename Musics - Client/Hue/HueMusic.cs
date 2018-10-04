@@ -43,6 +43,11 @@ namespace Musics___Client.Hue
             ApiKey = AsyncHelper.RunSync(() => client.RegisterAsync("MusicsClient", "Windows"));
         }
 
+        public List<Light> GetLights()
+        {
+            return (AsyncHelper.RunSync(() => client.GetLightsAsync())).ToList();
+        }
+
         public async Task TurnOnLight(RGBColor RgbColor,byte Brightness)
         {
             try

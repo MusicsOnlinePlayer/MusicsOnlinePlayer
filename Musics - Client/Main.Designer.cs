@@ -91,6 +91,7 @@
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.label12 = new System.Windows.Forms.Label();
             this.UISearch = new System.Windows.Forms.TabPage();
+            this.UIPlaylistClear = new System.Windows.Forms.LinkLabel();
             this.UIEditMusicGenres = new System.Windows.Forms.TextBox();
             this.UIEditMusicName = new System.Windows.Forms.TextBox();
             this.UITextboxSearch = new System.Windows.Forms.TextBox();
@@ -130,7 +131,7 @@
             this.Tabs = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.UIPlaylistClear = new System.Windows.Forms.LinkLabel();
+            this.UILightList = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -477,6 +478,7 @@
             // 
             // UISettings
             // 
+            this.UISettings.Controls.Add(this.UILightList);
             this.UISettings.Controls.Add(this.label1);
             this.UISettings.Controls.Add(this.label11);
             this.UISettings.Controls.Add(this.UISoundLevel);
@@ -894,6 +896,18 @@
             this.UISearch.Text = "Search";
             this.UISearch.UseVisualStyleBackColor = true;
             // 
+            // UIPlaylistClear
+            // 
+            this.UIPlaylistClear.AutoSize = true;
+            this.UIPlaylistClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIPlaylistClear.Location = new System.Drawing.Point(1143, 734);
+            this.UIPlaylistClear.Name = "UIPlaylistClear";
+            this.UIPlaylistClear.Size = new System.Drawing.Size(54, 24);
+            this.UIPlaylistClear.TabIndex = 27;
+            this.UIPlaylistClear.TabStop = true;
+            this.UIPlaylistClear.Text = "Clear";
+            this.UIPlaylistClear.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.UIPlaylistClear_LinkClicked);
+            // 
             // UIEditMusicGenres
             // 
             this.UIEditMusicGenres.Location = new System.Drawing.Point(29, 546);
@@ -983,7 +997,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.23116F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.76884F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 275F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 276F));
             this.tableLayoutPanel1.Controls.Add(this.UIPathMusic, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAlbum, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAuthor, 0, 0);
@@ -1000,7 +1014,7 @@
             this.UIPathMusic.AutoSize = true;
             this.UIPathMusic.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathMusic.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathMusic.Location = new System.Drawing.Point(347, 0);
+            this.UIPathMusic.Location = new System.Drawing.Point(346, 0);
             this.UIPathMusic.Name = "UIPathMusic";
             this.UIPathMusic.Size = new System.Drawing.Size(42, 14);
             this.UIPathMusic.TabIndex = 19;
@@ -1352,17 +1366,13 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // UIPlaylistClear
+            // UILightList
             // 
-            this.UIPlaylistClear.AutoSize = true;
-            this.UIPlaylistClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UIPlaylistClear.Location = new System.Drawing.Point(1143, 734);
-            this.UIPlaylistClear.Name = "UIPlaylistClear";
-            this.UIPlaylistClear.Size = new System.Drawing.Size(54, 24);
-            this.UIPlaylistClear.TabIndex = 27;
-            this.UIPlaylistClear.TabStop = true;
-            this.UIPlaylistClear.Text = "Clear";
-            this.UIPlaylistClear.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.UIPlaylistClear_LinkClicked);
+            this.UILightList.FormattingEnabled = true;
+            this.UILightList.Location = new System.Drawing.Point(430, 220);
+            this.UILightList.Name = "UILightList";
+            this.UILightList.Size = new System.Drawing.Size(756, 108);
+            this.UILightList.TabIndex = 30;
             // 
             // Client
             // 
@@ -1519,6 +1529,7 @@
         private System.Windows.Forms.Button UIPlayFavorites;
         private System.Windows.Forms.Button UIFavoritesBack;
         private System.Windows.Forms.LinkLabel UIPlaylistClear;
+        private System.Windows.Forms.CheckedListBox UILightList;
     }
 }
 
