@@ -18,6 +18,7 @@ using Utility.Network.Dialog.Authentification;
 using Utility.Musics;
 using Utility.Network.Dialog.Uploads;
 using Musics___Client.AppSettings;
+using Q42.HueApi;
 
 namespace Musics___Client
 {
@@ -829,6 +830,8 @@ namespace Musics___Client
 
         #region Hue
 
+        private List<Light> LightHue = new List<Light>(); 
+
         private void UIHueConnectKey_Click(object sender, EventArgs e)
         {
             if (UIHueApi != null && UIHueIp.Text != null)
@@ -842,11 +845,12 @@ namespace Musics___Client
                     {
                         UIHueConnectKey.Show();
                         UIHueConnectRegister.Show();
-                    }
+                    }                  
                     else
                     {
                         EndConnectHue();
                     }
+                    ShowLights();
                 }
                 catch (Exception ex)
                 {
@@ -870,11 +874,12 @@ namespace Musics___Client
                     {
                         UIHueConnectKey.Show();
                         UIHueConnectRegister.Show();
-                    }
+                    }                   
                     else
                     {
                         EndConnectHue();
                     }
+                    ShowLights();
                 }
                 catch (Exception ex)
                 {
@@ -885,9 +890,21 @@ namespace Musics___Client
             }
         }
 
+        private void ShowLights()
+        {
+            foreach(var l in HueMusic.GetLights())
+            {
+                UILightList.Items.Add(l.Name + "(" + l.State.Mode+")", false);
+                LightHue.Add(l);
+            }          
+        }
+
         void EndConnectHue()
         {
             ApplicationSettings.Save(new AppSettings.Settings(UIHueIp.Text, UIHueApi.Text, null));
+
+            UILightList.Items.Clear();
+            LightHue.Clear();
 
             UIHueConnection.Text = "Connected";
             UIHueConnection.ForeColor = Color.Green;
