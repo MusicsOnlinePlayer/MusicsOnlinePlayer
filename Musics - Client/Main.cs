@@ -899,6 +899,21 @@ namespace Musics___Client
             }          
         }
 
+        private void UIHueDelay_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (int.TryParse(UIHueDelay.Text, out int delay))
+                {
+                    HueTimer.Interval = delay;
+                }
+                else
+                {
+                    UIHueDelay.Text = HueTimer.Interval.ToString();
+                }
+            }
+        }
+
         void EndConnectHue()
         {
             ApplicationSettings.Save(new AppSettings.Settings(UIHueIp.Text, UIHueApi.Text, null));
@@ -1116,5 +1131,6 @@ namespace Musics___Client
             }
         }
         #endregion
+
     }
 }
