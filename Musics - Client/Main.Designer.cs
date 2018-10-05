@@ -57,6 +57,7 @@
             this.UISearchUser = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.UISettings = new System.Windows.Forms.TabPage();
+            this.UILightList = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.UISoundLevel = new System.Windows.Forms.ProgressBar();
@@ -131,7 +132,8 @@
             this.Tabs = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.UILightList = new System.Windows.Forms.CheckedListBox();
+            this.UIHueDelay = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -478,6 +480,8 @@
             // 
             // UISettings
             // 
+            this.UISettings.Controls.Add(this.UIHueDelay);
+            this.UISettings.Controls.Add(this.label13);
             this.UISettings.Controls.Add(this.UILightList);
             this.UISettings.Controls.Add(this.label1);
             this.UISettings.Controls.Add(this.label11);
@@ -499,6 +503,14 @@
             this.UISettings.TabIndex = 7;
             this.UISettings.Text = "Settings";
             this.UISettings.UseVisualStyleBackColor = true;
+            // 
+            // UILightList
+            // 
+            this.UILightList.FormattingEnabled = true;
+            this.UILightList.Location = new System.Drawing.Point(430, 220);
+            this.UILightList.Name = "UILightList";
+            this.UILightList.Size = new System.Drawing.Size(756, 108);
+            this.UILightList.TabIndex = 30;
             // 
             // label1
             // 
@@ -997,7 +1009,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.23116F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.76884F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 276F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 277F));
             this.tableLayoutPanel1.Controls.Add(this.UIPathMusic, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAlbum, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAuthor, 0, 0);
@@ -1014,7 +1026,7 @@
             this.UIPathMusic.AutoSize = true;
             this.UIPathMusic.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathMusic.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathMusic.Location = new System.Drawing.Point(346, 0);
+            this.UIPathMusic.Location = new System.Drawing.Point(345, 0);
             this.UIPathMusic.Name = "UIPathMusic";
             this.UIPathMusic.Size = new System.Drawing.Size(42, 14);
             this.UIPathMusic.TabIndex = 19;
@@ -1026,7 +1038,7 @@
             this.UIPathAlbum.AutoSize = true;
             this.UIPathAlbum.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathAlbum.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathAlbum.Location = new System.Drawing.Point(162, 0);
+            this.UIPathAlbum.Location = new System.Drawing.Point(161, 0);
             this.UIPathAlbum.Name = "UIPathAlbum";
             this.UIPathAlbum.Size = new System.Drawing.Size(42, 14);
             this.UIPathAlbum.TabIndex = 18;
@@ -1366,13 +1378,25 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // UILightList
+            // UIHueDelay
             // 
-            this.UILightList.FormattingEnabled = true;
-            this.UILightList.Location = new System.Drawing.Point(430, 220);
-            this.UILightList.Name = "UILightList";
-            this.UILightList.Size = new System.Drawing.Size(756, 108);
-            this.UILightList.TabIndex = 30;
+            this.UIHueDelay.Location = new System.Drawing.Point(431, 379);
+            this.UIHueDelay.Name = "UIHueDelay";
+            this.UIHueDelay.Size = new System.Drawing.Size(412, 31);
+            this.UIHueDelay.TabIndex = 32;
+            this.UIHueDelay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UIHueDelay_KeyDown);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label13.Location = new System.Drawing.Point(426, 350);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(99, 24);
+            this.label13.TabIndex = 31;
+            this.label13.Text = "Delay (ms)";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Client
             // 
@@ -1530,6 +1554,8 @@
         private System.Windows.Forms.Button UIFavoritesBack;
         private System.Windows.Forms.LinkLabel UIPlaylistClear;
         private System.Windows.Forms.CheckedListBox UILightList;
+        private System.Windows.Forms.TextBox UIHueDelay;
+        private System.Windows.Forms.Label label13;
     }
 }
 
