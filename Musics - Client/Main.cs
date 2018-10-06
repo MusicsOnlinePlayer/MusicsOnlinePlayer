@@ -894,7 +894,7 @@ namespace Musics___Client
         {
             foreach(var l in HueMusic.GetLights())
             {
-                UILightList.Items.Add(l.Name + "(" + l.State.Mode+")", false);
+                UILightList.Items.Add(l.Name + "(" + l.Id+")", false);
                 LightHue.Add(l);
             }          
         }
@@ -924,21 +924,31 @@ namespace Musics___Client
             UIHueConnection.Text = "Connected";
             UIHueConnection.ForeColor = Color.Green;
 
+            Device = MDeviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
+
             HueTimer.Enabled = true;
             HueTimer.Start();
         }
 
+        MMDeviceEnumerator MDeviceEnumerator = new MMDeviceEnumerator();
+        MMDevice Device;
+
         private async void HueTimer_Tick(object sender, EventArgs e)
         {
-            var enumerator = new MMDeviceEnumerator();
-            var device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
-            var scale = (int)Math.Floor(device.AudioMeterInformation.MasterPeakValue * 100);
+            var scale = Function.Map(Device.AudioMeterInformation.MasterPeakValue, 0, 1, 0, 100);
 
-            UISoundLevel.Value = scale;
+            UISoundLevel.Value = (int)scale;
+
+            List<string> LightsNames = new List<string>();
+
+            foreach (int s in UILightList.CheckedIndices)
+            {
+                LightsNames.Add(LightHue[s].Id);
+            }
 
             try
             {
-                await HueMusic.TurnOnLight(new Q42.HueApi.ColorConverters.RGBColor(100, 100, 100), Convert.ToByte(10 * scale));
+                await HueMusic.TurnOnLight(new Q42.HueApi.ColorConverters.RGBColor(100, 100, 100), Convert.ToByte(2.5 * scale),LightsNames);
             }
             catch
             {

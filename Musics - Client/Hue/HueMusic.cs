@@ -48,14 +48,14 @@ namespace Musics___Client.Hue
             return (AsyncHelper.RunSync(() => client.GetLightsAsync())).ToList();
         }
 
-        public async Task TurnOnLight(RGBColor RgbColor,byte Brightness)
+        public async Task TurnOnLight(RGBColor RgbColor,byte Brightness,List<string> lights)
         {
             try
             {
                 var command = new LightCommand();
                 command.TurnOn().SetColor(RgbColor);
                 command.Brightness = Brightness;
-                await client.SendCommandAsync(command);
+                await client.SendCommandAsync(command,lights);
             }
             catch
             {
