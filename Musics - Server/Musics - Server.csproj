@@ -38,6 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -72,6 +73,9 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CodeCraft.EnumExtension, Version=1.0.0.0, Culture=neutral, PublicKeyToken=69ec44bc4a2068d2, processorArchitecture=MSIL">
+      <HintPath>..\packages\CodeCraft.EnumExtension.1.0.0\lib\netstandard2.0\CodeCraft.EnumExtension.dll</HintPath>
+    </Reference>
     <Reference Include="CodeCraft.Logger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CodeCraft.Logger.1.0.0\lib\netstandard2.0\CodeCraft.Logger.dll</HintPath>
     </Reference>
@@ -92,7 +96,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AllUsersCommand.cs" />
+    <Compile Include="Commands\BaseCommand.cs" />
+    <Compile Include="Commands\CommandSyntaxAttribute.cs" />
+    <Compile Include="Commands\ECommands.cs" />
+    <Compile Include="Commands\Exceptions\CommandException.cs" />
     <Compile Include="Commands\Commands.cs" />
+    <Compile Include="Commands\GetCommand.cs" />
+    <Compile Include="Commands\GetMultithreadingCommand.cs" />
+    <Compile Include="Commands\IndexationCommand.cs" />
+    <Compile Include="Commands\InitializeCommand.cs" />
+    <Compile Include="Commands\SaveCommand.cs" />
+    <Compile Include="Commands\SetCommand.cs" />
+    <Compile Include="Commands\SetMultithreadingCommand.cs" />
+    <Compile Include="Commands\UserCommand.cs" />
     <Compile Include="MusicsManagement\ClientAnswer\SearchAnswer.cs" />
     <Compile Include="MusicsManagement\MusicsInfo.cs" />
     <Compile Include="MusicsManagement\Search.cs" />

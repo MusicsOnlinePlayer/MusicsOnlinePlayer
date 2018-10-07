@@ -9,8 +9,6 @@ using Utility.Network.Dialog.Uploads;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Diagnostics;
-using static Musics___Server.Program;
-
 
 namespace Musics___Server.MusicsManagement
 {
@@ -20,8 +18,10 @@ namespace Musics___Server.MusicsManagement
 
         public static void InitRepository()
         {
-            Directory.CreateDirectory(@"c:\AllMusics");
-            MyServer.Log.Info("Directory created.");
+            string musicsDBPath = @"C:\AllMusics";
+            if (!Directory.Exists(musicsDBPath))
+                Directory.CreateDirectory(musicsDBPath);
+            Console.WriteLine("Directory created.");
             MusicsInfo.SetupMusics();
         }
 
@@ -31,7 +31,7 @@ namespace Musics___Server.MusicsManagement
         public static IEnumerable<Music> GetAllMusics()
             => ServerMusics.SelectMany(x => x.Albums).SelectMany(x => x.Musics);
 
-        public static bool IsElementExisting(Element element)
+        public static bool IsElementExisting(IElement element)
         {
             switch (element.Type)
             {
@@ -42,7 +42,10 @@ namespace Musics___Server.MusicsManagement
                 default: throw new InvalidOperationException();
             }
         }
-
+        public static int Do()
+        {
+             return Do(Properties.Settings.Default.UseMultiThreading);
+        }
         public static int Do(bool UseMultiThreading)
         {
             string[] ArtistDirs = Directory.GetDirectories(@"c:\AllMusics");
@@ -52,7 +55,7 @@ namespace Musics___Server.MusicsManagement
             TagLib.File file;
             Console.WriteLine();
 
-            Stopwatch indexationStopWatch = new Stopwatch();
+            var indexationStopWatch = new Stopwatch();
             indexationStopWatch.Start();
             long startMemory = GC.GetTotalMemory(false);
 
@@ -93,7 +96,7 @@ namespace Musics___Server.MusicsManagement
                 ServerMusics.Add(CurrentArtist);
             }
             indexationStopWatch.Stop();
-            MyServer.Log.Debug("Indexation finished in "+indexationStopWatch.ElapsedMilliseconds+" Ms, with "+ ((GC.GetTotalMemory(false) - startMemory) / 1000000) + " Mo of memory");
+            Console.WriteLine("Indexation finished in {0} ms, with {1} Mo of memory", indexationStopWatch.ElapsedMilliseconds, (GC.GetTotalMemory(false) - startMemory)/ 1000000);
             return NumberofMusics;
         }
 
@@ -157,32 +160,6 @@ namespace Musics___Server.MusicsManagement
                 default:
                     throw new InvalidOperationException();
             }
-
-            //if (originalElement is Author)
-            //{
-            //    //Author tmpOrigin = Origin as Author;
-            //    //foreach (var a in Indexation.ServerMusics)
-            //    //{
-            //    //    if(tmpOrigin.MID == a.MID)
-            //    //    {
-            //    //        a.Name = NewName;
-            //    //        a.MID = Hash.SHA256Hash(a.Name + ElementType.Author);
-
-            //    //        //Directory.Move(a.ServerPath, Directory.GetParent(a.ServerPath) + "/" + a.Name);
-
-            //    //        foreach (var al in a.albums)
-            //    //        {
-            //    //            al.Author = a;
-            //    //            foreach(var m in al.Musics)
-            //    //            {
-            //    //                m.Author = a;
-            //    //            }
-            //    //        }
-
-            //    //        return;
-            //    //    }
-            //    //}
-            //}
         }
         public static void ModifyMusic(Element originalElement, string newName, string[] genres)
         {
@@ -306,7 +283,7 @@ namespace Musics___Server.MusicsManagement
         }
 
         public static Album GetAlbum(Element element)
-          => GetAlbum(element.MID);
+            => GetAlbum(element.MID);
         public static Album GetAlbum(string MID)
             => ServerMusics.SelectMany(x => x.Albums).SingleOrDefault(x => x.MID == MID);
 
@@ -314,9 +291,10 @@ namespace Musics___Server.MusicsManagement
             => GetAuthor(element.MID);
         public static Author GetAuthor(string MID)
            => ServerMusics.SingleOrDefault(x => x.MID == MID);
+
         public static Music GetMusic(Element element)
-            => GetMusicByID(element.MID);
-        public static Music GetMusicByID(string MID) 
+            => GetMusic(element.MID);
+        public static Music GetMusic(string MID)
             => GetAllMusics().SingleOrDefault(m => m.MID == MID);
 
         public static string GetElementPath(Element element)
