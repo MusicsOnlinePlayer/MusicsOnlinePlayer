@@ -68,8 +68,8 @@ namespace Musics___Server.Network
             }
             catch
             {
-                Log.Info("Client disconnected =(");
-                Clients.List.Remove(current);
+                Console.WriteLine("Client disconnected =(");
+                Clients.Remove(current);
             }
 
             byte[] recBuf = new byte[received];
@@ -84,8 +84,8 @@ namespace Musics___Server.Network
             }
             catch
             {
-                Log.Info("Client disconnected =(");
-                Clients.List.Remove(current);
+                Console.WriteLine("Client disconnected =(");
+                Clients.Remove(current);
             }
         }
 

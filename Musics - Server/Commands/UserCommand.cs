@@ -30,7 +30,7 @@ namespace Musics___Server.Commands
             public override void Execute(IEnumerable<string> args)
             {
                 Console.WriteLine("~ Getting all connected users");
-                foreach (var u in Program.MyServer.Clients.List.Values)
+                foreach (var u in Program.MyServer.Clients.Values)
                     Console.WriteLine(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
                 Console.WriteLine("~ End.");
             }

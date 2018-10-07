@@ -100,7 +100,7 @@ namespace Musics___Server
                 if(received is Disconnect)
                 {
                     Console.WriteLine("Client disconnected =(");
-                    MyServer.Clients.List.Remove(socket);
+                    MyServer.Clients.Remove(socket);
                 }
                 if (received is EditUser)
                 {
