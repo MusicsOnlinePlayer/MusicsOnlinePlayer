@@ -70,6 +70,7 @@
     <Compile Include="Network\IPacket.cs" />
     <Compile Include="Network\MessageTCP.cs" />
     <Compile Include="Network\Users\ClientList.cs" />
+    <Compile Include="Network\Users\Rank.cs" />
     <Compile Include="Network\Users\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

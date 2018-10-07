@@ -58,7 +58,7 @@ namespace Musics___Server
             {
                 tmpUser.Userrank = rank;
                 Socket tmpSocket = MyServer.Clients.GetSocket(UID);
-                MyServer.Clients.List.Remove(tmpSocket);
+                MyServer.Clients.Remove(tmpSocket);
                 MyServer.Clients.AddUser(tmpUser, tmpSocket);
                 MyServer.SendObject(new EditUserReport(true, MyServer.Clients.GetUser(UID)), MyServer.Clients.GetSocket(UID));
             }
@@ -109,7 +109,7 @@ namespace Musics___Server
                     {
                         MyServer.SendObject(new EditUserReport(true, tmp.NewUser), socket);
 
-                        MyServer.Clients.List.Remove(socket);
+                        MyServer.Clients.Remove(socket);
                         MyServer.Clients.AddUser(tmp.NewUser, socket);
                         return;
                     }
@@ -173,7 +173,7 @@ namespace Musics___Server
                     if (auth.IsSignup)
                     {
                         MyServer.AuthService.SignupUser(auth.LoginInfo);
-                        MyServer.Clients.List.Remove(socket);
+                        MyServer.Clients.Remove(socket);
                         MyServer.Clients.AddUser(auth.LoginInfo, socket);
                         MyServer.SendObject(new AuthInfo(true, Rank.Viewer), socket);
                     }
@@ -183,7 +183,7 @@ namespace Musics___Server
                         {
                             Rank RankUser = UsersInfos.GetRankOfUser(auth.LoginInfo.UID);
                             MyServer.SendObject(new AuthInfo(true, RankUser), socket);
-                            MyServer.Clients.List.Remove(socket);
+                            MyServer.Clients.Remove(socket);
                             auth.LoginInfo.Userrank = RankUser;
                             MyServer.Clients.AddUser(auth.LoginInfo, socket);
                         }

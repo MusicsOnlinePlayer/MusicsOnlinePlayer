@@ -16,11 +16,13 @@
         AllUsers,
         [CommandSyntax(command: "-set")]
         Set,
-        [CommandSyntax(command: "-set multithreading")]
+        [CommandSyntax(command: "-set multithreading|-set mt")]
         SetMultithreading,
         [CommandSyntax(command: "-get")]
         Get,
-        [CommandSyntax(command: "-get multithreading")]
-        GetMultithreading
+        [CommandSyntax(command: "-get multithreading|-get mt")]
+        GetMultithreading,
+        [CommandSyntax(command: "-promote")]
+        Promote,
     }
 }
