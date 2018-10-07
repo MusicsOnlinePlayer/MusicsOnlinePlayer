@@ -6,7 +6,6 @@ using Musics___Server.MusicsManagement;
 using Musics___Server.Usersinfos;
 using Utility.Network.Users;
 using System.Linq;
-using CodeCraft.EnumExtension;
 
 namespace Musics___Server.Commands
 {
