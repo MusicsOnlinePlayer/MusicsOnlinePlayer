@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Net.Sockets;
 
@@ -9,19 +10,11 @@ namespace Utility.Network.Users
         public Dictionary<Socket, User> List = new Dictionary<Socket, User>();
 
         public bool Contains(string UID)
-        {
-            foreach (var p in List)
-            {
-                if (p.Value.UID == UID)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+            => List.Values.Any(x => x.UID == UID);
 
         public int GetIndex(string UID)
         {
+            
             int a = 0;
             foreach (var p in List)
             {
@@ -36,26 +29,12 @@ namespace Utility.Network.Users
 
         public Socket GetSocket(string UID)
         {
-            foreach (var p in List)
-            {
-                if (p.Value.UID == UID)
-                {
-                    return p.Key;
-                }
-            }
-            return null;
+            return List.FirstOrDefault(x => x.Value.UID == UID).Key;
         }
 
         public User GetUser(string UID)
         {
-            foreach (var p in List.Values)
-            {
-                if (p.UID == UID)
-                {
-                    return p;
-                }
-            }
-            return null;
+            return List.Values.FirstOrDefault(x => x.UID == UID);
         }
         public User GetUser(Socket socket)
         {
