@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CodeCraft.EnumExtension;
 
 namespace Musics___Server.Commands
 {
