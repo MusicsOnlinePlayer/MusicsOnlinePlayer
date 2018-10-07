@@ -6,7 +6,7 @@ using Musics___Server.MusicsManagement;
 using Musics___Server.Usersinfos;
 using Utility.Network.Users;
 using System.Linq;
-using CodeCraft.EnumExtension; 
+using CodeCraft.EnumExtension;
 
 namespace Musics___Server.Commands
 {
@@ -21,30 +21,26 @@ namespace Musics___Server.Commands
 
         public void Start()
         {
-            string command = string.Empty;
+            string commandLine = string.Empty;
             do
             {
-                command = Console.ReadLine();
-                (var cmd, var arguments) = CommandSplitter(command);
+                commandLine = Console.ReadLine();
+                (var cmd, var arguments) = CommandSplitter(commandLine);
                 try
                 {
-                    var Command = CommandFactory.InstanciateCommand(cmd);
-                   // Command.CommandSendOutputEvent += Command_CommandSendOutputEvent;
-                    Command.Execute(arguments);
-                    //Console.WriteLine(outputs);
+                    (var CommandType, var command) = CommandFactory.InstanciateCommand(cmd);
+                    if (CommandType == ECommands.Quit)
+                        break;
+                    command.Execute(arguments);
                 }
                 catch (CommandException ex)
                 {
                     Console.Write(ex.Message);
                 }
-            } while (command != "-quit");
+            } while (commandLine != "-quit");
 
         }
 
-        //private void Command_CommandSendOutputEvent(object sender, CommandArgs e)
-        //{
-        //    Console.Write(e.Output);
-        //}
 
         private (string command, IEnumerable<string> arguments) CommandSplitter(string command)
         {
@@ -54,49 +50,6 @@ namespace Musics___Server.Commands
 
         private string CompleteTrimmer(string command)
             => Regex.Replace(command, @"\s+", " ");
-    }
-
-    internal sealed class CommandFactory
-    {
-        public static BaseCommand InstanciateCommand(string command)
-        {
-            var commandEnum = RetrieveEnumerator(command);
-            return InstanciateCommand(commandEnum);
-        }
-
-        private static ECommands RetrieveEnumerator(string command)
-        {
-            try
-            {
-                return Enum<ECommands>.GetEnumAttributePairs<CommandSyntaxAttribute>()
-                                .Single(p => p.Value.Command.Split('|').ToList().Contains(command))
-                                .Key;
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw new CommandException("Command does not exist", ex);
-            }
-        }
-
-        private static BaseCommand InstanciateCommand(ECommands command)
-        {
-            switch (command)
-            {
-                case ECommands.Quit: break;
-                case ECommands.InitializeRepository: return new InitializeCommand();
-                case ECommands.Indexation: return new IndexationCommand();
-                case ECommands.Save: return new SaveCommand();
-                case ECommands.Users: return new UserCommand();
-                case ECommands.AllUsers: return new AllUsersCommand();
-                case ECommands.Set: return new SetCommand();
-                case ECommands.SetMultithreading: return new SetMultithreadingCommand();
-                case ECommands.Get: return new GetCommand();
-                case ECommands.GetMultithreading: return new GetMultithreadingCommand();
-                default: throw new NotImplementedException();
-
-            }
-            throw new NotImplementedException();
-        }
     }
     
     static class Commands

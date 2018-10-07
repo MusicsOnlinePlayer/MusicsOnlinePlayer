@@ -98,14 +98,17 @@
   <ItemGroup>
     <Compile Include="Commands\AllUsersCommand.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
+    <Compile Include="Commands\CommandFactory.cs" />
     <Compile Include="Commands\CommandSyntaxAttribute.cs" />
     <Compile Include="Commands\ECommands.cs" />
+    <Compile Include="Commands\EntryCommand.cs" />
     <Compile Include="Commands\Exceptions\CommandException.cs" />
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\GetCommand.cs" />
     <Compile Include="Commands\GetMultithreadingCommand.cs" />
     <Compile Include="Commands\IndexationCommand.cs" />
     <Compile Include="Commands\InitializeCommand.cs" />
+    <Compile Include="Commands\PromoteCommand.cs" />
     <Compile Include="Commands\SaveCommand.cs" />
     <Compile Include="Commands\SetCommand.cs" />
     <Compile Include="Commands\SetMultithreadingCommand.cs" />
