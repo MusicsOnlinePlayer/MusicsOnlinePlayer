@@ -101,8 +101,8 @@ namespace Musics___Server
                 }
                 if(received is Disconnect)
                 {
-                    MyServer.Log.Warn("Client disconnected =(");
-                    MyServer.Clients.List.Remove(socket);
+                    MyServer.log.Warn("Client disconnected =(");
+                    MyServer.Clients.Remove(socket);
                 }
                 if (received is EditUser)
                 {
