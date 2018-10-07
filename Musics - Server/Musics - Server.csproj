@@ -108,6 +108,7 @@
     <Compile Include="Commands\GetMultithreadingCommand.cs" />
     <Compile Include="Commands\IndexationCommand.cs" />
     <Compile Include="Commands\InitializeCommand.cs" />
+    <Compile Include="Commands\PromoteCommand.cs" />
     <Compile Include="Commands\SaveCommand.cs" />
     <Compile Include="Commands\SetCommand.cs" />
     <Compile Include="Commands\SetMultithreadingCommand.cs" />
