@@ -1,14 +1,111 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Musics___Server.Commands.Exceptions;
 using Musics___Server.MusicsManagement;
 using Musics___Server.Usersinfos;
 using Utility.Network.Users;
-using CodeCraft.Logger;
-using static Musics___Server.Program;
+using System.Linq;
+using CodeCraft.EnumExtension;
+using System.Threading;
+using Musics___Server.Commands.Exceptions;
 
 namespace Musics___Server.Commands
 {
+
+    public sealed class CommandLineInterpreter
+    {
+        private static Lazy<CommandLineInterpreter> instance = new Lazy<CommandLineInterpreter>(() => new CommandLineInterpreter(), true);
+
+        public static CommandLineInterpreter Instance { get => instance.Value; }
+
+        private CommandLineInterpreter() { }
+
+        public void Start()
+        {
+            string command = string.Empty;
+            do
+            {
+                command = Console.ReadLine();
+                (var cmd, var arguments) = CommandSplitter(command);
+                try
+                {
+                    var Command = CommandFactory.InstanciateCommand(cmd);
+                   // Command.CommandSendOutputEvent += Command_CommandSendOutputEvent;
+                    Command.Execute(arguments);
+                    //Console.WriteLine(outputs);
+                }
+                catch (CommandException ex)
+                {
+                    Console.Write(ex.Message);
+                }
+            } while (command != "-quit");
+
+        }
+
+        //private void Command_CommandSendOutputEvent(object sender, CommandArgs e)
+        //{
+        //    Console.Write(e.Output);
+        //}
+
+        private (string command, IEnumerable<string> arguments) CommandSplitter(string command)
+        {
+            var splittedCommand = CompleteTrimmer(command).Split(' ').ToList();
+            return (splittedCommand.First(), splittedCommand.Skip(1));
+        }
+
+        private string CompleteTrimmer(string command)
+            => Regex.Replace(command, @"\s+", " ");
+    }
+
+    internal sealed class CommandFactory
+    {
+        public static BaseCommand InstanciateCommand(string command)
+        {
+            var commandEnum = RetrieveEnumerator(command);
+            return InstanciateCommand(commandEnum);
+        }
+
+        private static ECommands RetrieveEnumerator(string command)
+        {
+            try
+            {
+                return Enum<ECommands>.GetEnumAttributePairs<CommandSyntaxAttribute>()
+                                .Single(p => p.Value.Command.Split('|').ToList().Contains(command))
+                                .Key;
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new CommandException("Command does not exist", ex);
+            }
+        }
+
+        private static BaseCommand InstanciateCommand(ECommands command)
+        {
+            switch (command)
+            {
+                case ECommands.Quit: break;
+                case ECommands.InitializeRepository: return new InitializeCommand();
+                case ECommands.Indexation: return new IndexationCommand();
+                case ECommands.Save: return new SaveCommand();
+                case ECommands.Users: return new UserCommand();
+                case ECommands.AllUsers: return new AllUsersCommand();
+                case ECommands.Set: return new SetCommand();
+                case ECommands.SetMultithreading: return new SetMultithreadingCommand();
+                case ECommands.Get: return new GetCommand();
+                case ECommands.GetMultithreading: return new GetMultithreadingCommand();
+                default: throw new NotImplementedException();
+
+            }
+            throw new NotImplementedException();
+        }
+    }
+    
     static class Commands
     {
+        private static Regex CommandRegex = new Regex("");
+
+
         public static void Do(string entry)
         {
             if (entry == "-init")
@@ -17,57 +114,57 @@ namespace Musics___Server.Commands
             }
             else if (entry == "-index")
             {
-                MyServer.Log.Info("Removing all musics.... ");
+                Console.WriteLine("~ Removing all musics.... ");
                 Indexation.ServerMusics.Clear();
-                MyServer.Log.Info("Done.");
-                MyServer.Log.Info("Indexation of all musics....  ");
-                MyServer.Log.Info(Indexation.Do(Properties.Settings.Default.UseMultiThreading) + "Musics");
-                MyServer.Log.Info("Indexation done.");
+                Console.WriteLine("~ Done.");
+                Console.Write("~ Indexation of all musics....  ");
+                Console.WriteLine(Indexation.Do(Properties.Settings.Default.UseMultiThreading) + " Musics");
+                Console.WriteLine("~ Indexation done.");
             }
             else if (entry == "-save")
             {
-                MyServer.Log.Info("Saving music info ... ");
+                Console.Write("~ Saving music info ... ");
                 Indexation.SaveAllInfos();
-                MyServer.Log.Info("Done.");
+                Console.WriteLine("~ Done.");
             }
             else if (entry == "-users")
             {
-                MyServer.Log.Info("Getting all connected users");
-                foreach (User u in Program.MyServer.Clients.List.Values)
+                Console.WriteLine("~ Getting all connected users");
+                foreach (var u in Program.MyServer.Clients.List.Values)
                 {
-                    MyServer.Log.Info(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
+                    Console.WriteLine(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
                 }
-                MyServer.Log.Info("End.");
+                Console.WriteLine("~ End.");
             }
             else if (entry == "-users -all" || entry == "-users -a")
             {
-                MyServer.Log.Info("Getting all users");
-                foreach (User u in UsersInfos.GetAllUsers())
+                Console.WriteLine("~ Getting all users");
+                foreach (var u in UsersInfos.GetAllUsers())
                 {
-                    MyServer.Log.Info(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
+                    Console.WriteLine(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
                 }
-                MyServer.Log.Info("End.");
+                Console.WriteLine("~ End.");
             }
             else if (entry.Contains("-promote"))
             {
 
                 string[] entryArgument = entry.Split('-');
-                if(entryArgument.Length != 4)
+                if (entryArgument.Length != 4)
                 {
-                    MyServer.Log.Info("Syntax not correct, please use -promote -UID -Rank");
+                    Console.WriteLine("~ Syntax not correct, please use -promote -UID -Rank");
                     return;
                 }
                 string UID_ = entryArgument[2].Replace(" ", "");
                 if (Enum.TryParse(entry.Split('-')[3], out Rank rank))
                 {
-                    MyServer.Log.Info("Promote " + UID_ + " to " + rank.ToString());
+                    Console.WriteLine("~ Promote " + UID_ + " to " + rank.ToString());
                     Musics___Server.Program.PromoteUser(UID_, rank);
 
-                    MyServer.Log.Info("Ok.");
+                    Console.WriteLine("~ Ok.");
                 }
                 else
                 {
-                    MyServer.Log.Info("Syntax not correct, please use -promote -UID -Rank");
+                    Console.WriteLine("~ Syntax not correct, please use -promote -UID -Rank");
                 }
             }
             else if (entry.Contains("-set"))
@@ -77,15 +174,15 @@ namespace Musics___Server.Commands
                     case "-set multithreading false":
                         Properties.Settings.Default.UseMultiThreading = false;
                         Properties.Settings.Default.Save();
-                        MyServer.Log.Info("Multithreading has been set to false");
+                        Console.WriteLine("~ Multithreading has been set to false");
                         break;
                     case "-set multithreading true":
                         Properties.Settings.Default.UseMultiThreading = true;
                         Properties.Settings.Default.Save();
-                        MyServer.Log.Info("Multithreading has been set to true");
+                        Console.WriteLine("~ Multithreading has been set to true");
                         break;
                     default:
-                        MyServer.Log.Info("Syntax not correct, please use -set 'property' 'value' ");
+                        Console.WriteLine("~ Syntax not correct, please use -set 'property' 'value' ");
                         break;
                 }
             }
@@ -94,21 +191,16 @@ namespace Musics___Server.Commands
                 switch (entry)
                 {
                     case "-get multithreading":
-                        MyServer.Log.Info("Multithreading is set to " + Properties.Settings.Default.UseMultiThreading.ToString());
-                        break;                  
+                        Console.WriteLine("~ Multithreading is set to {0}", Properties.Settings.Default.UseMultiThreading.ToString());
+                        break;
                     default:
-                        MyServer.Log.Info("Syntax not correct, please use -get 'property'");
+                        Console.WriteLine("~ Syntax not correct, please use -get 'property'");
                         break;
                 }
             }
-            else if (entry.Contains("-connect"))
-            {
-                string[] entryArgument = entry.Split(' ');
-                Program.ServerCom.AddServer(entryArgument[1]);
-            }
             else
             {
-                MyServer.Log.Info("Unkown Command " + entry);
+                Console.WriteLine("~ Unkown Command " + entry);
             }
         }
     }
