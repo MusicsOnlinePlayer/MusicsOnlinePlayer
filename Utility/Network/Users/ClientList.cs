@@ -5,91 +5,32 @@ using System.Net.Sockets;
 
 namespace Utility.Network.Users
 {
-    public class ClientList
-    {
-        public Dictionary<Socket, User> List = new Dictionary<Socket, User>();
+    public class ClientList : Dictionary<Socket, User>
+    { 
 
         public bool Contains(string UID)
-            => List.Values.Any(x => x.UID == UID);
-
-        public int GetIndex(string UID)
-        {
-            
-            int a = 0;
-            foreach (var p in List)
-            {
-                if (p.Value.UID == UID)
-                {
-                    return a;
-                }
-                a++;
-            }
-            return -1;
-        }
+            => Values.Any(x => x.UID == UID);
 
         public Socket GetSocket(string UID)
-        {
-            return List.FirstOrDefault(x => x.Value.UID == UID).Key;
-        }
-
+            => this.FirstOrDefault(x => x.Value.UID == UID).Key;
+ 
         public User GetUser(string UID)
-        {
-            return List.Values.FirstOrDefault(x => x.UID == UID);
-        }
+            => Values.FirstOrDefault(x => x.UID == UID);
+        
         public User GetUser(Socket socket)
-        {
-            foreach (var p in List)
-            {
-                if (p.Key == socket)
-                {
-                    return p.Value;
-                }
-            }
-            return null;
-        }
+            => this[socket];
+          
 
-        public List<User> GetPeople(string Name)
-        {
-            List<User> a = new List<User>();
-            foreach (var p in List.Values)
-            {
-                try
-                {
-                    if (p.Name.Contains(Name))
-                    {
-                        a.Add(p);
-                    }
-                }
-                catch
-                {
-                    Console.WriteLine("No client Error");
-                }
-            }
-            return a;
-        }
-
-        public int Count()
-        {
-            return List.Count;
-        }
+        public IEnumerable<User> GetPeople(string Name)
+            => Values.Where(u => u.Name.Contains(Name));
 
         private bool Contains(User User)
-        {
-            foreach (var p in List)
-            {
-                if (User.UID == p.Value.UID)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
+            => Contains(User.UID);
+  
         public void AddUser(User User, Socket socket)
         {
-            if (Contains(User))
-                return;
-            List.Add(socket, User);
+            if (!Contains(User))
+                Add(socket, User);
         }
     }
 }
