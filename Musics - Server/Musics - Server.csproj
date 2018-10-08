@@ -104,6 +104,7 @@
     <Compile Include="Commands\EntryCommand.cs" />
     <Compile Include="Commands\Exceptions\CommandException.cs" />
     <Compile Include="Commands\Commands.cs" />
+    <Compile Include="Commands\Info.cs" />
     <Compile Include="Commands\GetCommand.cs" />
     <Compile Include="Commands\GetMultithreadingCommand.cs" />
     <Compile Include="Commands\IndexationCommand.cs" />
