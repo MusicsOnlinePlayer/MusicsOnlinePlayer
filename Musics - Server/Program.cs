@@ -5,6 +5,7 @@ using Musics___Server.Usersinfos;
 using Musics___Server.MusicsInformation;
 using Musics___Server.MusicsManagement;
 using Musics___Server.Network;
+using Musics___Server.Commands;
 using Utility.Network.Users;
 using Utility.Network;
 using Utility.Network.Dialog;
@@ -28,9 +29,9 @@ namespace Musics___Server
             MyServer.AuthService.SetupAuth();
             MusicsInfo.SetupMusics();
 
-            Console.Write("~ Indexation of all musics....  ");
-            Console.WriteLine(Indexation.Do(Properties.Settings.Default.UseMultiThreading) + "Musics");
-            Console.WriteLine("~ Indexation done.");
+            Info.Say("Indexation of all musics....  ", MsgType.Info);
+            Info.Say(Indexation.Do(Properties.Settings.Default.UseMultiThreading) + "Musics", MsgType.Info);
+            Info.Say("Indexation done.", MsgType.Info);
 
             Indexation.SaveAllInfos();
 
@@ -43,9 +44,9 @@ namespace Musics___Server
                 entry = Console.ReadLine();
                 Commands.Commands.Do(entry);
             }
-            Console.Write("~ Saving music info ... ");
+            Info.Say("Saving music info ... ", MsgType.Info);
             Indexation.SaveAllInfos();
-            Console.WriteLine("Done.");
+            Info.Say("Done.", MsgType.Info);
         }
 
         public static void PromoteUser(string UID, Rank rank)
@@ -90,6 +91,7 @@ namespace Musics___Server
             {
                 if (received is Request)
                 {
+                    
                     Network.Handle.Requests.Handle(received as Request,socket);
                 }
                 if (received is Rate)
@@ -98,7 +100,7 @@ namespace Musics___Server
                 }
                 if(received is Disconnect)
                 {
-                    Console.WriteLine("Client disconnected =(");
+                    Info.Say("Client disconnected =(", MsgType.Info);
                     MyServer.Clients.List.Remove(socket);
                 }
                 if (received is EditUser)
@@ -132,7 +134,7 @@ namespace Musics___Server
                                     UsersInfos.GetUser(tmp.UserToEdit)
                                 };
                                 MyServer.SendObject(new RequestAnswer(tmpU, true), socket);
-                                Console.WriteLine("~ User promoted " + tmp.UserToEdit + " to " + tmp.NewRankOfUser.ToString());
+                                Info.Say("User promoted " + tmp.UserToEdit + " to " + tmp.NewRankOfUser.ToString(),MsgType.Important);
                             }
                             break;
                         case TypesEdit.Musics:
@@ -167,7 +169,7 @@ namespace Musics___Server
                 {
                     Login auth = received as Login;
 
-                    Console.Write("~ Client try to login");
+                    Info.Say("Client try to login", MsgType.Info);
 
                     if (auth.IsSignup)
                     {
