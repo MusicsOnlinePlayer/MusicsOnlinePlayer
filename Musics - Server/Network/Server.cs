@@ -1,4 +1,5 @@
-﻿using Musics___Server.Authentification;
+﻿using CodeCraft.Logger;
+using Musics___Server.Authentification;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -17,16 +18,18 @@ namespace Musics___Server.Network
         public ClientList Clients = new ClientList();
         public AuthentificationService AuthService = new AuthentificationService();
 
+        public ConsoleLogger Log = new ConsoleLogger();
+
         public void Setup()
         {
             try
             {
                 serverSocket.Bind(new IPEndPoint(IPAddress.Any, PORT));
-                Console.WriteLine("Setup server Ok");
+                Log.Info("Setup server Ok");
             }
             catch
             {
-                Console.WriteLine("Erreur Setup");
+                Log.Info("Erreur Setup");
             }
             serverSocket.SendBufferSize = BUFFER_SIZE;
             serverSocket.Listen(0);
@@ -50,7 +53,7 @@ namespace Musics___Server.Network
 
             socket.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.Partial, ReceiveCallback, socket);
             Clients.AddUser(new User(), socket);
-            Console.WriteLine("Client connected with ip : " + socket.RemoteEndPoint.ToString());
+            Log.Info("Client connected with ip : " + socket.RemoteEndPoint.ToString());
             serverSocket.BeginAccept(AcceptCallback, null);
         }
 
@@ -65,7 +68,7 @@ namespace Musics___Server.Network
             }
             catch
             {
-                Console.WriteLine("Client disconnected =(");
+                Log.Info("Client disconnected =(");
                 Clients.List.Remove(current);
             }
 
@@ -81,7 +84,7 @@ namespace Musics___Server.Network
             }
             catch
             {
-                Console.WriteLine("Client disconnected =(");
+                Log.Info("Client disconnected =(");
                 Clients.List.Remove(current);
             }
         }
