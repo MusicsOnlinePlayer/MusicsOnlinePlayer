@@ -7,7 +7,8 @@ using Musics___Server.Usersinfos;
 using Utility.Network.Users;
 using static Musics___Server.Program;
 using System.Linq;
-using CodeCraft.Logger
+using CodeCraft.Logger;
+using static Musics___Server.Program;
 
 namespace Musics___Server.Commands
 {
