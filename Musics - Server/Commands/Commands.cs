@@ -6,6 +6,8 @@ using Musics___Server.MusicsManagement;
 using Musics___Server.Usersinfos;
 using Utility.Network.Users;
 using System.Linq;
+using CodeCraft.Logger;
+using static Musics___Server.Program;
 
 namespace Musics___Server.Commands
 {
@@ -64,36 +66,36 @@ namespace Musics___Server.Commands
             }
             else if (entry == "-index")
             {
-                Console.WriteLine("Removing all musics.... ");
+                MyServer.Log.Info("Removing all musics.... ");
                 Indexation.ServerMusics.Clear();
-                Console.WriteLine("Done.");
-                Console.Write("Indexation of all musics....  ");
-                Console.WriteLine(Indexation.Do(Properties.Settings.Default.UseMultiThreading) + "Musics");
-                Console.WriteLine("Indexation done.");
+                MyServer.Log.Info("Done.");
+                MyServer.Log.Info("Indexation of all musics....  ");
+                MyServer.Log.Info(Indexation.Do(Properties.Settings.Default.UseMultiThreading) + "Musics");
+                MyServer.Log.Info("Indexation done.");
             }
             else if (entry == "-save")
             {
-                Console.Write("Saving music info ... ");
+                MyServer.Log.Info("Saving music info ... ");
                 Indexation.SaveAllInfos();
-                Console.WriteLine("Done.");
+                MyServer.Log.Info("Done.");
             }
             else if (entry == "-users")
             {
-                Console.WriteLine("Getting all connected users");
+                MyServer.Log.Info("Getting all connected users");
                 foreach (User u in Program.MyServer.Clients.List.Values)
                 {
-                    Console.WriteLine(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
+                    MyServer.Log.Info(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
                 }
-                Console.WriteLine("End.");
+                MyServer.Log.Info("End.");
             }
             else if (entry == "-users -all" || entry == "-users -a")
             {
-                Console.WriteLine("Getting all users");
+                MyServer.Log.Info("Getting all users");
                 foreach (User u in UsersInfos.GetAllUsers())
                 {
-                    Console.WriteLine(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
+                    MyServer.Log.Info(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
                 }
-                Console.WriteLine("End.");
+                MyServer.Log.Info("End.");
             }
             else if (entry.Contains("-promote"))
             {
@@ -101,20 +103,20 @@ namespace Musics___Server.Commands
                 string[] entryArgument = entry.Split('-');
                 if (entryArgument.Length != 4)
                 {
-                    Console.WriteLine("Syntax not correct, please use -promote -UID -Rank");
+                    MyServer.Log.Info("Syntax not correct, please use -promote -UID -Rank");
                     return;
                 }
                 string UID_ = entryArgument[2].Replace(" ", "");
                 if (Enum.TryParse(entry.Split('-')[3], out Rank rank))
                 {
-                    Console.WriteLine("Promote " + UID_ + " to " + rank.ToString());
+                    MyServer.Log.Info("Promote " + UID_ + " to " + rank.ToString());
                     Musics___Server.Program.PromoteUser(UID_, rank);
 
-                    Console.WriteLine("Ok.");
+                    MyServer.Log.Info("Ok.");
                 }
                 else
                 {
-                    Console.WriteLine("Syntax not correct, please use -promote -UID -Rank");
+                    MyServer.Log.Info("Syntax not correct, please use -promote -UID -Rank");
                 }
             }
             else if (entry.Contains("-set"))
@@ -124,15 +126,15 @@ namespace Musics___Server.Commands
                     case "-set multithreading false":
                         Properties.Settings.Default.UseMultiThreading = false;
                         Properties.Settings.Default.Save();
-                        Console.WriteLine("Multithreading has been set to false");
+                        MyServer.Log.Info("Multithreading has been set to false");
                         break;
                     case "-set multithreading true":
                         Properties.Settings.Default.UseMultiThreading = true;
                         Properties.Settings.Default.Save();
-                        Console.WriteLine("Multithreading has been set to true");
+                        MyServer.Log.Info("Multithreading has been set to true");
                         break;
                     default:
-                        Console.WriteLine("Syntax not correct, please use -set 'property' 'value' ");
+                        MyServer.Log.Info("Syntax not correct, please use -set 'property' 'value' ");
                         break;
                 }
             }
@@ -141,10 +143,10 @@ namespace Musics___Server.Commands
                 switch (entry)
                 {
                     case "-get multithreading":
-                        Console.WriteLine("Multithreading is set to {0}", Properties.Settings.Default.UseMultiThreading.ToString());
+                        MyServer.Log.Info("Multithreading is set to " + Properties.Settings.Default.UseMultiThreading.ToString());
                         break;                  
                     default:
-                        Console.WriteLine("Syntax not correct, please use -get 'property'");
+                        MyServer.Log.Info("Syntax not correct, please use -get 'property'");
                         break;
                 }
             }
@@ -155,7 +157,7 @@ namespace Musics___Server.Commands
             }
             else
             {
-                Console.WriteLine("Unkown Command " + entry);
+                MyServer.Log.Info("Unkown Command " + entry);
             }
         }
     }

@@ -9,6 +9,8 @@ using Utility.Network.Dialog.Uploads;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Diagnostics;
+using static Musics___Server.Program;
+
 
 namespace Musics___Server.MusicsManagement
 {
@@ -96,7 +98,7 @@ namespace Musics___Server.MusicsManagement
                 ServerMusics.Add(CurrentArtist);
             }
             indexationStopWatch.Stop();
-            Console.WriteLine("Indexation finished in {0} ms, with {1} Mo of memory", indexationStopWatch.ElapsedMilliseconds, (GC.GetTotalMemory(false) - startMemory)/ 1000000);
+            MyServer.Log.Debug("Indexation finished in "+indexationStopWatch.ElapsedMilliseconds+" Ms, with "+ ((GC.GetTotalMemory(false) - startMemory) / 1000000) + " Mo of memory");
             return NumberofMusics;
         }
 

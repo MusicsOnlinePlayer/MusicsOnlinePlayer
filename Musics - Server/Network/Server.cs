@@ -68,7 +68,7 @@ namespace Musics___Server.Network
             }
             catch
             {
-                Console.WriteLine("Client disconnected =(");
+                Log.Info("Client disconnected =(");
                 Clients.Remove(current);
             }
 
@@ -84,7 +84,7 @@ namespace Musics___Server.Network
             }
             catch
             {
-                Console.WriteLine("Client disconnected =(");
+                Log.Info("Client disconnected =(");
                 Clients.Remove(current);
             }
         }
