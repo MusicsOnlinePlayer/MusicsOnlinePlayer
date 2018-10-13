@@ -113,12 +113,12 @@ namespace Musics___Server
 
                         MyServer.Clients.Remove(socket);
                         MyServer.Clients.AddUser(tmp.NewUser, socket);
-                        MyServer.Log.Warn("User " + tmp.NewUser + "has been edited");
+                        MyServer.Log.Warn($"User {tmp.NewUser} has been edited");
                         return;
                     }
                     else
                     {
-                        MyServer.Log.Warn("Editing the user " + tmp.NewUser + " failed !");
+                        MyServer.Log.Warn($"Editing the user {tmp.NewUser} failed !");
                         MyServer.SendObject(new EditUserReport(false, tmp.NewUser), socket);
                     }
                 }
@@ -137,22 +137,22 @@ namespace Musics___Server
                                     UsersInfos.GetUser(tmp.UserToEdit)
                                 };
                                 MyServer.SendObject(new RequestAnswer(tmpU, true), socket);
-                                MyServer.Log.Warn("User promoted " + tmp.UserToEdit + " to " + tmp.NewRankOfUser.ToString());
+                                MyServer.Log.Warn($"User promoted { tmp.UserToEdit} to " + tmp.NewRankOfUser.ToString());
                             }
                             else
                             {
-                                MyServer.Log.Warn("Promoting the user " + tmp.UserToEdit + " to " + tmp.NewRankOfUser.ToString()+" failed !");
+                                MyServer.Log.Warn($"Promoting the user {tmp.UserToEdit} to {tmp.NewRankOfUser.ToString()} failed !");
                             }
                             break;
                         case TypesEdit.Musics:
                             if ((int)MyServer.Clients.GetUser(socket).Userrank > 1)
                             {
                                 Indexation.ModifyElement(tmp.ObjectToEdit as Element, tmp.NewName ,tmp.NewGenres);
-                                MyServer.Log.Warn("The musics " + tmp.NewName + " has been edited !");
+                                MyServer.Log.Warn($"The musics {tmp.NewName} has been edited !");
                             }
                             else
                             {
-                                MyServer.Log.Warn("The musics " + tmp.NewName + " couldn't be edited");
+                                MyServer.Log.Warn($"The musics {tmp.NewName } couldn't be edited");
                             }
                             break;
                     }
@@ -161,7 +161,7 @@ namespace Musics___Server
                 {
                     SavePlaylist tmp = received as SavePlaylist;
                     UsersInfos.SaveUserPlaylist(tmp.UID, tmp.Playlist);
-                    MyServer.Log.Info("The playlist " + tmp.Playlist.Name + "has been created");
+                    MyServer.Log.Info($"The playlist {tmp.Playlist.Name} has been created");
                 }
                 if(received is UploadMusic)
                 {
@@ -169,12 +169,12 @@ namespace Musics___Server
                     if (Indexation.AddElement(tmp) && (int)MyServer.Clients.GetUser(socket).Userrank > 1)
                     {
                         MyServer.SendObject(new UploadReport(null, true),socket);
-                        MyServer.Log.Warn("The music "+ tmp.MusicPart.Name +"has been upload");
+                        MyServer.Log.Warn($"The music { tmp.MusicPart.Name } has been upload");
                     }
                     else
                     {
                         MyServer.SendObject(new UploadReport(null, false), socket);
-                        MyServer.Log.Warn("The music " + tmp.MusicPart.Name + "has been upload");
+                        MyServer.Log.Warn($"The music { tmp.MusicPart.Name } has been upload");
                         MyServer.Log.Warn("Upload completed with success");
                     }
                 }
