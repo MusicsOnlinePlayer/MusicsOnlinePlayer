@@ -72,6 +72,9 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CodeCraft.Logger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CodeCraft.Logger.1.0.0\lib\netstandard2.0\CodeCraft.Logger.dll</HintPath>
+    </Reference>
     <Reference Include="policy.2.0.taglib-sharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
       <HintPath>..\packages\taglib.2.1.0.0\lib\policy.2.0.taglib-sharp.dll</HintPath>
     </Reference>
@@ -90,7 +93,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Commands.cs" />
-    <Compile Include="Commands\Info.cs" />
     <Compile Include="MusicsManagement\ClientAnswer\SearchAnswer.cs" />
     <Compile Include="MusicsManagement\MusicsInfo.cs" />
     <Compile Include="MusicsManagement\Search.cs" />

@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Musics - Client", "Musics -
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerCreator", "ServerCreator\ServerCreator.csproj", "{E19CD2CC-D3AC-4BD6-8241-22F9B8E7C51A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeCraft.Logger", "CodeCraft.Logger\CodeCraft.Logger.csproj", "{42DFEB9D-852D-4313-B69C-15E62F069C55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,14 @@ Global
 		{E19CD2CC-D3AC-4BD6-8241-22F9B8E7C51A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E19CD2CC-D3AC-4BD6-8241-22F9B8E7C51A}.Release|x64.ActiveCfg = Release|Any CPU
 		{E19CD2CC-D3AC-4BD6-8241-22F9B8E7C51A}.Release|x64.Build.0 = Release|Any CPU
+		{42DFEB9D-852D-4313-B69C-15E62F069C55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42DFEB9D-852D-4313-B69C-15E62F069C55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42DFEB9D-852D-4313-B69C-15E62F069C55}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{42DFEB9D-852D-4313-B69C-15E62F069C55}.Debug|x64.Build.0 = Debug|Any CPU
+		{42DFEB9D-852D-4313-B69C-15E62F069C55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42DFEB9D-852D-4313-B69C-15E62F069C55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42DFEB9D-852D-4313-B69C-15E62F069C55}.Release|x64.ActiveCfg = Release|Any CPU
+		{42DFEB9D-852D-4313-B69C-15E62F069C55}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
