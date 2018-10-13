@@ -160,7 +160,7 @@ namespace Musics___Server
                 {
                     SavePlaylist tmp = received as SavePlaylist;
                     UsersInfos.SaveUserPlaylist(tmp.UID, tmp.Playlist);
-                    MyServer.Log.Info("The playlist " + tmp.Playlist.Name + "has been created");
+                    MyServer.Log.Info("The playlist " + tmp.Playlist.Name + " has been created");
                 }
                 if(received is UploadMusic)
                 {
@@ -168,12 +168,12 @@ namespace Musics___Server
                     if (Indexation.AddElement(tmp) && (int)MyServer.Clients.GetUser(socket).Userrank > 1)
                     {
                         MyServer.SendObject(new UploadReport(null, true),socket);
-                        MyServer.Log.Warn("The music "+ tmp.MusicPart.Name +"has been upload");
+                        MyServer.Log.Warn("The music "+ tmp.MusicPart.Name +" has been upload");
                     }
                     else
                     {
                         MyServer.SendObject(new UploadReport(null, false), socket);
-                        MyServer.Log.Warn("The music " + tmp.MusicPart.Name + "has been upload");
+                        MyServer.Log.Warn("The music " + tmp.MusicPart.Name + " has been upload");
                         MyServer.Log.Warn("Upload completed with success");
                     }
                 }
