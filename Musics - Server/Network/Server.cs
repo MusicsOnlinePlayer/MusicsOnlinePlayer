@@ -29,7 +29,7 @@ namespace Musics___Server.Network
             }
             catch
             {
-                Log.Info("Erreur Setup");
+                Log.Info("Setup Failed");
             }
             serverSocket.SendBufferSize = BUFFER_SIZE;
             serverSocket.Listen(0);
@@ -99,6 +99,7 @@ namespace Musics___Server.Network
             }
             catch
             {
+                Log.Error("Failed to send object");
             }
         }
 
@@ -110,6 +111,7 @@ namespace Musics___Server.Network
             }
             catch
             {
+                Log.Error("Failed to send data");
             }
         }
     } 
