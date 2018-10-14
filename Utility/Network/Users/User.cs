@@ -9,7 +9,6 @@ namespace Utility.Network.Users
         public string UID { get; set; }
         public Rank Userrank { get; set; }
 
-        private string Password { get; set; }
         public String Name { get; set; }
         public bool Connected { get; set; }
 
@@ -23,7 +22,6 @@ namespace Utility.Network.Users
         public User(string name, string UserPassword)
         {
             Name = name;
-            Password = UserPassword;
             UID = Hash.SHA256Hash(name + UserPassword);
         }
 
@@ -31,7 +29,6 @@ namespace Utility.Network.Users
         {
             Name = name;
             Userrank = RankOf;
-            Password = UserPassword;
             UID = Hash.SHA256Hash(name + UserPassword);
         }
     }
