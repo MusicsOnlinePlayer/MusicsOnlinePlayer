@@ -31,7 +31,6 @@ namespace Musics___Server.Commands
         {
             switch (command)
             {
-                case ECommands.Quit: break;
                 case ECommands.InitializeRepository: return (ECommands.InitializeRepository, new InitializeCommand());
                 case ECommands.Indexation: return (ECommands.Indexation, new IndexationCommand());
                 case ECommands.Save: return (ECommands.Save, new SaveCommand());
@@ -42,6 +41,7 @@ namespace Musics___Server.Commands
                 case ECommands.Get: return (ECommands.Get, new GetCommand());
                 case ECommands.GetMultithreading: return (ECommands.GetMultithreading, new GetMultithreadingCommand());
                 case ECommands.Promote: return (ECommands.Promote, new PromoteCommand());
+                case ECommands.Quit: return (ECommands.Quit, new QuitCommand());
                 default: throw new NotImplementedException();
 
             }

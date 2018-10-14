@@ -36,7 +36,7 @@ namespace Musics___Server.Commands
                 {
                     Console.Write(ex.Message);
                 }
-            } while (commandLine != "-quit");
+            } while (true);
 
         }
 

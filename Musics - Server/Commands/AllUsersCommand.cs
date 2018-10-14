@@ -14,5 +14,4 @@ namespace Musics___Server.Commands
             Console.WriteLine("~ End.");
         }
     }
-
 }
