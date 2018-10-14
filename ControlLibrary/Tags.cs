@@ -1,9 +1,11 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.IO;
+using TagLib;
 
-namespace Musics___Client.MusicsUtils
+namespace ControlLibrary
 {
-    class Tags
+    public class Tags
     {
         public static Image GetMetaImage(string MusicPath)
         {
