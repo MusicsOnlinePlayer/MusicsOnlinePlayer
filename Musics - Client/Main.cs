@@ -24,7 +24,7 @@ namespace Musics___Client
 {
     public partial class Client : Form
     {
-        public Socket _clientSocket { get; set; }
+        public static Socket _clientSocket { get; set; }
         public User Me { get; set; }
         public IPAddress ip = IPAddress.Loopback;
 
@@ -33,7 +33,7 @@ namespace Musics___Client
         public Client()
         {
             InitializeComponent();
-            UIMusicImage.BackgroundImage = Properties.Resources.No_Cover_Image;
+            
         }
 
         private void Client_Load(object sender, EventArgs e)
@@ -94,23 +94,10 @@ namespace Musics___Client
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-                p.player.PlayStateChange += Player_PlayStateChange;
+                }           
             }
         }
 
-        private void Player_PlayStateChange(int NewState)
-        {
-            if (NewState == 8)
-            {
-                if (PlaylistIndex + 1 < Playlist.Count)
-                {
-                    PlaylistIndex++;
-                    SendObject(new Request(Playlist[PlaylistIndex]));
-                }
-            }
-        }
         byte[] recbuffer = new byte[100000000];
         Thread recevoir;
 
@@ -181,7 +168,7 @@ namespace Musics___Client
             }
         }
 
-        private void SendCallback(IAsyncResult ar)
+        private static void SendCallback(IAsyncResult ar)
         {
             try
             {
@@ -360,45 +347,28 @@ namespace Musics___Client
 
         public void RequestAnswerBinaries(RequestAnswer searchAnswer)
         {
-            InPlaying = searchAnswer.Binaries;
-
             Invoke((MethodInvoker)delegate
             {
-                if (PlaylistContainsMusic(InPlaying.MID))
+                if (PlaylistContainsMusic(searchAnswer.Binaries.MID))
                 {
-                    UIPlaylist.SelectedIndex = PlaylistIndex;
+                    UIPlaylist.SelectedIndex = uPlayer1.PlaylistIndex;
                 }
                 else
                 {
-                    Playlist.Clear();
-                    PlaylistIndex = 0;
+                    uPlayer1.Playlist.Clear();
+                    uPlayer1.PlaylistIndex = 0;
                     UIPlaylist.Items.Clear();
                     Music m = new Music
                     {
-                        MID = InPlaying.MID
+                        MID = searchAnswer.Binaries.MID
                     };
-                    Playlist.Add(InPlaying);
-                    UIPlaylist.Items.Add(InPlaying.Title);
-                    PlaylistIndex = 0;
-                    UIPlaylist.SelectedIndex = PlaylistIndex;
+                    uPlayer1.Playlist.Add(searchAnswer.Binaries);
+                    UIPlaylist.Items.Add(searchAnswer.Binaries.Title);
+                    uPlayer1.PlaylistIndex = 0;
+                    UIPlaylist.SelectedIndex = uPlayer1.PlaylistIndex;
                 }
-                UIPlayingMusic.Text = InPlaying.Title;
-                UIArtist.Text = InPlaying.Author.Name;
-                UIFormat.Text = InPlaying.Format;
-                UIForward.Enabled = true;
-                UIBackward.Enabled = true;
+                uPlayer1.PlayMusic(searchAnswer.Binaries);
             });
-
-            p.PlayMusic(InPlaying);
-
-            try
-            {
-                UIMusicImage.BackgroundImage = Tags.GetMetaImage(p.player.URL);
-            }
-            catch
-            {
-                UIMusicImage.BackgroundImage = Properties.Resources.No_Cover_Image;
-            }
         }
 
         public void RequestAnswerFavorites(RequestAnswer searchAnswer)
@@ -413,6 +383,8 @@ namespace Musics___Client
             var tmp = searchAnswer.Favorites;
             //LikedMusics.Clear();
             LikedMusics = tmp;
+
+            uPlayer1.Reset();
         }
 
         private List<Music> SelectedFavorites = new List<Music>();
@@ -471,11 +443,7 @@ namespace Musics___Client
                 MessageBox.Show("Invalid rank, you must be at least a -User-");
             }
         }
-
-        Player p = new Player();
-
         public AuthInfo authInfo;
-        Music InPlaying;
 
         private List<object> SearchlistboxItems = new List<object>();
         private List<Music> LikedMusics = new List<Music>();
@@ -588,16 +556,10 @@ namespace Musics___Client
 
         private void UIPlaylistClear_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Playlist.Clear();
-            PlaylistIndex = 0;
+            uPlayer1.Playlist.Clear();
+            uPlayer1.PlaylistIndex = 0;
             UIPlaylist.Items.Clear();           
-            UIPlayingMusic.Text = "No music";
-            UIArtist.Text = "Artist";
-            UIFormat.Text = "Format";
-            UIForward.Enabled = false;
-            UIBackward.Enabled = false;
-            UIMusicImage.BackgroundImage = null;
-            p.player.controls.stop();
+
         }
 
         private void UIPlayBis_Click(object sender, EventArgs e)
@@ -608,48 +570,33 @@ namespace Musics___Client
             }
             else if (selected is Album)
             {
-                Playlist.Clear();
-                PlaylistIndex = 0;
+                uPlayer1.Playlist.Clear();
+                uPlayer1.PlaylistIndex = 0;
                 UIPlaylist.Items.Clear();
                 foreach (var m in (selected as Album).Musics)
                 {
-                    Playlist.Add(m);
+                    uPlayer1.Playlist.Add(m);
                     UIPlaylist.Items.Add(m.Title);
                 }
-                SendObject(new Request(Playlist.First()));
+                SendObject(new Request(uPlayer1.Playlist.First()));
             }
             else if (selected is Playlist)
             {
-                Playlist.Clear();
-                PlaylistIndex = 0;
+                uPlayer1.Playlist.Clear();
+                uPlayer1.PlaylistIndex = 0;
                 UIPlaylist.Items.Clear();
                 foreach (var m in (selected as Playlist).musics)
                 {
-                    Playlist.Add(m);
+                    uPlayer1.Playlist.Add(m);
                     UIPlaylist.Items.Add(m.Title);
                 }
-                SendObject(new Request(Playlist.First()));
+                SendObject(new Request(uPlayer1.Playlist.First()));
             }
-        }
-
-        private void UIPlay_Click(object sender, EventArgs e)
-        {
-            p.player.controls.play();
-        }
-
-        private void UIPause_Click(object sender, EventArgs e)
-        {
-            p.player.controls.pause();
-        }
-
-        private void UITrackbarMusic_Scroll(object sender, EventArgs e)
-        {
-            p.player.settings.volume = UITrackbarMusic.Value;
         }
 
         private void Client_FormClosing(object sender, FormClosingEventArgs e)
         {
-            p.player.close();
+            //uPlayer1.player.close();
 
             foreach (var p in System.IO.Directory.GetFiles(@"c:\MusicsFiles"))
             {
@@ -675,35 +622,33 @@ namespace Musics___Client
                     SendObject(new Request(music));
                     break;
                 case Playlist playlist:
-                    Playlist.Clear();
-                    PlaylistIndex = 0;
+                    uPlayer1.Playlist.Clear();
+                    uPlayer1.PlaylistIndex = 0;
                     UIPlaylist.Items.Clear();
                     foreach (var m in (selected as Playlist).musics)
                     {
-                        Playlist.Add(m);
+                        uPlayer1.Playlist.Add(m);
                         UIPlaylist.Items.Add(m.Title);
                     }
-                    SendObject(new Request(Playlist.First()));
+                    SendObject(new Request(uPlayer1.Playlist.First()));
                     break;
                 default: throw new InvalidCastException();
             }
         }
 
-        private readonly List<Music> Playlist = new List<Music>();
-        private int PlaylistIndex;
 
         private void UIAddPlaylistUnder_Click(object sender, EventArgs e)
         {
             if (selected is Music)
             {
-                Playlist.Add(selected as Music);
+                uPlayer1.Playlist.Add(selected as Music);
                 UIPlaylist.Items.Add((selected as Music).Title);
             }
             else if (selected is Album)
             {
                 foreach (var m in (selected as Album).Musics)
                 {
-                    Playlist.Add(m);
+                    uPlayer1.Playlist.Add(m);
                     UIPlaylist.Items.Add(m.Title);
                 }
             }
@@ -711,7 +656,7 @@ namespace Musics___Client
 
         private bool PlaylistContainsMusic(string MID)
         {
-            foreach (var m in Playlist)
+            foreach (var m in uPlayer1.Playlist)
             {
                 if (m.MID == MID)
                 {
@@ -719,28 +664,6 @@ namespace Musics___Client
                 }
             }
             return false;
-        }
-
-        private void UIBackward_Click(object sender, EventArgs e)
-        {
-            if (PlaylistIndex - 1 >= 0)
-            {
-                PlaylistIndex--;
-                UIForward.Enabled = false;
-                UIBackward.Enabled = false;
-                SendObject(new Request(Playlist[PlaylistIndex]));
-            }
-        }
-
-        private void UIForward_Click(object sender, EventArgs e)
-        {
-            if (PlaylistIndex + 1 < Playlist.Count)
-            {
-                PlaylistIndex++;
-                UIForward.Enabled = false;
-                UIBackward.Enabled = false;
-                SendObject(new Request(Playlist[PlaylistIndex]));
-            }
         }
 
         private void UIThumbup_Click(object sender, EventArgs e)
@@ -813,15 +736,15 @@ namespace Musics___Client
         {
             if (LikedMusics.Count >= 1)
             {
-                Playlist.Clear();
-                PlaylistIndex = 0;
+                uPlayer1.Playlist.Clear();
+                uPlayer1.PlaylistIndex = 0;
                 UIPlaylist.Items.Clear();
                 foreach (var m in LikedMusics)
                 {
-                    Playlist.Add(m);
+                    uPlayer1.Playlist.Add(m);
                     UIPlaylist.Items.Add(m.Title);
                 }
-                SendObject(new Request(Playlist.First()));
+                SendObject(new Request(uPlayer1.Playlist.First()));
                 Tabs.SelectedIndex = 1;
             }
         }
@@ -1084,7 +1007,7 @@ namespace Musics___Client
 
         private void UISavePlaylist_Click(object sender, EventArgs e)
         {
-            if (Playlist.Count != 0)
+            if (uPlayer1.Playlist.Count != 0)
             {
                 UIEditPlaylist.Visible = true;
                 UIPlaylistName.Visible = true;
@@ -1097,7 +1020,7 @@ namespace Musics___Client
             {
                 UIEditPlaylist.Visible = false;
                 UIPlaylistName.Visible = false;
-                SendObject(new SavePlaylist(Me.UID, new Playlist(Me, UIPlaylistName.Text, Playlist, UIPlaylistPrivate.Checked)));
+                SendObject(new SavePlaylist(Me.UID, new Playlist(Me, UIPlaylistName.Text, uPlayer1.Playlist, UIPlaylistPrivate.Checked)));
             }
         }
 
