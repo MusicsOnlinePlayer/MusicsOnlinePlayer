@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ControlLibrary.Network;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Utility.Musics;
@@ -31,7 +32,7 @@ namespace ControlLibrary
                 if (PlaylistIndex + 1 < Playlist.Count)
                 {
                     PlaylistIndex++;
-                    //SendObject(new Request(Playlist[PlaylistIndex]));
+                    NetworkClient.SendObject(new Request(Playlist[PlaylistIndex]));
                 }
             }
         }
@@ -52,7 +53,7 @@ namespace ControlLibrary
                 PlaylistIndex--;
                 UIForward.Enabled = false;
                 UIBackward.Enabled = false;
-                //SendObject(new Request(Playlist[PlaylistIndex]));
+                NetworkClient.SendObject(new Request(Playlist[PlaylistIndex]));
             }
         }
 
@@ -63,7 +64,7 @@ namespace ControlLibrary
                 PlaylistIndex++;
                 UIForward.Enabled = false;
                 UIBackward.Enabled = false;
-                //SendObject(new Request(Playlist[PlaylistIndex]));
+                NetworkClient.SendObject(new Request(Playlist[PlaylistIndex]));
             }
         }
 
@@ -78,7 +79,7 @@ namespace ControlLibrary
             player.PlayMusic(InPlaying);
             try
             {
-                //UIMusicImage.BackgroundImage = Tags.GetMetaImage(player.player.URL);
+                UIMusicImage.BackgroundImage = Tags.GetMetaImage(player.player.URL);
             }
             catch
             {
