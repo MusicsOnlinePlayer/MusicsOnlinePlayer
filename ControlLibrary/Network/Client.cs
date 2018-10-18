@@ -14,7 +14,7 @@ namespace ControlLibrary.Network
 
         public static Thread recevoir;
 
-        private static int Bufferlgth = 100000000;
+        private static readonly int Bufferlgth = 100000000;
 
         static byte[] recbuffer = new byte[Bufferlgth];
 
