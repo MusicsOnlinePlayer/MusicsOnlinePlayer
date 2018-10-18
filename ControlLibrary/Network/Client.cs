@@ -14,7 +14,9 @@ namespace ControlLibrary.Network
 
         public static Thread recevoir;
 
-        static byte[] recbuffer = new byte[100000000];
+        private static int Bufferlgth = 100000000;
+
+        static byte[] recbuffer = new byte[Bufferlgth];
 
         public static EventHandler<PacketEventArgs> PacketReceived = delegate { };
 
@@ -58,7 +60,7 @@ namespace ControlLibrary.Network
 
         public static void Receive()
         {
-            _clientSocket.BeginReceive(recbuffer, 0, 100000000, SocketFlags.Partial,
+            _clientSocket.BeginReceive(recbuffer, 0, Bufferlgth, SocketFlags.Partial,
                     new AsyncCallback(ReceiveCallback), null);
         }
 
@@ -76,7 +78,7 @@ namespace ControlLibrary.Network
 
             OnPacketReceived(new PacketEventArgs(Function.Deserialize(new MessageTCP(recbuffer))));
 
-            recbuffer = new byte[100000000];
+            recbuffer = new byte[Bufferlgth];
 
             try
             {
