@@ -83,9 +83,7 @@ namespace ControlLibrary.Network
                 _clientSocket.BeginReceive(recbuffer, 0, recbuffer.Length, SocketFlags.Partial,
                 new AsyncCallback(ReceiveCallback), null);
             }
-            catch
-            {
-            }
+            catch { }
         }
 
         public static void SendObject(object obj)
@@ -113,14 +111,10 @@ namespace ControlLibrary.Network
             {
                 _clientSocket.EndSend(ar);
             }
-            catch
-            {
-            }
+            catch { }
         }
 
         public static void OnPacketReceived(PacketEventArgs e)
-        {
-            PacketReceived?.Invoke(null, e);
-        }
+           => PacketReceived?.Invoke(null, e);
     }
 }
