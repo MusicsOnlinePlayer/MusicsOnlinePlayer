@@ -2,8 +2,11 @@
 
 namespace Musics___Server.Commands
 {
-    internal class QuitCommand : BaseCommand
+    internal sealed partial class CommandFactory
     {
-        public override void Execute(IEnumerable<string> args) { }
+        public class QuitCommand : BaseCommand
+        {
+            public override void Execute(IEnumerable<string> args) { }
+        }
     }
 }

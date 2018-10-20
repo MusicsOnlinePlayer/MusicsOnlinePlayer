@@ -5,7 +5,7 @@ using CodeCraft.EnumExtension;
 
 namespace Musics___Server.Commands
 {
-    internal sealed class CommandFactory
+    internal sealed partial class CommandFactory
     {
         public static (ECommands commandType, BaseCommand command) InstanciateCommand(string command)
         {
