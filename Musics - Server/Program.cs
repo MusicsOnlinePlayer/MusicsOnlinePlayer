@@ -13,8 +13,6 @@ using Utility.Network.Dialog.Rating;
 using Utility.Network.Dialog.Edits;
 using Utility.Network.Dialog.Uploads;
 using Utility.Network.Dialog.Authentification;
-using Musics___Server.Commands;
-using CodeCraft.Logger;
 
 
 namespace Musics___Server

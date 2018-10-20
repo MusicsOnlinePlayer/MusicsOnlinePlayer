@@ -5,10 +5,8 @@ using Musics___Server.Commands.Exceptions;
 using Musics___Server.MusicsManagement;
 using Musics___Server.Usersinfos;
 using Utility.Network.Users;
-using CodeCraft.Logger;
 using static Musics___Server.Program;
 using System.Linq;
-using CodeCraft.EnumExtension; 
 
 namespace Musics___Server.Commands
 {

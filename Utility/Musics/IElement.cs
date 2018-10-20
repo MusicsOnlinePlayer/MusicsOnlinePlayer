@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Utility.Musics
+﻿namespace Utility.Musics
 {
     public interface IElement
     {
