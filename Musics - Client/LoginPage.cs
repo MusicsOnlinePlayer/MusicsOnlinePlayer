@@ -1,4 +1,5 @@
-﻿using Musics___Client.AppSettings;
+﻿using ControlLibrary.Network;
+using Musics___Client.AppSettings;
 using System;
 using System.Windows.Forms;
 using Utility.Network.Dialog.Authentification;
@@ -18,7 +19,7 @@ namespace Musics___Client
         
         private void LoginPage_Load(object sender, EventArgs e)
         {
-            ClientForm.Connect();
+            NetworkClient.Connect();
             ClientForm.LoginInfoReceived += ClientForm_LoginInfoReceived;
             settingsForm.FormClosing += SettingsForm_FormClosing;
         }
@@ -52,7 +53,7 @@ namespace Musics___Client
             if(UILogin.Text != null && UIPassword.Text != null)
             {
                 RequestedUser = new User(UILogin.Text, UIPassword.Text);
-                ClientForm.SendObject(new Login(RequestedUser,false));
+                NetworkClient.SendObject(new Login(RequestedUser,false));
             }
             else
             {
@@ -75,7 +76,7 @@ namespace Musics___Client
             if (UIUserNameSign.Text != null && UIPasswordSign.Text != null && UIPasswordSign.Text == UISecondPasswordSign.Text)
             {
                 RequestedUser = new User(UIUserNameSign.Text, UIPasswordSign.Text);
-                ClientForm.SendObject(new Login(RequestedUser, true));
+                NetworkClient.SendObject(new Login(RequestedUser, true));
             }
             else
             {
@@ -116,13 +117,10 @@ namespace Musics___Client
 
         void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ClientForm = new Client
-            {
-                ip = settingsForm.result
-            };
-           
-            ApplicationSettings.Save(new AppSettings.Settings(null, null, settingsForm.result.ToString()));
-            ClientForm.Connect();
+            ClientForm = new Client();
+            NetworkClient.ip = settingsForm.result;
+             ApplicationSettings.Save(new AppSettings.Settings(null, null, settingsForm.result.ToString()));
+            NetworkClient.Connect();
             ClientForm.LoginInfoReceived += ClientForm_LoginInfoReceived;
         }
 
@@ -133,7 +131,7 @@ namespace Musics___Client
                 if (UILogin.Text != null && UIPassword.Text != null)
                 {
                     RequestedUser = new User(UILogin.Text, UIPassword.Text);
-                    ClientForm.SendObject(new Login(RequestedUser, false));
+                    NetworkClient.SendObject(new Login(RequestedUser, false));
                 }
                 else
                 {
