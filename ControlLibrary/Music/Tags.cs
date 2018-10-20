@@ -1,5 +1,7 @@
-﻿using System.Drawing;
+using System;
+using System.Drawing;
 using System.IO;
+using TagLib;
 
 namespace ControlLibrary
 {

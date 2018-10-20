@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Musics___Server.Commands.Exceptions;
@@ -7,6 +7,7 @@ using Musics___Server.Usersinfos;
 using Utility.Network.Users;
 using static Musics___Server.Program;
 using System.Linq;
+using CodeCraft.Logger
 
 namespace Musics___Server.Commands
 {
@@ -80,8 +81,8 @@ namespace Musics___Server.Commands
             }
             else if (entry == "-users")
             {
-                Console.WriteLine("Getting all connected users");
-                foreach (User u in Program.MyServer.Clients.Values)
+                MyServer.Log.Info("Getting all connected users");
+                foreach (User u in Program.MyServer.Clients.List.Values)
                 {
                     MyServer.Log.Info(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
                 }

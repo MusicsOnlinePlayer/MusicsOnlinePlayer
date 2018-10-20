@@ -21,28 +21,13 @@ namespace Musics___Server.Network.Handle
                     break;
 
                 case RequestsTypes.MusicsBinaries:
-
-                    foreach (Author a in Indexation.ServerMusics)
+                    var m = Indexation.GetMusic(request.RequestedBinaries.MID);
+                    Music answer = new Music(m.Title, new Author(m.Author.Name), m.Album, Indexation.GetFileBinary(m))
                     {
-                        foreach (Album al in a.Albums)
-                        {
-                            foreach (Music m in al.Musics)
-                            {
-                                if (m.MID == request.RequestedBinaries.MID)
-                                {
-                                    Music answer = new Music(m.Title, new Author(m.Author.Name),al, Indexation.GetFileBinary(m))
-                                    {
-                                        Format = m.Format,
-                                        Rating = m.Rating
-                                    };
-                                    Console.Write("Sending binaries for " + m.Title);
-
-                                    Program.MyServer.SendObject(new RequestAnswer(answer), socket);
-                                    return;
-                                }
-                            }
-                        }
-                    }
+                        Format = m.Format,
+                        Rating = m.Rating
+                    };
+                    Program.MyServer.SendObject(new RequestAnswer(answer), socket);
                     break;
                 case RequestsTypes.Favorites:
                     List<Music> tmp = UsersInfos.GetLikedMusics(request.UserID);

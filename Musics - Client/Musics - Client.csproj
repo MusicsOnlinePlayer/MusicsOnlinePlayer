@@ -330,7 +330,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ControlLibrary\ControlLibrary.csproj">
-      <Project>{d92bae94-ba9d-4028-b63c-a6e33ed6afdc}</Project>
+      <Project>{D92BAE94-BA9D-4028-B63C-A6E33ED6AFDC}</Project>
+
       <Name>ControlLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utility\Utility.csproj">

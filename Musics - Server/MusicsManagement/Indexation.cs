@@ -297,6 +297,7 @@ namespace Musics___Server.MusicsManagement
         public static Music GetMusic(Element element)
             => GetMusicByID(element.MID);
         public static Music GetMusicByID(string MID)
+
             => GetAllMusics().SingleOrDefault(m => m.MID == MID);
 
         public static string GetElementPath(Element element)
