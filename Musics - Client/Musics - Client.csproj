@@ -206,8 +206,6 @@
     <Compile Include="LoginPage.Designer.cs">
       <DependentUpon>LoginPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="MusicsUtils\Player.cs" />
-    <Compile Include="MusicsUtils\Tags.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs">
@@ -331,6 +329,10 @@
     <None Include="Resources\IcoBack.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ControlLibrary\ControlLibrary.csproj">
+      <Project>{d92bae94-ba9d-4028-b63c-a6e33ed6afdc}</Project>
+      <Name>ControlLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utility\Utility.csproj">
       <Project>{39a033b7-6065-4306-b4a2-2ac91552ebae}</Project>
       <Name>Utility</Name>

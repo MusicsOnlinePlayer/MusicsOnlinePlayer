@@ -45,7 +45,7 @@ namespace Musics___Client
 
             UIAccountName.Text = Me.Name;
             UIAccountId.Text = Me.UID;
-            this.Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + authInfo.RankofAuthUser.ToString();
+            Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + authInfo.RankofAuthUser.ToString();
             UIRank.Text = authInfo.RankofAuthUser.ToString();
             if (authInfo.RankofAuthUser == Rank.Viewer)
             {
@@ -138,7 +138,7 @@ namespace Musics___Client
                         Me = tmp.NewUser;
                         UIAccountName.Text = Me.Name + " (Modified)";
                         UIAccountId.Text = Me.UID;
-                        this.Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + Me.Userrank.ToString();
+                        Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + Me.Userrank.ToString();
                         UIRank.Text = Me.Userrank.ToString();
                         if (Me.Userrank == Rank.Viewer)
                         {

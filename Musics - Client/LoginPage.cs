@@ -33,7 +33,7 @@ namespace Musics___Client
 
                 Invoke((MethodInvoker)delegate
                 {
-                    this.Hide();
+                    Hide();
                 });
                 ClientForm.ShowDialog();                             
             }

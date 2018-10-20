@@ -22,7 +22,7 @@ namespace Musics___Client
         {
             if(IPAddress.TryParse(UISettingsIp.Text,out result))
             {
-                this.Close();
+                Close();
             }
             else
             {
