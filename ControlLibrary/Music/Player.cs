@@ -1,8 +1,8 @@
 ﻿using System.IO;
-using WMPLib;
 using Utility.Musics;
+using WMPLib;
 
-namespace Musics___Client
+namespace ControlLibrary
 {
     public class Player
     {

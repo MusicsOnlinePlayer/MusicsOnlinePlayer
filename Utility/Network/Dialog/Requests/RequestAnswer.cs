@@ -6,8 +6,11 @@ using Utility.Network.Users;
 namespace Utility.Network.Dialog
 {
     [Serializable]
-    public class RequestAnswer
+    public class RequestAnswer : IPacket
     {
+        public string SenderUID { get; set; }
+        public bool IsFromServer { get; set; }
+
         public RequestsTypes RequestsTypes { get; set; }
 
         private readonly List<IElement> answerList = new List<IElement>();

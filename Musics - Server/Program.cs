@@ -5,6 +5,7 @@ using Musics___Server.Usersinfos;
 using Musics___Server.MusicsInformation;
 using Musics___Server.MusicsManagement;
 using Musics___Server.Network;
+using Musics___Server.Commands;
 using Utility.Network.Users;
 using Utility.Network;
 using Utility.Network.Dialog;
@@ -13,12 +14,15 @@ using Utility.Network.Dialog.Rating;
 using Utility.Network.Dialog.Edits;
 using Utility.Network.Dialog.Uploads;
 using Utility.Network.Dialog.Authentification;
+using CodeCraft.Logger;
+
 
 namespace Musics___Server
 {
     class Program
     {
         public static Server MyServer = new Server();
+        public static ServerComHandler ServerCom = new ServerComHandler();   
 
         static void Main(string[] args)
         {
@@ -27,10 +31,9 @@ namespace Musics___Server
             MyServer.AuthService.SetupAuth();
             MusicsInfo.SetupMusics();
 
-            Console.Write("~ Indexation of all musics....  ");
-            Console.WriteLine(Indexation.Do(Properties.Settings.Default.UseMultiThreading) + "Musics");
-            Console.WriteLine("~ Indexation done.");
-
+            MyServer.Log.Info("Indexation of all musics....  ");
+            MyServer.Log.Info(Indexation.Do(Properties.Settings.Default.UseMultiThreading) + "Musics");
+            MyServer.Log.Info("Indexation done.");
             Indexation.SaveAllInfos();
 
             //Manager.RefreshTrending();
@@ -42,9 +45,9 @@ namespace Musics___Server
                 entry = Console.ReadLine();
                 Commands.Commands.Do(entry);
             }
-            Console.Write("~ Saving music info ... ");
+            MyServer.Log.Info("Saving music info ... ");
             Indexation.SaveAllInfos();
-            Console.WriteLine("Done.");
+            MyServer.Log.Info("Done.");
         }
 
         public static void PromoteUser(string UID, Rank rank)
@@ -88,7 +91,7 @@ namespace Musics___Server
             if (ClientLogin)
             {
                 if (received is Request)
-                {
+                {     
                     Network.Handle.Requests.Handle(received as Request,socket);
                 }
                 if (received is Rate)
@@ -97,7 +100,7 @@ namespace Musics___Server
                 }
                 if(received is Disconnect)
                 {
-                    Console.WriteLine("Client disconnected =(");
+                    MyServer.Log.Warn("Client disconnected =(");
                     MyServer.Clients.List.Remove(socket);
                 }
                 if (received is EditUser)
@@ -109,10 +112,12 @@ namespace Musics___Server
 
                         MyServer.Clients.List.Remove(socket);
                         MyServer.Clients.AddUser(tmp.NewUser, socket);
+                        MyServer.Log.Warn($"User {tmp.NewUser} has been edited");
                         return;
                     }
                     else
                     {
+                        MyServer.Log.Warn($"Editing the user {tmp.NewUser} failed !");
                         MyServer.SendObject(new EditUserReport(false, tmp.NewUser), socket);
                     }
                 }
@@ -131,13 +136,22 @@ namespace Musics___Server
                                     UsersInfos.GetUser(tmp.UserToEdit)
                                 };
                                 MyServer.SendObject(new RequestAnswer(tmpU, true), socket);
-                                Console.WriteLine("~ User promoted " + tmp.UserToEdit + " to " + tmp.NewRankOfUser.ToString());
+                                MyServer.Log.Warn($"User promoted { tmp.UserToEdit} to " + tmp.NewRankOfUser.ToString());
+                            }
+                            else
+                            {
+                                MyServer.Log.Warn($"Promoting the user {tmp.UserToEdit} to {tmp.NewRankOfUser.ToString()} failed !");
                             }
                             break;
                         case TypesEdit.Musics:
                             if ((int)MyServer.Clients.GetUser(socket).Userrank > 1)
                             {
                                 Indexation.ModifyElement(tmp.ObjectToEdit as Element, tmp.NewName ,tmp.NewGenres);
+                                MyServer.Log.Warn($"The musics {tmp.NewName} has been edited !");
+                            }
+                            else
+                            {
+                                MyServer.Log.Warn($"The musics {tmp.NewName } couldn't be edited");
                             }
                             break;
                     }
@@ -146,6 +160,7 @@ namespace Musics___Server
                 {
                     SavePlaylist tmp = received as SavePlaylist;
                     UsersInfos.SaveUserPlaylist(tmp.UID, tmp.Playlist);
+                    MyServer.Log.Info($"The playlist {tmp.Playlist.Name} has been created");
                 }
                 if(received is UploadMusic)
                 {
@@ -153,10 +168,13 @@ namespace Musics___Server
                     if (Indexation.AddElement(tmp) && (int)MyServer.Clients.GetUser(socket).Userrank > 1)
                     {
                         MyServer.SendObject(new UploadReport(null, true),socket);
+                        MyServer.Log.Warn($"The music { tmp.MusicPart.Name } has been upload");
                     }
                     else
                     {
                         MyServer.SendObject(new UploadReport(null, false), socket);
+                        MyServer.Log.Warn($"The music { tmp.MusicPart.Name } has been upload");
+                        MyServer.Log.Warn("Upload completed with success");
                     }
                 }
             }
@@ -166,7 +184,7 @@ namespace Musics___Server
                 {
                     Login auth = received as Login;
 
-                    Console.Write("~ Client try to login");
+                    MyServer.Log.Warn("Client try to login");
 
                     if (auth.IsSignup)
                     {

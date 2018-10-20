@@ -5,6 +5,7 @@ using Musics___Server.Usersinfos;
 using System.Net.Sockets;
 using Utility.Network.Dialog;
 using Utility.Musics;
+using static Musics___Server.Program;
 
 namespace Musics___Server.MusicsManagement.ClientSearch
 {
@@ -14,7 +15,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
         {
             if (Program.MyServer.Clients.GetUser(asker).UID != null)
             {
-                Console.WriteLine("Sending to the client :");
+                MyServer.Log.Info("Sending to the client :");
                 switch (requestSearch.Requested)
                 {
                     case ElementType.Author:
@@ -56,7 +57,11 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                  }
                  );
             foreach (var m in result)
-                Console.WriteLine("  " + m.Title);
+                MyServer.Log.Info("  " + m.Title);
+
+            requestSearch.SenderUID = Program.MyServer.Clients.GetUser(asker).UID;
+
+            Program.ServerCom.GlobalSend(requestSearch);
 
             Program.MyServer.SendObject(new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Music), asker);
         }
@@ -80,7 +85,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                         tmp.Add(temp);
                     }
                     result.Add(tmp);
-                    Console.WriteLine("  " + al.Name);
+                    MyServer.Log.Info("  " + al.Name);
 
                 }
             }
@@ -109,7 +114,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                     }
                 }
                result.Add(author);
-                Console.WriteLine("  " + a.Name);
+                MyServer.Log.Info("  " + a.Name);
             }
             Program.MyServer.SendObject(new RequestAnswer(result, ElementType.Author), asker);
         }
