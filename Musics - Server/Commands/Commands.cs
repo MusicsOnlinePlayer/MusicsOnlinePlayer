@@ -83,7 +83,7 @@ namespace Musics___Server.Commands
             else if (entry == "-users")
             {
                 Console.WriteLine("Getting all connected users");
-                foreach (User u in Program.MyServer.Clients.List.Values)
+                foreach (User u in Program.MyServer.Clients.Values)
                 {
                     MyServer.Log.Info(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
                 }
