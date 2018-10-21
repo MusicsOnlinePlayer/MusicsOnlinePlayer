@@ -380,7 +380,7 @@ namespace Musics___Client
         ElementType typeOfSelected;
 
         private void UISearchListbox_SelectedIndexChanged(object sender, EventArgs e)
-        {
+            {
             Invoke((MethodInvoker)delegate
             {
                 ChangeDescription();
