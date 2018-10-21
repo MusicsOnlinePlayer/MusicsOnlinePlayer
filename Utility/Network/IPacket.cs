@@ -1,6 +1,6 @@
 
 ﻿using System;
-
+ namespace Utility.Network
 {
     public interface IPacket
     {
