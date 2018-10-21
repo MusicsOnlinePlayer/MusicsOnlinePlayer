@@ -4,5 +4,4 @@
     {
         protected override ECommands CommandType => ECommands.Get;
     }
-
 }
