@@ -8,6 +8,7 @@ namespace Musics___Server.Commands
     {
         public override void Execute(IEnumerable<string> args)
         {
+        
             Console.WriteLine("~ Getting all users");
             foreach (var u in UsersInfos.GetAllUsers())
                 Console.WriteLine($" - {u.Name} {u.Userrank.ToString()} {u.UID}");

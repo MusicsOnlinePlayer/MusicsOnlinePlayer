@@ -13,7 +13,6 @@ using Utility.Network.Dialog.Rating;
 using Utility.Network.Dialog.Edits;
 using Utility.Network.Dialog.Uploads;
 using Utility.Network.Dialog.Authentification;
-using CodeCraft.Logger;
 
 
 
@@ -21,7 +20,7 @@ namespace Musics___Server
 {
     class Program
     {
-        public static Server MyServer = new Server();
+        public static Server MyServer { get; } = new Server();
         public static ServerComHandler ServerCom = new ServerComHandler();   
 
         static void Main(string[] args)
@@ -36,16 +35,8 @@ namespace Musics___Server
             MyServer.Log.Info("Indexation done.");
             Indexation.SaveAllInfos();
 
-            //Manager.RefreshTrending();
-
-            string entry = "";
             CommandLineInterpreter.Instance.Start();
 
-            while (entry != "-quit")
-            {
-                entry = Console.ReadLine();
-                Commands.Commands.Do(entry);
-            }
             MyServer.Log.Info("Saving music info ... ");
             Indexation.SaveAllInfos();
             MyServer.Log.Info("Done.");

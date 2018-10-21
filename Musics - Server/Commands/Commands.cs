@@ -54,7 +54,7 @@ namespace Musics___Server.Commands
     
     static class Commands
     {
-        private static Regex CommandRegex = new Regex("");
+        private readonly static Regex CommandRegex = new Regex("");
 
 
         public static void Do(string entry)
