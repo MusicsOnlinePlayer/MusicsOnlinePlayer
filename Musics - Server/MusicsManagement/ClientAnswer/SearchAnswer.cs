@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Musics___Server.Usersinfos;
 using System.Net.Sockets;
@@ -62,7 +61,6 @@ namespace Musics___Server.MusicsManagement.ClientSearch
             requestSearch.SenderUID = Program.MyServer.Clients.GetUser(asker).UID;
 
             Program.ServerCom.GlobalSend(requestSearch);
-
             Program.MyServer.SendObject(new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Music), asker);
         }
 

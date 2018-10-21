@@ -12,7 +12,7 @@ namespace Musics___Server.MusicsInformation
         {
             if (!File.Exists(@"Musics.xml"))
             {
-                using (XmlWriter writer = XmlWriter.Create(@"Musics.xml"))
+                using (var writer = XmlWriter.Create(@"Musics.xml"))
                 {
                     writer.WriteStartDocument();
                     writer.WriteStartElement("Musics");
@@ -74,7 +74,7 @@ namespace Musics___Server.MusicsInformation
 
         public static void SaveMusicsInfo(IEnumerable<Music> musics)
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.Load(@"Musics.xml");
 
             foreach (var m in musics)

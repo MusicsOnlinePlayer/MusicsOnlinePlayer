@@ -137,7 +137,7 @@ namespace Musics___Client
 
             IsUploadValid = true;
 
-            this.Close();
+            Close();
         }
     }
 }

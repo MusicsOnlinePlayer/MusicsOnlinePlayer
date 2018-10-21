@@ -1,14 +1,64 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Musics___Server.Commands.Exceptions;
 using Musics___Server.MusicsManagement;
 using Musics___Server.Usersinfos;
 using Utility.Network.Users;
+using static Musics___Server.Program;
+using System.Linq;
 using CodeCraft.Logger;
 using static Musics___Server.Program;
 
 namespace Musics___Server.Commands
 {
+
+    public sealed class CommandLineInterpreter
+    {
+        private static Lazy<CommandLineInterpreter> instance = new Lazy<CommandLineInterpreter>(() => new CommandLineInterpreter(), true);
+
+        public static CommandLineInterpreter Instance { get => instance.Value; }
+
+        private CommandLineInterpreter() { }
+
+        public void Start()
+        {
+            string commandLine = string.Empty;
+            do
+            {
+                commandLine = Console.ReadLine();
+                (var cmd, var arguments) = CommandSplitter(commandLine);
+                try
+                {
+                    (var CommandType, var command) = CommandFactory.InstanciateCommand(cmd);
+                    if (CommandType == ECommands.Quit)
+                        break;
+                    command.Execute(arguments);
+                }
+                catch (CommandException ex)
+                {
+                    Console.Write(ex.Message);
+                }
+            } while (true);
+
+        }
+
+
+        private (string command, IEnumerable<string> arguments) CommandSplitter(string command)
+        {
+            var splittedCommand = CompleteTrimmer(command).Split(' ').ToList();
+            return (splittedCommand.First(), splittedCommand.Skip(1));
+        }
+
+        private string CompleteTrimmer(string command)
+            => Regex.Replace(command, @"\s+", " ");
+    }
+    
     static class Commands
     {
+        private static Regex CommandRegex = new Regex("");
+
+
         public static void Do(string entry)
         {
             if (entry == "-init")
@@ -33,7 +83,7 @@ namespace Musics___Server.Commands
             else if (entry == "-users")
             {
                 MyServer.Log.Info("Getting all connected users");
-                foreach (User u in Program.MyServer.Clients.List.Values)
+                foreach (User u in Program.MyServer.Clients.Values)
                 {
                     MyServer.Log.Info(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
                 }
@@ -52,7 +102,7 @@ namespace Musics___Server.Commands
             {
 
                 string[] entryArgument = entry.Split('-');
-                if(entryArgument.Length != 4)
+                if (entryArgument.Length != 4)
                 {
                     MyServer.Log.Info("Syntax not correct, please use -promote -UID -Rank");
                     return;

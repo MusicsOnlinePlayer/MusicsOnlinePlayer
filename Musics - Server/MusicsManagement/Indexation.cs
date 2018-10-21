@@ -20,8 +20,10 @@ namespace Musics___Server.MusicsManagement
 
         public static void InitRepository()
         {
-            Directory.CreateDirectory(@"c:\AllMusics");
-            MyServer.Log.Info("Directory created.");
+            string musicsDBPath = @"C:\AllMusics";
+            if (!Directory.Exists(musicsDBPath))
+                Directory.CreateDirectory(musicsDBPath);
+            Console.WriteLine("Directory created.");
             MusicsInfo.SetupMusics();
         }
 
@@ -42,7 +44,10 @@ namespace Musics___Server.MusicsManagement
                 default: throw new InvalidOperationException();
             }
         }
-
+        public static int Do()
+        {
+             return Do(Properties.Settings.Default.UseMultiThreading);
+        }
         public static int Do(bool UseMultiThreading)
         {
             string[] ArtistDirs = Directory.GetDirectories(@"c:\AllMusics");
@@ -52,7 +57,7 @@ namespace Musics___Server.MusicsManagement
             TagLib.File file;
             Console.WriteLine();
 
-            Stopwatch indexationStopWatch = new Stopwatch();
+            var indexationStopWatch = new Stopwatch();
             indexationStopWatch.Start();
             long startMemory = GC.GetTotalMemory(false);
 
@@ -157,32 +162,6 @@ namespace Musics___Server.MusicsManagement
                 default:
                     throw new InvalidOperationException();
             }
-
-            //if (originalElement is Author)
-            //{
-            //    //Author tmpOrigin = Origin as Author;
-            //    //foreach (var a in Indexation.ServerMusics)
-            //    //{
-            //    //    if(tmpOrigin.MID == a.MID)
-            //    //    {
-            //    //        a.Name = NewName;
-            //    //        a.MID = Hash.SHA256Hash(a.Name + ElementType.Author);
-
-            //    //        //Directory.Move(a.ServerPath, Directory.GetParent(a.ServerPath) + "/" + a.Name);
-
-            //    //        foreach (var al in a.albums)
-            //    //        {
-            //    //            al.Author = a;
-            //    //            foreach(var m in al.Musics)
-            //    //            {
-            //    //                m.Author = a;
-            //    //            }
-            //    //        }
-
-            //    //        return;
-            //    //    }
-            //    //}
-            //}
         }
         public static void ModifyMusic(Element originalElement, string newName, string[] genres)
         {
@@ -316,8 +295,9 @@ namespace Musics___Server.MusicsManagement
            => ServerMusics.SingleOrDefault(x => x.MID == MID);
 
         public static Music GetMusic(Element element)
-            => GetMusic(element.MID);
-        public static Music GetMusic(string MID)
+            => GetMusicByID(element.MID);
+        public static Music GetMusicByID(string MID)
+
             => GetAllMusics().SingleOrDefault(m => m.MID == MID);
 
         public static string GetElementPath(Element element)

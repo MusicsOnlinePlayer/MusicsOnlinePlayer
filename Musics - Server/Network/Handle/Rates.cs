@@ -13,12 +13,12 @@ namespace Musics___Server.Network.Handle
     {
         public static void Handle(Rate temp, Socket socket)
         {
-            bool VoteExist = UsersInfos.VoteExist(temp.MusicRatedMID, Program.MyServer.Clients.List[socket].UID);
-            UsersInfos.AddVoteMusic(temp.MusicRatedMID, Program.MyServer.Clients.List[socket].UID);
+            bool VoteExist = UsersInfos.VoteExist(temp.MusicRatedMID, Program.MyServer.Clients[socket].UID);
+            UsersInfos.AddVoteMusic(temp.MusicRatedMID, Program.MyServer.Clients[socket].UID);
 
             if (temp.Type == ElementType.Music)
             {
-                var m = Indexation.GetMusic(temp.MusicRatedMID);
+                var m = Indexation.GetMusicByID(temp.MusicRatedMID);
                 if (m != null)
                 {
                     if (VoteExist)
@@ -27,7 +27,7 @@ namespace Musics___Server.Network.Handle
                     {
                         m.Rating++;
 
-                        Program.MyServer.Clients.List.TryGetValue(socket, out User value);
+                        Program.MyServer.Clients.TryGetValue(socket, out User value);
                         Program.MyServer.SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(value.UID)), socket);
                     }
                     Program.MyServer.SendObject(new RateReport(true, temp.MusicRatedMID, m.Rating), socket);

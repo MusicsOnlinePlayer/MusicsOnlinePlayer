@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net.Sockets;
 using Musics___Server.Usersinfos;
-using Musics___Server.MusicsInformation;
 using Musics___Server.MusicsManagement;
 using Musics___Server.Network;
 using Musics___Server.Commands;
@@ -17,6 +16,7 @@ using Utility.Network.Dialog.Authentification;
 using CodeCraft.Logger;
 
 
+
 namespace Musics___Server
 {
     class Program
@@ -29,7 +29,7 @@ namespace Musics___Server
             MyServer.Setup();
 
             MyServer.AuthService.SetupAuth();
-            MusicsInfo.SetupMusics();
+            Indexation.InitRepository();
 
             MyServer.Log.Info("Indexation of all musics....  ");
             MyServer.Log.Info(Indexation.Do(Properties.Settings.Default.UseMultiThreading) + "Musics");
@@ -39,6 +39,7 @@ namespace Musics___Server
             //Manager.RefreshTrending();
 
             string entry = "";
+            CommandLineInterpreter.Instance.Start();
 
             while (entry != "-quit")
             {
@@ -59,7 +60,7 @@ namespace Musics___Server
             {
                 tmpUser.Userrank = rank;
                 Socket tmpSocket = MyServer.Clients.GetSocket(UID);
-                MyServer.Clients.List.Remove(tmpSocket);
+                MyServer.Clients.Remove(tmpSocket);
                 MyServer.Clients.AddUser(tmpUser, tmpSocket);
                 MyServer.SendObject(new EditUserReport(true, MyServer.Clients.GetUser(UID)), MyServer.Clients.GetSocket(UID));
             }
@@ -101,7 +102,7 @@ namespace Musics___Server
                 if(received is Disconnect)
                 {
                     MyServer.Log.Warn("Client disconnected =(");
-                    MyServer.Clients.List.Remove(socket);
+                    MyServer.Clients.Remove(socket);
                 }
                 if (received is EditUser)
                 {
@@ -110,7 +111,7 @@ namespace Musics___Server
                     {
                         MyServer.SendObject(new EditUserReport(true, tmp.NewUser), socket);
 
-                        MyServer.Clients.List.Remove(socket);
+                        MyServer.Clients.Remove(socket);
                         MyServer.Clients.AddUser(tmp.NewUser, socket);
                         MyServer.Log.Warn($"User {tmp.NewUser} has been edited");
                         return;
@@ -189,17 +190,18 @@ namespace Musics___Server
                     if (auth.IsSignup)
                     {
                         MyServer.AuthService.SignupUser(auth.LoginInfo);
-                        MyServer.Clients.List.Remove(socket);
+                        MyServer.Clients.Remove(socket);
                         MyServer.Clients.AddUser(auth.LoginInfo, socket);
                         MyServer.SendObject(new AuthInfo(true, Rank.Viewer), socket);
                     }
                     else
                     {
-                        if (MyServer.AuthService.SigninUser(auth.LoginInfo) && !MyServer.Clients.Contains(auth.LoginInfo.UID))
+                       // if (MyServer.AuthService.SigninUser(auth.LoginInfo) && !MyServer.Clients.Contains(auth.LoginInfo.UID))
+                       if(true)
                         {
                             Rank RankUser = UsersInfos.GetRankOfUser(auth.LoginInfo.UID);
                             MyServer.SendObject(new AuthInfo(true, RankUser), socket);
-                            MyServer.Clients.List.Remove(socket);
+                            MyServer.Clients.Remove(socket);
                             auth.LoginInfo.Userrank = RankUser;
                             MyServer.Clients.AddUser(auth.LoginInfo, socket);
                         }

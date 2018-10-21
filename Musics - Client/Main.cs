@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Net;
-using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
 using Musics___Client.Hue;
@@ -45,7 +43,7 @@ namespace Musics___Client
 
             UIAccountName.Text = Me.Name;
             UIAccountId.Text = Me.UID;
-            this.Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + authInfo.RankofAuthUser.ToString();
+            Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + authInfo.RankofAuthUser.ToString();
             UIRank.Text = authInfo.RankofAuthUser.ToString();
             if (authInfo.RankofAuthUser == Rank.Viewer)
             {
@@ -138,7 +136,7 @@ namespace Musics___Client
                         Me = tmp.NewUser;
                         UIAccountName.Text = Me.Name + " (Modified)";
                         UIAccountId.Text = Me.UID;
-                        this.Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + Me.Userrank.ToString();
+                        Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + Me.Userrank.ToString();
                         UIRank.Text = Me.Userrank.ToString();
                         if (Me.Userrank == Rank.Viewer)
                         {
@@ -248,8 +246,6 @@ namespace Musics___Client
             UISearchListbox.Items.AddRange(elements.Select(a => a.Name).ToArray());
             SearchlistboxItems.AddRange(elements);
         }
-
-        //private void  UpdateSearchList(IEnumerable<Element>)
 
         public void RequestAnswerBinaries(RequestAnswer searchAnswer)
         {
