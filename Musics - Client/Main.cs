@@ -247,8 +247,6 @@ namespace Musics___Client
             SearchlistboxItems.AddRange(elements);
         }
 
-        //private void  UpdateSearchList(IEnumerable<Element>)
-
         public void RequestAnswerBinaries(RequestAnswer searchAnswer)
         {
             Invoke((MethodInvoker)delegate
