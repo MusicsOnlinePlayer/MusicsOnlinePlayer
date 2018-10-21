@@ -12,7 +12,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
     {
         public static void Do(Request requestSearch, Socket asker)
         {
-            if (Program.MyServer.Clients.GetUser(asker).UID != null)
+            if (MyServer.Clients.GetUser(asker).UID != null)
             {
                 MyServer.Log.Info("Sending to the client :");
                 switch (requestSearch.Requested)
@@ -35,9 +35,9 @@ namespace Musics___Server.MusicsManagement.ClientSearch
 
         private static void DoPlaylist(Request requestSearch, Socket asker)
         {
-            string userUID = Program.MyServer.Clients.GetUser(asker).UID;
+            string userUID = MyServer.Clients.GetUser(asker).UID;
             var playlists = UsersInfos.GetPlaylists(userUID).Where(p => Search.Find(requestSearch.Name, p.Name));
-            Program.MyServer.SendObject(new RequestAnswer(playlists.Cast<IElement>().ToList(), ElementType.Playlist), asker);
+            MyServer.SendObject(new RequestAnswer(playlists.Cast<IElement>().ToList(), ElementType.Playlist), asker);
         }
 
         private static void DoMusic(Request requestSearch, Socket asker)
@@ -58,10 +58,10 @@ namespace Musics___Server.MusicsManagement.ClientSearch
             foreach (var m in result)
                 MyServer.Log.Info("  " + m.Title);
 
-            requestSearch.SenderUID = Program.MyServer.Clients.GetUser(asker).UID;
+            requestSearch.SenderUID = MyServer.Clients.GetUser(asker).UID;
 
-            Program.ServerCom.GlobalSend(requestSearch);
-            Program.MyServer.SendObject(new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Music), asker);
+            ServerCom.GlobalSend(requestSearch);
+            MyServer.SendObject(new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Music), asker);
         }
 
         private static void DoAlbum(Request requestSearch, Socket asker)
@@ -87,7 +87,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
 
                 }
             }
-            Program.MyServer.SendObject(new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Album), asker);
+            MyServer.SendObject(new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Album), asker);
         }
 
         private static void DoAuthor(Request requestSearch, Socket asker)
@@ -114,7 +114,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
                result.Add(author);
                 MyServer.Log.Info("  " + a.Name);
             }
-            Program.MyServer.SendObject(new RequestAnswer(result, ElementType.Author), asker);
+            MyServer.SendObject(new RequestAnswer(result, ElementType.Author), asker);
         }
     }
 }
