@@ -30,33 +30,35 @@ namespace Utility.Musics
             Author = author;
             Name = name; 
             Type = ElementType.Album;
-            MID = Hash.SHA256Hash(Name + ElementType.Album.ToString());
+            MID = GenerateHash();
         }
         public Album(Author author, string name, Music[] musics)
         {
             Author = author;
             Name = name; 
             Type = ElementType.Album;
-            MID = Hash.SHA256Hash(Name + ElementType.Album.ToString());
+            MID = GenerateHash();
         }
         public Album(Author author, string name, string Path)
         {
             Author = author;
             Name = name; 
             Type = ElementType.Album;
-            MID = Hash.SHA256Hash(Name + ElementType.Album.ToString());
+            MID = GenerateHash();
             ServerPath = Path;
         }
         public Album(string name)
         {
             Name = name; 
             Type = ElementType.Album;
-            MID = Hash.SHA256Hash(Name + ElementType.Album.ToString());
+            MID = GenerateHash();
         }
 
         public void Add(Music music)
         {
             musics.Add(music);
         }
+
+        protected override string KeyToHash() => Author.Name +  Name;
     }
 }

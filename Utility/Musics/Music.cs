@@ -25,7 +25,7 @@ namespace Utility.Musics
             Author = author;
             FileBinary = Filebinary;
             Album = album;
-            MID = Hash.SHA256Hash(Title + author.Name + Album.Name);
+            MID = GenerateHash();
             Type = ElementType.Music;
         }
         public Music(string title, Author author, Album album, string Path)
@@ -34,7 +34,7 @@ namespace Utility.Musics
             Author = author;
             ServerPath = Path;
             Album = album;
-            MID = Hash.SHA256Hash(Title + author.Name + Album.Name);
+            MID = GenerateHash();
             Type = ElementType.Music;
         }
         public Music(string title, Author author, Album album, string Path, int rating)
@@ -43,10 +43,12 @@ namespace Utility.Musics
             Author = author;
             ServerPath = Path;
             Album = album;
-            MID = Hash.SHA256Hash(Title + author.Name + Album.Name);
+            MID = GenerateHash();
             Type = ElementType.Music;
             Rating = rating;
         }
+
+        protected override string KeyToHash() => Author.Name + Album.Name + Title;
     }
     public enum ElementType
     {

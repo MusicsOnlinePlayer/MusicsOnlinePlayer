@@ -25,25 +25,25 @@ namespace Utility.Musics
             musics = Musics;
             Private = IsPrivate;
             Type = ElementType.Playlist;
-            MID = Hash.SHA256Hash(Name + Private + ElementType.Playlist.ToString());
+            MID = GenerateHash();
         }
         public Playlist(User creator, string name)
         {
             Creator = creator;
             Name = name;
             Type = ElementType.Playlist;
-            MID = Hash.SHA256Hash(Name + Private + ElementType.Playlist.ToString());
+            MID = GenerateHash();
         }
+
+        protected override string KeyToHash() => Name + Private;
     }
 
     public static class Hash
     {
         public static string SHA256Hash(string value)
         {
-            using (SHA256 hash = SHA256Managed.Create())
-            {
-                return String.Concat(hash.ComputeHash(Encoding.UTF8.GetBytes(value)));
-            }
+            using (var hash = SHA256.Create())
+                return string.Concat(hash.ComputeHash(Encoding.UTF8.GetBytes(value)));
         }
     }
 
