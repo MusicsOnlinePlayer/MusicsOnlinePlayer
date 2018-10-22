@@ -41,6 +41,7 @@ namespace Musics___Server.Commands
                 case ECommands.Get: return (ECommands.Get, new GetCommand());
                 case ECommands.GetMultithreading: return (ECommands.GetMultithreading, new GetMultithreadingCommand());
                 case ECommands.Promote: return (ECommands.Promote, new PromoteCommand());
+                case ECommands.ConnectServer: return (ECommands.ConnectServer, new ConnectServerCommand());
                 case ECommands.Quit: return (ECommands.Quit, new QuitCommand());
                 default: throw new NotImplementedException();
 

@@ -6,8 +6,6 @@ namespace Musics___Server.Commands
     class InitializeCommand : BaseCommand
     {
         public override void Execute(IEnumerable<string> args)
-        {
-            Indexation.InitRepository();
-        }
+            => Indexation.InitRepository();
     }
 }

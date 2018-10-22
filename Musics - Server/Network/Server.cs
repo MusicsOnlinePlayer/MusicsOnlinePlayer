@@ -18,7 +18,7 @@ namespace Musics___Server.Network
         public ClientList Clients = new ClientList();
         public AuthentificationService AuthService = new AuthentificationService();
 
-        public ConsoleLogger Log = new ConsoleLogger();
+        public ConsoleLogger Log { get; } = new ConsoleLogger();
 
         public void Setup()
         {
@@ -114,5 +114,5 @@ namespace Musics___Server.Network
                 Log.Error("Failed to send data");
             }
         }
-    } 
+    }
 }

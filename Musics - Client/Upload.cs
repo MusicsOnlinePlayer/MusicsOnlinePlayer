@@ -65,7 +65,7 @@ namespace Musics___Client
             ListViewItem[] items = new ListViewItem[4];
 
             items[0] = new ListViewItem(new string[] { "Name", music.Tag.Title });
-            items[1] = new ListViewItem(new string[] { "Genre", String.Join(";", music.Tag.Genres) });
+            items[1] = new ListViewItem(new string[] { "Genre", string.Join(";", music.Tag.Genres) });
             items[2] = new ListViewItem(new string[] { "Album", music.Tag.Album });
             items[3] = new ListViewItem(new string[] { "Artist", music.Tag.FirstPerformer });
 

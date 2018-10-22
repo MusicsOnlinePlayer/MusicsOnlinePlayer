@@ -9,7 +9,7 @@ namespace ControlLibrary
 {
     public partial class UPlayer : UserControl
     {
-        public Player player = new Player();
+        private Player player = new Player();
 
         public List<Music> Playlist = new List<Music>();
         public int PlaylistIndex;

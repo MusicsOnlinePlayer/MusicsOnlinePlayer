@@ -24,5 +24,7 @@
         GetMultithreading,
         [CommandSyntax(command: "-promote")]
         Promote,
+        [CommandSyntax(command:"-connect")]
+        ConnectServer
     }
 }

@@ -56,7 +56,7 @@ namespace Musics___Server.MusicsManagement
 
             TagLib.File file;
             Console.WriteLine();
-
+            ServerMusics.Clear();
             var indexationStopWatch = new Stopwatch();
             indexationStopWatch.Start();
             long startMemory = GC.GetTotalMemory(false);
@@ -284,10 +284,19 @@ namespace Musics___Server.MusicsManagement
             ServerMusics.Add(new Author(music.Author.Name, path));
         }
 
+        public static IEnumerable<Album> GetAllAlbums()
+            => ServerMusics.SelectMany(x => x.Albums);
+
+        public static IEnumerable<Album> GetAlbums(Func<Album, bool> predicate)
+            => GetAllAlbums().Where(predicate);
+
         public static Album GetAlbum(Element element)
             => GetAlbum(element.MID);
         public static Album GetAlbum(string MID)
             => ServerMusics.SelectMany(x => x.Albums).SingleOrDefault(x => x.MID == MID);
+
+        public static IEnumerable<Author> GetAuthors(Func<Author, bool> predicate)
+          => ServerMusics.Where(predicate);
 
         public static Author GetAuthor(Element element)
             => GetAuthor(element.MID);

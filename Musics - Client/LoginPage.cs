@@ -29,7 +29,7 @@ namespace Musics___Client
             if (ClientForm.authInfo.IsAccepted)
             {
                 ClientForm.Me = RequestedUser;
-                ClientForm.Me.Userrank = ClientForm.authInfo.RankofAuthUser;
+                ClientForm.Me.Rank = ClientForm.authInfo.RankofAuthUser;
 
                 Invoke((MethodInvoker)delegate
                 {

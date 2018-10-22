@@ -7,5 +7,8 @@ namespace Utility.Musics
         public ElementType Type { get; set; }
         public string MID { get; set; }
         public abstract string Name { get; set; }
+
+        protected abstract string KeyToHash();
+        protected string GenerateHash() => Hash.SHA256Hash(KeyToHash());
     }
 }

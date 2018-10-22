@@ -19,16 +19,18 @@ namespace Utility.Musics
         {
             Name = name;
             Albums = new List<Album>();
-            MID = Hash.SHA256Hash(Name + ElementType.Author);
+            MID = GenerateHash();
             Type = ElementType.Author;
         }
         public Author(string name, string Path)
         {
             Name = name;
             Albums = new List<Album>();
-            MID = Hash.SHA256Hash(Name + ElementType.Author);
+            MID = GenerateHash();
             ServerPath = Path;
             Type = ElementType.Author;
         }
+
+        protected override string KeyToHash() => Name;
     }
 }

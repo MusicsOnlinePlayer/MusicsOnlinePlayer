@@ -34,7 +34,7 @@ namespace Musics___Server.Network.Handle
                     Program.MyServer.SendObject(new RequestAnswer(tmp), socket);
                     break;
                 case RequestsTypes.Users:
-                    if (Program.MyServer.Clients.GetUser(socket).Userrank != Rank.Viewer)
+                    if (Program.MyServer.Clients.GetUser(socket).Rank != Rank.Viewer)
                     {
                         Program.MyServer.SendObject(new RequestAnswer(UsersInfos.SearchUser(request.Username), true), socket);
                     }

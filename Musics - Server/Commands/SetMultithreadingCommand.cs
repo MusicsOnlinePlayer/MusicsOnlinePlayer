@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Musics___Server.Commands
@@ -11,14 +10,12 @@ namespace Musics___Server.Commands
             if (bool.TryParse(args.First(), out bool newValue))
             {
                 Properties.Settings.Default.UseMultiThreading = newValue;
-                Console.WriteLine($"~ Multithreading has been set to {newValue}");
+                Log.Info($"Multithreading has been set to {newValue}");
             }
             else
             {
-                Console.WriteLine($"Arguments \"{ args.First()}\" cannot be parse as bool");
+                Log.Info($"Arguments \"{ args.First()}\" cannot be parse as bool");
             }
-
         }
     }
-
 }
