@@ -9,10 +9,10 @@ namespace ControlLibrary
         {
             TagLib.File f = new TagLib.Mpeg.AudioFile(MusicPath);
 
-            TagLib.IPicture pic = f.Tag.Pictures[0];
-            using (MemoryStream ms = new MemoryStream(pic.Data.Data))
+            var pic = f.Tag.Pictures[0];
+            using (var ms = new MemoryStream(pic.Data.Data))
             {
-                Image image = Image.FromStream(ms);
+                var image = Image.FromStream(ms);
                 return image;
             }
         }
