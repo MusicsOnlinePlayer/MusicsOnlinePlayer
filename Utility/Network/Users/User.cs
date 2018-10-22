@@ -9,7 +9,7 @@ namespace Utility.Network.Users
         public string UID { get; set; }
         public Rank Userrank { get; set; }
 
-        public String Name { get; set; }
+        public string Name { get; set; }
         public bool Connected { get; set; }
 
         public User() { }

@@ -20,7 +20,7 @@ namespace Musics___Server
     class Program
     {
         public static Server MyServer { get; } = new Server();
-        public static ServerComHandler ServerCom = new ServerComHandler();   
+        public static ServerComHandler ServerCom = new ServerComHandler();
 
         static void Main(string[] args)
         {
@@ -81,93 +81,37 @@ namespace Musics___Server
 
             if (ClientLogin)
             {
-                if (received is Request)
-                {     
-                    Network.Handle.Requests.Handle(received as Request,socket);
-                }
-                if (received is Rate)
+                switch (received)
                 {
-                    Network.Handle.Rates.Handle(received as Rate, socket);
-                }
-                if(received is Disconnect)
-                {
-                    MyServer.Log.Warn("Client disconnected =(");
-                    MyServer.Clients.Remove(socket);
-                }
-                if (received is EditUser)
-                {
-                    EditUser tmp = received as EditUser;
-                    if (MyServer.AuthService.EditUser(tmp.UIDOld, tmp.NewUser))
-                    {
-                        MyServer.SendObject(new EditUserReport(true, tmp.NewUser), socket);
+                    case Request request:
+                        TreatRequest(socket, request);
+                        break;
 
-                        MyServer.Clients.Remove(socket);
-                        MyServer.Clients.AddUser(tmp.NewUser, socket);
-                        MyServer.Log.Warn($"User {tmp.NewUser} has been edited");
-                        return;
-                    }
-                    else
-                    {
-                        MyServer.Log.Warn($"Editing the user {tmp.NewUser} failed !");
-                        MyServer.SendObject(new EditUserReport(false, tmp.NewUser), socket);
-                    }
-                }
-                if (received is EditRequest)
-                {
-                    EditRequest tmp = received as EditRequest;
+                    case Rate rate:
+                        TreatRate(socket, rate);
+                        break;
 
-                    switch (tmp.TypeOfEdit)
-                    {
-                        case TypesEdit.Users:
-                            if ((int)UsersInfos.GetRankOfUser(MyServer.Clients.GetUser(socket).UID) > (int)tmp.NewRankOfUser && (int)UsersInfos.GetRankOfUser(MyServer.Clients.GetUser(socket).UID) > (int)UsersInfos.GetRankOfUser(tmp.UserToEdit))
-                            {
-                                PromoteUser(tmp.UserToEdit, tmp.NewRankOfUser);
-                                List<User> tmpU = new List<User>
-                                {
-                                    UsersInfos.GetUser(tmp.UserToEdit)
-                                };
-                                MyServer.SendObject(new RequestAnswer(tmpU, true), socket);
-                                MyServer.Log.Warn($"User promoted { tmp.UserToEdit} to " + tmp.NewRankOfUser.ToString());
-                            }
-                            else
-                            {
-                                MyServer.Log.Warn($"Promoting the user {tmp.UserToEdit} to {tmp.NewRankOfUser.ToString()} failed !");
-                            }
-                            break;
-                        case TypesEdit.Musics:
-                            if ((int)MyServer.Clients.GetUser(socket).Userrank > 1)
-                            {
-                                Indexation.ModifyElement(tmp.ObjectToEdit as Element, tmp.NewName ,tmp.NewGenres);
-                                MyServer.Log.Warn($"The musics {tmp.NewName} has been edited !");
-                            }
-                            else
-                            {
-                                MyServer.Log.Warn($"The musics {tmp.NewName } couldn't be edited");
-                            }
-                            break;
-                    }
+                    case Disconnect disconnect:
+                        TreatDisconnect(socket);
+                        break;
+
+                    case EditUser editUser:
+                        TreatEditUser(socket, editUser);
+                        break;
+
+                    case EditRequest editRequest:
+                        TreatEditRequest(socket, editRequest);
+                        break;
+
+                    case SavePlaylist savePlayList:
+                        TreatSavePlayList(savePlayList);
+                        break;
+
+                    case UploadMusic uploadMusic:
+                        TreatUploadMusic(socket, uploadMusic);
+                        break;
                 }
-                if (received is SavePlaylist)
-                {
-                    SavePlaylist tmp = received as SavePlaylist;
-                    UsersInfos.SaveUserPlaylist(tmp.UID, tmp.Playlist);
-                    MyServer.Log.Info($"The playlist {tmp.Playlist.Name} has been created");
-                }
-                if(received is UploadMusic)
-                {
-                    UploadMusic tmp = received as UploadMusic;
-                    if (Indexation.AddElement(tmp) && (int)MyServer.Clients.GetUser(socket).Userrank > 1)
-                    {
-                        MyServer.SendObject(new UploadReport(null, true),socket);
-                        MyServer.Log.Warn($"The music { tmp.MusicPart.Name } has been upload");
-                    }
-                    else
-                    {
-                        MyServer.SendObject(new UploadReport(null, false), socket);
-                        MyServer.Log.Warn($"The music { tmp.MusicPart.Name } has been upload");
-                        MyServer.Log.Warn("Upload completed with success");
-                    }
-                }
+
             }
             else
             {
@@ -186,8 +130,8 @@ namespace Musics___Server
                     }
                     else
                     {
-                       // if (MyServer.AuthService.SigninUser(auth.LoginInfo) && !MyServer.Clients.Contains(auth.LoginInfo.UID))
-                       if(true)
+                        // if (MyServer.AuthService.SigninUser(auth.LoginInfo) && !MyServer.Clients.Contains(auth.LoginInfo.UID))
+                        if (true)
                         {
                             Rank RankUser = UsersInfos.GetRankOfUser(auth.LoginInfo.UID);
                             MyServer.SendObject(new AuthInfo(true, RankUser), socket);
@@ -203,5 +147,86 @@ namespace Musics___Server
                 }
             }
         }
+
+        private static void TreatUploadMusic(Socket socket, UploadMusic uploadMusic)
+        {
+            if (Indexation.AddElement(uploadMusic) && (int)MyServer.Clients.GetUser(socket).Userrank > 1)
+            {
+                MyServer.SendObject(new UploadReport(null, true), socket);
+                MyServer.Log.Warn($"The music { uploadMusic.MusicPart.Name } has been upload");
+            }
+            else
+            {
+                MyServer.SendObject(new UploadReport(null, false), socket);
+                MyServer.Log.Warn($"The music { uploadMusic.MusicPart.Name } has been upload");
+                MyServer.Log.Warn("Upload completed with success");
+            }
+        }
+
+        private static void TreatSavePlayList(SavePlaylist savePlayList)
+        {
+            UsersInfos.SaveUserPlaylist(savePlayList.UID, savePlayList.Playlist);
+            MyServer.Log.Info($"The playlist {savePlayList.Playlist.Name} has been created");
+        }
+
+        private static void TreatEditRequest(Socket socket, EditRequest editRequest)
+        {
+            switch (editRequest.TypeOfEdit)
+            {
+                case TypesEdit.Users:
+                    if (UsersInfos.GetRankOfUser(MyServer.Clients.GetUser(socket).UID) > editRequest.NewRankOfUser && UsersInfos.GetRankOfUser(MyServer.Clients.GetUser(socket).UID) > UsersInfos.GetRankOfUser(editRequest.UserToEdit))
+                    {
+                        PromoteUser(editRequest.UserToEdit, editRequest.NewRankOfUser);
+                        List<User> tmpU = new List<User>
+                                {
+                                    UsersInfos.GetUser(editRequest.UserToEdit)
+                                };
+                        MyServer.SendObject(new RequestAnswer(tmpU, true), socket);
+                        MyServer.Log.Warn($"User promoted { editRequest.UserToEdit} to " + editRequest.NewRankOfUser.ToString());
+                    }
+                    else
+                    {
+                        MyServer.Log.Warn($"Promoting the user {editRequest.UserToEdit} to {editRequest.NewRankOfUser.ToString()} failed !");
+                    }
+                    break;
+                case TypesEdit.Musics:
+                    if (MyServer.Clients.GetUser(socket).Userrank > Rank.User)
+                    {
+                        Indexation.ModifyElement(editRequest.ObjectToEdit as Element, editRequest.NewName, editRequest.NewGenres);
+                        MyServer.Log.Warn($"The musics {editRequest.NewName} has been edited !");
+                    }
+                    else
+                    {
+                        MyServer.Log.Warn($"The musics {editRequest.NewName } couldn't be edited");
+                    }
+                    break;
+            }
+        }
+
+        private static void TreatEditUser(Socket socket, EditUser editUser)
+        {
+            if (MyServer.AuthService.EditUser(editUser.UIDOld, editUser.NewUser))
+            {
+                MyServer.SendObject(new EditUserReport(true, editUser.NewUser), socket);
+
+                MyServer.Clients.Remove(socket);
+                MyServer.Clients.AddUser(editUser.NewUser, socket);
+                MyServer.Log.Warn($"User {editUser.NewUser} has been edited");
+            }
+            else
+            {
+                MyServer.Log.Warn($"Editing the user {editUser.NewUser} failed !");
+                MyServer.SendObject(new EditUserReport(false, editUser.NewUser), socket);
+            }
+        }
+
+        private static void TreatDisconnect(Socket socket)
+        {
+            MyServer.Log.Warn("Client disconnected =(");
+            MyServer.Clients.Remove(socket);
+        }
+
+        private static void TreatRate(Socket socket, Rate rate) => Network.Handle.Rates.Handle(rate, socket);
+        private static void TreatRequest(Socket socket, Request request) => Network.Handle.Requests.Handle(request, socket);
     }
 }

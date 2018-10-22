@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Xml;
 using Utility.Network.Users;
-
+using System.Linq;
 namespace Musics___Server.Authentification
 {
     class AuthentificationService
@@ -55,27 +55,14 @@ namespace Musics___Server.Authentification
         public bool SigninUser(User user)
         {
             doc.Load(@"users.xml");
-            XmlNodeList nodes = doc.DocumentElement.SelectNodes("User");
-
-            foreach(XmlNode n in nodes)
-            {
-                if (n["UID"].InnerText == user.UID)
-                    return true;
-            }
-            return false;
+            return UserIDExit(user.UID); 
         }
 
         public bool UserIDExit(string UID)
         {
             doc.Load(@"users.xml");
-            XmlNodeList nodes = doc.DocumentElement.SelectNodes("User");
-
-            foreach (XmlNode n in nodes)
-            {
-                if (n["UID"].InnerText == UID)
-                    return true;
-            }
-            return false;
+            var nodesList = doc.DocumentElement.SelectNodes("User");
+            return nodesList.Cast<XmlNode>().Any(n => n["UID"].InnerText == UID);
         }
 
         public bool EditUser(string OldUID, User NewUser)
