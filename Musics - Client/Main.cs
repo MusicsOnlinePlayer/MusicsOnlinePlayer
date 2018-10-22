@@ -136,9 +136,9 @@ namespace Musics___Client
                         Me = tmp.NewUser;
                         UIAccountName.Text = Me.Name + " (Modified)";
                         UIAccountId.Text = Me.UID;
-                        Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + Me.Userrank.ToString();
-                        UIRank.Text = Me.Userrank.ToString();
-                        if (Me.Userrank == Rank.Viewer)
+                        Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + Me.Rank.ToString();
+                        UIRank.Text = Me.Rank.ToString();
+                        if (Me.Rank == Rank.Viewer)
                         {
                             UIUpload.Enabled = false;
                         }
@@ -830,24 +830,24 @@ namespace Musics___Client
             {
                 UIPanelEditUser.Visible = true;
 
-                UIAdminUser.Text = UIUsersResult.Text + " - " + UserSearchResult[UIUsersResult.SelectedIndex].Userrank.ToString();
+                UIAdminUser.Text = UIUsersResult.Text + " - " + UserSearchResult[UIUsersResult.SelectedIndex].Rank.ToString();
                 UIAdminUID.Text = UserSearchResult[UIUsersResult.SelectedIndex].UID;
 
                 UIEditUserRank.Items.Clear();
 
                 List<string> r = Enum.GetNames(typeof(Rank)).OfType<string>().ToList();
-                for (int i = 0; i < (int)Me.Userrank; i++)
+                for (int i = 0; i < (int)Me.Rank; i++)
                 {
                     UIEditUserRank.Items.Add(r[i]);
                 }
 
-                UIEditUserRank.SelectedIndex = (int)UserSearchResult[UIUsersResult.SelectedIndex].Userrank;
+                UIEditUserRank.SelectedIndex = (int)UserSearchResult[UIUsersResult.SelectedIndex].Rank;
             }
         }
 
         private void UIEditUserConfirm_Click(object sender, EventArgs e)
         {
-            if (UIEditUserRank.SelectedIndex != (int)UserSearchResult[UIUsersResult.SelectedIndex].Userrank && Enum.TryParse(UIEditUserRank.SelectedItem.ToString(), out Rank rank))
+            if (UIEditUserRank.SelectedIndex != (int)UserSearchResult[UIUsersResult.SelectedIndex].Rank && Enum.TryParse(UIEditUserRank.SelectedItem.ToString(), out Rank rank))
             {
                 NetworkClient.SendObject(new EditRequest(UserSearchResult[UIUsersResult.SelectedIndex].UID, rank));
             }
@@ -880,7 +880,7 @@ namespace Musics___Client
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if ((int)Me.Userrank > 1 && UIEditMusicName.Text != null)
+                if ((int)Me.Rank > 1 && UIEditMusicName.Text != null)
                 {
                     if (selected is Music)
                     {

@@ -11,7 +11,7 @@ namespace Musics___Server.Commands
         
             Log.Info("Getting all users");
             foreach (var u in UsersInfos.GetAllUsers())
-                Log.Info($" - {u.Name} {u.Userrank.ToString()} {u.UID}");
+                Log.Info($" - {u.Name} {u.Rank.ToString()} {u.UID}");
             Log.Info("End.");
         }
     }

@@ -114,7 +114,7 @@ namespace Musics___Server.Usersinfos
                     Name = n["Name"].InnerText,
                     UID = n["UID"].InnerText
                 };
-                tmp.Userrank = GetRankOfUser(tmp.UID);
+                tmp.Rank = GetRankOfUser(tmp.UID);
 
                 UsersList.Add(tmp);
             }
@@ -137,7 +137,7 @@ namespace Musics___Server.Usersinfos
                         Name = n["Name"].InnerText,
                         UID = n["UID"].InnerText
                     };
-                    tmp.Userrank = GetRankOfUser(tmp.UID);
+                    tmp.Rank = GetRankOfUser(tmp.UID);
 
                     return tmp;
                 }
@@ -162,7 +162,7 @@ namespace Musics___Server.Usersinfos
                         Name = n["Name"].InnerText,
                         UID = n["UID"].InnerText
                     };
-                    tmp.Userrank = GetRankOfUser(tmp.UID);
+                    tmp.Rank = GetRankOfUser(tmp.UID);
 
                     UsersList.Add(tmp);
                 }

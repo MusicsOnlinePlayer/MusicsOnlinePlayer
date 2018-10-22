@@ -38,7 +38,7 @@ namespace Musics___Server.Authentification
                 nodeUser.AppendChild(nodeUID);
 
                 XmlNode nodeRank = doc.CreateElement("Rank");
-                nodeRank.InnerText = user.Userrank.ToString();
+                nodeRank.InnerText = user.Rank.ToString();
                 nodeUser.AppendChild(nodeRank);
 
                 XmlNode nodeRatedMusics = doc.CreateElement("RatedMusics");

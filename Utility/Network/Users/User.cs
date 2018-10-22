@@ -7,7 +7,7 @@ namespace Utility.Network.Users
     public class User
     {
         public string UID { get; set; }
-        public Rank Userrank { get; set; }
+        public Rank Rank { get; set; }
 
         public string Name { get; set; }
         public bool Connected { get; set; }
@@ -28,7 +28,7 @@ namespace Utility.Network.Users
         public User(string name, string UserPassword, Rank RankOf)
         {
             Name = name;
-            Userrank = RankOf;
+            Rank = RankOf;
             UID = Hash.SHA256Hash(name + UserPassword);
         }
     }

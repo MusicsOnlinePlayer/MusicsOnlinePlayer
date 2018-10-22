@@ -31,7 +31,7 @@ namespace Musics___Server.Commands
             {
                 Log.Info("Getting all connected users");
                 foreach (var u in Program.MyServer.Clients.Values)
-                    Log.Info(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
+                    Log.Info(" - " + u.Name + " " + u.Rank.ToString() + " " + u.UID);
                 Log.Info("End.");
             }
         }

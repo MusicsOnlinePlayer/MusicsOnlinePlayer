@@ -48,7 +48,7 @@ namespace Musics___Server
             User tmpUser = MyServer.Clients.GetUser(UID);
             if (tmpUser != null)
             {
-                tmpUser.Userrank = rank;
+                tmpUser.Rank = rank;
                 Socket tmpSocket = MyServer.Clients.GetSocket(UID);
                 MyServer.Clients.Remove(tmpSocket);
                 MyServer.Clients.AddUser(tmpUser, tmpSocket);
@@ -136,7 +136,7 @@ namespace Musics___Server
                             Rank RankUser = UsersInfos.GetRankOfUser(auth.LoginInfo.UID);
                             MyServer.SendObject(new AuthInfo(true, RankUser), socket);
                             MyServer.Clients.Remove(socket);
-                            auth.LoginInfo.Userrank = RankUser;
+                            auth.LoginInfo.Rank = RankUser;
                             MyServer.Clients.AddUser(auth.LoginInfo, socket);
                         }
                         else
@@ -150,7 +150,7 @@ namespace Musics___Server
 
         private static void TreatUploadMusic(Socket socket, UploadMusic uploadMusic)
         {
-            if (Indexation.AddElement(uploadMusic) && (int)MyServer.Clients.GetUser(socket).Userrank > 1)
+            if (Indexation.AddElement(uploadMusic) && (int)MyServer.Clients.GetUser(socket).Rank > 1)
             {
                 MyServer.SendObject(new UploadReport(null, true), socket);
                 MyServer.Log.Warn($"The music { uploadMusic.MusicPart.Name } has been upload");
@@ -190,7 +190,7 @@ namespace Musics___Server
                     }
                     break;
                 case TypesEdit.Musics:
-                    if (MyServer.Clients.GetUser(socket).Userrank > Rank.User)
+                    if (MyServer.Clients.GetUser(socket).Rank > Rank.User)
                     {
                         Indexation.ModifyElement(editRequest.ObjectToEdit as Element, editRequest.NewName, editRequest.NewGenres);
                         MyServer.Log.Warn($"The musics {editRequest.NewName} has been edited !");
