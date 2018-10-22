@@ -1,6 +1,4 @@
-
-﻿using System;
- namespace Utility.Network
+namespace Utility.Network
 {
     public interface IPacket
     {
