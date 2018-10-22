@@ -12,7 +12,6 @@ namespace Musics___Server.Commands
         {
             Command = command;
             Arguments = arguments;
-
         }
     }
 }

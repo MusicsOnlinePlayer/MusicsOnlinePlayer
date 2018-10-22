@@ -10,5 +10,4 @@ namespace Musics___Server.Commands
             Console.WriteLine("~ Multithreading is set to {0}", Properties.Settings.Default.UseMultiThreading.ToString());
         }
     }
-
 }

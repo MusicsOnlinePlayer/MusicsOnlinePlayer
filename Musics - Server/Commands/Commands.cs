@@ -30,7 +30,7 @@ namespace Musics___Server.Commands
                 }
                 catch (CommandException ex)
                 {
-                    Console.Write(ex.Message);
+                    Console.WriteLine(ex.Message);
                 }
             } while (true);
         }

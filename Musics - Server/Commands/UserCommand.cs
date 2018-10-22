@@ -29,10 +29,10 @@ namespace Musics___Server.Commands
         {
             public override void Execute(IEnumerable<string> args)
             {
-                Console.WriteLine("~ Getting all connected users");
+                Log.Info("Getting all connected users");
                 foreach (var u in Program.MyServer.Clients.Values)
-                    Console.WriteLine(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
-                Console.WriteLine("~ End.");
+                    Log.Info(" - " + u.Name + " " + u.Userrank.ToString() + " " + u.UID);
+                Log.Info("End.");
             }
         }
     }

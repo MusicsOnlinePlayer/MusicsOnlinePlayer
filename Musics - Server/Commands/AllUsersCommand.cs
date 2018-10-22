@@ -9,10 +9,10 @@ namespace Musics___Server.Commands
         public override void Execute(IEnumerable<string> args)
         {
         
-            Console.WriteLine("~ Getting all users");
+            Log.Info("Getting all users");
             foreach (var u in UsersInfos.GetAllUsers())
-                Console.WriteLine($" - {u.Name} {u.Userrank.ToString()} {u.UID}");
-            Console.WriteLine("~ End.");
+                Log.Info($" - {u.Name} {u.Userrank.ToString()} {u.UID}");
+            Log.Info("End.");
         }
     }
 }
