@@ -538,8 +538,10 @@ namespace Musics___Client
                 foreach (var m in (selected as Album).Musics)
                 {
                     uPlayer1.Playlist.Add(m);
-                    UIPlaylist.Items.Add(m.Title);
+                    UIPlaylist.Items.Add(m.Title);        
                 }
+                if (uPlayer1.PlaylistIndex == 0)
+                    uPlayer1.PlayMusic(uPlayer1.Playlist.First());
             }
         }
 
