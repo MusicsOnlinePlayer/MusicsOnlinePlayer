@@ -23,6 +23,9 @@ namespace ControlLibrary
             UIMusicImage.BackgroundImage = Properties.Resources.No_Cover_Image;
         }
 
+        public bool IsInCache(Music music) => player.IsInCache(music);
+        
+
         private void Player_PlayStateChange(int NewState)
         {
             if (NewState == 8)

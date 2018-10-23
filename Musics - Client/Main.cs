@@ -260,10 +260,7 @@ namespace Musics___Client
                     uPlayer1.Playlist.Clear();
                     uPlayer1.PlaylistIndex = 0;
                     UIPlaylist.Items.Clear();
-                    Music m = new Music
-                    {
-                        MID = searchAnswer.Binaries.MID
-                    };
+       
                     uPlayer1.Playlist.Add(searchAnswer.Binaries);
                     UIPlaylist.Items.Add(searchAnswer.Binaries.Title);
                     uPlayer1.PlaylistIndex = 0;
@@ -466,6 +463,14 @@ namespace Musics___Client
 
         private void UIPlayBis_Click(object sender, EventArgs e)
         {
+
+            switch(selected)
+            {
+                case Music music:  PlayBis(music); break;
+                case Album album:  PlayBis(album); break;
+                case Playlist playlist: PlayBis(playlist); break;
+                default: throw new NotImplementedException();
+            }
             if (selected is Music)
             {
                 NetworkClient.SendObject(new Request(selected as Music));
@@ -494,6 +499,36 @@ namespace Musics___Client
                 }
                 NetworkClient.SendObject(new Request(uPlayer1.Playlist.First()));
             }
+        }
+
+        private void PlayBis(Music music)
+        {
+            NetworkClient.SendObject(new Request(music));
+        }
+        private void PlayBis(Album album)
+        {
+            uPlayer1.Playlist.Clear();
+            uPlayer1.PlaylistIndex = 0;
+            UIPlaylist.Items.Clear();
+            foreach (var m in album.Musics)
+            {
+                uPlayer1.Playlist.Add(m);
+                UIPlaylist.Items.Add(m.Title);
+            }
+            NetworkClient.SendObject(new Request(uPlayer1.Playlist.First()));
+        }
+
+        private void PlayBis(Playlist playlist)
+        {
+            uPlayer1.Playlist.Clear();
+            uPlayer1.PlaylistIndex = 0;
+            UIPlaylist.Items.Clear();
+            foreach (var m in playlist.musics)
+            {
+                uPlayer1.Playlist.Add(m);
+                UIPlaylist.Items.Add(m.Title);
+            }
+            NetworkClient.SendObject(new Request(uPlayer1.Playlist.First()));
         }
 
         private void Client_FormClosing(object sender, FormClosingEventArgs e)
