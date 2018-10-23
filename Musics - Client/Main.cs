@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using NAudio.CoreAudioApi;
 using Utility.Network.Dialog.Edits;
 using Utility.Network.Users;
 using Utility.Network.Dialog;
@@ -14,7 +13,6 @@ using Utility.Network.Dialog.Authentification;
 using Utility.Musics;
 using Utility.Network.Dialog.Uploads;
 using Musics___Client.AppSettings;
-using Q42.HueApi;
 using ControlLibrary.Network;
 
 namespace Musics___Client
