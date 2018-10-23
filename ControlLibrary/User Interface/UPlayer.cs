@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Utility.Musics;
 using Utility.Network.Dialog;
+using Tulpep.NotificationWindow;
 
 namespace ControlLibrary
 {
@@ -83,6 +84,15 @@ namespace ControlLibrary
             {
                 UIMusicImage.BackgroundImage = Properties.Resources.No_Cover_Image;
             }
+            PopupNotifier notifier = new PopupNotifier()
+            {
+                TitleText = "Playing",
+                ContentText = music.Name,
+                Size = new System.Drawing.Size(200,40),
+                HeaderHeight = 5,
+            };
+            notifier.Popup();
+
         }
 
         public void Reset()
