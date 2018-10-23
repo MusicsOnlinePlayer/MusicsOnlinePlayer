@@ -192,14 +192,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Hue\AsyncHelper.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="Hue\HueMusic.cs" />
     <Compile Include="LoginPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -330,8 +328,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ControlLibrary\ControlLibrary.csproj">
-      <Project>{D92BAE94-BA9D-4028-B63C-A6E33ED6AFDC}</Project>
-
+      <Project>{d92bae94-ba9d-4028-b63c-a6e33ed6afdc}</Project>
       <Name>ControlLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utility\Utility.csproj">
