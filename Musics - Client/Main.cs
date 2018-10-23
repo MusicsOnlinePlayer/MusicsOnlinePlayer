@@ -19,11 +19,7 @@ namespace Musics___Client
 {
     public partial class Client : Form
     {
-        //public static Socket _clientSocket { get; set; }
         public User Me { get; set; }
-        //public IPAddress ip = IPAddress.Loopback;
-
-        
 
         public Client()
         {
@@ -33,7 +29,6 @@ namespace Musics___Client
 
         private void Client_Load(object sender, EventArgs e)
         {
-            //recevoir.Start();
             NetworkClient.recevoir.Abort();
             NetworkClient.recevoir = new Thread(new ThreadStart(NetworkClient.Receive));
             NetworkClient.recevoir.Start();

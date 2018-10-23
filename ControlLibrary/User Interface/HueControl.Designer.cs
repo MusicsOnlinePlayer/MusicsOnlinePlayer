@@ -53,6 +53,7 @@
             this.UIHueDelay.Name = "UIHueDelay";
             this.UIHueDelay.Size = new System.Drawing.Size(412, 20);
             this.UIHueDelay.TabIndex = 47;
+            this.UIHueDelay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UIHueDelay_KeyDown);
             // 
             // label13
             // 
@@ -143,6 +144,7 @@
             this.UIHueConnectRegister.TabIndex = 39;
             this.UIHueConnectRegister.Text = "Connect and Register";
             this.UIHueConnectRegister.UseVisualStyleBackColor = false;
+            this.UIHueConnectRegister.Click += new System.EventHandler(this.UIHueConnectRegister_Click);
             // 
             // label9
             // 
@@ -180,6 +182,7 @@
             this.UIHueConnectKey.TabIndex = 36;
             this.UIHueConnectKey.Text = "Connect";
             this.UIHueConnectKey.UseVisualStyleBackColor = false;
+            this.UIHueConnectKey.Click += new System.EventHandler(this.UIHueConnectKey_Click);
             // 
             // label7
             // 
@@ -204,6 +207,10 @@
             this.label6.TabIndex = 33;
             this.label6.Text = "Hue";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // HueTimer
+            // 
+            this.HueTimer.Tick += new System.EventHandler(this.HueTimer_Tick);
             // 
             // HueControl
             // 
