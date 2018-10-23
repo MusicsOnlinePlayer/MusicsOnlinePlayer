@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Musics___Client.Hue
+namespace ControlLibrary.Hue
 {
     public static class AsyncHelper
     {

@@ -8,7 +8,7 @@ using Q42.HueApi.ColorConverters.HSB;
 using Q42.HueApi.Interfaces;
 using Q42.HueApi.Models.Bridge;
 
-namespace Musics___Client.Hue
+namespace ControlLibrary.Hue
 {
     class HueMusic
     {

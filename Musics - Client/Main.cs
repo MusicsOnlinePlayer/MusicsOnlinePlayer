@@ -4,8 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using Musics___Client.Hue;
-using NAudio.CoreAudioApi;
 using Utility.Network.Dialog.Edits;
 using Utility.Network.Users;
 using Utility.Network.Dialog;
@@ -15,18 +13,13 @@ using Utility.Network.Dialog.Authentification;
 using Utility.Musics;
 using Utility.Network.Dialog.Uploads;
 using Musics___Client.AppSettings;
-using Q42.HueApi;
 using ControlLibrary.Network;
 
 namespace Musics___Client
 {
     public partial class Client : Form
     {
-        //public static Socket _clientSocket { get; set; }
         public User Me { get; set; }
-        //public IPAddress ip = IPAddress.Loopback;
-
-        private readonly HueMusic HueMusic = new HueMusic();
 
         public Client()
         {
@@ -36,7 +29,6 @@ namespace Musics___Client
 
         private void Client_Load(object sender, EventArgs e)
         {
-            //recevoir.Start();
             NetworkClient.recevoir.Abort();
             NetworkClient.recevoir = new Thread(new ThreadStart(NetworkClient.Receive));
             NetworkClient.recevoir.Start();
@@ -49,19 +41,7 @@ namespace Musics___Client
             {
                 UIUpload.Enabled = false;
             }
-            try
-            {
-                AppSettings.Settings settings = ApplicationSettings.Get();
-                if (settings.HueKey != null && settings.HueIP != null)
-                {
-                    UIHueApi.Text = settings.HueKey;
-                    UIHueIp.Text = settings.HueIP;
-                }
-            }
-            catch
-            {
-            }
-
+           
             NetworkClient.SendObject(new Request(Me.UID));
             
         }
@@ -551,8 +531,10 @@ namespace Musics___Client
                 foreach (var m in (selected as Album).Musics)
                 {
                     uPlayer1.Playlist.Add(m);
-                    UIPlaylist.Items.Add(m.Title);
+                    UIPlaylist.Items.Add(m.Title);        
                 }
+                if (uPlayer1.PlaylistIndex == 0)
+                    uPlayer1.PlayMusic(uPlayer1.Playlist.First());
             }
         }
 
@@ -652,135 +634,6 @@ namespace Musics___Client
         }
 
         #endregion
-
-        #region Hue
-
-        private List<Light> LightHue = new List<Light>(); 
-
-        private void UIHueConnectKey_Click(object sender, EventArgs e)
-        {
-            if (UIHueApi != null && UIHueIp.Text != null)
-            {
-                try
-                {
-                    UIHueConnectKey.Hide();
-                    UIHueConnectRegister.Hide();
-                    HueMusic.Connect(UIHueIp.Text, UIHueApi.Text);
-                    if (!AsyncHelper.RunSync(() => HueMusic.client.CheckConnection()))
-                    {
-                        UIHueConnectKey.Show();
-                        UIHueConnectRegister.Show();
-                    }                  
-                    else
-                    {
-                        EndConnectHue();
-                    }
-                    ShowLights();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                    UIHueConnectKey.Show();
-                    UIHueConnectRegister.Show();
-                }
-            }
-        }
-
-        private void UIHueConnectRegister_Click(object sender, EventArgs e)
-        {
-            if (UIHueIp.Text != null)
-            {
-                try
-                {
-                    UIHueConnectKey.Hide();
-                    UIHueConnectRegister.Hide();
-                    HueMusic.ConnectRegister(UIHueIp.Text);
-                    if (!AsyncHelper.RunSync(() => HueMusic.client.CheckConnection()))
-                    {
-                        UIHueConnectKey.Show();
-                        UIHueConnectRegister.Show();
-                    }                   
-                    else
-                    {
-                        EndConnectHue();
-                    }
-                    ShowLights();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                    UIHueConnectKey.Show();
-                    UIHueConnectRegister.Show();
-                }
-            }
-        }
-
-        private void ShowLights()
-        {
-            foreach(var l in HueMusic.GetLights())
-            {
-                UILightList.Items.Add(l.Name + "(" + l.Id+")", false);
-                LightHue.Add(l);
-            }          
-        }
-
-        private void UIHueDelay_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (int.TryParse(UIHueDelay.Text, out int delay))
-                {
-                    HueTimer.Interval = delay;
-                }
-                else
-                {
-                    UIHueDelay.Text = HueTimer.Interval.ToString();
-                }
-            }
-        }
-
-        void EndConnectHue()
-        {
-            ApplicationSettings.Save(new AppSettings.Settings(UIHueIp.Text, UIHueApi.Text, null));
-
-            UILightList.Items.Clear();
-            LightHue.Clear();
-
-            UIHueConnection.Text = "Connected";
-            UIHueConnection.ForeColor = Color.Green;
-
-            Device = MDeviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
-
-            HueTimer.Enabled = true;
-            HueTimer.Start();
-        }
-
-        MMDeviceEnumerator MDeviceEnumerator = new MMDeviceEnumerator();
-        MMDevice Device;
-
-        private async void HueTimer_Tick(object sender, EventArgs e)
-        {
-            var scale = Function.Map(Device.AudioMeterInformation.MasterPeakValue, 0, 1, 0, 100);
-
-            UISoundLevel.Value = (int)scale;
-
-            List<string> LightsNames = new List<string>();
-
-            foreach (int s in UILightList.CheckedIndices)
-            {
-                LightsNames.Add(LightHue[s].Id);
-            }
-
-            try
-            {
-                await HueMusic.TurnOnLight(new Q42.HueApi.ColorConverters.RGBColor(100, 100, 100), Convert.ToByte(2.5 * scale),LightsNames);
-            }
-            catch
-            {
-            }
-        }
-
-        #endregion Hue
 
         #region Account
 
