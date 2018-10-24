@@ -50,6 +50,7 @@
     <Compile Include="Musics\Album.cs" />
     <Compile Include="Musics\Author.cs" />
     <Compile Include="Musics\Element.cs" />
+    <Compile Include="Hash.cs" />
     <Compile Include="Musics\IElement.cs" />
     <Compile Include="Musics\Music.cs" />
     <Compile Include="Musics\Playlist.cs" />

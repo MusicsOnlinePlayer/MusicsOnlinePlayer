@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\MediaControl.cs" />
     <Compile Include="AppSettings\ApplicationSettings.cs" />
     <Compile Include="AppSettings\Settings.cs" />
     <Compile Include="Music\Player.cs" />
@@ -63,6 +64,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Music\Tags.cs" />
+    <Compile Include="User Interface\UMediaControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="User Interface\UMediaControl.Designer.cs">
+      <DependentUpon>UMediaControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="User Interface\UPlayer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -75,6 +82,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User Interface\UMediaControl.resx">
+      <DependentUpon>UMediaControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User Interface\UPlayer.resx">
       <DependentUpon>UPlayer.cs</DependentUpon>

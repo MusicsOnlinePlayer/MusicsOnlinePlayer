@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
 using Utility.Network.Users;
 
 namespace Utility.Musics
@@ -36,15 +34,6 @@ namespace Utility.Musics
         }
 
         protected override string KeyToHash() => Name + Private;
-    }
-
-    public static class Hash
-    {
-        public static string SHA256Hash(string value)
-        {
-            using (var hash = SHA256.Create())
-                return string.Concat(hash.ComputeHash(Encoding.UTF8.GetBytes(value)));
-        }
     }
 
 }

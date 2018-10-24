@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Diagnostics;
 using static Musics___Server.Program;
-
+using System.Security.Policy;
+using Utility;
 
 namespace Musics___Server.MusicsManagement
 {
@@ -169,7 +170,7 @@ namespace Musics___Server.MusicsManagement
             if (foundMusic != null)
             {
                 foundMusic.Title = newName;
-                foundMusic.MID = Hash.SHA256Hash(foundMusic.Title + foundMusic.Author.Name);
+                foundMusic.MID = Utility.Hash.SHA256Hash(foundMusic.Title + foundMusic.Author.Name);
 
                 TagLib.File file = TagLib.File.Create(foundMusic.ServerPath);
                 file.Tag.Title = foundMusic.Title;
@@ -192,7 +193,7 @@ namespace Musics___Server.MusicsManagement
             if (foundAlbum != null)
             {
                 foundAlbum.Name = newName;
-                foundAlbum.MID = Hash.SHA256Hash(foundAlbum.Name + ElementType.Album);
+                foundAlbum.MID = Utility.Hash.SHA256Hash(foundAlbum.Name + ElementType.Album);
 
                 Directory.Move(foundAlbum.ServerPath, Directory.GetParent(foundAlbum.ServerPath) + "/" + foundAlbum.Name);
                 foundAlbum.Musics.ToList().ForEach(m => m.Album = foundAlbum);

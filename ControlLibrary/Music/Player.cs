@@ -6,14 +6,17 @@ using WMPLib;
 
 namespace ControlLibrary
 {
-    public class Player
+    public class Player 
     {
         public WindowsMediaPlayer player = new WindowsMediaPlayer();
 
+        
         private readonly Dictionary<string, string> Cache = new Dictionary<string, string>();
         public Player()
         {
+          
             InitializeCacheDirectory();
+            player.uiMode = "full";
         }
 
         private void InitializeCacheDirectory()
@@ -23,12 +26,14 @@ namespace ControlLibrary
         }
         public void PlayMusic(Music music)
         {
+            
             player.controls.stop();
             player.close();
 
             AddToCache(music);
 
             player.URL = Cache[music.MID];
+            player.openPlayer(Cache[music.MID]);
             player.controls.play();
         }
 
@@ -37,7 +42,7 @@ namespace ControlLibrary
         public bool IsInCache(Music music) => IsInCache(music.MID);
         public bool IsInCache(string MID) => Cache.ContainsKey(MID);
 
-
+        
         private void AddToCache(Music music)
         {
             if (!IsInCache(music))

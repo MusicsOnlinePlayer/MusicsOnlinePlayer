@@ -134,10 +134,10 @@ namespace Musics___Server
                         if (true)
                         {
                             Rank RankUser = UsersInfos.GetRankOfUser(auth.LoginInfo.UID);
-                            MyServer.SendObject(new AuthInfo(true, RankUser), socket);
-                            MyServer.Clients.Remove(socket);
                             auth.LoginInfo.Rank = RankUser;
+                            MyServer.Clients.Remove(socket);
                             MyServer.Clients.AddUser(auth.LoginInfo, socket);
+                            MyServer.SendObject(new AuthInfo(true, RankUser), socket);
                         }
                         else
                         {
