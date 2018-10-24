@@ -64,3 +64,10 @@ In this music player there is multiple rank. Each rank have different permission
 
 ## How to install ?
 First, download the client and / or server installer, open it and follow all the instruction. If you installed the client you just have to enter the ip of the server. If you launch the server for the first it will create a Musics directory in the `c://` folder. In this folder you can place all of your musics following the method shown just above and you are finally ready !
+
+## Packages NuGets
+In this project, we use some packages coming from NuGets :
+ - NAudio
+ - Q42.HueApi
+ - CodeCraft.Logger from [Maleaume](https://github.com/Maleaume)
+ - CodeCraft.Enum from [Maleaume](https://github.com/Maleaume)
