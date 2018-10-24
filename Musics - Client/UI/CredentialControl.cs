@@ -13,6 +13,7 @@ namespace Musics___Client.UI
         }
 
         public User User => new User(CredentialBindingSource.DataSource as ICredentials);
-        public bool IsValidCredential => (CredentialBindingSource.DataSource as ICredentialValidator).IsValidCredential;
+        
+        public ICredentialValidator Validator => CredentialBindingSource.DataSource as ICredentialValidator;
     }
 }

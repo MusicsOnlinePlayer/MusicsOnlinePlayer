@@ -279,6 +279,7 @@
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\Utility.Network.Users.ICredentials.datasource" />
+    <None Include="Properties\DataSources\Utility.Network.Users.ICredentialValidator.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

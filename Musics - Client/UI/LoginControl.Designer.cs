@@ -32,13 +32,14 @@
             this.SignInButton = new System.Windows.Forms.Button();
             this.LoginLabel = new System.Windows.Forms.Label();
             this.credentialControl = new Musics___Client.UI.CredentialControl();
-            this.iCredentialsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.iCredentialsBindingSource)).BeginInit();
+            this.CredentialValidatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.CredentialValidatorBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // SignInButton
             // 
             this.SignInButton.BackColor = System.Drawing.Color.SteelBlue;
+            this.SignInButton.DataBindings.Add(new System.Windows.Forms.Binding("Enabled", this.CredentialValidatorBindingSource, "IsValidCredential", true));
             this.SignInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SignInButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.SignInButton.Location = new System.Drawing.Point(21, 260);
@@ -66,9 +67,9 @@
             this.credentialControl.Size = new System.Drawing.Size(379, 185);
             this.credentialControl.TabIndex = 0;
             // 
-            // iCredentialsBindingSource
+            // CredentialValidatorBindingSource
             // 
-            this.iCredentialsBindingSource.DataSource = typeof(Utility.Network.Users.ICredentials);
+            this.CredentialValidatorBindingSource.DataSource = typeof(Utility.Network.Users.ICredentialValidator);
             // 
             // LoginControl
             // 
@@ -79,7 +80,7 @@
             this.Controls.Add(this.credentialControl);
             this.Name = "LoginControl";
             this.Size = new System.Drawing.Size(401, 361);
-            ((System.ComponentModel.ISupportInitialize)(this.iCredentialsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CredentialValidatorBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -90,6 +91,6 @@
         private CredentialControl credentialControl;
         private System.Windows.Forms.Button SignInButton;
         private System.Windows.Forms.Label LoginLabel;
-        private System.Windows.Forms.BindingSource iCredentialsBindingSource;
+        private System.Windows.Forms.BindingSource CredentialValidatorBindingSource;
     }
 }

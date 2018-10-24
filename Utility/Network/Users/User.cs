@@ -65,7 +65,7 @@ namespace Utility.Network.Users
 
 
     }
-
+    [Serializable]
     public abstract class UidCredentials
     {
         public string UID { get; set; }

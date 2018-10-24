@@ -17,19 +17,14 @@ namespace Musics___Client.UI
         public LoginControl()
         {
             InitializeComponent();
-            this.SignInButton.DataBindings.Add(new System.Windows.Forms.Binding("Enabled", this.iCredentialsBindingSource, "IsValidCredential", true));
+            CredentialValidatorBindingSource.DataSource = credentialControl.Validator;
         }
 
         private void SignInButton_Click(object sender, EventArgs e)
         {
-            if (credentialControl.IsValidCredential)
-            {
+          
                 NetworkClient.SendObject(new Login(credentialControl.User, false));
-            }
-            else
-            {
-                //   UIErrorLogin.Text = "Please enter your username and password";
-            }
+           
         }
     }
 }

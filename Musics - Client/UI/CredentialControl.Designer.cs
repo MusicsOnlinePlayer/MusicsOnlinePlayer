@@ -55,12 +55,17 @@
             // UILogin
             // 
             UILogin.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            UILogin.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.CredentialBindingSource, "Login", true));
+            UILogin.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.CredentialBindingSource, "Login", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             UILogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             UILogin.Location = new System.Drawing.Point(18, 43);
             UILogin.Name = "UILogin";
             UILogin.Size = new System.Drawing.Size(350, 33);
             UILogin.TabIndex = 6;
+            // 
+            // CredentialBindingSource
+            // 
+            this.CredentialBindingSource.AllowNew = false;
+            this.CredentialBindingSource.DataSource = typeof(Utility.Network.Users.ICredentials);
             // 
             // loginLabel
             // 
@@ -76,18 +81,13 @@
             // UIPassword
             // 
             UIPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            UIPassword.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.CredentialBindingSource, "Password", true));
+            UIPassword.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.CredentialBindingSource, "Password", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             UIPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             UIPassword.Location = new System.Drawing.Point(17, 132);
             UIPassword.Name = "UIPassword";
             UIPassword.PasswordChar = '*';
             UIPassword.Size = new System.Drawing.Size(350, 33);
             UIPassword.TabIndex = 7;
-            // 
-            // CredentialBindingSource
-            // 
-            this.CredentialBindingSource.AllowNew = false;
-            this.CredentialBindingSource.DataSource = typeof(Utility.Network.Users.ICredentials);
             // 
             // CredentialControl
             // 
