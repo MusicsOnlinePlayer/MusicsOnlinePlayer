@@ -27,7 +27,7 @@ namespace Musics___Server.Network
                 serverSocket.Bind(new IPEndPoint(IPAddress.Any, PORT));
                 Log.Info("Setup server Ok");
             }
-            catch
+            catch(Exception ex)
             {
                 Log.Info("Setup Failed");
             }

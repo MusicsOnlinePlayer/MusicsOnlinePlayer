@@ -556,7 +556,26 @@ namespace Musics___Client
                     FillSearchListBoxesThreadSafe(album.Musics);
                     break;
                 case Music music:
-                    NetworkClient.SendObject(new Request(music));
+
+
+
+                    if (uPlayer1.IsInCache(music))
+                    {
+                        uPlayer1.Playlist.Clear();
+                        uPlayer1.PlaylistIndex = 0;
+                        UIPlaylist.Items.Clear();
+
+                        uPlayer1.Playlist.Add(music);
+                        UIPlaylist.Items.Add(music.Title);
+                        uPlayer1.PlaylistIndex = 0;
+                        UIPlaylist.SelectedIndex = uPlayer1.PlaylistIndex;
+
+                        uPlayer1.PlayMusic(music);
+                    }
+                    else
+                    {
+                        NetworkClient.SendObject(new Request(music));
+                    }
                     break;
                 case Playlist playlist:
                     uPlayer1.Playlist.Clear();
