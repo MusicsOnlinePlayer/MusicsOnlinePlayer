@@ -24,17 +24,19 @@ namespace Musics___Client
         private void LoginControl_LoginSucces()
         {
        //     NetworkClient.CloseSocket();
-            new Thread(delegate ()
+        /*    new Thread(delegate ()
             {
                 Application.Run(new Client());
-            }).Start();
+            }).Start();*/
             ThreadSafeClose();
+            Client ClientForm = new Client();
+            ClientForm.ShowDialog();
         }
 
         /// <summary>
         /// Close current control in this correct thread.
         /// </summary>
-        private void ThreadSafeClose() => Invoke((MethodInvoker)delegate { Close(); });
+        private void ThreadSafeClose() => Invoke((MethodInvoker)delegate { Hide(); });
 
 
     }

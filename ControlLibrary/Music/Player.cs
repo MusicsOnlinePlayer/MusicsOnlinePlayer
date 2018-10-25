@@ -14,8 +14,7 @@ namespace ControlLibrary
         public Player()
         {
           
-            InitializeCacheDirectory();
-            player.uiMode = "full";
+            InitializeCacheDirectory(); 
         }
 
         private void InitializeCacheDirectory()
