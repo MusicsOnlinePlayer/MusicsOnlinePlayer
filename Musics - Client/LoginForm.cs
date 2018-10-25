@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using ControlLibrary.Network;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Musics___Client
 {
@@ -11,8 +13,29 @@ namespace Musics___Client
             LoginControl.LoginSucces += LoginControl_LoginSucces;
         }
 
-        private void LoginControl_LoginSucces() =>  Invoke((MethodInvoker)delegate { Close(); });
+        /// <summary>
+        /// Event fired when login failed
+        /// </summary>
+        private void LoginControl_LoginFailed() => MessageBox.Show("Invalid Login/password");
 
-        private void LoginControl_LoginFailed() => MessageBox.Show("incorrect Login");
+        /// <summary>
+        /// Event fired when login success.
+        /// </summary>
+        private void LoginControl_LoginSucces()
+        {
+       //     NetworkClient.CloseSocket();
+            new Thread(delegate ()
+            {
+                Application.Run(new Client());
+            }).Start();
+            ThreadSafeClose();
+        }
+
+        /// <summary>
+        /// Close current control in this correct thread.
+        /// </summary>
+        private void ThreadSafeClose() => Invoke((MethodInvoker)delegate { Close(); });
+
+
     }
 }

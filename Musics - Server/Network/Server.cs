@@ -76,7 +76,7 @@ namespace Musics___Server.Network
             Array.Copy(buffer, recBuf, received);
 
             Program.TreatRequest(recBuf, current);
-            recBuf = new byte[BUFFER_SIZE];
+            //recBuf = new byte[BUFFER_SIZE];
 
             try
             {

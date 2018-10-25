@@ -12,14 +12,14 @@ namespace Musics___Client.API
 {
     public delegate void LoginHandler();
 
-    class LoginServices : IDisposable
+    class LoginServices 
     {
-       static private readonly Lazy<LoginServices> instance = new Lazy<LoginServices>(() => new LoginServices());
-       static public LoginServices Instance { get => instance.Value; }
+        static private readonly Lazy<LoginServices> instance = new Lazy<LoginServices>(() => new LoginServices());
+        static public LoginServices Instance { get => instance.Value; }
 
         public User LoggedUser { get; private set; }
 
-      
+
         public event LoginHandler LoginSucces;
         public event LoginHandler LoginFailed;
 
@@ -33,21 +33,24 @@ namespace Musics___Client.API
 
         private void NetworkClient_Packetreceived(object sender, PacketEventArgs a)
         {
-            if (a.Packet is AuthInfo authinfo && authinfo.IsAccepted)
+            if (a.Packet is AuthInfo authinfo)
             {
-                LoggedUser = authinfo.User;
-                LoginSucces?.Invoke();
+                if (authinfo.IsAccepted)
+                {
+                    LoggedUser = authinfo.User;
+                    LoginSucces?.Invoke();
+                }
+                else
+                {
+                    LoginFailed?.Invoke();
+                }
             }
-            else
-            {
-                LoginFailed?.Invoke();
-            }
+           
         }
         public void LogIn(CryptedCredentials cryptedCredentials)
         {
+       
             NetworkClient.SendObject(new Login(cryptedCredentials, false));
         }
-
-        public void Dispose() => NetworkClient.CloseSocket();
     }
 }

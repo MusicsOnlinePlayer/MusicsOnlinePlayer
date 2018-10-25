@@ -17,6 +17,7 @@ using Utility.Network.Dialog.Uploads;
 using Musics___Client.AppSettings;
 using Q42.HueApi;
 using ControlLibrary.Network;
+using Musics___Client.API;
 
 namespace Musics___Client
 {
@@ -31,6 +32,8 @@ namespace Musics___Client
         public Client()
         {
             InitializeComponent();
+            Me = LoginServices.Instance.LoggedUser;
+            NetworkClient.Connect();
             NetworkClient.PacketReceived += TreatObject;
         }
 
@@ -43,9 +46,9 @@ namespace Musics___Client
 
             UIAccountName.Text = Me.Name;
             UIAccountId.Text = Me.UID;
-            Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + authInfo.RankofAuthUser.ToString();
-            UIRank.Text = authInfo.RankofAuthUser.ToString();
-            if (authInfo.RankofAuthUser == Rank.Viewer)
+            Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + Me.Rank.ToString();
+            UIRank.Text = Me.Rank.ToString();
+            if( Me.Rank == Rank.Viewer)
             {
                 UIUpload.Enabled = false;
             }
@@ -91,7 +94,7 @@ namespace Musics___Client
                 RequestAnswer searchAnswer = obj.Packet as RequestAnswer;
                 TreatRequestAnswer(searchAnswer);
             }
-            if (obj.Packet is AuthInfo)
+            if (obj.Packet is AuthInfo authInfo)
             {
                 authInfo = obj.Packet as AuthInfo;
                 OnloginInfoReceived(EventArgs.Empty);
@@ -844,7 +847,7 @@ namespace Musics___Client
             {
                 if (UIEditName.Text == "")
                 {
-                //    NetworkClient.SendObject(new EditUser(Me.UID, new User(Me.Name, UIEditPassword1.Text)));
+                   //NetworkClient.SendObject(new EditUser(Me.UID, new User(Me.Name, UIEditPassword1.Text)));
                 }
                 else
                 {
