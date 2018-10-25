@@ -37,6 +37,8 @@ namespace Musics___Client.API
             {
                 if (authinfo.IsAccepted)
                 {
+                    NetworkClient.Packetreceived -= NetworkClient_Packetreceived;
+              
                     LoggedUser = authinfo.User;
                     LoginSucces?.Invoke();
                 }

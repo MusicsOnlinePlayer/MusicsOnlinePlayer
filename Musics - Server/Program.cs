@@ -143,7 +143,7 @@ namespace Musics___Server
                             var isRegister = foundUser != null;
                             if (isRegister)
                             {
-                                MyServer.Clients.Remove(socket);
+                               // MyServer.Clients.Remove(socket);
                                 MyServer.Clients.AddUser(auth.LoginInfo, socket);
                             }
                             MyServer.SendObject(new AuthInfo(isRegister, Rank.Viewer,foundUser), socket);

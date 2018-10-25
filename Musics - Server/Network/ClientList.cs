@@ -24,7 +24,8 @@ namespace Musics___Server.Network
             => Values.Any(x => x == UID);
 
         public IEnumerable<User> GetConnectedUser()
-        => Values.Select(uid => Usersinfos.UsersInfos.GetUser(uid));
+        => Values.Select(uid => Usersinfos.UsersInfos.GetUser(uid)).Where(x => x != null);
+         
 
          
            
@@ -35,7 +36,7 @@ namespace Musics___Server.Network
         public void AddUser(CryptedCredentials credential, Socket socket)
         {
             if (!Contains(credential.UID))
-                Add(socket, credential.UID);
+                this[socket] = credential.UID ;
         }
     }
 }

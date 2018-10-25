@@ -18,7 +18,7 @@ namespace ControlLibrary.Network
 
         static byte[] recbuffer = new byte[Bufferlgth];
 
-        public static EventHandler<PacketEventArgs> PacketReceived = delegate { };
+      //  public static EventHandler<PacketEventArgs> PacketReceived = delegate { };
 
         public delegate void PacketReceivedEvent(object sender, PacketEventArgs a);
         public delegate void PacketReceivedHandler(object sender, PacketEventArgs a);

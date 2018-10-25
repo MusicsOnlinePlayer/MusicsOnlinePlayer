@@ -33,8 +33,9 @@ namespace Musics___Client
         {
             InitializeComponent();
             Me = LoginServices.Instance.LoggedUser;
-            NetworkClient.Connect();
-            NetworkClient.PacketReceived += TreatObject;
+          //  NetworkClient.Connect();
+         //   NetworkClient.PacketReceived += TreatObject;
+            NetworkClient.Packetreceived += TreatObject;
         }
 
         private void Client_Load(object sender, EventArgs e)
