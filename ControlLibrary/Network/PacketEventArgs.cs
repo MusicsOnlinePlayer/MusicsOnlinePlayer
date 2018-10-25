@@ -1,13 +1,13 @@
 using System;
-
+using Utility.Network;
 
 namespace ControlLibrary.Network
 {
     public class PacketEventArgs :EventArgs
     {
-        public object Packet { get; set; }
+        public IPacket Packet { get; set; }
 
-        public PacketEventArgs(object packet)
+        public PacketEventArgs(IPacket packet)
         {
             Packet = packet;
         }

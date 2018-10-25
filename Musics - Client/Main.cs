@@ -76,7 +76,7 @@ namespace Musics___Client
 
         public event EventHandler LoginInfoReceived;
 
-        protected virtual void OnloginInfoReceived(EventArgs e)
+        protected void OnloginInfoReceived(EventArgs e)
         {
             LoginInfoReceived?.Invoke(this, e);
         }

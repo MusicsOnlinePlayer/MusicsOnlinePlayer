@@ -6,10 +6,8 @@ using Utility.Network.Users;
 namespace Utility.Network.Dialog
 {
     [Serializable]
-    public class RequestAnswer : IPacket
+    public class RequestAnswer : Packet
     {
-        public string SenderUID { get; set; }
-        public bool IsFromServer { get; set; }
 
         public RequestsTypes RequestsTypes { get; set; }
 

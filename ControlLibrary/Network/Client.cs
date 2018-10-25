@@ -76,8 +76,8 @@ namespace ControlLibrary.Network
                 MessageBox.Show(ex.ToString());
             }
 
-            OnPacketReceived(new PacketEventArgs(Function.Deserialize(new MessageTCP(recbuffer))));
-
+            OnPacketReceived(new PacketEventArgs((IPacket)Function.Deserialize(new MessageTCP(recbuffer))));
+        
             recbuffer = new byte[Bufferlgth];
 
             try
