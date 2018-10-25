@@ -42,16 +42,7 @@ namespace ControlLibrary.User_Interface
                 {
                     UIHueConnectKey.Hide();
                     UIHueConnectRegister.Hide();
-                    HueMusic.Connect(UIHueIp.Text, UIHueApi.Text);
-                    if (!AsyncHelper.RunSync(() => HueMusic.client.CheckConnection()))
-                    {
-                        UIHueConnectKey.Show();
-                        UIHueConnectRegister.Show();
-                    }
-                    else
-                    {
-                        EndConnectHue();
-                    }
+                    ConnectHue();
                     ShowLights();
                 }
                 catch (Exception ex)
@@ -63,6 +54,20 @@ namespace ControlLibrary.User_Interface
             }
         }
 
+        private void ConnectHue()
+        {
+            HueMusic.Connect(UIHueIp.Text, UIHueApi.Text);
+            if (!AsyncHelper.RunSync(() => HueMusic.client.CheckConnection()))
+            {
+                UIHueConnectKey.Show();
+                UIHueConnectRegister.Show();
+            }
+            else
+            {
+                EndConnectHue();
+            }
+        }
+
         private void UIHueConnectRegister_Click(object sender, EventArgs e)
         {
             if (UIHueIp.Text != null)
@@ -71,16 +76,7 @@ namespace ControlLibrary.User_Interface
                 {
                     UIHueConnectKey.Hide();
                     UIHueConnectRegister.Hide();
-                    HueMusic.ConnectRegister(UIHueIp.Text);
-                    if (!AsyncHelper.RunSync(() => HueMusic.client.CheckConnection()))
-                    {
-                        UIHueConnectKey.Show();
-                        UIHueConnectRegister.Show();
-                    }
-                    else
-                    {
-                        EndConnectHue();
-                    }
+                    ConnectHue();
                     ShowLights();
                 }
                 catch (Exception ex)
@@ -89,6 +85,20 @@ namespace ControlLibrary.User_Interface
                     UIHueConnectKey.Show();
                     UIHueConnectRegister.Show();
                 }
+            }
+        }
+
+        private void ConnectRegisterHue()
+        {
+            HueMusic.ConnectRegister(UIHueIp.Text);
+            if (!AsyncHelper.RunSync(() => HueMusic.client.CheckConnection()))
+            {
+                UIHueConnectKey.Show();
+                UIHueConnectRegister.Show();
+            }
+            else
+            {
+                EndConnectHue();
             }
         }
 
@@ -126,6 +136,11 @@ namespace ControlLibrary.User_Interface
             UIHueConnection.Text = "Connected";
             UIHueConnection.ForeColor = Color.Green;
 
+            SetupHueTimer();
+        }
+
+        private void SetupHueTimer()
+        {
             Device = MDeviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
 
             HueTimer.Enabled = true;
@@ -143,10 +158,7 @@ namespace ControlLibrary.User_Interface
 
             List<string> LightsNames = new List<string>();
 
-            foreach (int s in UILightList.CheckedIndices)
-            {
-                LightsNames.Add(LightHue[s].Id);
-            }
+            GetSelectedLights(LightsNames);
 
             try
             {
@@ -154,6 +166,14 @@ namespace ControlLibrary.User_Interface
             }
             catch
             {
+            }
+        }
+
+        private void GetSelectedLights(List<string> LightsNames)
+        {
+            foreach (int s in UILightList.CheckedIndices)
+            {
+                LightsNames.Add(LightHue[s].Id);
             }
         }
     }
