@@ -69,5 +69,6 @@ First, download the client and / or server installer, open it and follow all the
 In this project, we use some packages coming from NuGets :
  - NAudio
  - Q42.HueApi
+ - TagLib-Sharp
  - CodeCraft.Logger from [Maleaume](https://github.com/Maleaume)
  - CodeCraft.Enum from [Maleaume](https://github.com/Maleaume)
