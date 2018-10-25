@@ -183,6 +183,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\LoginServices.cs" />
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,12 +212,33 @@
     </Compile>
     <Compile Include="AppSettings\ApplicationSettings.cs" />
     <Compile Include="AppSettings\Settings.cs" />
+    <Compile Include="UI\CredentialControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\CredentialControl.Designer.cs">
+      <DependentUpon>CredentialControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\LoginControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\LoginControl.Designer.cs">
+      <DependentUpon>LoginControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SignInControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\SignInControl.Designer.cs">
+      <DependentUpon>SignInControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Upload.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Upload.Designer.cs">
       <DependentUpon>Upload.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -225,12 +253,23 @@
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\CredentialControl.resx">
+      <DependentUpon>CredentialControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\LoginControl.resx">
+      <DependentUpon>LoginControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SignInControl.resx">
+      <DependentUpon>SignInControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Upload.resx">
       <DependentUpon>Upload.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Musics - Client_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
+    <None Include="Properties\DataSources\Utility.Network.Users.ICredentials.datasource" />
+    <None Include="Properties\DataSources\Utility.Network.Users.ICredentialValidator.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -319,7 +358,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ControlLibrary\ControlLibrary.csproj">
-      <Project>{d92bae94-ba9d-4028-b63c-a6e33ed6afdc}</Project>
+      <Project>{D92BAE94-BA9D-4028-B63C-A6E33ED6AFDC}</Project>
       <Name>ControlLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utility\Utility.csproj">
@@ -327,6 +366,7 @@
       <Name>Utility</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

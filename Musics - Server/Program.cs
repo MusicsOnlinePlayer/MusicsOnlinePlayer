@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Sockets;
+using System.Linq;
 using Musics___Server.Usersinfos;
 using Musics___Server.MusicsManagement;
 using Musics___Server.Network;
@@ -44,16 +45,21 @@ namespace Musics___Server
         public static void PromoteUser(string UID, Rank rank)
         {
             UsersInfos.SetRankOfUser(UID, rank);
-
-            User tmpUser = MyServer.Clients.GetUser(UID);
-            if (tmpUser != null)
+            if (MyServer.Clients.IsConnected(UID))
             {
-                tmpUser.Rank = rank;
-                Socket tmpSocket = MyServer.Clients.GetSocket(UID);
-                MyServer.Clients.Remove(tmpSocket);
-                MyServer.Clients.AddUser(tmpUser, tmpSocket);
-                MyServer.SendObject(new EditUserReport(true, MyServer.Clients.GetUser(UID)), MyServer.Clients.GetSocket(UID));
+                var userUpdated = UsersInfos.GetUser(UID);
+                MyServer.SendObject(new EditUserReport(true, userUpdated), MyServer.Clients.GetSocket(UID));
             }
+
+            //User tmpUser = MyServer.Clients.GetUser(UID);
+            //if (tmpUser != null)
+            //{
+            //    tmpUser.Rank = rank;
+            //    Socket tmpSocket = MyServer.Clients.GetSocket(UID);
+            //    MyServer.Clients.Remove(tmpSocket);
+            //    MyServer.Clients.AddUser(tmpUser, tmpSocket);
+            //    MyServer.SendObject(new EditUserReport(true, MyServer.Clients.GetUser(UID)), MyServer.Clients.GetSocket(UID));
+            //}
         }
 
         public static void TreatRequest(byte[] Buffer, Socket socket)
@@ -126,18 +132,21 @@ namespace Musics___Server
                         MyServer.AuthService.SignupUser(auth.LoginInfo);
                         MyServer.Clients.Remove(socket);
                         MyServer.Clients.AddUser(auth.LoginInfo, socket);
-                        MyServer.SendObject(new AuthInfo(true, Rank.Viewer), socket);
+                        MyServer.SendObject(new AuthInfo(false, Rank.Viewer), socket);
                     }
                     else
                     {
                         // if (MyServer.AuthService.SigninUser(auth.LoginInfo) && !MyServer.Clients.Contains(auth.LoginInfo.UID))
                         if (true)
                         {
-                            Rank RankUser = UsersInfos.GetRankOfUser(auth.LoginInfo.UID);
-                            MyServer.SendObject(new AuthInfo(true, RankUser), socket);
-                            MyServer.Clients.Remove(socket);
-                            auth.LoginInfo.Rank = RankUser;
-                            MyServer.Clients.AddUser(auth.LoginInfo, socket);
+                            var foundUser = UsersInfos.GetAllUsers().SingleOrDefault(u => u.UID == auth.LoginInfo.UID);
+                            var isRegister = foundUser != null;
+                            if (isRegister)
+                            {
+                               // MyServer.Clients.Remove(socket);
+                                MyServer.Clients.AddUser(auth.LoginInfo, socket);
+                            }
+                            MyServer.SendObject(new AuthInfo(isRegister, Rank.Viewer,foundUser), socket);
                         }
                         else
                         {

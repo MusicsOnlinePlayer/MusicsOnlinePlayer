@@ -27,7 +27,7 @@ namespace Musics___Server.Network
                 serverSocket.Bind(new IPEndPoint(IPAddress.Any, PORT));
                 Log.Info("Setup server Ok");
             }
-            catch
+            catch(Exception ex)
             {
                 Log.Info("Setup Failed");
             }
@@ -76,7 +76,7 @@ namespace Musics___Server.Network
             Array.Copy(buffer, recBuf, received);
 
             Program.TreatRequest(recBuf, current);
-            recBuf = new byte[BUFFER_SIZE];
+            //recBuf = new byte[BUFFER_SIZE];
 
             try
             {

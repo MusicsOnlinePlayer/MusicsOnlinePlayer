@@ -50,6 +50,7 @@
     <Compile Include="Musics\Album.cs" />
     <Compile Include="Musics\Author.cs" />
     <Compile Include="Musics\Element.cs" />
+    <Compile Include="Hash.cs" />
     <Compile Include="Musics\IElement.cs" />
     <Compile Include="Musics\Music.cs" />
     <Compile Include="Musics\Playlist.cs" />
@@ -69,12 +70,12 @@
     <Compile Include="Network\Function.cs" />
     <Compile Include="Network\IPacket.cs" />
     <Compile Include="Network\MessageTCP.cs" />
-    <Compile Include="Network\Users\ClientList.cs" />
     <Compile Include="Network\Users\Rank.cs" />
     <Compile Include="Network\Users\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Network\Network.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

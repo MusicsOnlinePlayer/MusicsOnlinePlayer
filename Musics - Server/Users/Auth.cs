@@ -22,8 +22,9 @@ namespace Musics___Server.Authentification
 
         readonly XmlDocument doc = new XmlDocument();
 
-        public void SignupUser(User user)
+        public void SignupUser(CryptedCredentials cryptedCredentials  )
         {
+            var user = new User(cryptedCredentials);
             if (!SigninUser(user))
             {
                 doc.Load(@"users.xml");
@@ -55,10 +56,10 @@ namespace Musics___Server.Authentification
         public bool SigninUser(User user)
         {
             doc.Load(@"users.xml");
-            return UserIDExit(user.UID); 
+            return UserIDExist(user.UID); 
         }
 
-        public bool UserIDExit(string UID)
+        public bool UserIDExist(string UID)
         {
             doc.Load(@"users.xml");
             var nodesList = doc.DocumentElement.SelectNodes("User");
@@ -75,7 +76,7 @@ namespace Musics___Server.Authentification
             {
                 if (n["UID"].InnerText == OldUID)
                 {
-                    if (!UserIDExit(NewUser.UID))
+                    if (!UserIDExist(NewUser.UID))
                     {
                         n["Name"].InnerText = NewUser.Name;
                         n["UID"].InnerText = NewUser.UID;

@@ -4,13 +4,10 @@ using Utility.Network.Users;
 namespace Utility.Network.Dialog.Edits
 {
     [Serializable]
-    public class EditUserReport : IPacket
+    public class EditUserReport : Packet
     {
         public bool IsApproved { get; set; }
         public User NewUser { get; set; }
-
-        public string SenderUID { get; set; }
-        public bool IsFromServer { get; set; }
 
         public EditUserReport(bool Approved, User Newuser)
         {

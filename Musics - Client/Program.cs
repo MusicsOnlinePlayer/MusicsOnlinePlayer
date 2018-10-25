@@ -13,7 +13,13 @@ namespace Musics___Client
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginPage());
+            Application.Run(new LoginForm());
+
+            // Application.Run(new Client());
+            //Application.Run(new LoginPage());
+            //
         }
+
+     
     }
 }

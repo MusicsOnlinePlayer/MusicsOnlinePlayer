@@ -7,6 +7,7 @@ namespace Musics___Client.AppSettings
     {
         public static void Setup()
         {
+         
             if (!File.Exists(@"Config.xml"))
             {
                 using (XmlWriter writer = XmlWriter.Create(@"Config.xml"))
@@ -44,8 +45,9 @@ namespace Musics___Client.AppSettings
         }
         public static Settings Get()
         {
+            Directory.SetCurrentDirectory(".");
             XmlDocument doc = new XmlDocument();
-            doc.Load(@"Config.xml");
+            doc.Load(@"./Config.xml");
             return new Settings(doc.DocumentElement["HueIp"].InnerText, doc.DocumentElement["HueKey"].InnerText, doc.DocumentElement["ServerIp"].InnerText);
         }
     }

@@ -14,6 +14,7 @@ using Utility.Musics;
 using Utility.Network.Dialog.Uploads;
 using Musics___Client.AppSettings;
 using ControlLibrary.Network;
+using Musics___Client.API;
 
 namespace Musics___Client
 {
@@ -24,7 +25,10 @@ namespace Musics___Client
         public Client()
         {
             InitializeComponent();
-            NetworkClient.PacketReceived += TreatObject;
+            Me = LoginServices.Instance.LoggedUser;
+          //  NetworkClient.Connect();
+         //   NetworkClient.PacketReceived += TreatObject;
+            NetworkClient.Packetreceived += TreatObject;
         }
 
         private void Client_Load(object sender, EventArgs e)
@@ -35,9 +39,9 @@ namespace Musics___Client
 
             UIAccountName.Text = Me.Name;
             UIAccountId.Text = Me.UID;
-            Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + authInfo.RankofAuthUser.ToString();
-            UIRank.Text = authInfo.RankofAuthUser.ToString();
-            if (authInfo.RankofAuthUser == Rank.Viewer)
+            Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + Me.Rank.ToString();
+            UIRank.Text = Me.Rank.ToString();
+            if( Me.Rank == Rank.Viewer)
             {
                 UIUpload.Enabled = false;
             }
@@ -56,7 +60,7 @@ namespace Musics___Client
 
         public event EventHandler LoginInfoReceived;
 
-        protected virtual void OnloginInfoReceived(EventArgs e)
+        protected void OnloginInfoReceived(EventArgs e)
         {
             LoginInfoReceived?.Invoke(this, e);
         }
@@ -71,7 +75,7 @@ namespace Musics___Client
                 RequestAnswer searchAnswer = obj.Packet as RequestAnswer;
                 TreatRequestAnswer(searchAnswer);
             }
-            if (obj.Packet is AuthInfo)
+            if (obj.Packet is AuthInfo authInfo)
             {
                 authInfo = obj.Packet as AuthInfo;
                 OnloginInfoReceived(EventArgs.Empty);
@@ -240,10 +244,7 @@ namespace Musics___Client
                     uPlayer1.Playlist.Clear();
                     uPlayer1.PlaylistIndex = 0;
                     UIPlaylist.Items.Clear();
-                    Music m = new Music
-                    {
-                        MID = searchAnswer.Binaries.MID
-                    };
+       
                     uPlayer1.Playlist.Add(searchAnswer.Binaries);
                     UIPlaylist.Items.Add(searchAnswer.Binaries.Title);
                     uPlayer1.PlaylistIndex = 0;
@@ -446,6 +447,14 @@ namespace Musics___Client
 
         private void UIPlayBis_Click(object sender, EventArgs e)
         {
+
+            switch(selected)
+            {
+                case Music music:  PlayBis(music); break;
+                case Album album:  PlayBis(album); break;
+                case Playlist playlist: PlayBis(playlist); break;
+                default: throw new NotImplementedException();
+            }
             if (selected is Music)
             {
                 NetworkClient.SendObject(new Request(selected as Music));
@@ -476,6 +485,36 @@ namespace Musics___Client
             }
         }
 
+        private void PlayBis(Music music)
+        {
+            NetworkClient.SendObject(new Request(music));
+        }
+        private void PlayBis(Album album)
+        {
+            uPlayer1.Playlist.Clear();
+            uPlayer1.PlaylistIndex = 0;
+            UIPlaylist.Items.Clear();
+            foreach (var m in album.Musics)
+            {
+                uPlayer1.Playlist.Add(m);
+                UIPlaylist.Items.Add(m.Title);
+            }
+            NetworkClient.SendObject(new Request(uPlayer1.Playlist.First()));
+        }
+
+        private void PlayBis(Playlist playlist)
+        {
+            uPlayer1.Playlist.Clear();
+            uPlayer1.PlaylistIndex = 0;
+            UIPlaylist.Items.Clear();
+            foreach (var m in playlist.musics)
+            {
+                uPlayer1.Playlist.Add(m);
+                UIPlaylist.Items.Add(m.Title);
+            }
+            NetworkClient.SendObject(new Request(uPlayer1.Playlist.First()));
+        }
+
         private void Client_FormClosing(object sender, FormClosingEventArgs e)
         {
             //uPlayer1.player.close();
@@ -501,7 +540,26 @@ namespace Musics___Client
                     FillSearchListBoxesThreadSafe(album.Musics);
                     break;
                 case Music music:
-                    NetworkClient.SendObject(new Request(music));
+
+
+
+                    if (uPlayer1.IsInCache(music))
+                    {
+                        uPlayer1.Playlist.Clear();
+                        uPlayer1.PlaylistIndex = 0;
+                        UIPlaylist.Items.Clear();
+
+                        uPlayer1.Playlist.Add(music);
+                        UIPlaylist.Items.Add(music.Title);
+                        uPlayer1.PlaylistIndex = 0;
+                        UIPlaylist.SelectedIndex = uPlayer1.PlaylistIndex;
+
+                        uPlayer1.PlayMusic(music);
+                    }
+                    else
+                    {
+                        NetworkClient.SendObject(new Request(music));
+                    }
                     break;
                 case Playlist playlist:
                     uPlayer1.Playlist.Clear();
@@ -643,11 +701,11 @@ namespace Musics___Client
             {
                 if (UIEditName.Text == "")
                 {
-                    NetworkClient.SendObject(new EditUser(Me.UID, new User(Me.Name, UIEditPassword1.Text)));
+                   //NetworkClient.SendObject(new EditUser(Me.UID, new User(Me.Name, UIEditPassword1.Text)));
                 }
                 else
                 {
-                    NetworkClient.SendObject(new EditUser(Me.UID, new User(UIEditName.Text, UIEditPassword1.Text)));
+                  //  NetworkClient.SendObject(new EditUser(Me.UID, new User(UIEditName.Text, UIEditPassword1.Text)));
                 }
             }
             else if (UIEditPassword1.Text == null)

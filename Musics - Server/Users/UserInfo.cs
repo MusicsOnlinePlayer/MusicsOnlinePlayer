@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
+using System.Linq;
 using Musics___Server.MusicsManagement;
 using Utility.Musics;
 using Utility.Network.Users;
@@ -109,14 +110,12 @@ namespace Musics___Server.Usersinfos
 
             foreach (XmlNode n in nodes)
             {
-                User tmp = new User
-                {
-                    Name = n["Name"].InnerText,
-                    UID = n["UID"].InnerText
-                };
-                tmp.Rank = GetRankOfUser(tmp.UID);
-
-                UsersList.Add(tmp);
+                var name = n["Name"].InnerText;
+                var UID = n["UID"].InnerText;
+                var cryptedCredential = new CryptedCredentials(name, UID);
+                var user = new User(cryptedCredential);
+                user.Rank = GetRankOfUser(user.UID);
+                UsersList.Add(user);
             }
             return UsersList;
         }
@@ -128,21 +127,18 @@ namespace Musics___Server.Usersinfos
 
             XmlNodeList nodes = doc.DocumentElement.SelectNodes("User");
 
-            foreach (XmlNode n in nodes)
+            var node = nodes.Cast<XmlNode>().SingleOrDefault(n => n["UID"].InnerText == UID);
+            User user = null;
+            if (node != null)
             {
-                if (UID == n["UID"].InnerText)
-                {
-                    User tmp = new User
-                    {
-                        Name = n["Name"].InnerText,
-                        UID = n["UID"].InnerText
-                    };
-                    tmp.Rank = GetRankOfUser(tmp.UID);
-
-                    return tmp;
-                }
+                var name = node["Name"].InnerText;
+                var uid = node["UID"].InnerText;
+                var cryptedCredential = new CryptedCredentials(name, UID);
+                user = new User(cryptedCredential);
+                user.Rank = GetRankOfUser(user.UID);
             }
-            return null;
+            return user;
+           
         }
 
         public static List<User> SearchUser(string Username)
@@ -157,14 +153,13 @@ namespace Musics___Server.Usersinfos
             {
                 if (Search.Find(Username, n["Name"].InnerText))
                 {
-                    User tmp = new User
-                    {
-                        Name = n["Name"].InnerText,
-                        UID = n["UID"].InnerText
-                    };
-                    tmp.Rank = GetRankOfUser(tmp.UID);
+                    var name = n["Name"].InnerText;
+                    var UID = n["UID"].InnerText;
+                    var cryptedCredential = new CryptedCredentials(name, UID);
+                    var user = new User(cryptedCredential);
+                    user.Rank = GetRankOfUser(user.UID);
 
-                    UsersList.Add(tmp);
+                    UsersList.Add(user);
                 }
             }
             return UsersList;

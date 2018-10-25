@@ -1,6 +1,7 @@
 ﻿using ControlLibrary.Network;
 using Musics___Client.AppSettings;
 using System;
+using System.Net;
 using System.Windows.Forms;
 using Utility.Network.Dialog.Authentification;
 using Utility.Network.Users;
@@ -9,9 +10,14 @@ namespace Musics___Client
 {
     public partial class LoginPage : Form
     {
+        readonly Settings settingsForm = new Settings();
+
         public LoginPage()
         {
             InitializeComponent();
+          
+            NetworkClient.ip = IPAddress.Parse(AppSettings.ApplicationSettings.Get().ServerIp);
+
             ApplicationSettings.Setup();
         }
 
@@ -19,6 +25,7 @@ namespace Musics___Client
         
         private void LoginPage_Load(object sender, EventArgs e)
         {
+            NetworkClient.ip = IPAddress.Parse(AppSettings.ApplicationSettings.Get().ServerIp);
             NetworkClient.Connect();
             ClientForm.LoginInfoReceived += ClientForm_LoginInfoReceived;
             settingsForm.FormClosing += SettingsForm_FormClosing;
@@ -36,6 +43,7 @@ namespace Musics___Client
                     Hide();
                 });
                 ClientForm.ShowDialog();                             
+
             }
             else
             {
@@ -52,7 +60,8 @@ namespace Musics___Client
         {
             if(UILogin.Text != null && UIPassword.Text != null)
             {
-                RequestedUser = new User(UILogin.Text, UIPassword.Text);
+                NetworkClient.Connect();
+               // RequestedUser = new User(UILogin.Text, UIPassword.Text);
                 NetworkClient.SendObject(new Login(RequestedUser,false));
             }
             else
@@ -75,7 +84,7 @@ namespace Musics___Client
         {
             if (UIUserNameSign.Text != null && UIPasswordSign.Text != null && UIPasswordSign.Text == UISecondPasswordSign.Text)
             {
-                RequestedUser = new User(UIUserNameSign.Text, UIPasswordSign.Text);
+               //RequestedUser = new User(UIUserNameSign.Text, UIPasswordSign.Text);
                 NetworkClient.SendObject(new Login(RequestedUser, true));
             }
             else
@@ -107,8 +116,7 @@ namespace Musics___Client
         void UISecondPasswordSign_TextChanged(object sender, EventArgs e)
         {
             UIErrorLogin.Text = "";
-        }
-        readonly Settings settingsForm = new Settings();
+        } 
 
         void UISettings_Click(object sender, EventArgs e)
         {   
@@ -117,20 +125,22 @@ namespace Musics___Client
 
         void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ClientForm = new Client();
-            NetworkClient.ip = settingsForm.result;
-             ApplicationSettings.Save(new AppSettings.Settings(null, null, settingsForm.result.ToString()));
+         //   ClientForm = new Client();
+        /*    NetworkClient.ip = settingsForm.result;
+             ApplicationSettings.Save(new AppSettings.Settings(null, null, settingsForm.result.ToString()));*/
             NetworkClient.Connect();
-            ClientForm.LoginInfoReceived += ClientForm_LoginInfoReceived;
+          //  ClientForm.LoginInfoReceived += ClientForm_LoginInfoReceived;
         }
 
+        [Obsolete]
         private void UIPassword_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Enter)
             {
                 if (UILogin.Text != null && UIPassword.Text != null)
                 {
-                    RequestedUser = new User(UILogin.Text, UIPassword.Text);
+                    NetworkClient.Connect();
+                  //  RequestedUser = new User(UILogin.Text, UIPassword.Text);
                     NetworkClient.SendObject(new Login(RequestedUser, false));
                 }
                 else

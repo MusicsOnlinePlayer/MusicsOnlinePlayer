@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Utility.Network.Dialog.Authentification.Login">
+    <Position X="4" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAIAAA=</HashCode>
+      <FileName>Network\Dialog\Authentification\Login.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Utility.Network.Dialog.Authentification.AuthInfo">
+    <Position X="5.75" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Network\Dialog\Authentification\AuthInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Utility.Network.Dialog.Edits.EditRequest">
+    <Position X="7.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAQAAAAAAAAAAAEAAgAAIAAAAAEACAAA=</HashCode>
+      <FileName>Network\Dialog\Edits\EditRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Utility.Network.Dialog.Edits.EditUser">
+    <Position X="9.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Network\Dialog\Edits\EditUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Utility.Network.Dialog.Edits.EditUserReport">
+    <Position X="2.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Network\Dialog\Edits\EditUserReport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Utility.Network.Dialog.Rating.Rate">
+    <Position X="11.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Network\Dialog\Rating\Rate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Utility.Network.Dialog.Rating.RateReport">
+    <Position X="13.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAEQAAAAAAAAAAABA=</HashCode>
+      <FileName>Network\Dialog\Rating\RateReport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Utility.Network.Dialog.Request">
+    <Position X="15" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAEAQIAAAwAAAAAAAAAAQAAAAABAAA=</HashCode>
+      <FileName>Network\Dialog\Requests\Request.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Utility.Network.Dialog.RequestAnswer">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACEAQAAAAAAEAAAAAAAABAAQAAAAARCAAAAABAA=</HashCode>
+      <FileName>Network\Dialog\Requests\RequestAnswer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Utility.Network.Dialog.Uploads.SavePlaylist" BaseTypeListCollapsed="true">
+    <Position X="20.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Network\Dialog\Uploads\SavePlaylist.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Utility.Network.Dialog.Uploads.UploadMusic" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Network\Dialog\Uploads\UploadMusic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Utility.Network.Dialog.Uploads.UploadReport" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Network\Dialog\Uploads\UploadReport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Utility.Network.Packet">
+    <Position X="9.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Network\IPacket.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Utility.Network.IPacket">
+    <Position X="7.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Network\IPacket.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

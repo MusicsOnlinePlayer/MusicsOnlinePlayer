@@ -4,11 +4,8 @@ using Utility.Musics;
 namespace Utility.Network.Dialog.Uploads
 {
     [Serializable]
-    public class SavePlaylist : IPacket
+    public class SavePlaylist : Packet
     {
-        public string SenderUID { get; set; }
-        public bool IsFromServer { get; set; }
-
         public string UID { get; set; }
         public Playlist Playlist { get; set; }
 
