@@ -844,11 +844,11 @@ namespace Musics___Client
             {
                 if (UIEditName.Text == "")
                 {
-                    NetworkClient.SendObject(new EditUser(Me.UID, new User(Me.Name, UIEditPassword1.Text)));
+                //    NetworkClient.SendObject(new EditUser(Me.UID, new User(Me.Name, UIEditPassword1.Text)));
                 }
                 else
                 {
-                    NetworkClient.SendObject(new EditUser(Me.UID, new User(UIEditName.Text, UIEditPassword1.Text)));
+                  //  NetworkClient.SendObject(new EditUser(Me.UID, new User(UIEditName.Text, UIEditPassword1.Text)));
                 }
             }
             else if (UIEditPassword1.Text == null)

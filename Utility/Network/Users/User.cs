@@ -4,34 +4,32 @@ using Utility.Musics;
 namespace Utility.Network.Users
 {
     [Serializable]
-    public class User : UidCredentials
+    public class User : CryptedCredentials
     {
-    
+
         public Rank Rank { get; set; }
 
-        public string Name { get; set; }
-        public bool Connected { get; set; }
+        public string Name => Login;
 
-        public User(ICredentials credential) 
+        public User(ICredentials credential)
             : base(credential)
         {
-            Name = credential.Login;
+
         }
-        public User() 
-            : this(new UserCredentials("","")){ }
+        public User()
+            : this(new UserCredentials("", "")) { }
 
         public User(string name)
-            : this (new UserCredentials(name, ""))
+            : this(new UserCredentials(name, ""))
         {
         }
-        public User(string name, string UserPassword)
-            : this(new UserCredentials(name, UserPassword))
-
+        public User(CryptedCredentials cryptedCredential)
+            : base(cryptedCredential)
         {
         }
 
 
-        
+
     }
 
 
@@ -47,7 +45,7 @@ namespace Utility.Network.Users
     }
 
     public class UserCredentials : ICredentials
-{
+    {
         public string Login { get; set; }
         public string Password { get; set; }
 
@@ -57,28 +55,42 @@ namespace Utility.Network.Users
             Password = password;
         }
 
-        public bool IsValidCredential=> IsValidLogin && IsValidPassword;
-        
+        public bool IsValidCredential => IsValidLogin && IsValidPassword;
 
-        private bool IsValidLogin  => Login.Trim().Length != 0;
+
+        private bool IsValidLogin => Login.Trim().Length != 0;
         private bool IsValidPassword => Password.Trim().Length != 0;
 
 
     }
     [Serializable]
-    public abstract class UidCredentials
+    public class CryptedCredentials
     {
+        protected string Login { get; }
         public string UID { get; set; }
 
-        protected UidCredentials(ICredentials credentials)
+        public CryptedCredentials(string login, string uid)
         {
+            Login = login;
+            UID = uid;
+        }
+
+        protected CryptedCredentials(CryptedCredentials copy)
+        {
+            Login = copy.Login;
+            UID = copy.UID;
+        }
+
+        protected CryptedCredentials(ICredentials credentials)
+        {
+            Login = credentials.Login;
             UID = GenerateUID(credentials);
         }
         protected virtual string GenerateUID(ICredentials credentials)
             => Hash.SHA256Hash(credentials.Login + credentials.Password);
     }
 
-    public abstract class UserUidCredentials : UidCredentials
+    public abstract class UserUidCredentials : CryptedCredentials
     {
 
         protected UserUidCredentials(ICredentials credentials)

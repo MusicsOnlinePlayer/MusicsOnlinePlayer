@@ -21,7 +21,8 @@ namespace ControlLibrary.Network
         public static EventHandler<PacketEventArgs> PacketReceived = delegate { };
 
         public delegate void PacketReceivedEvent(object sender, PacketEventArgs a);
-
+        public delegate void PacketReceivedHandler(object sender, PacketEventArgs a);
+        public static event PacketReceivedHandler Packetreceived;
         public static void Connect()
         {
             if (IPAddress.TryParse(AppSettings.ApplicationSettings.Get().ServerIp, out IPAddress iPAddress))
@@ -117,6 +118,6 @@ namespace ControlLibrary.Network
         }
 
         public static void OnPacketReceived(PacketEventArgs e)
-           => PacketReceived?.Invoke(null, e);
+           => Packetreceived?.Invoke(null, e);
     }
 }

@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.SignInButton = new System.Windows.Forms.Button();
+            this.CredentialValidatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.LoginLabel = new System.Windows.Forms.Label();
             this.credentialControl = new Musics___Client.UI.CredentialControl();
-            this.CredentialValidatorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.CredentialValidatorBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,6 +49,10 @@
             this.SignInButton.Text = "Log in";
             this.SignInButton.UseVisualStyleBackColor = false;
             this.SignInButton.Click += new System.EventHandler(this.SignInButton_Click);
+            // 
+            // CredentialValidatorBindingSource
+            // 
+            this.CredentialValidatorBindingSource.DataSource = typeof(Utility.Network.Users.ICredentialValidator);
             // 
             // LoginLabel
             // 
@@ -67,10 +71,6 @@
             this.credentialControl.Size = new System.Drawing.Size(379, 185);
             this.credentialControl.TabIndex = 0;
             // 
-            // CredentialValidatorBindingSource
-            // 
-            this.CredentialValidatorBindingSource.DataSource = typeof(Utility.Network.Users.ICredentialValidator);
-            // 
             // LoginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -80,6 +80,7 @@
             this.Controls.Add(this.credentialControl);
             this.Name = "LoginControl";
             this.Size = new System.Drawing.Size(401, 361);
+            this.Load += new System.EventHandler(this.LoginControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.CredentialValidatorBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

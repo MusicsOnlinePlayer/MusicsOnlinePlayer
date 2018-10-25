@@ -119,6 +119,7 @@
     <Compile Include="MusicsManagement\MusicsInfo.cs" />
     <Compile Include="MusicsManagement\Search.cs" />
     <Compile Include="MusicsManagement\Trending\Trending.cs" />
+    <Compile Include="Network\ClientList.cs" />
     <Compile Include="Network\Handle\Login.cs" />
     <Compile Include="Network\Handle\Rates.cs" />
     <Compile Include="Network\Handle\Requests.cs" />

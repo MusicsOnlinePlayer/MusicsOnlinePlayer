@@ -43,6 +43,7 @@ namespace Musics___Client
                     Hide();
                 });
                 ClientForm.ShowDialog();                             
+
             }
             else
             {
@@ -60,7 +61,7 @@ namespace Musics___Client
             if(UILogin.Text != null && UIPassword.Text != null)
             {
                 NetworkClient.Connect();
-                RequestedUser = new User(UILogin.Text, UIPassword.Text);
+               // RequestedUser = new User(UILogin.Text, UIPassword.Text);
                 NetworkClient.SendObject(new Login(RequestedUser,false));
             }
             else
@@ -83,7 +84,7 @@ namespace Musics___Client
         {
             if (UIUserNameSign.Text != null && UIPasswordSign.Text != null && UIPasswordSign.Text == UISecondPasswordSign.Text)
             {
-                RequestedUser = new User(UIUserNameSign.Text, UIPasswordSign.Text);
+               //RequestedUser = new User(UIUserNameSign.Text, UIPasswordSign.Text);
                 NetworkClient.SendObject(new Login(RequestedUser, true));
             }
             else
@@ -139,7 +140,7 @@ namespace Musics___Client
                 if (UILogin.Text != null && UIPassword.Text != null)
                 {
                     NetworkClient.Connect();
-                    RequestedUser = new User(UILogin.Text, UIPassword.Text);
+                  //  RequestedUser = new User(UILogin.Text, UIPassword.Text);
                     NetworkClient.SendObject(new Login(RequestedUser, false));
                 }
                 else
