@@ -46,6 +46,7 @@
             this.UIHomeSearchBar.Name = "UIHomeSearchBar";
             this.UIHomeSearchBar.Size = new System.Drawing.Size(650, 20);
             this.UIHomeSearchBar.TabIndex = 6;
+            this.UIHomeSearchBar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UIHomeSearchBar_KeyDown);
             // 
             // panel3
             // 
