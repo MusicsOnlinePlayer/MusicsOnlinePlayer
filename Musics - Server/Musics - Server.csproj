@@ -73,7 +73,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CodeCraft.EnumExtension, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="CodeCraft.EnumExtension, Version=1.0.1.0, Culture=neutral, PublicKeyToken=69ec44bc4a2068d2, processorArchitecture=MSIL">
       <HintPath>..\packages\CodeCraft.EnumExtension.1.0.1\lib\netstandard2.0\CodeCraft.EnumExtension.dll</HintPath>
     </Reference>
     <Reference Include="CodeCraft.Logger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

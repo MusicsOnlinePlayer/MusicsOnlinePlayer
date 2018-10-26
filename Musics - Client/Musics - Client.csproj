@@ -183,7 +183,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Events\SearchEventArgs.cs" />
+    <Compile Include="API\Events\SearchResultEventArgs.cs" />
     <Compile Include="API\LoginServices.cs" />
+    <Compile Include="API\SearchServices.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

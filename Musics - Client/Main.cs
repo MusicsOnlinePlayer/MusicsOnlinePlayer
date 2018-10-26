@@ -15,12 +15,15 @@ using Utility.Network.Dialog.Uploads;
 using Musics___Client.AppSettings;
 using ControlLibrary.Network;
 using Musics___Client.API;
+using Musics___Client.API.Events;
 
 namespace Musics___Client
 {
     public partial class Client : Form
     {
         public User Me { get; set; }
+
+        public SearchServices searchServices; 
 
         public Client()
         {
@@ -29,7 +32,10 @@ namespace Musics___Client
           //  NetworkClient.Connect();
          //   NetworkClient.PacketReceived += TreatObject;
             NetworkClient.Packetreceived += TreatObject;
+            searchServices = new SearchServices();
+            searchServices.SearchResultEvent += SearchServices_SearchResultEvent;
         }
+
 
         private void Client_Load(object sender, EventArgs e)
         {
@@ -47,8 +53,11 @@ namespace Musics___Client
             }
            
             NetworkClient.SendObject(new Request(Me.UID));
-            
+
+            homeControl1.SearchEvent += HomeControl1_SearchEvent;
         }
+
+        
 
         #region Network
 
@@ -68,6 +77,13 @@ namespace Musics___Client
         #endregion
 
         #region PlayerSearch
+
+        private void SearchServices_SearchResultEvent(object sender, SearchResultEventArgs e)
+             => RequestAnswerSearch(e.ReceivedSearchedElement);
+
+        private void HomeControl1_SearchEvent(object sender, SearchEventArgs e)
+            => searchServices.SearchElement(e.SearchField, e.ElementType);
+
         private void TreatObject(object sender,PacketEventArgs obj)
         {
             if (obj.Packet is RequestAnswer)
@@ -170,9 +186,6 @@ namespace Musics___Client
         {
             switch (searchAnswer.RequestsTypes)
             {
-                case RequestsTypes.Search:
-                    RequestAnswerSearch(searchAnswer);
-                    break;
                 case RequestsTypes.MusicsBinaries:
                     RequestAnswerBinaries(searchAnswer);
                     break;
@@ -189,10 +202,12 @@ namespace Musics___Client
             }
         }
 
-        public void RequestAnswerSearch(RequestAnswer searchAnswer)
+        public void RequestAnswerSearch(IReadOnlyList<IElement> searchAnswer)
         {
+            ChangeTabsThreadSafe(1);
+
             ClearSearchListBoxes();
-            FillSearchListBoxes(searchAnswer.AnswerList);
+            FillSearchListBoxes(searchAnswer);
 
             Invoke((MethodInvoker)delegate
             {
@@ -231,6 +246,8 @@ namespace Musics___Client
             SearchlistboxItems.AddRange(elements);
         }
 
+        private void ChangeTabsThreadSafe(int tab) => Invoke((MethodInvoker)delegate { Tabs.SelectedIndex = tab; });
+        
         public void RequestAnswerBinaries(RequestAnswer searchAnswer)
         {
             Invoke((MethodInvoker)delegate
