@@ -218,6 +218,12 @@
     <Compile Include="UI\CredentialControl.Designer.cs">
       <DependentUpon>CredentialControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\HomeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\HomeControl.Designer.cs">
+      <DependentUpon>HomeControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\LoginControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -255,6 +261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CredentialControl.resx">
       <DependentUpon>CredentialControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\HomeControl.resx">
+      <DependentUpon>HomeControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\LoginControl.resx">
       <DependentUpon>LoginControl.cs</DependentUpon>
