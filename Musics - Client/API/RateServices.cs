@@ -16,7 +16,7 @@ namespace Musics___Client.API
 
         public event EventHandler<RateReportEventArgs> RateReportEvent;
 
-        protected virtual void OnSearchResultEvent(RateReportEventArgs e)
+        protected virtual void OnRateReportEvent(RateReportEventArgs e)
             => RateReportEvent?.Invoke(this, e);
 
 
@@ -25,7 +25,7 @@ namespace Musics___Client.API
             if(a.Packet is RateReport)
             {
                 RateReport report = a.Packet as RateReport;
-                OnSearchResultEvent(new RateReportEventArgs(report.ReportOk, report.MID, report.UpdatedRating));
+                OnRateReportEvent(new RateReportEventArgs(report.ReportOk, report.MID, report.UpdatedRating));
             }
         }
 
