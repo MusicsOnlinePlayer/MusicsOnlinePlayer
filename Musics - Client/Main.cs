@@ -32,7 +32,7 @@ namespace Musics___Client
         {
             InitializeComponent();
             Me = LoginServices.Instance.LoggedUser;
-            InitServices();
+            
         }
 
         public void InitServices()
@@ -96,6 +96,8 @@ namespace Musics___Client
             }
            
             NetworkClient.SendObject(new Request(Me.UID));
+
+            InitServices();
 
             homeControl1.SearchEvent += HomeControl1_SearchEvent;
             SearchControl.PlayEvent += SearchControl_PlayEvent;
