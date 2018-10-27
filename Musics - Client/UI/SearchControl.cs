@@ -293,6 +293,9 @@ namespace Musics___Client.UI
         private void UISearchListbox_SelectedIndexChanged(object sender, EventArgs e)
         {
             selected = (IElement)SearchlistboxItems[UISearchListbox.SelectedIndex];
+            Invoke((MethodInvoker)delegate{
+                ChangeDescription(selected);
+            });
         }
     }
 }
