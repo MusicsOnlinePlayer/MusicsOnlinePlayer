@@ -19,7 +19,10 @@ namespace Musics___Client.API
             if(a.Packet is RequestAnswer)
             {
                 RequestAnswer requestAnswer = a.Packet as RequestAnswer;
-                OnSearchResultEvent(new SearchResultEventArgs(requestAnswer.AnswerList));
+                if(requestAnswer.RequestsTypes == RequestsTypes.Search)
+                {
+                    OnSearchResultEvent(new SearchResultEventArgs(requestAnswer.AnswerList));
+                }
             }
         }
 

@@ -376,14 +376,6 @@ namespace Musics___Client
         public AuthInfo authInfo;     
         private List<Music> LikedMusics = new List<Music>();
 
-        private void UISearchListbox_SelectedIndexChanged(object sender, EventArgs e)
-            {
-            Invoke((MethodInvoker)delegate
-            {
-                ChangeDescription();
-            });
-        }
-
         private void ChangeDescription()
             => SearchControl.ChangeDescription(SearchControl.selected);
 
