@@ -289,5 +289,10 @@ namespace Musics___Client.UI
             ClearPlaylist();
             OnClearEvent(new EventArgs());
         }
+
+        private void UISearchListbox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selected = (IElement)SearchlistboxItems[UISearchListbox.SelectedIndex];
+        }
     }
 }

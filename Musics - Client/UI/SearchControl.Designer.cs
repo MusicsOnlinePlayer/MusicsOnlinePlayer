@@ -330,6 +330,7 @@
             this.UISearchListbox.Name = "UISearchListbox";
             this.UISearchListbox.Size = new System.Drawing.Size(1168, 304);
             this.UISearchListbox.TabIndex = 29;
+            this.UISearchListbox.SelectedIndexChanged += new System.EventHandler(this.UISearchListbox_SelectedIndexChanged);
             this.UISearchListbox.DoubleClick += new System.EventHandler(this.UISearchListbox_DoubleClick);
             // 
             // UISelectedname
