@@ -183,6 +183,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\EditMusicsServices.cs" />
+    <Compile Include="API\Events\EditMusicEventArgs.cs" />
+    <Compile Include="API\Events\PathClickedEventArgs.cs" />
+    <Compile Include="API\Events\PlayEventArgs.cs" />
+    <Compile Include="API\Events\PlaylistSavedEventArgs.cs" />
+    <Compile Include="API\Events\RateEventArgs.cs" />
+    <Compile Include="API\Events\RateReportEventArgs.cs" />
+    <Compile Include="API\PlaylistServices.cs" />
+    <Compile Include="API\RateServices.cs" />
     <Compile Include="API\Events\SearchEventArgs.cs" />
     <Compile Include="API\Events\SearchResultEventArgs.cs" />
     <Compile Include="API\LoginServices.cs" />
@@ -233,6 +242,12 @@
     <Compile Include="UI\LoginControl.Designer.cs">
       <DependentUpon>LoginControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\SearchControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\SearchControl.Designer.cs">
+      <DependentUpon>SearchControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\SignInControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -270,6 +285,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\LoginControl.resx">
       <DependentUpon>LoginControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SearchControl.resx">
+      <DependentUpon>SearchControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SignInControl.resx">
       <DependentUpon>SignInControl.cs</DependentUpon>
