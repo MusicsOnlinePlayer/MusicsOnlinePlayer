@@ -1,8 +1,9 @@
-﻿using Utility.Musics;
+﻿using System;
+using Utility.Musics;
 
 namespace Musics___Client.API.Events
 {
-    public class RequestBinairiesEventArgs
+    public class RequestBinairiesEventArgs : EventArgs
     {
         public RequestBinairiesEventArgs(Music requestedMusic)
         {

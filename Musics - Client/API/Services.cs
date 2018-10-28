@@ -12,6 +12,7 @@ namespace Musics___Client.API
         public EditMusicsServices EditMusics;
         public RateServices RateServices;
         public PlaylistServices PlaylistServices;
+        public EditAccountServices AccountServices;
 
         public void Init()
         {
@@ -19,6 +20,7 @@ namespace Musics___Client.API
             EditMusics = new EditMusicsServices();
             RateServices = new RateServices();
             PlaylistServices = new PlaylistServices();
+            AccountServices = new EditAccountServices();
         }
     }
 }
