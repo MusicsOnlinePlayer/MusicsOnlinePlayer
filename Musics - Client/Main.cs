@@ -45,10 +45,19 @@ namespace Musics___Client
 
             rateServices = new RateServices();
             rateServices.RateReportEvent += RateServices_RateReportEvent;
+            rateServices.FavoriteReceivedEvent += RateServices_FavoriteReceivedEvent;
 
             playlistServices = new PlaylistServices();
         }
 
+        private void RateServices_FavoriteReceivedEvent(object sender, FavoriteEventArgs e)
+            => FavoriteControl.UpdateFavorites(e.Favorites);
+
+        private void FavoriteControl_PlayAllEvent(object sender, PlayEventArgs e)
+            => PlayElement(e.Selected);
+
+        private void FavoriteControl_SearchEvent(object sender, RequestBinairiesEventArgs e)
+            => NetworkClient.SendObject(new Request(e.RequestedMusic));
 
         private void RateServices_RateReportEvent(object sender, RateReportEventArgs e)
         {
@@ -233,13 +242,6 @@ namespace Musics___Client
                 case RequestsTypes.MusicsBinaries:
                     RequestAnswerBinaries(searchAnswer);
                     break;
-                case RequestsTypes.Favorites:
-                    LikedMusics.Clear();
-                    Invoke((MethodInvoker)delegate
-                    {
-                        RequestAnswerFavorites(searchAnswer);
-                    });
-                    break;
                 case RequestsTypes.Users:
                     RequestAnswerUsers(searchAnswer);
                     break;
@@ -281,52 +283,7 @@ namespace Musics___Client
                 }
                 uPlayer1.PlayMusic(searchAnswer.Binaries);
             });
-        }
-
-        public void RequestAnswerFavorites(RequestAnswer searchAnswer)
-        {
-            UILikedMusicsList.Items.Clear();
-
-            foreach (var m in (from val in searchAnswer.Favorites select val.Genre.First()).Cast<string>().Distinct().ToList())
-            {
-                UILikedMusicsList.Items.Add(m);
-                //LikedMusics.Add(m);
-            }
-            var tmp = searchAnswer.Favorites;
-            //LikedMusics.Clear();
-            LikedMusics = tmp;
-
-            uPlayer1.Reset();
-        }
-
-        private List<Music> SelectedFavorites = new List<Music>();
-
-        private void UILikedMusicsList_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            if (UILikedMusicsList.SelectedItem != null && SelectedFavorites.Count == 0)
-            {
-                SelectedFavorites.Clear();
-                SelectedFavorites = (from val in LikedMusics
-                                     where val.Genre.First() == UILikedMusicsList.SelectedItem.ToString()
-                                     select val).ToList();
-                UILikedMusicsList.Items.Clear();
-                foreach (var m in SelectedFavorites)
-                {
-                    UILikedMusicsList.Items.Add(m.Title);
-                }
-            }
-            else if (UILikedMusicsList.SelectedItem != null)
-            {
-                Tabs.SelectedIndex = 1;
-                NetworkClient.SendObject(new Request(SelectedFavorites[UILikedMusicsList.SelectedIndex].Title, ElementType.Music));
-            }
-        }
-
-        private void UIFavoritesBack_Click(object sender, EventArgs e)
-        {
-            SelectedFavorites.Clear();
-            RequestAnswerFavorites(new RequestAnswer(LikedMusics));
-        }
+        } 
 
         public void RequestAnswerUsers(RequestAnswer searchAnswer)
         {
@@ -356,16 +313,21 @@ namespace Musics___Client
             }
         }
         public AuthInfo authInfo;     
-        private List<Music> LikedMusics = new List<Music>();
 
         private void ChangeDescription()
             => SearchControl.ChangeDescription(SearchControl.selected);
 
         private void SearchControl_PlayEvent(object sender, PlayEventArgs e)
         {
-            switch (e.Selected)
+            PlayElement(e.Selected);
+        }
+
+        private void PlayElement(IElement element)
+        {
+            ChangeTabsThreadSafe(1);
+            switch (element)
             {
-                case Music music : PlayBis(music); break;
+                case Music music: PlayBis(music); break;
                 case Album album: PlayBis(album); break;
                 case Playlist playlist: PlayBis(playlist); break;
             }
@@ -423,22 +385,6 @@ namespace Musics___Client
         private void SearchControl_PathClicked(object sender, PathClickedEventArgs e)
             => searchServices.SearchElement(e.Name, e.type);
 
-        private void UIPlayFavorites_Click(object sender, EventArgs e)
-        {
-            if (LikedMusics.Count >= 1)
-            {
-                uPlayer1.Playlist.Clear();
-                uPlayer1.PlaylistIndex = 0;
-                SearchControl.ClearPlaylist();
-                foreach (var m in LikedMusics)
-                {
-                    uPlayer1.Playlist.Add(m);
-                    SearchControl.AddToPlaylist(m.Title);
-                }
-                NetworkClient.SendObject(new Request(uPlayer1.Playlist.First()));
-                Tabs.SelectedIndex = 1;
-            }
-        }
 
         #endregion
 
@@ -572,7 +518,7 @@ namespace Musics___Client
                 //MessageBox.Show("Error");
             }
         }
-        #endregion
 
+        #endregion
     }
 }

@@ -185,11 +185,13 @@
   <ItemGroup>
     <Compile Include="API\EditMusicsServices.cs" />
     <Compile Include="API\Events\EditMusicEventArgs.cs" />
+    <Compile Include="API\Events\FavoriteEventArgs.cs" />
     <Compile Include="API\Events\PathClickedEventArgs.cs" />
     <Compile Include="API\Events\PlayEventArgs.cs" />
     <Compile Include="API\Events\PlaylistSavedEventArgs.cs" />
     <Compile Include="API\Events\RateEventArgs.cs" />
     <Compile Include="API\Events\RateReportEventArgs.cs" />
+    <Compile Include="API\Events\RequestBinairiesEventArgs.cs" />
     <Compile Include="API\PlaylistServices.cs" />
     <Compile Include="API\RateServices.cs" />
     <Compile Include="API\Events\SearchEventArgs.cs" />
@@ -229,6 +231,12 @@
     </Compile>
     <Compile Include="UI\CredentialControl.Designer.cs">
       <DependentUpon>CredentialControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FavoriteControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\FavoriteControl.Designer.cs">
+      <DependentUpon>FavoriteControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\HomeControl.cs">
       <SubType>UserControl</SubType>
@@ -279,6 +287,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CredentialControl.resx">
       <DependentUpon>CredentialControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FavoriteControl.resx">
+      <DependentUpon>FavoriteControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\HomeControl.resx">
       <DependentUpon>HomeControl.cs</DependentUpon>
