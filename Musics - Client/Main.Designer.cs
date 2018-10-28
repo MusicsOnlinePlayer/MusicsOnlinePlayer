@@ -62,11 +62,7 @@
             this.UIAccountId = new System.Windows.Forms.Label();
             this.UIAccountName = new System.Windows.Forms.Label();
             this.UIFavorites = new System.Windows.Forms.TabPage();
-            this.UIFavoritesBack = new System.Windows.Forms.Button();
-            this.UIPlayFavorites = new System.Windows.Forms.Button();
-            this.UILikedMusicsList = new System.Windows.Forms.ListBox();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.label12 = new System.Windows.Forms.Label();
+            this.FavoriteControl = new Musics___Client.UI.FavoriteControl();
             this.UISearch = new System.Windows.Forms.TabPage();
             this.SearchControl = new Musics___Client.UI.SearchControl();
             this.UIHome = new System.Windows.Forms.TabPage();
@@ -438,11 +434,7 @@
             // 
             // UIFavorites
             // 
-            this.UIFavorites.Controls.Add(this.UIFavoritesBack);
-            this.UIFavorites.Controls.Add(this.UIPlayFavorites);
-            this.UIFavorites.Controls.Add(this.UILikedMusicsList);
-            this.UIFavorites.Controls.Add(this.checkedListBox1);
-            this.UIFavorites.Controls.Add(this.label12);
+            this.UIFavorites.Controls.Add(this.FavoriteControl);
             this.UIFavorites.Location = new System.Drawing.Point(4, 34);
             this.UIFavorites.Name = "UIFavorites";
             this.UIFavorites.Padding = new System.Windows.Forms.Padding(3);
@@ -451,64 +443,16 @@
             this.UIFavorites.Text = "Favorites";
             this.UIFavorites.UseVisualStyleBackColor = true;
             // 
-            // UIFavoritesBack
+            // FavoriteControl
             // 
-            this.UIFavoritesBack.BackgroundImage = global::Musics___Client.Properties.Resources.IcoBack;
-            this.UIFavoritesBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.UIFavoritesBack.FlatAppearance.BorderSize = 0;
-            this.UIFavoritesBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIFavoritesBack.Location = new System.Drawing.Point(214, 7);
-            this.UIFavoritesBack.Name = "UIFavoritesBack";
-            this.UIFavoritesBack.Size = new System.Drawing.Size(30, 30);
-            this.UIFavoritesBack.TabIndex = 18;
-            this.UIFavoritesBack.UseVisualStyleBackColor = true;
-            this.UIFavoritesBack.Click += new System.EventHandler(this.UIFavoritesBack_Click);
-            // 
-            // UIPlayFavorites
-            // 
-            this.UIPlayFavorites.BackgroundImage = global::Musics___Client.Properties.Resources.Icoplay;
-            this.UIPlayFavorites.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.UIPlayFavorites.FlatAppearance.BorderSize = 0;
-            this.UIPlayFavorites.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIPlayFavorites.Location = new System.Drawing.Point(263, 9);
-            this.UIPlayFavorites.Name = "UIPlayFavorites";
-            this.UIPlayFavorites.Size = new System.Drawing.Size(30, 30);
-            this.UIPlayFavorites.TabIndex = 17;
-            this.UIPlayFavorites.UseVisualStyleBackColor = true;
-            this.UIPlayFavorites.Click += new System.EventHandler(this.UIPlayFavorites_Click);
-            // 
-            // UILikedMusicsList
-            // 
-            this.UILikedMusicsList.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UILikedMusicsList.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.UILikedMusicsList.FormattingEnabled = true;
-            this.UILikedMusicsList.ItemHeight = 25;
-            this.UILikedMusicsList.Location = new System.Drawing.Point(13, 40);
-            this.UILikedMusicsList.Margin = new System.Windows.Forms.Padding(0);
-            this.UILikedMusicsList.Name = "UILikedMusicsList";
-            this.UILikedMusicsList.Size = new System.Drawing.Size(1168, 304);
-            this.UILikedMusicsList.TabIndex = 16;
-            this.UILikedMusicsList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.UILikedMusicsList_MouseDoubleClick);
-            // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(272, 159);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(8, 4);
-            this.checkedListBox1.TabIndex = 15;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label12.Location = new System.Drawing.Point(6, 3);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(202, 37);
-            this.label12.TabIndex = 14;
-            this.label12.Text = "Liked musics";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.FavoriteControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FavoriteControl.Location = new System.Drawing.Point(-1, 0);
+            this.FavoriteControl.Margin = new System.Windows.Forms.Padding(6);
+            this.FavoriteControl.Name = "FavoriteControl";
+            this.FavoriteControl.Size = new System.Drawing.Size(1193, 361);
+            this.FavoriteControl.TabIndex = 0;
+            this.FavoriteControl.SearchEvent += new System.EventHandler<Musics___Client.API.Events.RequestBinairiesEventArgs>(this.FavoriteControl_SearchEvent);
+            this.FavoriteControl.PlayAllEvent += new System.EventHandler<Musics___Client.API.Events.PlayEventArgs>(this.FavoriteControl_PlayAllEvent);
             // 
             // UISearch
             // 
@@ -528,15 +472,15 @@
             this.SearchControl.Name = "SearchControl";
             this.SearchControl.Size = new System.Drawing.Size(1184, 760);
             this.SearchControl.TabIndex = 0;
-            this.SearchControl.PlayEvent += SearchControl_PlayEvent;
-            this.SearchControl.AddPlaylistEvent += SearchControl_AddPlaylistEvent;
-            this.SearchControl.SearchEvent += SearchControl_SearchEvent;
-            this.SearchControl.ClearEvent += SearchControl_ClearEvent;
-            this.SearchControl.UploadEvent += SearchControl_UploadEvent;
-            this.SearchControl.RateEvent += SearchControl_RateEvent;
-            this.SearchControl.PathClicked += SearchControl_PathClicked;
-            this.SearchControl.EditMusic += SearchControl_EditMusic;
-            this.SearchControl.PlaylistSaved += SearchControl_PlaylistSaved;
+            this.SearchControl.SearchEvent += new System.EventHandler<Musics___Client.API.Events.SearchEventArgs>(this.SearchControl_SearchEvent);
+            this.SearchControl.ClearEvent += new System.EventHandler<System.EventArgs>(this.SearchControl_ClearEvent);
+            this.SearchControl.UploadEvent += new System.EventHandler<System.EventArgs>(this.SearchControl_UploadEvent);
+            this.SearchControl.PlayEvent += new System.EventHandler<Musics___Client.API.Events.PlayEventArgs>(this.SearchControl_PlayEvent);
+            this.SearchControl.AddPlaylistEvent += new System.EventHandler<System.EventArgs>(this.SearchControl_AddPlaylistEvent);
+            this.SearchControl.RateEvent += new System.EventHandler<Musics___Client.API.Events.RateEventArgs>(this.SearchControl_RateEvent);
+            this.SearchControl.PathClicked += new System.EventHandler<Musics___Client.API.Events.PathClickedEventArgs>(this.SearchControl_PathClicked);
+            this.SearchControl.EditMusic += new System.EventHandler<Musics___Client.API.Events.EditMusicEventArgs>(this.SearchControl_EditMusic);
+            this.SearchControl.PlaylistSaved += new System.EventHandler<Musics___Client.API.Events.PlaylistSavedEventArgs>(this.SearchControl_PlaylistSaved);
             // 
             // UIHome
             // 
@@ -638,7 +582,6 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.UIFavorites.ResumeLayout(false);
-            this.UIFavorites.PerformLayout();
             this.UISearch.ResumeLayout(false);
             this.UIHome.ResumeLayout(false);
             this.Tabs.ResumeLayout(false);
@@ -676,9 +619,6 @@
         private System.Windows.Forms.Label UIAccountId;
         private System.Windows.Forms.Label UIAccountName;
         private System.Windows.Forms.TabPage UIFavorites;
-        private System.Windows.Forms.ListBox UILikedMusicsList;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TabPage UISearch;
         private System.Windows.Forms.TabPage UIHome;
         private System.Windows.Forms.TabControl Tabs;
@@ -686,13 +626,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Button UIPlayFavorites;
-        private System.Windows.Forms.Button UIFavoritesBack;
         private ControlLibrary.UPlayer uPlayer1;
         private ControlLibrary.User_Interface.HueControl hueControl1;
         private ControlLibrary.User_Interface.HueControl hueControl2;
         private UI.HomeControl homeControl1;
         private UI.SearchControl SearchControl;
+        private UI.FavoriteControl FavoriteControl;
     }
 }
 

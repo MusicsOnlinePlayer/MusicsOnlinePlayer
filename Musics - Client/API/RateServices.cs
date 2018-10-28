@@ -4,6 +4,7 @@ using ControlLibrary.Network;
 using Musics___Client.API.Events;
 using System.Collections.Generic;
 using Utility.Network.Dialog.Rating;
+using Utility.Network.Dialog;
 
 namespace Musics___Client.API
 {
@@ -15,9 +16,12 @@ namespace Musics___Client.API
         }
 
         public event EventHandler<RateReportEventArgs> RateReportEvent;
-
         protected virtual void OnRateReportEvent(RateReportEventArgs e)
             => RateReportEvent?.Invoke(this, e);
+
+        public event EventHandler<FavoriteEventArgs> FavoriteReceivedEvent;
+        protected virtual void OnFavoriteReceivedEvent(FavoriteEventArgs e)
+            => FavoriteReceivedEvent?.Invoke(this, e);
 
 
         private void NetworkClient_Packetreceived(object sender, PacketEventArgs a)
@@ -27,10 +31,16 @@ namespace Musics___Client.API
                 RateReport report = a.Packet as RateReport;
                 OnRateReportEvent(new RateReportEventArgs(report.ReportOk, report.MID, report.UpdatedRating));
             }
+            if(a.Packet is RequestAnswer)
+            {
+                RequestAnswer requestAnswer = a.Packet as RequestAnswer;
+                if(requestAnswer.RequestsTypes == RequestsTypes.Favorites)
+                    OnFavoriteReceivedEvent(new FavoriteEventArgs(requestAnswer.Favorites));
+
+            }
         }
 
-        public void RateMusic(string ElementRatedMID,ElementType elementType)
+        public void RateMusic(string ElementRatedMID, ElementType elementType)
             => NetworkClient.SendObject(new Rate(ElementRatedMID, elementType));
-
     }
 }
