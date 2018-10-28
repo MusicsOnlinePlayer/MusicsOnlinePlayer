@@ -220,11 +220,11 @@ namespace Musics___Server
 
                 MyServer.Clients.Remove(socket);
                 MyServer.Clients.AddUser(editUser.NewUser, socket);
-                MyServer.Log.Warn($"User {editUser.NewUser} has been edited");
+                MyServer.Log.Warn($"User {editUser.NewUser.Name} has been edited");
             }
             else
             {
-                MyServer.Log.Warn($"Editing the user {editUser.NewUser} failed !");
+                MyServer.Log.Warn($"Editing the user {editUser.NewUser.Name} failed !");
                 MyServer.SendObject(new EditUserReport(false, editUser.NewUser), socket);
             }
         }
