@@ -100,18 +100,7 @@ namespace Musics___Client
             InitServices();
 
             homeControl1.SearchEvent += HomeControl1_SearchEvent;
-            SearchControl.PlayEvent += SearchControl_PlayEvent;
-            SearchControl.AddPlaylistEvent += SearchControl_AddPlaylistEvent;
-            SearchControl.SearchEvent += SearchControl_SearchEvent;
-            SearchControl.ClearEvent += SearchControl_ClearEvent;
-            SearchControl.UploadEvent += SearchControl_UploadEvent;
-            SearchControl.RateEvent += SearchControl_RateEvent;
-            SearchControl.PathClicked += SearchControl_PathClicked;
-            SearchControl.EditMusic += SearchControl_EditMusic;
-            SearchControl.PlaylistSaved += SearchControl_PlaylistSaved;
         }
-
-
 
         private void SearchControl_RateEvent(object sender, RateEventArgs e)
             => rateServices.RateMusic(e.ElementRatedMID, e.Type);
@@ -171,10 +160,10 @@ namespace Musics___Client
 
         private void TreatObject(object sender,PacketEventArgs obj)
         {
-            if (obj.Packet is RequestAnswer)
+            if(obj.Packet is RequestAnswer)
             {
-                RequestAnswer searchAnswer = obj.Packet as RequestAnswer;
-                TreatRequestAnswer(searchAnswer);
+                RequestAnswer requestAnswer = obj.Packet as RequestAnswer;
+                TreatRequestAnswer(requestAnswer);
             }
             if (obj.Packet is AuthInfo authInfo)
             {
@@ -260,9 +249,6 @@ namespace Musics___Client
         public void RequestAnswerSearch(IReadOnlyList<IElement> searchAnswer)
         {
             ChangeTabsThreadSafe(1);
-
-
-
             SearchControl.ClearSearchListBoxes();
             SearchControl.FillSearchListBoxes(searchAnswer);
 
@@ -271,10 +257,6 @@ namespace Musics___Client
                 ChangeDescription();
             });
         }
-
-
-
-      
 
         private void ChangeTabsThreadSafe(int tab) => Invoke((MethodInvoker)delegate { Tabs.SelectedIndex = tab; });
         
