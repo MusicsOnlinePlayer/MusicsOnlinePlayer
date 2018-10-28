@@ -29,7 +29,7 @@ namespace Musics___Client
         {
             InitializeComponent();
             Me = LoginServices.Instance.LoggedUser;
-            
+
         }
 
         public void InitServices()
@@ -39,6 +39,24 @@ namespace Musics___Client
             services.Search.SearchResultEvent += Search_SearchResultEvent;
             services.RateServices.RateReportEvent += RateServices_RateReportEvent;
             services.RateServices.FavoriteReceivedEvent += RateServices_FavoriteReceivedEvent;
+            services.AccountServices.EditAccountReport += AccountServices_EditAccountReport;
+        }
+
+        private void AccountServices_EditAccountReport(object sender, EditAccountReportEventArgs e)
+        {
+
+            if (e.IsApproved)
+            {
+                Invoke((MethodInvoker)delegate
+                {
+                    Me = e.EditedUser;
+                    EditAccountDetails(Me);
+                });
+            }
+            else
+            {
+                AccountControl.TellError("Username already taken !");
+            }
         }
 
         private void RateServices_FavoriteReceivedEvent(object sender, FavoriteEventArgs e)
@@ -86,15 +104,8 @@ namespace Musics___Client
             NetworkClient.recevoir = new Thread(new ThreadStart(NetworkClient.Receive));
             NetworkClient.recevoir.Start();
 
-            UIAccountName.Text = Me.Name;
-            UIAccountId.Text = Me.UID;
-            Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + Me.Rank.ToString();
-            UIRank.Text = Me.Rank.ToString();
-            if( Me.Rank == Rank.Viewer)
-            {
-                SearchControl.EnableUpload(false);
-            }
-           
+            EditAccountDetails(Me);
+
             NetworkClient.SendObject(new Request(Me.UID));
 
             InitServices();
@@ -125,6 +136,19 @@ namespace Musics___Client
                 if (uPlayer1.PlaylistIndex == 0)
                     uPlayer1.PlayMusic(uPlayer1.Playlist.First());
             }
+        }
+
+        public void EditAccountDetails(User NewUser)
+        {
+            Invoke((MethodInvoker)delegate
+            {
+                Text = "Musics - Client  Connected as " + NewUser.Name + " - Rank : " + NewUser.Rank.ToString();
+                if (NewUser.Rank == Rank.Viewer)
+                    SearchControl.EnableUpload(false);
+                else
+                    SearchControl.EnableUpload(true);
+                AccountControl.EditAccountDetails(NewUser);
+            });
         }
 
         #region Network
@@ -158,9 +182,9 @@ namespace Musics___Client
             uPlayer1.PlaylistIndex = 0;
         }
 
-        private void TreatObject(object sender,PacketEventArgs obj)
+        private void TreatObject(object sender, PacketEventArgs obj)
         {
-            if(obj.Packet is RequestAnswer)
+            if (obj.Packet is RequestAnswer)
             {
                 RequestAnswer requestAnswer = obj.Packet as RequestAnswer;
                 TreatRequestAnswer(requestAnswer);
@@ -170,36 +194,7 @@ namespace Musics___Client
                 authInfo = obj.Packet as AuthInfo;
                 OnloginInfoReceived(EventArgs.Empty);
             }
-            if (obj.Packet is EditUserReport)
-            {
-                EditUserReport tmp = obj.Packet as EditUserReport;
-                if (tmp.IsApproved)
-                {
-                    Invoke((MethodInvoker)delegate
-                    {
-                        Me = tmp.NewUser;
-                        UIAccountName.Text = Me.Name + " (Modified)";
-                        UIAccountId.Text = Me.UID;
-                        Text = "Musics - Client  Connected as " + Me.Name + " - Rank : " + Me.Rank.ToString();
-                        UIRank.Text = Me.Rank.ToString();
-                        if (Me.Rank == Rank.Viewer)
-                        {
-                            SearchControl.EnableUpload(false);
-                        }
-                        else
-                        {
-                            SearchControl.EnableUpload(false);
-                        }
-                    });
-                }
-                else
-                {
-                    Invoke((MethodInvoker)delegate
-                    {
-                        UIEditError.Text = "Username use by another person !";
-                    });
-                }
-            }
+
             if (obj.Packet is UploadReport)
             {
                 if ((obj.Packet as UploadReport).UploadPartOk)
@@ -252,7 +247,7 @@ namespace Musics___Client
         }
 
         private void ChangeTabsThreadSafe(int tab) => Invoke((MethodInvoker)delegate { Tabs.SelectedIndex = tab; });
-        
+
         public void RequestAnswerBinaries(RequestAnswer searchAnswer)
         {
             Invoke((MethodInvoker)delegate
@@ -266,7 +261,7 @@ namespace Musics___Client
                     uPlayer1.Playlist.Clear();
                     uPlayer1.PlaylistIndex = 0;
                     SearchControl.ClearPlaylist();
-       
+
                     uPlayer1.Playlist.Add(searchAnswer.Binaries);
                     SearchControl.AddToPlaylist(searchAnswer.Binaries.Title);
                     uPlayer1.PlaylistIndex = 0;
@@ -274,7 +269,7 @@ namespace Musics___Client
                 }
                 uPlayer1.PlayMusic(searchAnswer.Binaries);
             });
-        } 
+        }
 
         public void RequestAnswerUsers(RequestAnswer searchAnswer)
         {
@@ -303,7 +298,7 @@ namespace Musics___Client
                 MessageBox.Show("Invalid rank, you must be at least a -User-");
             }
         }
-        public AuthInfo authInfo;     
+        public AuthInfo authInfo;
 
         private void ChangeDescription()
             => SearchControl.ChangeDescription(SearchControl.selected);
@@ -378,34 +373,6 @@ namespace Musics___Client
 
 
         #endregion
-
-        #region Account
-
-        private void UIAccountEdit_Click(object sender, EventArgs e)
-        {
-            if (UIEditPassword1.Text != null && UIEditPassword1.Text == UIEditPassword2.Text)
-            {
-                if (UIEditName.Text == "")
-                {
-                   //NetworkClient.SendObject(new EditUser(Me.UID, new User(Me.Name, UIEditPassword1.Text)));
-                }
-                else
-                {
-                  //  NetworkClient.SendObject(new EditUser(Me.UID, new User(UIEditName.Text, UIEditPassword1.Text)));
-                }
-            }
-            else if (UIEditPassword1.Text == null)
-            {
-                UIEditError.Text = "Please enter the new password";
-            }
-            else
-            {
-                UIEditError.Text = "Passwords don't match";
-            }
-        }
-
-        #endregion
-
         #region EditUser
 
         readonly List<User> UserSearchResult = new List<User>();
@@ -511,5 +478,9 @@ namespace Musics___Client
         }
 
         #endregion
+
+        private void AccountControl_EditAccountDone(object sender, EditAccountEventArgs e)
+            => services.AccountServices.EditUser(e.NewPassword, Me.UID, e.NewName);
+
     }
 }

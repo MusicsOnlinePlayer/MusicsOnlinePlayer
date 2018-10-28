@@ -4,7 +4,7 @@ using Utility.Musics;
 
 namespace Musics___Client.API.Events
 {
-    public class FavoriteEventArgs
+    public class FavoriteEventArgs : EventArgs
     {
         public FavoriteEventArgs(List<Music> favorites)
         {

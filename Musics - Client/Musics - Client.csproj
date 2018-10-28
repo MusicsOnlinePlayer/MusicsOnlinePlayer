@@ -184,6 +184,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\EditMusicsServices.cs" />
+    <Compile Include="API\Events\EditAccountEventArgs.cs" />
+    <Compile Include="API\EditAccountServices.cs" />
+    <Compile Include="API\Events\EditAccountReportEventArgs.cs" />
     <Compile Include="API\Events\EditMusicEventArgs.cs" />
     <Compile Include="API\Events\FavoriteEventArgs.cs" />
     <Compile Include="API\Events\PathClickedEventArgs.cs" />
@@ -227,6 +230,12 @@
     </Compile>
     <Compile Include="AppSettings\ApplicationSettings.cs" />
     <Compile Include="AppSettings\Settings.cs" />
+    <Compile Include="UI\AccountControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\AccountControl.Designer.cs">
+      <DependentUpon>AccountControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\CredentialControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -285,6 +294,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AccountControl.resx">
+      <DependentUpon>AccountControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CredentialControl.resx">
       <DependentUpon>CredentialControl.cs</DependentUpon>
