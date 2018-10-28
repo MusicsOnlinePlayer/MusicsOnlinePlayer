@@ -23,10 +23,7 @@ namespace Musics___Client
     {
         public User Me { get; set; }
 
-        public SearchServices searchServices;
-        public EditMusicsServices editMusicsServices;
-        public RateServices rateServices;
-        public PlaylistServices playlistServices;
+        public Services services = new Services();
 
         public Client()
         {
@@ -38,16 +35,10 @@ namespace Musics___Client
         public void InitServices()
         {
             NetworkClient.Packetreceived += TreatObject;
-            searchServices = new SearchServices();
-            searchServices.SearchResultEvent += SearchServices_SearchResultEvent;
-
-            editMusicsServices = new EditMusicsServices();
-
-            rateServices = new RateServices();
-            rateServices.RateReportEvent += RateServices_RateReportEvent;
-            rateServices.FavoriteReceivedEvent += RateServices_FavoriteReceivedEvent;
-
-            playlistServices = new PlaylistServices();
+            services.Init();
+            services.Search.SearchResultEvent += Search_SearchResultEvent;
+            services.RateServices.RateReportEvent += RateServices_RateReportEvent;
+            services.RateServices.FavoriteReceivedEvent += RateServices_FavoriteReceivedEvent;
         }
 
         private void RateServices_FavoriteReceivedEvent(object sender, FavoriteEventArgs e)
@@ -112,10 +103,10 @@ namespace Musics___Client
         }
 
         private void SearchControl_RateEvent(object sender, RateEventArgs e)
-            => rateServices.RateMusic(e.ElementRatedMID, e.Type);
+            => services.RateServices.RateMusic(e.ElementRatedMID, e.Type);
 
         private void SearchControl_SearchEvent(object sender, SearchEventArgs e)
-            => searchServices.SearchElement(e.SearchField, e.ElementType);
+            => services.Search.SearchElement(e.SearchField, e.ElementType);
 
         private void SearchControl_AddPlaylistEvent(object sender, EventArgs e)
         {
@@ -155,11 +146,11 @@ namespace Musics___Client
 
         #region PlayerSearch
 
-        private void SearchServices_SearchResultEvent(object sender, SearchResultEventArgs e)
+        private void Search_SearchResultEvent(object sender, SearchResultEventArgs e)
              => RequestAnswerSearch(e.ReceivedSearchedElement);
 
         private void HomeControl1_SearchEvent(object sender, SearchEventArgs e)
-            => searchServices.SearchElement(e.SearchField, e.ElementType);
+            => services.Search.SearchElement(e.SearchField, e.ElementType);
 
         private void SearchControl_ClearEvent(object sender, EventArgs e)
         {
@@ -383,7 +374,7 @@ namespace Musics___Client
         }
 
         private void SearchControl_PathClicked(object sender, PathClickedEventArgs e)
-            => searchServices.SearchElement(e.Name, e.type);
+            => services.Search.SearchElement(e.Name, e.type);
 
 
         #endregion
@@ -465,7 +456,7 @@ namespace Musics___Client
         {
             if ((int)Me.Rank > 1 && e.NewName != null)
             {
-                editMusicsServices.SendEditMusicRequest(e.ElementToEdit, e.NewName, e.Genre);
+                services.EditMusics.SendEditMusicRequest(e.ElementToEdit, e.NewName, e.Genre);
                 SearchControl.EditMusicDone();
             }
             else
@@ -478,7 +469,7 @@ namespace Musics___Client
         private void SearchControl_PlaylistSaved(object sender, PlaylistSavedEventArgs e)
         {
             if (uPlayer1.Playlist.Count != 0)
-                playlistServices.SubmitPlaylist(Me, e.PlaylistName, uPlayer1.Playlist, e.IsPrivate);
+                services.PlaylistServices.SubmitPlaylist(Me, e.PlaylistName, uPlayer1.Playlist, e.IsPrivate);
         }
 
         #region Upload
