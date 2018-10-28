@@ -68,13 +68,13 @@
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.label12 = new System.Windows.Forms.Label();
             this.UISearch = new System.Windows.Forms.TabPage();
+            this.SearchControl = new Musics___Client.UI.SearchControl();
             this.UIHome = new System.Windows.Forms.TabPage();
+            this.homeControl1 = new Musics___Client.UI.HomeControl();
             this.Tabs = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.hueControl1 = new ControlLibrary.User_Interface.HueControl();
-            this.homeControl1 = new Musics___Client.UI.HomeControl();
-            this.SearchControl = new Musics___Client.UI.SearchControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -521,6 +521,23 @@
             this.UISearch.Text = "Search";
             this.UISearch.UseVisualStyleBackColor = true;
             // 
+            // SearchControl
+            // 
+            this.SearchControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SearchControl.Location = new System.Drawing.Point(-1, -1);
+            this.SearchControl.Name = "SearchControl";
+            this.SearchControl.Size = new System.Drawing.Size(1184, 760);
+            this.SearchControl.TabIndex = 0;
+            this.SearchControl.PlayEvent += SearchControl_PlayEvent;
+            this.SearchControl.AddPlaylistEvent += SearchControl_AddPlaylistEvent;
+            this.SearchControl.SearchEvent += SearchControl_SearchEvent;
+            this.SearchControl.ClearEvent += SearchControl_ClearEvent;
+            this.SearchControl.UploadEvent += SearchControl_UploadEvent;
+            this.SearchControl.RateEvent += SearchControl_RateEvent;
+            this.SearchControl.PathClicked += SearchControl_PathClicked;
+            this.SearchControl.EditMusic += SearchControl_EditMusic;
+            this.SearchControl.PlaylistSaved += SearchControl_PlaylistSaved;
+            // 
             // UIHome
             // 
             this.UIHome.BackColor = System.Drawing.Color.White;
@@ -531,6 +548,15 @@
             this.UIHome.Size = new System.Drawing.Size(1205, 762);
             this.UIHome.TabIndex = 0;
             this.UIHome.Text = "Home";
+            // 
+            // homeControl1
+            // 
+            this.homeControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.homeControl1.Location = new System.Drawing.Point(179, 20);
+            this.homeControl1.Margin = new System.Windows.Forms.Padding(6);
+            this.homeControl1.Name = "homeControl1";
+            this.homeControl1.Size = new System.Drawing.Size(813, 514);
+            this.homeControl1.TabIndex = 0;
             // 
             // Tabs
             // 
@@ -581,23 +607,6 @@
             this.hueControl1.Name = "hueControl1";
             this.hueControl1.Size = new System.Drawing.Size(1186, 399);
             this.hueControl1.TabIndex = 30;
-            // 
-            // homeControl1
-            // 
-            this.homeControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.homeControl1.Location = new System.Drawing.Point(179, 20);
-            this.homeControl1.Margin = new System.Windows.Forms.Padding(6);
-            this.homeControl1.Name = "homeControl1";
-            this.homeControl1.Size = new System.Drawing.Size(813, 514);
-            this.homeControl1.TabIndex = 0;
-            // 
-            // SearchControl
-            // 
-            this.SearchControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SearchControl.Location = new System.Drawing.Point(-1, -1);
-            this.SearchControl.Name = "SearchControl";
-            this.SearchControl.Size = new System.Drawing.Size(1184, 760);
-            this.SearchControl.TabIndex = 0;
             // 
             // Client
             // 

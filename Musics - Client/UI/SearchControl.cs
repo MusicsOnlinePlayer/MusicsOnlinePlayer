@@ -204,17 +204,9 @@ namespace Musics___Client.UI
                     case Music music:
                         OnPlayEvent(new PlayEventArgs(selected));
                         break;
-                    //case Playlist playlist:
-                    //    uPlayer1.Playlist.Clear();
-                    //    uPlayer1.PlaylistIndex = 0;
-                    //    UIPlaylist.Items.Clear();
-                    //    foreach (var m in (selected as Playlist).musics)
-                    //    {
-                    //        uPlayer1.Playlist.Add(m);
-                    //        UIPlaylist.Items.Add(m.Title);
-                    //    }
-                    //    NetworkClient.SendObject(new Request(uPlayer1.Playlist.First()));
-                       // break;
+                    case Playlist playlist:
+                        OnPlayEvent(new PlayEventArgs(selected));              
+                        break;
                     default: throw new InvalidCastException();
                 }
             }
