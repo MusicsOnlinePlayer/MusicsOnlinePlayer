@@ -222,10 +222,10 @@ namespace Musics___Client.UI
         }
 
         private void UIPathAuthor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-            => OnPathClicked(new PathClickedEventArgs(UIPathAuthor.Name, ElementType.Author));
+            => OnPathClicked(new PathClickedEventArgs(UIPathAuthor.Text, ElementType.Author));
 
         private void UIPathAlbum_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-           => OnPathClicked(new PathClickedEventArgs(UIPathAuthor.Name, ElementType.Album));
+           => OnPathClicked(new PathClickedEventArgs(UIPathAlbum.Text, ElementType.Album));
 
 
         public void EditMusicDone()
