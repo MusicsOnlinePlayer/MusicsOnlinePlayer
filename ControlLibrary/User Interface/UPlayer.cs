@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Utility.Musics;
 using Utility.Network.Dialog;
 using Tulpep.NotificationWindow;
+using Utility.Network.Dialog.Requests;
 
 namespace ControlLibrary
 {
@@ -34,7 +35,7 @@ namespace ControlLibrary
                 if (PlaylistIndex + 1 < Playlist.Count)
                 {
                     PlaylistIndex++;
-                    NetworkClient.SendObject(new Request(Playlist[PlaylistIndex]));
+                    NetworkClient.SendObject(new RequestBinairies(Playlist[PlaylistIndex]));
                 }
             }
         }
@@ -55,7 +56,7 @@ namespace ControlLibrary
                 PlaylistIndex--;
                 UIForward.Enabled = false;
                 UIBackward.Enabled = false;
-                NetworkClient.SendObject(new Request(Playlist[PlaylistIndex]));
+                NetworkClient.SendObject(new RequestBinairies(Playlist[PlaylistIndex]));
             }
         }
 
@@ -66,7 +67,7 @@ namespace ControlLibrary
                 PlaylistIndex++;
                 UIForward.Enabled = false;
                 UIBackward.Enabled = false;
-                NetworkClient.SendObject(new Request(Playlist[PlaylistIndex]));
+                NetworkClient.SendObject(new RequestBinairies(Playlist[PlaylistIndex]));
             }
         }
 

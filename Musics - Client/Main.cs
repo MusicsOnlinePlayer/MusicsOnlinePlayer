@@ -16,6 +16,7 @@ using Musics___Client.AppSettings;
 using ControlLibrary.Network;
 using Musics___Client.API;
 using Musics___Client.API.Events;
+using Utility.Network.Dialog.Requests;
 
 namespace Musics___Client
 {
@@ -66,7 +67,7 @@ namespace Musics___Client
             => PlayElement(e.Selected);
 
         private void FavoriteControl_SearchEvent(object sender, RequestBinairiesEventArgs e)
-            => NetworkClient.SendObject(new Request(e.RequestedMusic));
+            => NetworkClient.SendObject(new RequestBinairies(e.RequestedMusic));
 
         private void RateServices_RateReportEvent(object sender, RateReportEventArgs e)
         {
@@ -106,7 +107,7 @@ namespace Musics___Client
 
             EditAccountDetails(Me);
 
-            NetworkClient.SendObject(new Request(Me.UID));
+            NetworkClient.SendObject(new RequestFavorites(Me.UID));
 
             InitServices();
 
@@ -320,7 +321,7 @@ namespace Musics___Client
         }
 
         private void PlayBis(Music music)
-            => NetworkClient.SendObject(new Request(music));
+            => NetworkClient.SendObject(new RequestBinairies(music));
 
         private void PlayBis(Album album)
         {
@@ -332,7 +333,7 @@ namespace Musics___Client
                 uPlayer1.Playlist.Add(m);
                 SearchControl.AddToPlaylist(m.Title);
             }
-            NetworkClient.SendObject(new Request(uPlayer1.Playlist.First()));
+            NetworkClient.SendObject(new RequestBinairies(uPlayer1.Playlist.First()));
         }
 
         private void PlayBis(Playlist playlist)
@@ -345,7 +346,7 @@ namespace Musics___Client
                 uPlayer1.Playlist.Add(m);
                 SearchControl.AddToPlaylist(m.Title);
             }
-            NetworkClient.SendObject(new Request(uPlayer1.Playlist.First()));
+            NetworkClient.SendObject(new RequestBinairies(uPlayer1.Playlist.First()));
         }
 
         private void Client_FormClosing(object sender, FormClosingEventArgs e)
@@ -383,7 +384,7 @@ namespace Musics___Client
             {
                 if (UISearchUser.Text != null)
                 {
-                    NetworkClient.SendObject(new Request(new User(UISearchUser.Text)));
+                    NetworkClient.SendObject(new RequestUser(new User(UISearchUser.Text)));
                 }
             }
         }
