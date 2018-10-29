@@ -64,6 +64,11 @@
     <Compile Include="Network\Dialog\Rating\RateReport.cs" />
     <Compile Include="Network\Dialog\Requests\Request.cs" />
     <Compile Include="Network\Dialog\Requests\RequestAnswer.cs" />
+    <Compile Include="Network\Dialog\Requests\RequestBinairies.cs" />
+    <Compile Include="Network\Dialog\Requests\RequestFavorites.cs" />
+    <Compile Include="Network\Dialog\Requests\RequestGenre.cs" />
+    <Compile Include="Network\Dialog\Requests\RequestSearch.cs" />
+    <Compile Include="Network\Dialog\Requests\RequestUser.cs" />
     <Compile Include="Network\Dialog\Uploads\SavePlaylist.cs" />
     <Compile Include="Network\Dialog\Uploads\UploadMusic.cs" />
     <Compile Include="Network\Dialog\Uploads\UploadReport.cs" />
