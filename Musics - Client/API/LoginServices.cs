@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using ControlLibrary.Network;
 using Utility.Network.Dialog.Authentification;
 using Utility.Network.Users;
@@ -19,10 +15,8 @@ namespace Musics___Client.API
 
         public User LoggedUser { get; private set; }
 
-
         public event LoginHandler LoginSucces;
         public event LoginHandler LoginFailed;
-
 
         private LoginServices()
         {
