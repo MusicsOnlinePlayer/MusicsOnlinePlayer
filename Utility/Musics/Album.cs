@@ -37,6 +37,7 @@ namespace Utility.Musics
             Author = author;
             Name = name; 
             Type = ElementType.Album;
+            Musics = musics;
             MID = GenerateHash();
         }
         public Album(Author author, string name, string Path)
