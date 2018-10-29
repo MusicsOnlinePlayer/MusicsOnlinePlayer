@@ -204,7 +204,6 @@
     <Compile Include="API\Events\SearchResultEventArgs.cs" />
     <Compile Include="API\LoginServices.cs" />
     <Compile Include="API\SearchServices.cs" />
-    <Compile Include="API\Services.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

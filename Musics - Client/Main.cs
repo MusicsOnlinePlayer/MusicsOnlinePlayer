@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -8,11 +7,9 @@ using Utility.Network.Dialog.Edits;
 using Utility.Network.Users;
 using Utility.Network.Dialog;
 using Utility.Network;
-using Utility.Network.Dialog.Rating;
 using Utility.Network.Dialog.Authentification;
 using Utility.Musics;
 using Utility.Network.Dialog.Uploads;
-using Musics___Client.AppSettings;
 using ControlLibrary.Network;
 using Musics___Client.API;
 using Musics___Client.API.Events;
@@ -24,23 +21,19 @@ namespace Musics___Client
     {
         public User Me { get; set; }
 
-        public Services services = new Services();
-
         public Client()
         {
             InitializeComponent();
             Me = LoginServices.Instance.LoggedUser;
-
         }
 
         public void InitServices()
         {
-            NetworkClient.Packetreceived += TreatObject;
-            services.Init();
-            services.Search.SearchResultEvent += Search_SearchResultEvent;
-            services.RateServices.RateReportEvent += RateServices_RateReportEvent;
-            services.RateServices.FavoriteReceivedEvent += RateServices_FavoriteReceivedEvent;
-            services.AccountServices.EditAccountReport += AccountServices_EditAccountReport;
+            NetworkClient.Packetreceived += TreatObject; 
+            SearchServices.Instance.SearchResultEvent += Search_SearchResultEvent;
+            RateServices.Instance.RateReportEvent += RateServices_RateReportEvent;
+            RateServices.Instance.FavoriteReceivedEvent += RateServices_FavoriteReceivedEvent;
+            EditAccountServices.Instance.EditAccountReport += AccountServices_EditAccountReport;
         }
 
         private void AccountServices_EditAccountReport(object sender, EditAccountReportEventArgs e)
@@ -71,7 +64,7 @@ namespace Musics___Client
 
         private void RateServices_RateReportEvent(object sender, RateReportEventArgs e)
         {
-            IElement selected = SearchControl.selected;
+            var selected = SearchControl.selected;
             if (selected != null)
             {
                 if (selected is Music)
@@ -115,10 +108,10 @@ namespace Musics___Client
         }
 
         private void SearchControl_RateEvent(object sender, RateEventArgs e)
-            => services.RateServices.RateMusic(e.ElementRatedMID, e.Type);
+            => RateServices.Instance.RateMusic(e.ElementRatedMID, e.Type);
 
         private void SearchControl_SearchEvent(object sender, SearchEventArgs e)
-            => services.Search.SearchElement(e.SearchField, e.ElementType);
+            => SearchServices.Instance.SearchElement(e.SearchField, e.ElementType);
 
         private void SearchControl_AddPlaylistEvent(object sender, EventArgs e)
         {
@@ -175,7 +168,7 @@ namespace Musics___Client
              => RequestAnswerSearch(e.ReceivedSearchedElement);
 
         private void HomeControl1_SearchEvent(object sender, SearchEventArgs e)
-            => services.Search.SearchElement(e.SearchField, e.ElementType);
+            => SearchServices.Instance.SearchElement(e.SearchField, e.ElementType);
 
         private void SearchControl_ClearEvent(object sender, EventArgs e)
         {
@@ -187,7 +180,7 @@ namespace Musics___Client
         {
             if (obj.Packet is RequestAnswer)
             {
-                RequestAnswer requestAnswer = obj.Packet as RequestAnswer;
+                var requestAnswer = obj.Packet as RequestAnswer;
                 TreatRequestAnswer(requestAnswer);
             }
             if (obj.Packet is AuthInfo authInfo)
@@ -370,7 +363,7 @@ namespace Musics___Client
         }
 
         private void SearchControl_PathClicked(object sender, PathClickedEventArgs e)
-            => services.Search.SearchElement(e.Name, e.type);
+            => SearchServices.Instance.SearchElement(e.Name, e.type);
 
 
         #endregion
@@ -400,7 +393,7 @@ namespace Musics___Client
 
                 UIEditUserRank.Items.Clear();
 
-                List<string> r = Enum.GetNames(typeof(Rank)).OfType<string>().ToList();
+                var r = Enum.GetNames(typeof(Rank)).OfType<string>().ToList();
                 for (int i = 0; i < (int)Me.Rank; i++)
                 {
                     UIEditUserRank.Items.Add(r[i]);
@@ -424,7 +417,7 @@ namespace Musics___Client
         {
             if ((int)Me.Rank > 1 && e.NewName != null)
             {
-                services.EditMusics.SendEditMusicRequest(e.ElementToEdit, e.NewName, e.Genre);
+                EditMusicsServices.Instance.SendEditMusicRequest(e.ElementToEdit, e.NewName, e.Genre);
                 SearchControl.EditMusicDone();
             }
             else
@@ -437,7 +430,7 @@ namespace Musics___Client
         private void SearchControl_PlaylistSaved(object sender, PlaylistSavedEventArgs e)
         {
             if (uPlayer1.Playlist.Count != 0)
-                services.PlaylistServices.SubmitPlaylist(Me, e.PlaylistName, uPlayer1.Playlist, e.IsPrivate);
+                PlaylistServices.Instance.SubmitPlaylist(Me, e.PlaylistName, uPlayer1.Playlist, e.IsPrivate);
         }
 
         #region Upload
@@ -481,7 +474,7 @@ namespace Musics___Client
         #endregion
 
         private void AccountControl_EditAccountDone(object sender, EditAccountEventArgs e)
-            => services.AccountServices.EditUser(e.NewPassword, Me.UID, e.NewName);
+            => EditAccountServices.Instance.EditUser(e.NewPassword, Me.UID, e.NewName);
 
     }
 }

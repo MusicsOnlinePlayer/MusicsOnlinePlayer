@@ -23,14 +23,14 @@ namespace Musics___Client
 
         private void UIUploadButton_Click(object sender, EventArgs e)
         {
-            Thread threadGetFile = new Thread(new ThreadStart(GetMusics));
+            var threadGetFile = new Thread(new ThreadStart(GetMusics));
             threadGetFile.SetApartmentState(ApartmentState.STA);
             threadGetFile.Start();
         }
 
         private void GetMusics()
         {
-            OpenFileDialog openFileDialogMusic = new OpenFileDialog
+            var openFileDialogMusic = new OpenFileDialog
             {
                 Multiselect = true
             };
@@ -62,7 +62,7 @@ namespace Musics___Client
             var selected = FilesPath[Index];
             music = TagLib.File.Create(selected);
 
-            ListViewItem[] items = new ListViewItem[4];
+            var items = new ListViewItem[4];
 
             items[0] = new ListViewItem(new string[] { "Name", music.Tag.Title });
             items[1] = new ListViewItem(new string[] { "Genre", string.Join(";", music.Tag.Genres) });
@@ -127,7 +127,7 @@ namespace Musics___Client
             {
                 music = TagLib.File.Create(p);
                 var tmpFile = TagLib.File.Create(p);
-                Music MusicUpload = new Music(tmpFile.Tag.Title, new Author(tmpFile.Tag.Performers[0]),new Album(AlbumToSend.Name),System.IO.File.ReadAllBytes(p))
+                var MusicUpload = new Music(tmpFile.Tag.Title, new Author(tmpFile.Tag.Performers[0]),new Album(AlbumToSend.Name),System.IO.File.ReadAllBytes(p))
                 {
                     Format = Path.GetExtension(p),
                     Genre = music.Tag.Genres                   

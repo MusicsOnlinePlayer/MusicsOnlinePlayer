@@ -8,7 +8,10 @@ namespace Musics___Client.API
 {
     public class EditAccountServices
     {
-        public EditAccountServices()
+        static private readonly Lazy<EditAccountServices> instance = new Lazy<EditAccountServices>(() => new EditAccountServices());
+        static public EditAccountServices Instance { get => instance.Value; }
+
+        private EditAccountServices()
         {
             NetworkClient.Packetreceived += NetworkClient_Packetreceived;
         }
@@ -20,12 +23,12 @@ namespace Musics___Client.API
         {
             if(a.Packet is EditUserReport)
             {
-                EditUserReport editUserReport = a.Packet as EditUserReport;
+                var editUserReport = a.Packet as EditUserReport;
                 OnEditAccountReport(new EditAccountReportEventArgs(editUserReport.NewUser, editUserReport.IsApproved));            
             }
         }
 
         public void EditUser(string NewPassword, string oldUID, string Newname = null)
-            => NetworkClient.SendObject(new EditUser(oldUID, new User((ICredentials)new UserCredentials(Newname, NewPassword))));
+            => NetworkClient.SendObject(new EditUser(oldUID, new User(new UserCredentials(Newname, NewPassword))));
     }
 }
