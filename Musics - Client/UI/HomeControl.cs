@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using ControlLibrary.Network;
-using Utility.Network.Dialog;
 using Utility.Musics;
 using Musics___Client.API.Events;
 

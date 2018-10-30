@@ -2,7 +2,6 @@
 using Utility.Musics;
 using ControlLibrary.Network;
 using Musics___Client.API.Events;
-using System.Collections.Generic;
 using Utility.Network.Dialog.Rating;
 using Utility.Network.Dialog;
 
@@ -10,7 +9,9 @@ namespace Musics___Client.API
 {
     public class RateServices
     {
-        public RateServices()
+        static private readonly Lazy<RateServices> instance = new Lazy<RateServices>(() => new RateServices());
+        static public RateServices Instance { get => instance.Value; }
+        private RateServices()
         {
             NetworkClient.Packetreceived += NetworkClient_Packetreceived;
         }
@@ -23,20 +24,18 @@ namespace Musics___Client.API
         protected virtual void OnFavoriteReceivedEvent(FavoriteEventArgs e)
             => FavoriteReceivedEvent?.Invoke(this, e);
 
-
         private void NetworkClient_Packetreceived(object sender, PacketEventArgs a)
         {
             if(a.Packet is RateReport)
             {
-                RateReport report = a.Packet as RateReport;
+                var report = a.Packet as RateReport;
                 OnRateReportEvent(new RateReportEventArgs(report.ReportOk, report.MID, report.UpdatedRating));
             }
             if(a.Packet is RequestAnswer)
             {
-                RequestAnswer requestAnswer = a.Packet as RequestAnswer;
+                var requestAnswer = a.Packet as RequestAnswer;
                 if(requestAnswer.RequestsTypes == RequestsTypes.Favorites)
                     OnFavoriteReceivedEvent(new FavoriteEventArgs(requestAnswer.Favorites));
-
             }
         }
 
