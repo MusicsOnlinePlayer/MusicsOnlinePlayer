@@ -1,7 +1,9 @@
-﻿using Utility.Musics;
+﻿using System;
+using Utility.Musics;
 
 namespace Utility.Network.Dialog.Requests
 {
+    [Serializable]
     public class RequestGenre : Request
     {
         public RequestGenre(ElementType type, string genre)

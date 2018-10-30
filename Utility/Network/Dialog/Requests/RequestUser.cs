@@ -1,7 +1,9 @@
-﻿using Utility.Network.Users;
+﻿using System;
+using Utility.Network.Users;
 
 namespace Utility.Network.Dialog.Requests
 {
+    [Serializable]
     public class RequestUser : Request
     {
         public RequestUser(User username)
