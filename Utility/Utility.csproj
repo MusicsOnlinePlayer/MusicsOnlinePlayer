@@ -76,6 +76,7 @@
     <Compile Include="Network\Function.cs" />
     <Compile Include="Network\IPacket.cs" />
     <Compile Include="Network\MessageTCP.cs" />
+    <Compile Include="Network\Token.cs" />
     <Compile Include="Network\Users\Rank.cs" />
     <Compile Include="Network\Users\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

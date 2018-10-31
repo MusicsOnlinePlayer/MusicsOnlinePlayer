@@ -16,6 +16,7 @@ namespace Musics___Server.Network
         public static byte[] buffer = new byte[BUFFER_SIZE];
 
         public ClientList Clients = new ClientList();
+        public TokenList Tokenlist = new TokenList();
         public AuthentificationService AuthService = new AuthentificationService();
 
         public ConsoleLogger Log { get; } = new ConsoleLogger();

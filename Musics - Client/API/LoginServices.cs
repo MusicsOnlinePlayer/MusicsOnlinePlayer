@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using ControlLibrary.Network;
+using Utility.Network;
 using Utility.Network.Dialog.Authentification;
 using Utility.Network.Users;
 
@@ -34,6 +35,7 @@ namespace Musics___Client.API
                     NetworkClient.Packetreceived -= NetworkClient_Packetreceived;
               
                     LoggedUser = authinfo.User;
+                    NetworkClient.MyToken = authinfo.Token;
                     LoginSucces?.Invoke();
                 }
                 else
