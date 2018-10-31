@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿    using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Linq;
 using Musics___Server.Usersinfos;
@@ -85,8 +85,15 @@ namespace Musics___Server
                 ClientLogin = false;
             }
 
+
             if (ClientLogin)
             {
+
+                if (!MyServer.Tokenlist.CheckTokenValidity((received as Packet).Token, socket))
+                {
+                    MyServer.Log.Warn($"Client Token not valide (THash : {(received as Packet).Token?.THash})");
+                    return;
+                }              
                 switch (received)
                 {
                     case Request request:
@@ -129,28 +136,36 @@ namespace Musics___Server
 
                     if (auth.IsSignup)
                     {
+                        AuthInfo authInfo = new AuthInfo(false, Rank.Viewer, auth.LoginInfo.UID);
+                        if (!MyServer.Tokenlist.AddToken(socket, authInfo.Token))
+                            return;
                         MyServer.AuthService.SignupUser(auth.LoginInfo);
                         MyServer.Clients.Remove(socket);
                         MyServer.Clients.AddUser(auth.LoginInfo, socket);
-                        MyServer.SendObject(new AuthInfo(false, Rank.Viewer), socket);
+                        
+                        MyServer.SendObject(authInfo, socket);
                     }
                     else
                     {
                         // if (MyServer.AuthService.SigninUser(auth.LoginInfo) && !MyServer.Clients.Contains(auth.LoginInfo.UID))
                         if (true)
                         {
+
                             var foundUser = UsersInfos.GetAllUsers().SingleOrDefault(u => u.UID == auth.LoginInfo.UID);
                             var isRegister = foundUser != null;
+                            AuthInfo authInfo = new AuthInfo(false, Rank.Viewer, foundUser);
+                            if (!MyServer.Tokenlist.AddToken(socket, authInfo.Token))
+                                return;
                             if (isRegister)
                             {
                                // MyServer.Clients.Remove(socket);
                                 MyServer.Clients.AddUser(auth.LoginInfo, socket);
-                            }
-                            MyServer.SendObject(new AuthInfo(isRegister, Rank.Viewer,foundUser), socket);
+                            }        
+                            MyServer.SendObject(authInfo, socket);
                         }
                         else
                         {
-                            MyServer.SendObject(new AuthInfo(false, Rank.Viewer), socket);
+                            //MyServer.SendObject(new AuthInfo(false, Rank.Viewer), socket);
                         }
                     }
                 }
@@ -231,6 +246,7 @@ namespace Musics___Server
 
         private static void TreatDisconnect(Socket socket)
         {
+            MyServer.Tokenlist.RemoveToken(socket);
             MyServer.Log.Warn("Client disconnected =(");
             MyServer.Clients.Remove(socket);
         }

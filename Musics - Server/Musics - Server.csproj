@@ -127,6 +127,7 @@
     <Compile Include="Network\Server.cs" />
     <Compile Include="Network\ServerClient.cs" />
     <Compile Include="Network\ServerComHandler.cs" />
+    <Compile Include="Network\TokenList.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
