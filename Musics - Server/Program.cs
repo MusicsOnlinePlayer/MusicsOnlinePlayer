@@ -136,9 +136,7 @@ namespace Musics___Server
 
                     if (auth.IsSignup)
                     {
-                        AuthInfo authInfo = new AuthInfo(false, Rank.Viewer, auth.LoginInfo.UID);
-                        if (!MyServer.Tokenlist.AddToken(socket, authInfo.Token))
-                            return;
+                        AuthInfo authInfo = new AuthInfo(true, Rank.Viewer, auth.LoginInfo.UID);
                         MyServer.AuthService.SignupUser(auth.LoginInfo);
                         MyServer.Clients.Remove(socket);
                         MyServer.Clients.AddUser(auth.LoginInfo, socket);
@@ -153,7 +151,7 @@ namespace Musics___Server
 
                             var foundUser = UsersInfos.GetAllUsers().SingleOrDefault(u => u.UID == auth.LoginInfo.UID);
                             var isRegister = foundUser != null;
-                            AuthInfo authInfo = new AuthInfo(false, Rank.Viewer, foundUser);
+                            AuthInfo authInfo = new AuthInfo(true, Rank.Viewer, foundUser);
                             if (!MyServer.Tokenlist.AddToken(socket, authInfo.Token))
                                 return;
                             if (isRegister)
