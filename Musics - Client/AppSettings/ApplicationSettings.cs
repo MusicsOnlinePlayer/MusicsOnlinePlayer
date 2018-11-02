@@ -10,14 +10,14 @@ namespace Musics___Client.AppSettings
          
             if (!File.Exists(@"Config.xml"))
             {
-                using (XmlWriter writer = XmlWriter.Create(@"Config.xml"))
+                using (var writer = XmlWriter.Create(@"Config.xml"))
                 {
                     writer.WriteStartDocument();
                     writer.WriteStartElement("Settings");
                     writer.WriteEndElement();
                     writer.WriteEndDocument();             
                 }
-                XmlDocument doc = new XmlDocument();
+                var doc = new XmlDocument();
                 doc.Load(@"Config.xml");
                 doc.DocumentElement.AppendChild(doc.CreateElement("HueIp"));
                 doc.DocumentElement.AppendChild(doc.CreateElement("HueKey"));
@@ -27,7 +27,7 @@ namespace Musics___Client.AppSettings
         }
         public static void Save(Settings settings)
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.Load(@"Config.xml");
             if(settings.HueIP != null)
             {
@@ -46,7 +46,7 @@ namespace Musics___Client.AppSettings
         public static Settings Get()
         {
             Directory.SetCurrentDirectory(".");
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.Load(@"./Config.xml");
             return new Settings(doc.DocumentElement["HueIp"].InnerText, doc.DocumentElement["HueKey"].InnerText, doc.DocumentElement["ServerIp"].InnerText);
         }

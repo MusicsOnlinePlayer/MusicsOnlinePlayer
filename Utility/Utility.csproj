@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -63,6 +64,11 @@
     <Compile Include="Network\Dialog\Rating\RateReport.cs" />
     <Compile Include="Network\Dialog\Requests\Request.cs" />
     <Compile Include="Network\Dialog\Requests\RequestAnswer.cs" />
+    <Compile Include="Network\Dialog\Requests\RequestBinairies.cs" />
+    <Compile Include="Network\Dialog\Requests\RequestFavorites.cs" />
+    <Compile Include="Network\Dialog\Requests\RequestGenre.cs" />
+    <Compile Include="Network\Dialog\Requests\RequestSearch.cs" />
+    <Compile Include="Network\Dialog\Requests\RequestUser.cs" />
     <Compile Include="Network\Dialog\Uploads\SavePlaylist.cs" />
     <Compile Include="Network\Dialog\Uploads\UploadMusic.cs" />
     <Compile Include="Network\Dialog\Uploads\UploadReport.cs" />
@@ -70,6 +76,7 @@
     <Compile Include="Network\Function.cs" />
     <Compile Include="Network\IPacket.cs" />
     <Compile Include="Network\MessageTCP.cs" />
+    <Compile Include="Network\Token.cs" />
     <Compile Include="Network\Users\Rank.cs" />
     <Compile Include="Network\Users\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

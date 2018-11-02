@@ -31,7 +31,6 @@ namespace ControlLibrary
             AddToCache(music);
 
             player.URL = Cache[music.MID];
-            player.openPlayer(Cache[music.MID]);
             player.controls.play();
         }
 

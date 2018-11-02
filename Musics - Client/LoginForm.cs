@@ -1,6 +1,4 @@
-﻿using ControlLibrary.Network;
-using System.Threading;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Musics___Client
 {
@@ -29,7 +27,7 @@ namespace Musics___Client
                 Application.Run(new Client());
             }).Start();*/
             ThreadSafeClose();
-            Client ClientForm = new Client();
+            var ClientForm = new Client();
             ClientForm.ShowDialog();
         }
 
