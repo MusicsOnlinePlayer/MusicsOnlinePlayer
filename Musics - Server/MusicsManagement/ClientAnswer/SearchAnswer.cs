@@ -4,12 +4,13 @@ using System.Net.Sockets;
 using Utility.Network.Dialog;
 using Utility.Musics;
 using static Musics___Server.Program;
+using Utility.Network.Dialog.Requests;
 
 namespace Musics___Server.MusicsManagement.ClientSearch
 {
     static class SearchAnswer
     {
-        public static void Do(Request requestSearch, Socket asker)
+        public static void Do(RequestSearch requestSearch, Socket asker)
         {
             if (MyServer.Clients.GetUser(asker).UID != null)
             {
@@ -32,14 +33,14 @@ namespace Musics___Server.MusicsManagement.ClientSearch
             }
         }
 
-        private static void DoPlaylist(Request requestSearch, Socket asker)
+        private static void DoPlaylist(RequestSearch requestSearch, Socket asker)
         {
             string userUID = MyServer.Clients.GetUser(asker).UID;
             var playlists = UsersInfos.GetPlaylists(userUID).Where(p => Search.Find(requestSearch.Name, p.Name));
             MyServer.SendObject(new RequestAnswer(playlists.Cast<IElement>().ToList(), ElementType.Playlist), asker);
         }
 
-        private static void DoMusic(Request requestSearch, Socket asker)
+        private static void DoMusic(RequestSearch requestSearch, Socket asker)
         {
             var result = Indexation.GetAllMusics()
                  .Where(m => Search.Find(requestSearch.Name, m.Title));
@@ -52,7 +53,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
             MyServer.SendObject(new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Music), asker);
         }
 
-        private static void DoAlbum(Request requestSearch, Socket asker)
+        private static void DoAlbum(RequestSearch requestSearch, Socket asker)
         {
             var result = Indexation.GetAlbums(x => Search.Find(requestSearch.Name, x.Name));
             foreach(var a in result)
@@ -61,7 +62,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
             MyServer.SendObject(new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Album), asker);
         }
 
-        private static void DoAuthor(Request requestSearch, Socket asker)
+        private static void DoAuthor(RequestSearch requestSearch, Socket asker)
         {
             var result = Indexation.GetAuthors(x => Search.Find(requestSearch.Name, x.Name));
             foreach (var a in result)

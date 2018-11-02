@@ -14,6 +14,8 @@ namespace ControlLibrary.Network
 
         public static Thread recevoir;
 
+        public static Token MyToken;
+
         private static readonly int Bufferlgth = 100000000;
 
         static byte[] recbuffer = new byte[Bufferlgth];
@@ -89,8 +91,11 @@ namespace ControlLibrary.Network
             catch { }
         }
 
-        public static void SendObject(object obj)
+        public static void SendObject(object obj, bool UseToken = true)
         {
+            Packet ObjWithToken = (obj as Packet);
+            ObjWithToken.Token = UseToken ? MyToken : null;
+
             var msg = Function.Serialize(obj);
             try
             {
