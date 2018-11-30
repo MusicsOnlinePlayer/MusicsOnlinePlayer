@@ -90,22 +90,42 @@ namespace Musics___Client.UI
             foreach(Element e in elements)
             {
                 var mc = new MusicControl().UpdateControl(e);
-                mc.Click += Mc_Click;
-                    UIListView.Controls.Add(mc);
+                GetAllClickEvent(mc);
+                UIListView.Controls.Add(mc);
             }
             UIListView.Refresh();
             //UIListView.ResumeLayout(false);
 
         }
 
+        public void GetAllClickEvent(Control control)
+        {
+            control.MouseClick += Mc_Click;
+            control.MouseDoubleClick += Mc_DoubleClick;
+            if(control.HasChildren)
+            {
+                foreach (Control ct in control.Controls)
+                    GetAllClickEvent(ct);
+            }
+        }
+
         private void Mc_Click(object sender, EventArgs e)
         {
             UIListView.SuspendLayout();
-            selected = ((MusicControl)sender).Element;
+            selected = GetParentMusicControl((Control)sender).Element;
             Invoke((MethodInvoker)delegate {
                 ChangeDescription(selected);
             });
             UIListView.ResumeLayout(false);
+        }
+
+        private MusicControl GetParentMusicControl(Control control)
+        {
+            if (control is MusicControl)
+                return (MusicControl)control;
+            else
+                return GetParentMusicControl(control.Parent);
+                
         }
 
         public object GetSelectedItemListBox()
@@ -196,30 +216,30 @@ namespace Musics___Client.UI
         private void UIPlayBis_Click(object sender, EventArgs e)
             => OnPlayEvent(new PlayEventArgs(selected));
 
-        //private void UISearchListbox_DoubleClick(object sender, EventArgs e)
-        //{
-        //    if(GetSelectedItemListBox() != null)
-        //    {
-        //        switch (GetSelectedListbox())
-        //        {
-        //            case Author author:
-        //                ClearSearchListBoxesThreadSafe();
-        //                FillSearchListBoxesThreadSafe(author.Albums);
-        //                break;
-        //            case Album album:
-        //                ClearSearchListBoxesThreadSafe();
-        //                FillSearchListBoxesThreadSafe(album.Musics);
-        //                break;
-        //            case Music music:
-        //                OnPlayEvent(new PlayEventArgs(selected));
-        //                break;
-        //            case Playlist playlist:
-        //                OnPlayEvent(new PlayEventArgs(selected));              
-        //                break;
-        //            default: throw new InvalidCastException();
-        //        }
-        //    }
-        //}
+        private void Mc_DoubleClick(object sender, EventArgs e)
+        {
+            if (GetSelectedItemListBox() != null)
+            {
+                switch (selected)
+                {
+                    case Author author:
+                        ClearSearchListBoxesThreadSafe();
+                        FillSearchListBoxesThreadSafe(author.Albums);
+                        break;
+                    case Album album:
+                        ClearSearchListBoxesThreadSafe();
+                        FillSearchListBoxesThreadSafe(album.Musics);
+                        break;
+                    case Music music:
+                        OnPlayEvent(new PlayEventArgs(selected));
+                        break;
+                    case Playlist playlist:
+                        OnPlayEvent(new PlayEventArgs(selected));
+                        break;
+                    default: throw new InvalidCastException();
+                }
+            }
+        }
 
         private void UIAddPlaylistUnder_Click(object sender, EventArgs e)
             => OnAddPlaylistEvent(new EventArgs());

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Utility.Network
@@ -25,6 +26,15 @@ namespace Utility.Network
         public static float Map(float n, float start1, float stop1, float start2, float stop2)
         {
             return ((n - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
+        }
+
+        public static string[] GetFiles(string SourceFolder, string Filter,System.IO.SearchOption searchOption)
+        {
+            List<string> alFiles = new List<string>();
+            string[] MultipleFilters = Filter.Split('|');
+            foreach (string FileFilter in MultipleFilters)
+                alFiles.AddRange(Directory.GetFiles(SourceFolder, FileFilter, searchOption));
+            return (string[])alFiles.ToArray();
         }
     }
 }

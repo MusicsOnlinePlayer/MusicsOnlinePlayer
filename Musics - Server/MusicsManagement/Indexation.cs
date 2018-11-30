@@ -12,6 +12,7 @@ using System.Diagnostics;
 using static Musics___Server.Program;
 using System.Security.Policy;
 using Utility;
+using Utility.Network;
 
 namespace Musics___Server.MusicsManagement
 {
@@ -65,6 +66,7 @@ namespace Musics___Server.MusicsManagement
             foreach (var n in ArtistDirs)
             {
                 Author CurrentArtist = new Author(Path.GetFileName(n), n);
+                GetArtistImage(n, CurrentArtist);
 
                 string[] AlbumOfArtist = Directory.GetDirectories(n);
 
@@ -93,6 +95,7 @@ namespace Musics___Server.MusicsManagement
                             }
                         }
                         CurrentAlbum.Musics = musics.OrderBy(x => x.N).ToList();
+                        CurrentAlbum.Image = musics.First().Image;
                         Console.WriteLine("]");
                     }
                 }
@@ -101,6 +104,13 @@ namespace Musics___Server.MusicsManagement
             indexationStopWatch.Stop();
             MyServer.Log.Debug("Indexation finished in "+indexationStopWatch.ElapsedMilliseconds+" Ms, with "+ ((GC.GetTotalMemory(false) - startMemory) / 1000000) + " Mo of memory");
             return NumberofMusics;
+        }
+
+        private static void GetArtistImage(string n, Author CurrentArtist)
+        {
+            var file = Function.GetFiles(n, "*.png|*.jpg", SearchOption.TopDirectoryOnly).FirstOrDefault();
+            if(file != null)
+                CurrentArtist.Image = File.ReadAllBytes(file);
         }
 
         private static TagLib.File AddMusicToindexation(string m, ref int NumberofMusics, Author CurrentArtist, Album CurrentAlbum, ConcurrentBag<Music> musics)

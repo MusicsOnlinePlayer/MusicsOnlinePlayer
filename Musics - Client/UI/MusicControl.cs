@@ -44,6 +44,7 @@ namespace Musics___Client.UI
             Author Author = (Author)Element;
             UIArtistName.Text = Author.Name;
             UIMusicname.Text = Author.Name;
+            GetElementImage(Author);
         }
 
         private void ChangeControlAlbum()
@@ -51,14 +52,20 @@ namespace Musics___Client.UI
             Album Album = (Album)Element;
             UIArtistName.Text = Album.Author.Name;
             UIMusicname.Text = Album.Name;
+            GetElementImage(Album);
         }
 
         private void ChangeControlMusic()
         {
             Music music = (Music)Element;
             UIArtistName.Text = music.Author.Name;
-            UIMusicname.Text = music.Name;    
-            if(music.Image != null)
+            UIMusicname.Text = music.Name;
+            GetElementImage(music);
+        }
+
+        private void GetElementImage(Element music)
+        {
+            if (music.Image != null)
             {
                 using (var ms = new MemoryStream(music.Image))
                 {
