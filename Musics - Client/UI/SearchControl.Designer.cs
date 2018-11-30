@@ -50,13 +50,13 @@
             this.UIRadioMusic = new System.Windows.Forms.RadioButton();
             this.UIRadioAlbum = new System.Windows.Forms.RadioButton();
             this.UIRadioArtist = new System.Windows.Forms.RadioButton();
-            this.UISearchListbox = new System.Windows.Forms.ListBox();
             this.UISelectedname = new System.Windows.Forms.Label();
             this.UISavePlaylist = new System.Windows.Forms.Button();
             this.UIEditMusic = new System.Windows.Forms.Button();
             this.UIThumbup = new System.Windows.Forms.Button();
             this.UIAddPlaylistUnder = new System.Windows.Forms.Button();
             this.UIPlayBis = new System.Windows.Forms.Button();
+            this.UIListView = new System.Windows.Forms.FlowLayoutPanel();
             this.UIEditPlaylist.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -166,7 +166,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.23116F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.76884F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 295F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 297F));
             this.tableLayoutPanel1.Controls.Add(this.UIPathMusic, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAlbum, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAuthor, 0, 0);
@@ -183,7 +183,7 @@
             this.UIPathMusic.AutoSize = true;
             this.UIPathMusic.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathMusic.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathMusic.Location = new System.Drawing.Point(327, 0);
+            this.UIPathMusic.Location = new System.Drawing.Point(325, 0);
             this.UIPathMusic.Name = "UIPathMusic";
             this.UIPathMusic.Size = new System.Drawing.Size(42, 14);
             this.UIPathMusic.TabIndex = 19;
@@ -195,7 +195,7 @@
             this.UIPathAlbum.AutoSize = true;
             this.UIPathAlbum.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathAlbum.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathAlbum.Location = new System.Drawing.Point(153, 0);
+            this.UIPathAlbum.Location = new System.Drawing.Point(152, 0);
             this.UIPathAlbum.Name = "UIPathAlbum";
             this.UIPathAlbum.Size = new System.Drawing.Size(42, 14);
             this.UIPathAlbum.TabIndex = 18;
@@ -319,20 +319,6 @@
             this.UIRadioArtist.Text = "Artist";
             this.UIRadioArtist.UseVisualStyleBackColor = true;
             // 
-            // UISearchListbox
-            // 
-            this.UISearchListbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UISearchListbox.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.UISearchListbox.FormattingEnabled = true;
-            this.UISearchListbox.ItemHeight = 25;
-            this.UISearchListbox.Location = new System.Drawing.Point(9, 54);
-            this.UISearchListbox.Margin = new System.Windows.Forms.Padding(0);
-            this.UISearchListbox.Name = "UISearchListbox";
-            this.UISearchListbox.Size = new System.Drawing.Size(1168, 304);
-            this.UISearchListbox.TabIndex = 29;
-            this.UISearchListbox.SelectedIndexChanged += new System.EventHandler(this.UISearchListbox_SelectedIndexChanged);
-            this.UISearchListbox.DoubleClick += new System.EventHandler(this.UISearchListbox_DoubleClick);
-            // 
             // UISelectedname
             // 
             this.UISelectedname.AutoSize = true;
@@ -411,10 +397,20 @@
             this.UIPlayBis.UseVisualStyleBackColor = true;
             this.UIPlayBis.Click += new System.EventHandler(this.UIPlayBis_Click);
             // 
+            // UIListView
+            // 
+            this.UIListView.AutoScroll = true;
+            this.UIListView.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.UIListView.Location = new System.Drawing.Point(9, 58);
+            this.UIListView.Name = "UIListView";
+            this.UIListView.Size = new System.Drawing.Size(1168, 304);
+            this.UIListView.TabIndex = 47;
+            // 
             // SearchControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.UIListView);
             this.Controls.Add(this.UIPlaylistClear);
             this.Controls.Add(this.UIEditMusicGenres);
             this.Controls.Add(this.UIEditMusicName);
@@ -432,7 +428,6 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.UIAddPlaylistUnder);
             this.Controls.Add(this.UIPlayBis);
-            this.Controls.Add(this.UISearchListbox);
             this.Controls.Add(this.UISelectedname);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "SearchControl";
@@ -477,7 +472,7 @@
         private System.Windows.Forms.RadioButton UIRadioArtist;
         private System.Windows.Forms.Button UIAddPlaylistUnder;
         private System.Windows.Forms.Button UIPlayBis;
-        private System.Windows.Forms.ListBox UISearchListbox;
         private System.Windows.Forms.Label UISelectedname;
+        private System.Windows.Forms.FlowLayoutPanel UIListView;
     }
 }

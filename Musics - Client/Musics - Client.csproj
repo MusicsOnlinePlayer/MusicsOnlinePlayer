@@ -58,7 +58,7 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CodeCraft.EnumExtension, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="CodeCraft.EnumExtension, Version=1.0.1.0, Culture=neutral, PublicKeyToken=69ec44bc4a2068d2, processorArchitecture=MSIL">
       <HintPath>..\packages\CodeCraft.EnumExtension.1.0.1\lib\netstandard2.0\CodeCraft.EnumExtension.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -133,9 +133,8 @@
       <HintPath>..\packages\System.Reflection.4.3.0\lib\net462\System.Reflection.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Runtime">
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Runtime.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.Extensions.4.3.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
@@ -262,6 +261,12 @@
     <Compile Include="UI\LoginControl.Designer.cs">
       <DependentUpon>LoginControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\MusicControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MusicControl.Designer.cs">
+      <DependentUpon>MusicControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\SearchControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -311,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\LoginControl.resx">
       <DependentUpon>LoginControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MusicControl.resx">
+      <DependentUpon>MusicControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SearchControl.resx">
       <DependentUpon>SearchControl.cs</DependentUpon>

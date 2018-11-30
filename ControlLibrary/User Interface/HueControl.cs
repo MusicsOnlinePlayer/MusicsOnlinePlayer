@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using Q42.HueApi;
+//using Q42.HueApi;
 using ControlLibrary.Hue;
 using NAudio.CoreAudioApi;
 using ControlLibrary.AppSettings;
@@ -12,9 +12,9 @@ namespace ControlLibrary.User_Interface
 {
     public partial class HueControl : UserControl
     {
-        private readonly HueMusic HueMusic = new HueMusic();
-
-        private List<Light> LightHue = new List<Light>();
+        //private readonly HueMusic HueMusic = new HueMusic();
+    
+        //private List<Light> LightHue = new List<Light>();
 
         public HueControl()
         {
@@ -56,16 +56,16 @@ namespace ControlLibrary.User_Interface
 
         private void ConnectHue()
         {
-            HueMusic.Connect(UIHueIp.Text, UIHueApi.Text);
-            if (!AsyncHelper.RunSync(() => HueMusic.client.CheckConnection()))
-            {
-                UIHueConnectKey.Show();
-                UIHueConnectRegister.Show();
-            }
-            else
-            {
-                EndConnectHue();
-            }
+            //HueMusic.Connect(UIHueIp.Text, UIHueApi.Text);
+            //if (!AsyncHelper.RunSync(() => HueMusic.client.CheckConnection()))
+            //{
+            //    UIHueConnectKey.Show();
+            //    UIHueConnectRegister.Show();
+            //}
+            //else
+            //{
+            //    EndConnectHue();
+            //}
         }
 
         private void UIHueConnectRegister_Click(object sender, EventArgs e)
@@ -90,25 +90,25 @@ namespace ControlLibrary.User_Interface
 
         private void ConnectRegisterHue()
         {
-            HueMusic.ConnectRegister(UIHueIp.Text);
-            if (!AsyncHelper.RunSync(() => HueMusic.client.CheckConnection()))
-            {
-                UIHueConnectKey.Show();
-                UIHueConnectRegister.Show();
-            }
-            else
-            {
-                EndConnectHue();
-            }
+            //HueMusic.ConnectRegister(UIHueIp.Text);
+            //if (!AsyncHelper.RunSync(() => HueMusic.client.CheckConnection()))
+            //{
+            //    UIHueConnectKey.Show();
+            //    UIHueConnectRegister.Show();
+            //}
+            //else
+            //{
+            //    EndConnectHue();
+            //}
         }
 
         private void ShowLights()
         {
-            foreach (var l in HueMusic.GetLights())
-            {
-                UILightList.Items.Add(l.Name + "(" + l.Id + ")", false);
-                LightHue.Add(l);
-            }
+            //foreach (var l in HueMusic.GetLights())
+            //{
+            //    UILightList.Items.Add(l.Name + "(" + l.Id + ")", false);
+            //    LightHue.Add(l);
+            //}
         }
 
         private void UIHueDelay_KeyDown(object sender, KeyEventArgs e)
@@ -128,15 +128,15 @@ namespace ControlLibrary.User_Interface
 
         void EndConnectHue()
         {
-            ApplicationSettings.Save(new AppSettings.Settings(UIHueIp.Text, UIHueApi.Text, null));
+            //ApplicationSettings.Save(new AppSettings.Settings(UIHueIp.Text, UIHueApi.Text, null));
 
-            UILightList.Items.Clear();
-            LightHue.Clear();
+            //UILightList.Items.Clear();
+            //LightHue.Clear();
 
-            UIHueConnection.Text = "Connected";
-            UIHueConnection.ForeColor = Color.Green;
+            //UIHueConnection.Text = "Connected";
+            //UIHueConnection.ForeColor = Color.Green;
 
-            SetupHueTimer();
+            //SetupHueTimer();
         }
 
         private void SetupHueTimer()
@@ -160,21 +160,21 @@ namespace ControlLibrary.User_Interface
 
             GetSelectedLights(LightsNames);
 
-            try
-            {
-                await HueMusic.TurnOnLight(new Q42.HueApi.ColorConverters.RGBColor(100, 100, 100), Convert.ToByte(2.5 * scale), LightsNames);
-            }
-            catch
-            {
-            }
+            //try
+            //{
+            //    await HueMusic.TurnOnLight(new Q42.HueApi.ColorConverters.RGBColor(100, 100, 100), Convert.ToByte(2.5 * scale), LightsNames);
+            //}
+            //catch
+            //{
+            //}
         }
 
         private void GetSelectedLights(List<string> LightsNames)
         {
-            foreach (int s in UILightList.CheckedIndices)
-            {
-                LightsNames.Add(LightHue[s].Id);
-            }
+            //foreach (int s in UILightList.CheckedIndices)
+            //{
+            //    LightsNames.Add(LightHue[s].Id);
+            //}
         }
     }
 }

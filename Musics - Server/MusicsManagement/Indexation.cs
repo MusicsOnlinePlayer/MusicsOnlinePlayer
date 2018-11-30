@@ -126,8 +126,10 @@ namespace Musics___Server.MusicsManagement
                 {
                     Format = Path.GetExtension(m),
                     Genre = file.Tag.Genres,
-                    N = file.Tag.Track
+                    N = file.Tag.Track,
+                    Image = file.Tag.Pictures.LastOrDefault()?.Data.ToArray()
                 };
+
                 if (current.Genre.Length == 0)
                 {
                     current.Genre = new string[] { "Unknown" };

@@ -72,15 +72,13 @@ namespace Musics___Client.UI
         }
 
         public IElement selected;
-        public List<object> SearchlistboxItems = new List<object>();
 
         public void ClearSearchListBoxes()
             => Invoke((MethodInvoker)delegate { ClearSearchListBoxesThreadSafe(); });
         
         private void ClearSearchListBoxesThreadSafe()
         {
-            UISearchListbox.Items.Clear();
-            SearchlistboxItems.Clear();
+            UIListView.Controls.Clear();
         }
 
         public void FillSearchListBoxes(IEnumerable<IElement> elements)
@@ -88,15 +86,30 @@ namespace Musics___Client.UI
         
         private void FillSearchListBoxesThreadSafe(IEnumerable<IElement> elements)
         {
-            UISearchListbox.Items.AddRange(elements.Select(a => a.Name).ToArray());
-            SearchlistboxItems.AddRange(elements);
+            //UIListView.SuspendLayout();
+            foreach(Element e in elements)
+            {
+                var mc = new MusicControl().UpdateControl(e);
+                mc.Click += Mc_Click;
+                    UIListView.Controls.Add(mc);
+            }
+            UIListView.Refresh();
+            //UIListView.ResumeLayout(false);
+
+        }
+
+        private void Mc_Click(object sender, EventArgs e)
+        {
+            UIListView.SuspendLayout();
+            selected = ((MusicControl)sender).Element;
+            Invoke((MethodInvoker)delegate {
+                ChangeDescription(selected);
+            });
+            UIListView.ResumeLayout(false);
         }
 
         public object GetSelectedItemListBox()
-            => UISearchListbox.SelectedItem;
-
-        public object GetSelectedListbox()
-            => SearchlistboxItems[UISearchListbox.SelectedIndex];
+            => selected;        
 
         private void UIUpload_Click(object sender, EventArgs e)
             => OnUploadEvent(new EventArgs());
@@ -183,37 +196,37 @@ namespace Musics___Client.UI
         private void UIPlayBis_Click(object sender, EventArgs e)
             => OnPlayEvent(new PlayEventArgs(selected));
 
-        private void UISearchListbox_DoubleClick(object sender, EventArgs e)
-        {
-            if(GetSelectedItemListBox() != null)
-            {
-                switch (GetSelectedListbox())
-                {
-                    case Author author:
-                        ClearSearchListBoxesThreadSafe();
-                        FillSearchListBoxesThreadSafe(author.Albums);
-                        break;
-                    case Album album:
-                        ClearSearchListBoxesThreadSafe();
-                        FillSearchListBoxesThreadSafe(album.Musics);
-                        break;
-                    case Music music:
-                        OnPlayEvent(new PlayEventArgs(selected));
-                        break;
-                    case Playlist playlist:
-                        OnPlayEvent(new PlayEventArgs(selected));              
-                        break;
-                    default: throw new InvalidCastException();
-                }
-            }
-        }
+        //private void UISearchListbox_DoubleClick(object sender, EventArgs e)
+        //{
+        //    if(GetSelectedItemListBox() != null)
+        //    {
+        //        switch (GetSelectedListbox())
+        //        {
+        //            case Author author:
+        //                ClearSearchListBoxesThreadSafe();
+        //                FillSearchListBoxesThreadSafe(author.Albums);
+        //                break;
+        //            case Album album:
+        //                ClearSearchListBoxesThreadSafe();
+        //                FillSearchListBoxesThreadSafe(album.Musics);
+        //                break;
+        //            case Music music:
+        //                OnPlayEvent(new PlayEventArgs(selected));
+        //                break;
+        //            case Playlist playlist:
+        //                OnPlayEvent(new PlayEventArgs(selected));              
+        //                break;
+        //            default: throw new InvalidCastException();
+        //        }
+        //    }
+        //}
 
         private void UIAddPlaylistUnder_Click(object sender, EventArgs e)
             => OnAddPlaylistEvent(new EventArgs());
 
         private void UIThumbup_Click(object sender, EventArgs e)
         {
-            if (SearchlistboxItems[UISearchListbox.SelectedIndex] != null)
+            if (selected != null)
                 OnRateEvent(new RateEventArgs(selected.MID, selected.Type));           
         }
 
@@ -278,12 +291,5 @@ namespace Musics___Client.UI
             OnClearEvent(new EventArgs());
         }
 
-        private void UISearchListbox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            selected = (IElement)SearchlistboxItems[UISearchListbox.SelectedIndex];
-            Invoke((MethodInvoker)delegate{
-                ChangeDescription(selected);
-            });
-        }
     }
 }
