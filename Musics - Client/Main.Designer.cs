@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.uPlayer1 = new ControlLibrary.UPlayer();
             this.HueTimer = new System.Windows.Forms.Timer(this.components);
             this.UIAdministration = new System.Windows.Forms.TabPage();
             this.UIPanelEditUser = new System.Windows.Forms.Panel();
@@ -45,6 +42,7 @@
             this.UISearchUser = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.UISettings = new System.Windows.Forms.TabPage();
+            this.hueControl1 = new ControlLibrary.User_Interface.HueControl();
             this.label1 = new System.Windows.Forms.Label();
             this.UIAccount = new System.Windows.Forms.TabPage();
             this.AccountControl = new Musics___Client.UI.AccountControl();
@@ -57,12 +55,8 @@
             this.Tabs = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.hueControl1 = new ControlLibrary.User_Interface.HueControl();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.uPlayer1 = new ControlLibrary.UPlayer();
             this.UIAdministration.SuspendLayout();
             this.UIPanelEditUser.SuspendLayout();
             this.UISettings.SuspendLayout();
@@ -72,41 +66,6 @@
             this.UIHome.SuspendLayout();
             this.Tabs.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.pictureBox1);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.uPlayer1);
-            this.splitContainer1.Size = new System.Drawing.Size(237, 796);
-            this.splitContainer1.SplitterDistance = 291;
-            this.splitContainer1.TabIndex = 1;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImage = global::Musics___Client.Properties.Resources.IconMusic3;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(230, 231);
-            this.pictureBox1.TabIndex = 13;
-            this.pictureBox1.TabStop = false;
-            // 
-            // uPlayer1
-            // 
-            this.uPlayer1.BackColor = System.Drawing.Color.Silver;
-            this.uPlayer1.Location = new System.Drawing.Point(3, 5);
-            this.uPlayer1.Name = "uPlayer1";
-            this.uPlayer1.Size = new System.Drawing.Size(233, 500);
-            this.uPlayer1.TabIndex = 0;
             // 
             // UIAdministration
             // 
@@ -118,7 +77,7 @@
             this.UIAdministration.Location = new System.Drawing.Point(4, 34);
             this.UIAdministration.Name = "UIAdministration";
             this.UIAdministration.Padding = new System.Windows.Forms.Padding(3);
-            this.UIAdministration.Size = new System.Drawing.Size(1205, 762);
+            this.UIAdministration.Size = new System.Drawing.Size(1897, 900);
             this.UIAdministration.TabIndex = 8;
             this.UIAdministration.Text = "Administration";
             this.UIAdministration.UseVisualStyleBackColor = true;
@@ -242,17 +201,28 @@
             this.UISettings.Location = new System.Drawing.Point(4, 34);
             this.UISettings.Name = "UISettings";
             this.UISettings.Padding = new System.Windows.Forms.Padding(3);
-            this.UISettings.Size = new System.Drawing.Size(1205, 762);
+            this.UISettings.Size = new System.Drawing.Size(1897, 900);
             this.UISettings.TabIndex = 7;
             this.UISettings.Text = "Settings";
             this.UISettings.UseVisualStyleBackColor = true;
+            // 
+            // hueControl1
+            // 
+            this.hueControl1.AutoSize = true;
+            this.hueControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.hueControl1.BackColor = System.Drawing.Color.White;
+            this.hueControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hueControl1.Location = new System.Drawing.Point(13, 6);
+            this.hueControl1.Name = "hueControl1";
+            this.hueControl1.Size = new System.Drawing.Size(1186, 399);
+            this.hueControl1.TabIndex = 30;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label1.Location = new System.Drawing.Point(1042, 743);
+            this.label1.Location = new System.Drawing.Point(1502, 982);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(155, 16);
             this.label1.TabIndex = 29;
@@ -264,7 +234,7 @@
             this.UIAccount.Location = new System.Drawing.Point(4, 34);
             this.UIAccount.Name = "UIAccount";
             this.UIAccount.Padding = new System.Windows.Forms.Padding(3);
-            this.UIAccount.Size = new System.Drawing.Size(1205, 762);
+            this.UIAccount.Size = new System.Drawing.Size(1897, 900);
             this.UIAccount.TabIndex = 6;
             this.UIAccount.Text = "Account";
             this.UIAccount.UseVisualStyleBackColor = true;
@@ -285,7 +255,7 @@
             this.UIFavorites.Location = new System.Drawing.Point(4, 34);
             this.UIFavorites.Name = "UIFavorites";
             this.UIFavorites.Padding = new System.Windows.Forms.Padding(3);
-            this.UIFavorites.Size = new System.Drawing.Size(1205, 762);
+            this.UIFavorites.Size = new System.Drawing.Size(1897, 900);
             this.UIFavorites.TabIndex = 3;
             this.UIFavorites.Text = "Favorites";
             this.UIFavorites.UseVisualStyleBackColor = true;
@@ -307,7 +277,7 @@
             this.UISearch.Location = new System.Drawing.Point(4, 34);
             this.UISearch.Name = "UISearch";
             this.UISearch.Padding = new System.Windows.Forms.Padding(3);
-            this.UISearch.Size = new System.Drawing.Size(1205, 762);
+            this.UISearch.Size = new System.Drawing.Size(1897, 900);
             this.UISearch.TabIndex = 1;
             this.UISearch.Text = "Search";
             this.UISearch.UseVisualStyleBackColor = true;
@@ -315,9 +285,9 @@
             // SearchControl
             // 
             this.SearchControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SearchControl.Location = new System.Drawing.Point(-1, -1);
+            this.SearchControl.Location = new System.Drawing.Point(0, 3);
             this.SearchControl.Name = "SearchControl";
-            this.SearchControl.Size = new System.Drawing.Size(1184, 760);
+            this.SearchControl.Size = new System.Drawing.Size(1901, 897);
             this.SearchControl.TabIndex = 0;
             this.SearchControl.SearchEvent += new System.EventHandler<Musics___Client.API.Events.SearchEventArgs>(this.SearchControl_SearchEvent);
             this.SearchControl.ClearEvent += new System.EventHandler<System.EventArgs>(this.SearchControl_ClearEvent);
@@ -336,14 +306,14 @@
             this.UIHome.Location = new System.Drawing.Point(4, 34);
             this.UIHome.Name = "UIHome";
             this.UIHome.Padding = new System.Windows.Forms.Padding(3);
-            this.UIHome.Size = new System.Drawing.Size(1205, 762);
+            this.UIHome.Size = new System.Drawing.Size(1897, 900);
             this.UIHome.TabIndex = 0;
             this.UIHome.Text = "Home";
             // 
             // homeControl1
             // 
             this.homeControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.homeControl1.Location = new System.Drawing.Point(179, 20);
+            this.homeControl1.Location = new System.Drawing.Point(542, 9);
             this.homeControl1.Margin = new System.Windows.Forms.Padding(6);
             this.homeControl1.Name = "homeControl1";
             this.homeControl1.Size = new System.Drawing.Size(813, 514);
@@ -359,12 +329,12 @@
             this.Tabs.Controls.Add(this.UIAdministration);
             this.Tabs.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Tabs.ItemSize = new System.Drawing.Size(90, 30);
-            this.Tabs.Location = new System.Drawing.Point(239, 0);
+            this.Tabs.Location = new System.Drawing.Point(-1, 0);
             this.Tabs.Multiline = true;
             this.Tabs.Name = "Tabs";
             this.Tabs.Padding = new System.Drawing.Point(20, 3);
             this.Tabs.SelectedIndex = 0;
-            this.Tabs.Size = new System.Drawing.Size(1213, 800);
+            this.Tabs.Size = new System.Drawing.Size(1905, 938);
             this.Tabs.TabIndex = 0;
             // 
             // tabPage2
@@ -387,36 +357,38 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // hueControl1
+            // splitter1
             // 
-            this.hueControl1.AutoSize = true;
-            this.hueControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.hueControl1.BackColor = System.Drawing.Color.White;
-            this.hueControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hueControl1.Location = new System.Drawing.Point(13, 6);
-            this.hueControl1.Name = "hueControl1";
-            this.hueControl1.Size = new System.Drawing.Size(1186, 399);
-            this.hueControl1.TabIndex = 30;
+            this.splitter1.Location = new System.Drawing.Point(0, 0);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(3, 1041);
+            this.splitter1.TabIndex = 1;
+            this.splitter1.TabStop = false;
+            // 
+            // uPlayer1
+            // 
+            this.uPlayer1.BackColor = System.Drawing.Color.White;
+            this.uPlayer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.uPlayer1.Location = new System.Drawing.Point(0, 935);
+            this.uPlayer1.Name = "uPlayer1";
+            this.uPlayer1.Size = new System.Drawing.Size(1904, 106);
+            this.uPlayer1.TabIndex = 2;
             // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1452, 799);
+            this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.Controls.Add(this.uPlayer1);
+            this.Controls.Add(this.splitter1);
             this.Controls.Add(this.Tabs);
-            this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Client";
             this.Text = "Musics - Client";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Client_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Client_FormClosed);
             this.Load += new System.EventHandler(this.Client_Load);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.UIAdministration.ResumeLayout(false);
             this.UIAdministration.PerformLayout();
             this.UIPanelEditUser.ResumeLayout(false);
@@ -433,7 +405,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Timer HueTimer;
         private System.Windows.Forms.TabPage UIAdministration;
         private System.Windows.Forms.Panel UIPanelEditUser;
@@ -452,16 +423,16 @@
         private System.Windows.Forms.TabPage UISearch;
         private System.Windows.Forms.TabPage UIHome;
         private System.Windows.Forms.TabControl Tabs;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage1;
-        private ControlLibrary.UPlayer uPlayer1;
         private UI.HomeControl homeControl1;
         private UI.SearchControl SearchControl;
         private UI.FavoriteControl FavoriteControl;
         private UI.AccountControl AccountControl;
         private ControlLibrary.User_Interface.HueControl hueControl1;
+        private System.Windows.Forms.Splitter splitter1;
+        private ControlLibrary.UPlayer uPlayer1;
     }
 }
 

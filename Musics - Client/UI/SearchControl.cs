@@ -92,6 +92,7 @@ namespace Musics___Client.UI
                 var mc = new MusicControl().UpdateControl(e);
                 GetAllClickEvent(mc);
                 UIListView.Controls.Add(mc);
+
             }
             UIListView.Refresh();
             //UIListView.ResumeLayout(false);
@@ -310,6 +311,5 @@ namespace Musics___Client.UI
             ClearPlaylist();
             OnClearEvent(new EventArgs());
         }
-
     }
 }
