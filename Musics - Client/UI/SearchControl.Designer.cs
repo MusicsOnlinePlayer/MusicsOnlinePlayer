@@ -81,7 +81,7 @@
             this.UIEditMusicGenres.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIEditMusicGenres.Location = new System.Drawing.Point(15, 626);
             this.UIEditMusicGenres.Name = "UIEditMusicGenres";
-            this.UIEditMusicGenres.Size = new System.Drawing.Size(171, 31);
+            this.UIEditMusicGenres.Size = new System.Drawing.Size(357, 31);
             this.UIEditMusicGenres.TabIndex = 45;
             this.UIEditMusicGenres.Visible = false;
             // 
@@ -90,7 +90,7 @@
             this.UIEditMusicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIEditMusicName.Location = new System.Drawing.Point(15, 460);
             this.UIEditMusicName.Name = "UIEditMusicName";
-            this.UIEditMusicName.Size = new System.Drawing.Size(253, 31);
+            this.UIEditMusicName.Size = new System.Drawing.Size(683, 31);
             this.UIEditMusicName.TabIndex = 41;
             this.UIEditMusicName.Visible = false;
             this.UIEditMusicName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UIEditMusicName_KeyDown);
@@ -124,7 +124,7 @@
             this.UIEditPlaylist.Controls.Add(this.UIPlaylistPrivate);
             this.UIEditPlaylist.Controls.Add(this.UIPlaylistName);
             this.UIEditPlaylist.Controls.Add(this.label21);
-            this.UIEditPlaylist.Location = new System.Drawing.Point(192, 590);
+            this.UIEditPlaylist.Location = new System.Drawing.Point(769, 509);
             this.UIEditPlaylist.Name = "UIEditPlaylist";
             this.UIEditPlaylist.Size = new System.Drawing.Size(216, 89);
             this.UIEditPlaylist.TabIndex = 43;
@@ -168,7 +168,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.23116F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.76884F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 301F));
             this.tableLayoutPanel1.Controls.Add(this.UIPathMusic, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAlbum, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAuthor, 0, 0);
@@ -185,7 +185,7 @@
             this.UIPathMusic.AutoSize = true;
             this.UIPathMusic.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathMusic.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathMusic.Location = new System.Drawing.Point(322, 0);
+            this.UIPathMusic.Location = new System.Drawing.Point(321, 0);
             this.UIPathMusic.Name = "UIPathMusic";
             this.UIPathMusic.Size = new System.Drawing.Size(42, 14);
             this.UIPathMusic.TabIndex = 19;
@@ -339,7 +339,7 @@
             this.UISavePlaylist.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.UISavePlaylist.FlatAppearance.BorderSize = 0;
             this.UISavePlaylist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UISavePlaylist.Location = new System.Drawing.Point(378, 553);
+            this.UISavePlaylist.Location = new System.Drawing.Point(1005, 553);
             this.UISavePlaylist.Name = "UISavePlaylist";
             this.UISavePlaylist.Size = new System.Drawing.Size(30, 30);
             this.UISavePlaylist.TabIndex = 42;
@@ -352,7 +352,7 @@
             this.UIEditMusic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.UIEditMusic.FlatAppearance.BorderSize = 0;
             this.UIEditMusic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIEditMusic.Location = new System.Drawing.Point(378, 504);
+            this.UIEditMusic.Location = new System.Drawing.Point(1005, 504);
             this.UIEditMusic.Name = "UIEditMusic";
             this.UIEditMusic.Size = new System.Drawing.Size(30, 30);
             this.UIEditMusic.TabIndex = 40;
@@ -366,7 +366,7 @@
             this.UIThumbup.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.UIThumbup.FlatAppearance.BorderSize = 0;
             this.UIThumbup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIThumbup.Location = new System.Drawing.Point(274, 460);
+            this.UIThumbup.Location = new System.Drawing.Point(901, 460);
             this.UIThumbup.Name = "UIThumbup";
             this.UIThumbup.Size = new System.Drawing.Size(30, 30);
             this.UIThumbup.TabIndex = 35;
@@ -379,7 +379,7 @@
             this.UIAddPlaylistUnder.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.UIAddPlaylistUnder.FlatAppearance.BorderSize = 0;
             this.UIAddPlaylistUnder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIAddPlaylistUnder.Location = new System.Drawing.Point(377, 460);
+            this.UIAddPlaylistUnder.Location = new System.Drawing.Point(1004, 460);
             this.UIAddPlaylistUnder.Name = "UIAddPlaylistUnder";
             this.UIAddPlaylistUnder.Size = new System.Drawing.Size(30, 30);
             this.UIAddPlaylistUnder.TabIndex = 37;
@@ -392,7 +392,7 @@
             this.UIPlayBis.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.UIPlayBis.FlatAppearance.BorderSize = 0;
             this.UIPlayBis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIPlayBis.Location = new System.Drawing.Point(328, 460);
+            this.UIPlayBis.Location = new System.Drawing.Point(955, 460);
             this.UIPlayBis.Name = "UIPlayBis";
             this.UIPlayBis.Size = new System.Drawing.Size(30, 30);
             this.UIPlayBis.TabIndex = 32;
