@@ -13,7 +13,7 @@
             {
                 foreach (var cs in tt)
                 {
-                    if(cs.ToLower() == c.ToLower())
+                    if(cs.ToLower().Contains(c.ToLower()))
                     {
                         i++;
                     }
@@ -35,6 +35,9 @@
                 foreach (var cs in tt)
                 {
                     if (cs.ToLower() == c.ToLower())
+                    {
+                        i+=st.Length;
+                    }else if (cs.ToLower().Contains(c.ToLower()))
                     {
                         i++;
                     }
