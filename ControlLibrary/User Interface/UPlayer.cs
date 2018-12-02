@@ -38,6 +38,16 @@ namespace ControlLibrary
                     NetworkClient.SendObject(new RequestBinairies(Playlist[PlaylistIndex]));
                 }
             }
+            if (NewState == 3)
+            {
+                Invoke((MethodInvoker)delegate
+                {
+                    UIMusicTrackBar.Maximum = (int)player.player.currentMedia.duration;
+                    UIMusicLength.Text = player.player.currentMedia.durationString;
+                });               
+            }
+                
+
         }
 
         private void UIPlay_Click(object sender, EventArgs e)
@@ -96,7 +106,7 @@ namespace ControlLibrary
                 HeaderHeight = 5,
             };
             notifier.Popup();
-
+            TimerMusic.Start();
         }
 
         public void Reset()
@@ -108,6 +118,21 @@ namespace ControlLibrary
             UIBackward.Enabled = false;
             UIMusicImage.BackgroundImage = null;
             player.player.controls.stop();
+        }
+
+        private void TimerMusic_Tick(object sender, EventArgs e)
+        {
+            UIMusicPosition.Text = player.player.controls.currentPositionString;
+            UIMusicTrackBar.Value = (int)player.player.controls.currentPosition;
+        }
+
+        private void UIMusicTrackBar_MouseDown(object sender, MouseEventArgs e)
+            => TimerMusic.Stop();
+
+        private void UIMusicTrackBar_MouseUp(object sender, MouseEventArgs e)
+        {
+            player.player.controls.currentPosition = (int)UIMusicTrackBar.Value;
+            TimerMusic.Start();
         }
     }
 }

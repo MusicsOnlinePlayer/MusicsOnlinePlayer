@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label5 = new System.Windows.Forms.Label();
             this.UITrackbarMusic = new System.Windows.Forms.TrackBar();
             this.label4 = new System.Windows.Forms.Label();
@@ -39,8 +40,13 @@
             this.UIPause = new System.Windows.Forms.Button();
             this.UIPlay = new System.Windows.Forms.Button();
             this.UIForward = new System.Windows.Forms.Button();
+            this.UIMusicTrackBar = new System.Windows.Forms.TrackBar();
+            this.TimerMusic = new System.Windows.Forms.Timer(this.components);
+            this.UIMusicPosition = new System.Windows.Forms.Label();
+            this.UIMusicLength = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.UITrackbarMusic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UIMusicImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UIMusicTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // label5
@@ -126,7 +132,7 @@
             this.UIBackward.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.UIBackward.FlatAppearance.BorderSize = 0;
             this.UIBackward.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIBackward.Location = new System.Drawing.Point(854, 54);
+            this.UIBackward.Location = new System.Drawing.Point(856, 31);
             this.UIBackward.Name = "UIBackward";
             this.UIBackward.Size = new System.Drawing.Size(35, 35);
             this.UIBackward.TabIndex = 36;
@@ -139,7 +145,7 @@
             this.UIPause.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.UIPause.FlatAppearance.BorderSize = 0;
             this.UIPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIPause.Location = new System.Drawing.Point(970, 54);
+            this.UIPause.Location = new System.Drawing.Point(972, 31);
             this.UIPause.Name = "UIPause";
             this.UIPause.Size = new System.Drawing.Size(35, 35);
             this.UIPause.TabIndex = 31;
@@ -152,7 +158,7 @@
             this.UIPlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.UIPlay.FlatAppearance.BorderSize = 0;
             this.UIPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIPlay.Location = new System.Drawing.Point(912, 54);
+            this.UIPlay.Location = new System.Drawing.Point(914, 31);
             this.UIPlay.Name = "UIPlay";
             this.UIPlay.Size = new System.Drawing.Size(35, 35);
             this.UIPlay.TabIndex = 30;
@@ -165,18 +171,60 @@
             this.UIForward.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.UIForward.FlatAppearance.BorderSize = 0;
             this.UIForward.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIForward.Location = new System.Drawing.Point(1028, 54);
+            this.UIForward.Location = new System.Drawing.Point(1030, 31);
             this.UIForward.Name = "UIForward";
             this.UIForward.Size = new System.Drawing.Size(35, 35);
             this.UIForward.TabIndex = 37;
             this.UIForward.UseVisualStyleBackColor = true;
             this.UIForward.Click += new System.EventHandler(this.UIForward_Click);
             // 
+            // UIMusicTrackBar
+            // 
+            this.UIMusicTrackBar.LargeChange = 2;
+            this.UIMusicTrackBar.Location = new System.Drawing.Point(260, 76);
+            this.UIMusicTrackBar.Maximum = 100;
+            this.UIMusicTrackBar.Name = "UIMusicTrackBar";
+            this.UIMusicTrackBar.Size = new System.Drawing.Size(1400, 45);
+            this.UIMusicTrackBar.TabIndex = 39;
+            this.UIMusicTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.UIMusicTrackBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.UIMusicTrackBar_MouseDown);
+            this.UIMusicTrackBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.UIMusicTrackBar_MouseUp);
+            // 
+            // TimerMusic
+            // 
+            this.TimerMusic.Interval = 500;
+            this.TimerMusic.Tick += new System.EventHandler(this.TimerMusic_Tick);
+            // 
+            // UIMusicPosition
+            // 
+            this.UIMusicPosition.AutoSize = true;
+            this.UIMusicPosition.Font = new System.Drawing.Font("Raleway Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIMusicPosition.ForeColor = System.Drawing.Color.Black;
+            this.UIMusicPosition.Location = new System.Drawing.Point(217, 76);
+            this.UIMusicPosition.Name = "UIMusicPosition";
+            this.UIMusicPosition.Size = new System.Drawing.Size(37, 22);
+            this.UIMusicPosition.TabIndex = 40;
+            this.UIMusicPosition.Text = "0:0";
+            // 
+            // UIMusicLength
+            // 
+            this.UIMusicLength.AutoSize = true;
+            this.UIMusicLength.Font = new System.Drawing.Font("Raleway Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIMusicLength.ForeColor = System.Drawing.Color.Black;
+            this.UIMusicLength.Location = new System.Drawing.Point(1666, 76);
+            this.UIMusicLength.Name = "UIMusicLength";
+            this.UIMusicLength.Size = new System.Drawing.Size(37, 22);
+            this.UIMusicLength.TabIndex = 41;
+            this.UIMusicLength.Text = "0:0";
+            // 
             // UPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.UIMusicLength);
+            this.Controls.Add(this.UIMusicPosition);
+            this.Controls.Add(this.UIMusicTrackBar);
             this.Controls.Add(this.UIMusicImage);
             this.Controls.Add(this.UIBackward);
             this.Controls.Add(this.label5);
@@ -192,6 +240,7 @@
             this.Size = new System.Drawing.Size(1920, 106);
             ((System.ComponentModel.ISupportInitialize)(this.UITrackbarMusic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UIMusicImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UIMusicTrackBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -210,5 +259,9 @@
         private System.Windows.Forms.Label UIPlayingMusic;
         private System.Windows.Forms.Button UIForward;
         private System.Windows.Forms.Label UIFormat;
+        private System.Windows.Forms.TrackBar UIMusicTrackBar;
+        private System.Windows.Forms.Timer TimerMusic;
+        private System.Windows.Forms.Label UIMusicPosition;
+        private System.Windows.Forms.Label UIMusicLength;
     }
 }
