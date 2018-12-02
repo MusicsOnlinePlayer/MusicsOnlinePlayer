@@ -27,6 +27,10 @@ namespace ControlLibrary.Network
         public delegate void PacketReceivedEvent(object sender, PacketEventArgs a);
         public delegate void PacketReceivedHandler(object sender, PacketEventArgs a);
         public static event PacketReceivedHandler Packetreceived;
+
+        public delegate void NetworkErrorHandler(object sender, NetworkEventArgs a);
+        public static event NetworkErrorHandler NetworkError;
+
         public static bool Connect()
         {
             status = 0;
@@ -60,9 +64,7 @@ namespace ControlLibrary.Network
             try
             {
                 _clientSocket.EndConnect(ar);
-
                 status = 1;
-
                 recevoir = new Thread(new ThreadStart(Receive));
                 recevoir.Start();
             }
@@ -89,6 +91,9 @@ namespace ControlLibrary.Network
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+                OnNetworkError(new NetworkEventArgs(NetworkErrors.ServerError));
+                recevoir.Abort();
+                return;
             }
 
             OnPacketReceived(new PacketEventArgs((IPacket)Function.Deserialize(new MessageTCP(recbuffer))));
@@ -136,5 +141,8 @@ namespace ControlLibrary.Network
 
         public static void OnPacketReceived(PacketEventArgs e)
            => Packetreceived?.Invoke(null, e);
+
+        public static void OnNetworkError(NetworkEventArgs e)
+            => NetworkError?.Invoke(null, e);
     }
 }

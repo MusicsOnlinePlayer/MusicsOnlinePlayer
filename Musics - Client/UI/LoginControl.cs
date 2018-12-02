@@ -16,7 +16,7 @@ namespace Musics___Client.UI
         {
             InitializeComponent();
         }
-        
+
         private void SignInButton_Click(object sender, EventArgs e)
         {
             LoginServices.Instance.LogIn(credentialControl.User);
@@ -29,7 +29,10 @@ namespace Musics___Client.UI
 
         public void InitControl()
         {
-            ShowStatus(LoginServices.Instance.Connect());
+            bool Connected = LoginServices.Instance.Connect();
+            ShowStatus(Connected);
+            if (Connected)
+                NetworkClient.NetworkError += NetworkClient_NetworkError;
             CredentialValidatorBindingSource.DataSource = credentialControl.Validator;
             if (!DesignMode)
             {
@@ -37,6 +40,10 @@ namespace Musics___Client.UI
                 LoginServices.Instance.LoginSucces += LoginServices_LoginSucces;
             }
         }
+
+        private void NetworkClient_NetworkError(object sender, NetworkEventArgs a)
+            => Invoke((MethodInvoker)delegate {InitControl(); Show(); });
+
 
         public void ShowStatus(bool st)
         {
