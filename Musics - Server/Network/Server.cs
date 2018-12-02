@@ -54,7 +54,8 @@ namespace Musics___Server.Network
 
             socket.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.Partial, ReceiveCallback, socket);
             Clients.AddUser(new User(), socket);
-            Log.Info("Client connected with ip : " + socket.RemoteEndPoint.ToString());
+            IPEndPoint ipep = socket.RemoteEndPoint as IPEndPoint;
+            Log.Info("Client connected with ip : " + ipep.Address.ToString());
             serverSocket.BeginAccept(AcceptCallback, null);
         }
 
