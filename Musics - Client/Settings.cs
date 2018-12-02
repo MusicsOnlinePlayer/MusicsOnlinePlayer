@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Musics___Client.AppSettings;
+using System;
 using System.Net;
 using System.Windows.Forms;
 
@@ -22,12 +23,13 @@ namespace Musics___Client
         {
             if(IPAddress.TryParse(UISettingsIp.Text,out result))
             {
-                Close();
+                ApplicationSettings.Save(new AppSettings.Settings(null,null,result.ToString()));
+                this.Close();
             }
             else
             {
                 UIError.Visible = true;
-            }
+            }         
         }
 
         private void UISettingsIp_TextChanged(object sender, EventArgs e)

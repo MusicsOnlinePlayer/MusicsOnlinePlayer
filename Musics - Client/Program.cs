@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Musics___Client.AppSettings;
+using System;
 using System.Windows.Forms;
 
 namespace Musics___Client
@@ -13,6 +14,7 @@ namespace Musics___Client
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            ApplicationSettings.Setup();
             Application.Run(new LoginForm());
 
             // Application.Run(new Client());

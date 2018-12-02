@@ -45,18 +45,18 @@
             this.hueControl1 = new ControlLibrary.User_Interface.HueControl();
             this.label1 = new System.Windows.Forms.Label();
             this.UIAccount = new System.Windows.Forms.TabPage();
-            this.AccountControl = new Musics___Client.UI.AccountControl();
             this.UIFavorites = new System.Windows.Forms.TabPage();
-            this.FavoriteControl = new Musics___Client.UI.FavoriteControl();
             this.UISearch = new System.Windows.Forms.TabPage();
-            this.SearchControl = new Musics___Client.UI.SearchControl();
             this.UIHome = new System.Windows.Forms.TabPage();
-            this.homeControl1 = new Musics___Client.UI.HomeControl();
             this.Tabs = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.uPlayer1 = new ControlLibrary.UPlayer();
+            this.homeControl1 = new Musics___Client.UI.HomeControl();
+            this.SearchControl = new Musics___Client.UI.SearchControl();
+            this.FavoriteControl = new Musics___Client.UI.FavoriteControl();
+            this.AccountControl = new Musics___Client.UI.AccountControl();
             this.UIAdministration.SuspendLayout();
             this.UIPanelEditUser.SuspendLayout();
             this.UISettings.SuspendLayout();
@@ -178,7 +178,7 @@
             // 
             this.UISearchUser.Location = new System.Drawing.Point(22, 94);
             this.UISearchUser.Name = "UISearchUser";
-            this.UISearchUser.Size = new System.Drawing.Size(544, 31);
+            this.UISearchUser.Size = new System.Drawing.Size(544, 32);
             this.UISearchUser.TabIndex = 33;
             this.UISearchUser.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UISearchUser_KeyDown);
             // 
@@ -239,16 +239,6 @@
             this.UIAccount.Text = "Account";
             this.UIAccount.UseVisualStyleBackColor = true;
             // 
-            // AccountControl
-            // 
-            this.AccountControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AccountControl.Location = new System.Drawing.Point(2, 0);
-            this.AccountControl.Margin = new System.Windows.Forms.Padding(6);
-            this.AccountControl.Name = "AccountControl";
-            this.AccountControl.Size = new System.Drawing.Size(683, 539);
-            this.AccountControl.TabIndex = 0;
-            this.AccountControl.EditAccountDone += new System.EventHandler<Musics___Client.API.Events.EditAccountEventArgs>(this.AccountControl_EditAccountDone);
-            // 
             // UIFavorites
             // 
             this.UIFavorites.Controls.Add(this.FavoriteControl);
@@ -259,17 +249,6 @@
             this.UIFavorites.TabIndex = 3;
             this.UIFavorites.Text = "Favorites";
             this.UIFavorites.UseVisualStyleBackColor = true;
-            // 
-            // FavoriteControl
-            // 
-            this.FavoriteControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FavoriteControl.Location = new System.Drawing.Point(-1, 0);
-            this.FavoriteControl.Margin = new System.Windows.Forms.Padding(6);
-            this.FavoriteControl.Name = "FavoriteControl";
-            this.FavoriteControl.Size = new System.Drawing.Size(1193, 361);
-            this.FavoriteControl.TabIndex = 0;
-            this.FavoriteControl.SearchEvent += new System.EventHandler<Musics___Client.API.Events.RequestBinairiesEventArgs>(this.FavoriteControl_SearchEvent);
-            this.FavoriteControl.PlayAllEvent += new System.EventHandler<Musics___Client.API.Events.PlayEventArgs>(this.FavoriteControl_PlayAllEvent);
             // 
             // UISearch
             // 
@@ -282,23 +261,6 @@
             this.UISearch.Text = "Search";
             this.UISearch.UseVisualStyleBackColor = true;
             // 
-            // SearchControl
-            // 
-            this.SearchControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SearchControl.Location = new System.Drawing.Point(-7, -2);
-            this.SearchControl.Name = "SearchControl";
-            this.SearchControl.Size = new System.Drawing.Size(1901, 897);
-            this.SearchControl.TabIndex = 0;
-            this.SearchControl.SearchEvent += new System.EventHandler<Musics___Client.API.Events.SearchEventArgs>(this.SearchControl_SearchEvent);
-            this.SearchControl.ClearEvent += new System.EventHandler<System.EventArgs>(this.SearchControl_ClearEvent);
-            this.SearchControl.UploadEvent += new System.EventHandler<System.EventArgs>(this.SearchControl_UploadEvent);
-            this.SearchControl.PlayEvent += new System.EventHandler<Musics___Client.API.Events.PlayEventArgs>(this.SearchControl_PlayEvent);
-            this.SearchControl.AddPlaylistEvent += new System.EventHandler<System.EventArgs>(this.SearchControl_AddPlaylistEvent);
-            this.SearchControl.RateEvent += new System.EventHandler<Musics___Client.API.Events.RateEventArgs>(this.SearchControl_RateEvent);
-            this.SearchControl.PathClicked += new System.EventHandler<Musics___Client.API.Events.PathClickedEventArgs>(this.SearchControl_PathClicked);
-            this.SearchControl.EditMusic += new System.EventHandler<Musics___Client.API.Events.EditMusicEventArgs>(this.SearchControl_EditMusic);
-            this.SearchControl.PlaylistSaved += new System.EventHandler<Musics___Client.API.Events.PlaylistSavedEventArgs>(this.SearchControl_PlaylistSaved);
-            // 
             // UIHome
             // 
             this.UIHome.BackColor = System.Drawing.Color.White;
@@ -310,15 +272,6 @@
             this.UIHome.TabIndex = 0;
             this.UIHome.Text = "Home";
             // 
-            // homeControl1
-            // 
-            this.homeControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.homeControl1.Location = new System.Drawing.Point(542, 9);
-            this.homeControl1.Margin = new System.Windows.Forms.Padding(6);
-            this.homeControl1.Name = "homeControl1";
-            this.homeControl1.Size = new System.Drawing.Size(813, 514);
-            this.homeControl1.TabIndex = 0;
-            // 
             // Tabs
             // 
             this.Tabs.Controls.Add(this.UIHome);
@@ -327,7 +280,7 @@
             this.Tabs.Controls.Add(this.UIAccount);
             this.Tabs.Controls.Add(this.UISettings);
             this.Tabs.Controls.Add(this.UIAdministration);
-            this.Tabs.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Tabs.Font = new System.Drawing.Font("Raleway Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Tabs.ItemSize = new System.Drawing.Size(90, 30);
             this.Tabs.Location = new System.Drawing.Point(-1, 0);
             this.Tabs.Multiline = true;
@@ -368,11 +321,57 @@
             // uPlayer1
             // 
             this.uPlayer1.BackColor = System.Drawing.Color.White;
-            this.uPlayer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uPlayer1.Location = new System.Drawing.Point(0, 935);
             this.uPlayer1.Name = "uPlayer1";
             this.uPlayer1.Size = new System.Drawing.Size(1904, 106);
             this.uPlayer1.TabIndex = 2;
+            // 
+            // homeControl1
+            // 
+            this.homeControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.homeControl1.Location = new System.Drawing.Point(542, 9);
+            this.homeControl1.Margin = new System.Windows.Forms.Padding(6);
+            this.homeControl1.Name = "homeControl1";
+            this.homeControl1.Size = new System.Drawing.Size(813, 514);
+            this.homeControl1.TabIndex = 0;
+            // 
+            // SearchControl
+            // 
+            this.SearchControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SearchControl.Location = new System.Drawing.Point(-7, -2);
+            this.SearchControl.Name = "SearchControl";
+            this.SearchControl.Size = new System.Drawing.Size(1901, 897);
+            this.SearchControl.TabIndex = 0;
+            this.SearchControl.SearchEvent += new System.EventHandler<Musics___Client.API.Events.SearchEventArgs>(this.SearchControl_SearchEvent);
+            this.SearchControl.ClearEvent += new System.EventHandler<System.EventArgs>(this.SearchControl_ClearEvent);
+            this.SearchControl.UploadEvent += new System.EventHandler<System.EventArgs>(this.SearchControl_UploadEvent);
+            this.SearchControl.PlayEvent += new System.EventHandler<Musics___Client.API.Events.PlayEventArgs>(this.SearchControl_PlayEvent);
+            this.SearchControl.AddPlaylistEvent += new System.EventHandler<System.EventArgs>(this.SearchControl_AddPlaylistEvent);
+            this.SearchControl.RateEvent += new System.EventHandler<Musics___Client.API.Events.RateEventArgs>(this.SearchControl_RateEvent);
+            this.SearchControl.PathClicked += new System.EventHandler<Musics___Client.API.Events.PathClickedEventArgs>(this.SearchControl_PathClicked);
+            this.SearchControl.EditMusic += new System.EventHandler<Musics___Client.API.Events.EditMusicEventArgs>(this.SearchControl_EditMusic);
+            this.SearchControl.PlaylistSaved += new System.EventHandler<Musics___Client.API.Events.PlaylistSavedEventArgs>(this.SearchControl_PlaylistSaved);
+            // 
+            // FavoriteControl
+            // 
+            this.FavoriteControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FavoriteControl.Location = new System.Drawing.Point(-1, 0);
+            this.FavoriteControl.Margin = new System.Windows.Forms.Padding(6);
+            this.FavoriteControl.Name = "FavoriteControl";
+            this.FavoriteControl.Size = new System.Drawing.Size(1193, 361);
+            this.FavoriteControl.TabIndex = 0;
+            this.FavoriteControl.SearchEvent += new System.EventHandler<Musics___Client.API.Events.RequestBinairiesEventArgs>(this.FavoriteControl_SearchEvent);
+            this.FavoriteControl.PlayAllEvent += new System.EventHandler<Musics___Client.API.Events.PlayEventArgs>(this.FavoriteControl_PlayAllEvent);
+            // 
+            // AccountControl
+            // 
+            this.AccountControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AccountControl.Location = new System.Drawing.Point(2, 0);
+            this.AccountControl.Margin = new System.Windows.Forms.Padding(6);
+            this.AccountControl.Name = "AccountControl";
+            this.AccountControl.Size = new System.Drawing.Size(683, 539);
+            this.AccountControl.TabIndex = 0;
+            this.AccountControl.EditAccountDone += new System.EventHandler<Musics___Client.API.Events.EditAccountEventArgs>(this.AccountControl_EditAccountDone);
             // 
             // Client
             // 

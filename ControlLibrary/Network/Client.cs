@@ -16,6 +16,8 @@ namespace ControlLibrary.Network
 
         public static Token MyToken;
 
+        private static int status = 0;
+
         private static readonly int Bufferlgth = 100000000;
 
         static byte[] recbuffer = new byte[Bufferlgth];
@@ -25,9 +27,11 @@ namespace ControlLibrary.Network
         public delegate void PacketReceivedEvent(object sender, PacketEventArgs a);
         public delegate void PacketReceivedHandler(object sender, PacketEventArgs a);
         public static event PacketReceivedHandler Packetreceived;
-        public static void Connect()
+        public static bool Connect()
         {
-            if (IPAddress.TryParse(AppSettings.ApplicationSettings.Get().ServerIp, out IPAddress iPAddress))
+            status = 0;
+            var ipa = AppSettings.ApplicationSettings.Get().ServerIp;
+            if (IPAddress.TryParse(ipa, out IPAddress iPAddress))
             {
                 IPEndPoint ip = new IPEndPoint(iPAddress, 2003);
                 try
@@ -38,12 +42,17 @@ namespace ControlLibrary.Network
                         ReceiveTimeout = 600000
                     };
                     _clientSocket.BeginConnect(ip, new AsyncCallback(ConnectCallBack), null);
+                    while(status == 0){}
+                    if (status == 1)
+                        return true;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
                 }
             }
+            return false;
         }
 
         private static void ConnectCallBack(IAsyncResult ar)
@@ -52,12 +61,15 @@ namespace ControlLibrary.Network
             {
                 _clientSocket.EndConnect(ar);
 
+                status = 1;
+
                 recevoir = new Thread(new ThreadStart(Receive));
                 recevoir.Start();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                status = 2;
             }
         }
 

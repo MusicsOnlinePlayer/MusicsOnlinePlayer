@@ -19,11 +19,17 @@ namespace Musics___Client.API
         public event LoginHandler LoginSucces;
         public event LoginHandler LoginFailed;
 
-        private LoginServices()
+        private LoginServices() { }
+
+        public bool Connect()
         {
             NetworkClient.ip = IPAddress.Parse(AppSettings.ApplicationSettings.Get().ServerIp);
-            NetworkClient.Connect();
-            NetworkClient.Packetreceived += NetworkClient_Packetreceived;
+            if (NetworkClient.Connect())
+            {
+                NetworkClient.Packetreceived += NetworkClient_Packetreceived;
+                return true;
+            }
+            return false;   
         }
 
         private void NetworkClient_Packetreceived(object sender, PacketEventArgs a)

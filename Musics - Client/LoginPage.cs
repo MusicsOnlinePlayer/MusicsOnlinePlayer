@@ -15,10 +15,7 @@ namespace Musics___Client
         public LoginPage()
         {
             InitializeComponent();
-          
-            NetworkClient.ip = IPAddress.Parse(AppSettings.ApplicationSettings.Get().ServerIp);
-
-            ApplicationSettings.Setup();
+            NetworkClient.ip = IPAddress.Parse(AppSettings.ApplicationSettings.Get().ServerIp);          
         }
 
         Client ClientForm = new Client();
