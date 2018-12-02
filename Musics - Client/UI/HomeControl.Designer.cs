@@ -41,10 +41,11 @@
             // 
             // UIHomeSearchBar
             // 
+            this.UIHomeSearchBar.Font = new System.Drawing.Font("Raleway", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIHomeSearchBar.Location = new System.Drawing.Point(77, 366);
-            this.UIHomeSearchBar.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            this.UIHomeSearchBar.Margin = new System.Windows.Forms.Padding(10);
             this.UIHomeSearchBar.Name = "UIHomeSearchBar";
-            this.UIHomeSearchBar.Size = new System.Drawing.Size(650, 20);
+            this.UIHomeSearchBar.Size = new System.Drawing.Size(650, 23);
             this.UIHomeSearchBar.TabIndex = 6;
             this.UIHomeSearchBar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UIHomeSearchBar_KeyDown);
             // 
@@ -64,7 +65,7 @@
             // UIHomePlaylist
             // 
             this.UIHomePlaylist.AutoSize = true;
-            this.UIHomePlaylist.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIHomePlaylist.Font = new System.Drawing.Font("Raleway", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIHomePlaylist.Location = new System.Drawing.Point(282, 2);
             this.UIHomePlaylist.Name = "UIHomePlaylist";
             this.UIHomePlaylist.Size = new System.Drawing.Size(99, 29);
@@ -76,7 +77,7 @@
             // 
             this.UIHomeMusic.AutoSize = true;
             this.UIHomeMusic.Checked = true;
-            this.UIHomeMusic.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIHomeMusic.Font = new System.Drawing.Font("Raleway", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIHomeMusic.Location = new System.Drawing.Point(186, 2);
             this.UIHomeMusic.Name = "UIHomeMusic";
             this.UIHomeMusic.Size = new System.Drawing.Size(87, 29);
@@ -88,10 +89,10 @@
             // UIHomeAlbum
             // 
             this.UIHomeAlbum.AutoSize = true;
-            this.UIHomeAlbum.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIHomeAlbum.Font = new System.Drawing.Font("Raleway", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIHomeAlbum.Location = new System.Drawing.Point(90, 2);
             this.UIHomeAlbum.Name = "UIHomeAlbum";
-            this.UIHomeAlbum.Size = new System.Drawing.Size(90, 29);
+            this.UIHomeAlbum.Size = new System.Drawing.Size(94, 29);
             this.UIHomeAlbum.TabIndex = 1;
             this.UIHomeAlbum.Text = "Album";
             this.UIHomeAlbum.UseVisualStyleBackColor = true;
@@ -99,10 +100,10 @@
             // UIHomeArtist
             // 
             this.UIHomeArtist.AutoSize = true;
-            this.UIHomeArtist.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIHomeArtist.Font = new System.Drawing.Font("Raleway", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIHomeArtist.Location = new System.Drawing.Point(3, 1);
             this.UIHomeArtist.Name = "UIHomeArtist";
-            this.UIHomeArtist.Size = new System.Drawing.Size(79, 29);
+            this.UIHomeArtist.Size = new System.Drawing.Size(80, 29);
             this.UIHomeArtist.TabIndex = 0;
             this.UIHomeArtist.Text = "Artist";
             this.UIHomeArtist.UseVisualStyleBackColor = true;

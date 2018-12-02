@@ -79,7 +79,7 @@
             // UIEditMusicGenres
             // 
             this.UIEditMusicGenres.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UIEditMusicGenres.Location = new System.Drawing.Point(15, 626);
+            this.UIEditMusicGenres.Location = new System.Drawing.Point(20, 626);
             this.UIEditMusicGenres.Name = "UIEditMusicGenres";
             this.UIEditMusicGenres.Size = new System.Drawing.Size(357, 31);
             this.UIEditMusicGenres.TabIndex = 45;
@@ -88,7 +88,7 @@
             // UIEditMusicName
             // 
             this.UIEditMusicName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UIEditMusicName.Location = new System.Drawing.Point(15, 460);
+            this.UIEditMusicName.Location = new System.Drawing.Point(20, 462);
             this.UIEditMusicName.Name = "UIEditMusicName";
             this.UIEditMusicName.Size = new System.Drawing.Size(683, 31);
             this.UIEditMusicName.TabIndex = 41;
@@ -97,11 +97,11 @@
             // 
             // UITextboxSearch
             // 
-            this.UITextboxSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UITextboxSearch.Font = new System.Drawing.Font("Raleway Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UITextboxSearch.Location = new System.Drawing.Point(10, 4);
-            this.UITextboxSearch.Margin = new System.Windows.Forms.Padding(10);
+            this.UITextboxSearch.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
             this.UITextboxSearch.Name = "UITextboxSearch";
-            this.UITextboxSearch.Size = new System.Drawing.Size(688, 31);
+            this.UITextboxSearch.Size = new System.Drawing.Size(688, 32);
             this.UITextboxSearch.TabIndex = 28;
             this.UITextboxSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UITextboxSearch_KeyDown);
             // 
@@ -154,11 +154,11 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Font = new System.Drawing.Font("Raleway Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label21.Location = new System.Drawing.Point(3, 0);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(155, 25);
+            this.label21.Size = new System.Drawing.Size(150, 25);
             this.label21.TabIndex = 15;
             this.label21.Text = "Playlist Name :";
             this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -168,7 +168,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.23116F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.76884F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 301F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 303F));
             this.tableLayoutPanel1.Controls.Add(this.UIPathMusic, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAlbum, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAuthor, 0, 0);
@@ -183,11 +183,11 @@
             // UIPathMusic
             // 
             this.UIPathMusic.AutoSize = true;
-            this.UIPathMusic.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIPathMusic.Font = new System.Drawing.Font("Raleway ExtraLight", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathMusic.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathMusic.Location = new System.Drawing.Point(321, 0);
+            this.UIPathMusic.Location = new System.Drawing.Point(319, 0);
             this.UIPathMusic.Name = "UIPathMusic";
-            this.UIPathMusic.Size = new System.Drawing.Size(42, 14);
+            this.UIPathMusic.Size = new System.Drawing.Size(39, 14);
             this.UIPathMusic.TabIndex = 19;
             this.UIPathMusic.TabStop = true;
             this.UIPathMusic.Text = "Music";
@@ -195,11 +195,11 @@
             // UIPathAlbum
             // 
             this.UIPathAlbum.AutoSize = true;
-            this.UIPathAlbum.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIPathAlbum.Font = new System.Drawing.Font("Raleway ExtraLight", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathAlbum.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathAlbum.Location = new System.Drawing.Point(150, 0);
+            this.UIPathAlbum.Location = new System.Drawing.Point(149, 0);
             this.UIPathAlbum.Name = "UIPathAlbum";
-            this.UIPathAlbum.Size = new System.Drawing.Size(42, 14);
+            this.UIPathAlbum.Size = new System.Drawing.Size(43, 14);
             this.UIPathAlbum.TabIndex = 18;
             this.UIPathAlbum.TabStop = true;
             this.UIPathAlbum.Text = "Album";
@@ -208,11 +208,11 @@
             // UIPathAuthor
             // 
             this.UIPathAuthor.AutoSize = true;
-            this.UIPathAuthor.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIPathAuthor.Font = new System.Drawing.Font("Raleway ExtraLight", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathAuthor.LinkColor = System.Drawing.Color.Blue;
             this.UIPathAuthor.Location = new System.Drawing.Point(3, 0);
             this.UIPathAuthor.Name = "UIPathAuthor";
-            this.UIPathAuthor.Size = new System.Drawing.Size(49, 14);
+            this.UIPathAuthor.Size = new System.Drawing.Size(44, 14);
             this.UIPathAuthor.TabIndex = 17;
             this.UIPathAuthor.TabStop = true;
             this.UIPathAuthor.Text = "Author";
@@ -221,7 +221,7 @@
             // UIPlaylist
             // 
             this.UIPlaylist.Enabled = false;
-            this.UIPlaylist.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic);
+            this.UIPlaylist.Font = new System.Drawing.Font("Raleway", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPlaylist.FormattingEnabled = true;
             this.UIPlaylist.ItemHeight = 25;
             this.UIPlaylist.Location = new System.Drawing.Point(1069, 460);
@@ -232,11 +232,11 @@
             // UIselectedartist
             // 
             this.UIselectedartist.AutoSize = true;
-            this.UIselectedartist.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIselectedartist.Font = new System.Drawing.Font("Raleway Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIselectedartist.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.UIselectedartist.Location = new System.Drawing.Point(15, 509);
             this.UIselectedartist.Name = "UIselectedartist";
-            this.UIselectedartist.Size = new System.Drawing.Size(92, 25);
+            this.UIselectedartist.Size = new System.Drawing.Size(91, 25);
             this.UIselectedartist.TabIndex = 36;
             this.UIselectedartist.Text = "No artist";
             this.UIselectedartist.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -244,11 +244,11 @@
             // UISelectedGenres
             // 
             this.UISelectedGenres.AutoSize = true;
-            this.UISelectedGenres.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UISelectedGenres.Font = new System.Drawing.Font("Raleway Light", 15.75F);
             this.UISelectedGenres.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.UISelectedGenres.Location = new System.Drawing.Point(11, 629);
+            this.UISelectedGenres.Location = new System.Drawing.Point(18, 626);
             this.UISelectedGenres.Name = "UISelectedGenres";
-            this.UISelectedGenres.Size = new System.Drawing.Size(94, 25);
+            this.UISelectedGenres.Size = new System.Drawing.Size(88, 25);
             this.UISelectedGenres.TabIndex = 34;
             this.UISelectedGenres.Text = "Genres :";
             this.UISelectedGenres.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -256,11 +256,11 @@
             // UISelectedRating
             // 
             this.UISelectedRating.AutoSize = true;
-            this.UISelectedRating.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UISelectedRating.Font = new System.Drawing.Font("Raleway Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UISelectedRating.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.UISelectedRating.Location = new System.Drawing.Point(15, 569);
             this.UISelectedRating.Name = "UISelectedRating";
-            this.UISelectedRating.Size = new System.Drawing.Size(86, 25);
+            this.UISelectedRating.Size = new System.Drawing.Size(82, 25);
             this.UISelectedRating.TabIndex = 33;
             this.UISelectedRating.Text = "Rating :";
             this.UISelectedRating.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -282,9 +282,10 @@
             // UIRadioPlaylist
             // 
             this.UIRadioPlaylist.AutoSize = true;
+            this.UIRadioPlaylist.Font = new System.Drawing.Font("Raleway Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIRadioPlaylist.Location = new System.Drawing.Point(282, 2);
             this.UIRadioPlaylist.Name = "UIRadioPlaylist";
-            this.UIRadioPlaylist.Size = new System.Drawing.Size(99, 29);
+            this.UIRadioPlaylist.Size = new System.Drawing.Size(96, 29);
             this.UIRadioPlaylist.TabIndex = 3;
             this.UIRadioPlaylist.Text = "Playlist";
             this.UIRadioPlaylist.UseVisualStyleBackColor = true;
@@ -293,9 +294,10 @@
             // 
             this.UIRadioMusic.AutoSize = true;
             this.UIRadioMusic.Checked = true;
+            this.UIRadioMusic.Font = new System.Drawing.Font("Raleway Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIRadioMusic.Location = new System.Drawing.Point(189, 2);
             this.UIRadioMusic.Name = "UIRadioMusic";
-            this.UIRadioMusic.Size = new System.Drawing.Size(87, 29);
+            this.UIRadioMusic.Size = new System.Drawing.Size(85, 29);
             this.UIRadioMusic.TabIndex = 2;
             this.UIRadioMusic.TabStop = true;
             this.UIRadioMusic.Text = "Music";
@@ -304,9 +306,10 @@
             // UIRadioAlbum
             // 
             this.UIRadioAlbum.AutoSize = true;
+            this.UIRadioAlbum.Font = new System.Drawing.Font("Raleway Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIRadioAlbum.Location = new System.Drawing.Point(90, 2);
             this.UIRadioAlbum.Name = "UIRadioAlbum";
-            this.UIRadioAlbum.Size = new System.Drawing.Size(90, 29);
+            this.UIRadioAlbum.Size = new System.Drawing.Size(93, 29);
             this.UIRadioAlbum.TabIndex = 1;
             this.UIRadioAlbum.Text = "Album";
             this.UIRadioAlbum.UseVisualStyleBackColor = true;
@@ -314,6 +317,7 @@
             // UIRadioArtist
             // 
             this.UIRadioArtist.AutoSize = true;
+            this.UIRadioArtist.Font = new System.Drawing.Font("Raleway Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIRadioArtist.Location = new System.Drawing.Point(3, 1);
             this.UIRadioArtist.Name = "UIRadioArtist";
             this.UIRadioArtist.Size = new System.Drawing.Size(79, 29);
@@ -324,11 +328,11 @@
             // UISelectedname
             // 
             this.UISelectedname.AutoSize = true;
-            this.UISelectedname.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UISelectedname.Font = new System.Drawing.Font("Raleway Medium", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UISelectedname.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.UISelectedname.Location = new System.Drawing.Point(9, 460);
+            this.UISelectedname.Location = new System.Drawing.Point(14, 460);
             this.UISelectedname.Name = "UISelectedname";
-            this.UISelectedname.Size = new System.Drawing.Size(127, 31);
+            this.UISelectedname.Size = new System.Drawing.Size(141, 31);
             this.UISelectedname.TabIndex = 31;
             this.UISelectedname.Text = "No music";
             this.UISelectedname.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
