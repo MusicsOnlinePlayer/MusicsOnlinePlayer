@@ -66,6 +66,11 @@ namespace Musics___Server.MusicsInformation
                 nodeMID.InnerText = music.MID;
                 nodeMusic.AppendChild(nodeMID);
 
+                if(music.Tags != null)
+                {
+                    XmlAttribute attributetag = doc.CreateAttribute("Tags", string.Join(";", music.Tags.SelectMany(w => w.Name)));
+                    nodeMusic.Attributes.Append(attributetag);
+                }
                 doc.DocumentElement.AppendChild(nodeMusic);
             }
             doc.Save(@"Musics.xml");
@@ -105,6 +110,12 @@ namespace Musics___Server.MusicsInformation
                         nodeMID.InnerText = m.MID;
                         nodeMusic.AppendChild(nodeMID);
 
+                        if (m.Tags != null)
+                        {
+                            XmlAttribute attributetag = doc.CreateAttribute("Tags", string.Join(";", m.Tags.SelectMany(w => w.Name)));
+                            nodeMusic.Attributes.Append(attributetag);
+                        }
+
                         doc.DocumentElement.AppendChild(nodeMusic);
                     }
                 }
@@ -137,7 +148,8 @@ namespace Musics___Server.MusicsInformation
             var music = new Music
             {
                 Title = node["Title"].InnerText,
-                Author = new Author(node["Author"].InnerText)
+                Author = new Author(node["Author"].InnerText),
+                Tags = node.Attributes["Tags"].Value.Split(';')
             };
             int.TryParse(node["Rating"].InnerText, out music.Rating);
 

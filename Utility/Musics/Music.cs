@@ -18,6 +18,7 @@ namespace Utility.Musics
         public byte[] FileBinary { get; set; }
         public uint N { get; set; }
         public override string Name { get => Title; set => Title = value; }
+        public Tags.Tag[] Tags { get; set; }
 
         public Music() { }
         public Music(string title, Author author,Album album, byte[] Filebinary)
