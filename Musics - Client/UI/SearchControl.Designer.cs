@@ -57,6 +57,7 @@
             this.UIAddPlaylistUnder = new System.Windows.Forms.Button();
             this.UIPlayBis = new System.Windows.Forms.Button();
             this.UIListView = new System.Windows.Forms.FlowLayoutPanel();
+            this.UIMusicTags = new System.Windows.Forms.Label();
             this.UIEditPlaylist.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -79,7 +80,7 @@
             // UIEditMusicGenres
             // 
             this.UIEditMusicGenres.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UIEditMusicGenres.Location = new System.Drawing.Point(20, 626);
+            this.UIEditMusicGenres.Location = new System.Drawing.Point(23, 623);
             this.UIEditMusicGenres.Name = "UIEditMusicGenres";
             this.UIEditMusicGenres.Size = new System.Drawing.Size(357, 31);
             this.UIEditMusicGenres.TabIndex = 45;
@@ -99,7 +100,7 @@
             // 
             this.UITextboxSearch.Font = new System.Drawing.Font("Raleway Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UITextboxSearch.Location = new System.Drawing.Point(10, 4);
-            this.UITextboxSearch.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            this.UITextboxSearch.Margin = new System.Windows.Forms.Padding(10);
             this.UITextboxSearch.Name = "UITextboxSearch";
             this.UITextboxSearch.Size = new System.Drawing.Size(688, 32);
             this.UITextboxSearch.TabIndex = 28;
@@ -168,7 +169,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.23116F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.76884F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 303F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 304F));
             this.tableLayoutPanel1.Controls.Add(this.UIPathMusic, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAlbum, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAuthor, 0, 0);
@@ -185,7 +186,7 @@
             this.UIPathMusic.AutoSize = true;
             this.UIPathMusic.Font = new System.Drawing.Font("Raleway ExtraLight", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathMusic.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathMusic.Location = new System.Drawing.Point(319, 0);
+            this.UIPathMusic.Location = new System.Drawing.Point(318, 0);
             this.UIPathMusic.Name = "UIPathMusic";
             this.UIPathMusic.Size = new System.Drawing.Size(39, 14);
             this.UIPathMusic.TabIndex = 19;
@@ -246,7 +247,7 @@
             this.UISelectedGenres.AutoSize = true;
             this.UISelectedGenres.Font = new System.Drawing.Font("Raleway Light", 15.75F);
             this.UISelectedGenres.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.UISelectedGenres.Location = new System.Drawing.Point(18, 626);
+            this.UISelectedGenres.Location = new System.Drawing.Point(18, 629);
             this.UISelectedGenres.Name = "UISelectedGenres";
             this.UISelectedGenres.Size = new System.Drawing.Size(88, 25);
             this.UISelectedGenres.TabIndex = 34;
@@ -411,10 +412,23 @@
             this.UIListView.Size = new System.Drawing.Size(1860, 385);
             this.UIListView.TabIndex = 47;
             // 
+            // UIMusicTags
+            // 
+            this.UIMusicTags.AutoSize = true;
+            this.UIMusicTags.Font = new System.Drawing.Font("Raleway Light", 15.75F);
+            this.UIMusicTags.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.UIMusicTags.Location = new System.Drawing.Point(18, 686);
+            this.UIMusicTags.Name = "UIMusicTags";
+            this.UIMusicTags.Size = new System.Drawing.Size(66, 25);
+            this.UIMusicTags.TabIndex = 48;
+            this.UIMusicTags.Text = "Tags :";
+            this.UIMusicTags.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // SearchControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.UIMusicTags);
             this.Controls.Add(this.UIListView);
             this.Controls.Add(this.UIPlaylistClear);
             this.Controls.Add(this.UIEditMusicGenres);
@@ -479,5 +493,6 @@
         private System.Windows.Forms.Button UIPlayBis;
         private System.Windows.Forms.Label UISelectedname;
         private System.Windows.Forms.FlowLayoutPanel UIListView;
+        private System.Windows.Forms.Label UIMusicTags;
     }
 }

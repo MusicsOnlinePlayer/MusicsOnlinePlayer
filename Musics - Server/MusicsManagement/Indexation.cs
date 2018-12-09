@@ -227,14 +227,11 @@ namespace Musics___Server.MusicsManagement
             if (Indexation.IsElementExisting(tmp.MusicPart))
             {
                 if (IsElementExisting(tmp.MusicPart.Musics.First()))
-                {
                     return false;
-                }
                 else
-                {
                     if (AddMusic(tmp))
                         return true;
-                }
+
             }
             else
             {

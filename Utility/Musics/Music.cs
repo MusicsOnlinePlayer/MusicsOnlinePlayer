@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Utility.Musics
 {
@@ -18,7 +19,7 @@ namespace Utility.Musics
         public byte[] FileBinary { get; set; }
         public uint N { get; set; }
         public override string Name { get => Title; set => Title = value; }
-        public Tags.Tag[] Tags { get; set; }
+        public List<Tags.Tag> Tags = new List<Tags.Tag>();
 
         public Music() { }
         public Music(string title, Author author,Album album, byte[] Filebinary)

@@ -33,6 +33,7 @@ namespace Musics___Server
             MyServer.Log.Info("Indexation of all musics....  ");
             MyServer.Log.Info(Indexation.Do(Properties.Settings.Default.UseMultiThreading) + "Musics");
             MyServer.Log.Info("Indexation done.");
+            //Indexation.ServerMusics[0].Albums[0].Musics.First().Tags[0] = new Utility.Musics.Tags.Tag("test");
             Indexation.SaveAllInfos();
 
             CommandLineInterpreter.Instance.Start();

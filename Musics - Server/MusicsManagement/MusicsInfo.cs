@@ -28,7 +28,7 @@ namespace Musics___Server.MusicsInformation
 
             doc.Load(@"Musics.xml");
 
-            if (TryFindMusic(OldMID, out XmlNode node))
+            if (TryFindMusic(OldMID, out XmlNode node))//TODO : Add tags edition
             {
                 node["Title"].InnerText = NewMusicInfo.Title;
                 node["Author"].InnerText = NewMusicInfo.Author.Name;
@@ -149,7 +149,7 @@ namespace Musics___Server.MusicsInformation
             {
                 Title = node["Title"].InnerText,
                 Author = new Author(node["Author"].InnerText),
-                Tags = node.Attributes["Tags"].Value.Split(';')
+                Tags = node.Attributes.Count == 1 ? node.Attributes["Tags"].Value.Split(';').Select(x => new Utility.Musics.Tags.Tag(x)).ToList() : null
             };
             int.TryParse(node["Rating"].InnerText, out music.Rating);
 

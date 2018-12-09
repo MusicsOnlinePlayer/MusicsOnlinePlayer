@@ -179,6 +179,7 @@ namespace Musics___Client.UI
             UISelectedname.Text = author.Name;
             UIselectedartist.Text = string.Empty;
             UISelectedRating.Text = "Rating : ";
+            UIMusicTags.Text = "";
 
             UIPathAuthor.Text = author.Name;
             UIPathAlbum.Text = string.Empty;
@@ -192,6 +193,7 @@ namespace Musics___Client.UI
             UIselectedartist.Text = album.Author.Name;
             UISelectedRating.Text = "Rating : ";
             UISelectedGenres.Text = $"Genres : {string.Join(" ", album.Musics.First().Genre)}";
+            UIMusicTags.Text = "";
 
             UIPathAuthor.Text = album.Author.Name;
             UIPathAlbum.Text = album.Name;
@@ -205,8 +207,10 @@ namespace Musics___Client.UI
             UIselectedartist.Text = music.Author.Name;
             UISelectedRating.Text = $"Rating : {music.Rating}";
             UISelectedGenres.Text = $"Genres :  {string.Join(" ", music.Genre)}";
-            UIThumbup.Visible = true;
+            if(music.Tags != null)
+                UIMusicTags.Text = $"Tags : {string.Join(" ", music.Tags.Select(x => x.Name))}";//Todo : add colors to tags
 
+            UIThumbup.Visible = true;
             UIPathAuthor.Text = music.Author.Name;
             UIPathAlbum.Text = music.Album.Name;
             UIPathMusic.Text = music.Title;

@@ -33,11 +33,11 @@ namespace Musics___Client
             ThreadSafeClose();
 
             NetworkClient.NetworkError += NetworkClient_NetworkError;
-            Invoke((MethodInvoker)delegate
-            {
+            //Invoke((MethodInvoker)delegate
+            //{
                 ClientForm = new Client();
                 ClientForm.ShowDialog();
-            });
+            //});
         }
 
         private void NetworkClient_NetworkError(object sender, NetworkEventArgs a)

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Utility.Musics.Tags
 {
+    [Serializable]
     public class Tag
     {
         public Tag(string name)
