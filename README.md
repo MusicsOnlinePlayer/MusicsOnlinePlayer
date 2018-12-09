@@ -59,6 +59,9 @@ You can also create your own playlist and save it to your account through the se
 ### Hue
 The client can handle the hue sytem and create a dico like ambiance. In the `Settings` menu you can connect to you own hue bridge to get an **API key** or if you already know it you can enter directly.
 
+Here is a screenshot of the hue setting tab :
+![Image of the hue control](https://github.com/MusicsOnlinePlayer/MusicsOnlinePlayer/blob/master/Image/CaptureAPP2.PNG)
+
 ### Rank
 In this music player there is multiple rank. Each rank have different permissions. Here is a list with some details :
  - `Viewer` the lowest rank. This allows the user to listen music and rate it, nothing more.
