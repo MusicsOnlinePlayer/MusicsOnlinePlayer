@@ -9,6 +9,9 @@ Free musics player made in c#.
 Any help is welcome, i can also speack french if you want.
 Please consider that my code isn't perfect (and my english) so to enchance it you can make a pull request.
 
+Here is some screenshot of the application :
+![Image of the search control](https://github.com/MusicsOnlinePlayer/MusicsOnlinePlayer/blob/master/Image/CaptureAPP.PNG)
+
 ## Introduction
 The project is made arround 3 mains subjects : The Server, the client and the utility file ( a common library ).
 Here is a simple summary on how it works :
