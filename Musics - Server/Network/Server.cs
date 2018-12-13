@@ -53,10 +53,15 @@ namespace Musics___Server.Network
             }
 
             socket.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.Partial, ReceiveCallback, socket);
+            AddUserFromSocket(socket);
+            serverSocket.BeginAccept(AcceptCallback, null);
+        }
+
+        private void AddUserFromSocket(Socket socket)
+        {
             Clients.AddUser(new User(), socket);
             IPEndPoint ipep = socket.RemoteEndPoint as IPEndPoint;
             Log.Info("Client connected with ip : " + ipep.Address.ToString());
-            serverSocket.BeginAccept(AcceptCallback, null);
         }
 
         private void ReceiveCallback(IAsyncResult ar)
@@ -73,11 +78,7 @@ namespace Musics___Server.Network
                 Log.Info("Client disconnected =(");
                 Clients.Remove(current);
             }
-
-            byte[] recBuf = new byte[received];
-            Array.Copy(buffer, recBuf, received);
-
-            Program.TreatRequest(recBuf, current);
+            GetMessage(current, received);
             //recBuf = new byte[BUFFER_SIZE];
 
             try
@@ -89,6 +90,14 @@ namespace Musics___Server.Network
                 Log.Info("Client disconnected =(");
                 Clients.Remove(current);
             }
+        }
+
+        private static void GetMessage(Socket current, int received)
+        {
+            byte[] recBuf = new byte[received];
+            Array.Copy(buffer, recBuf, received);
+
+            Program.TreatRequest(recBuf, current);
         }
 
         public void SendObject(object obj, Socket socket)
