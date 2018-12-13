@@ -22,7 +22,7 @@ namespace Musics___Client.API
         private LoginServices() { }
 
         public bool Connect()
-        {
+        {   
             NetworkClient.ip = IPAddress.Parse(AppSettings.ApplicationSettings.Get().ServerIp);
             if (NetworkClient.Connect())
             {
