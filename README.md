@@ -9,6 +9,9 @@ Free musics player made in c#.
 Any help is welcome, i can also speack french if you want.
 Please consider that my code isn't perfect (and my english) so to enchance it you can make a pull request.
 
+Here is some screenshot of the application :
+![Image of the search control](https://github.com/MusicsOnlinePlayer/MusicsOnlinePlayer/blob/master/Image/CaptureAPP.PNG)
+
 ## Introduction
 The project is made arround 3 mains subjects : The Server, the client and the utility file ( a common library ).
 Here is a simple summary on how it works :
@@ -55,6 +58,9 @@ You can also create your own playlist and save it to your account through the se
 
 ### Hue
 The client can handle the hue sytem and create a dico like ambiance. In the `Settings` menu you can connect to you own hue bridge to get an **API key** or if you already know it you can enter directly.
+
+Here is a screenshot of the hue setting tab :
+![Image of the hue control](https://github.com/MusicsOnlinePlayer/MusicsOnlinePlayer/blob/master/Image/CaptureAPP2.PNG)
 
 ### Rank
 In this music player there is multiple rank. Each rank have different permissions. Here is a list with some details :
