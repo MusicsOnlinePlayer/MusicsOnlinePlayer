@@ -1,6 +1,6 @@
 ﻿namespace Musics___Server.MusicsManagement
 {
-    static class Search
+    public static class Search
     {
         public static bool Find(string s, string t)
         {

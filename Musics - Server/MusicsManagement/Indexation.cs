@@ -16,7 +16,7 @@ using Utility.Network;
 
 namespace Musics___Server.MusicsManagement
 {
-    static class Indexation
+    public static class Indexation
     {
         public static List<Author> ServerMusics = new List<Author>();
 
@@ -267,7 +267,7 @@ namespace Musics___Server.MusicsManagement
             return path;
         }
 
-        private static bool AddMusic(UploadMusic tmp)
+        public static bool AddMusic(UploadMusic tmp)
         {
             var music = tmp.MusicPart.Musics.First();
             string path = Path.Combine(GetElementPath(tmp.MusicPart), music.Title + music.Format);
@@ -316,7 +316,6 @@ namespace Musics___Server.MusicsManagement
         public static Music GetMusic(Element element)
             => GetMusicByID(element.MID);
         public static Music GetMusicByID(string MID)
-
             => GetAllMusics().SingleOrDefault(m => m.MID == MID);
 
         public static string GetElementPath(Element element)
