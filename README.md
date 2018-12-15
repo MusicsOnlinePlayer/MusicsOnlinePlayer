@@ -1,6 +1,6 @@
 ![Logo](https://github.com/MalauD/MusicsOnlinePlayer/blob/master/Image/MusicicodLarge.png)
 
-[![Build Status](https://dev.azure.com/ProjectMOP/MusicsOnlinePlayer_Application/_apis/build/status/MalauD.MusicsOnlinePlayer%20Ci_Implementation?branchName=CI-Implementation)](https://dev.azure.com/ProjectMOP/MusicsOnlinePlayer_Application/_build/latest?definitionId=2?branchName=CI-Implementation)
+[![Build Status](https://dev.azure.com/ProjectMOP/MusicsOnlinePlayer_Application/_apis/build/status/MusicsOnlinePlayer.MusicsOnlinePlayer?branchName=master)](https://dev.azure.com/ProjectMOP/MusicsOnlinePlayer_Application/_build/latest?definitionId=3?branchName=master)
 
 [![Slack Status](https://img.shields.io/badge/Chat-Slack-blue.svg)](https://musicsonlineplayer.slack.com/messages/CCPGPKRK6/details/)
 
