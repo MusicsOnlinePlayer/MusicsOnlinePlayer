@@ -43,7 +43,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
         private static void DoMusic(RequestSearch requestSearch, Socket asker)
         {
             var result = Indexation.GetAllMusics()
-                 .Where(m => Search.Find(requestSearch.Name, m.Title)).OrderBy(x => Search.FindStrength(requestSearch.Name,x.Title));
+                 .Where(m => Search.Find(requestSearch.Name, m.Title)).OrderBy(x => Search.FindStrength(requestSearch.Name,x.Title)).OrderByDescending(x => x.Rating);
             foreach (var m in result)
                 MyServer.Log.Info("  " + m.Title);
              
