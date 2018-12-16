@@ -76,8 +76,8 @@
     <Reference Include="CodeCraft.EnumExtension, Version=1.0.1.0, Culture=neutral, PublicKeyToken=69ec44bc4a2068d2, processorArchitecture=MSIL">
       <HintPath>..\packages\CodeCraft.EnumExtension.1.0.1\lib\netstandard2.0\CodeCraft.EnumExtension.dll</HintPath>
     </Reference>
-    <Reference Include="CodeCraft.Logger, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CodeCraft.Logger.0.1.0-alpha\lib\netstandard2.0\CodeCraft.Logger.dll</HintPath>
+    <Reference Include="CodeCraft.Logger, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CodeCraft.Logger.0.2.1-alpha\lib\netstandard2.0\CodeCraft.Logger.dll</HintPath>
     </Reference>
     <Reference Include="policy.2.0.taglib-sharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
       <HintPath>..\packages\taglib.2.1.0.0\lib\policy.2.0.taglib-sharp.dll</HintPath>
@@ -120,9 +120,12 @@
     <Compile Include="MusicsManagement\Search.cs" />
     <Compile Include="MusicsManagement\Trending\Trending.cs" />
     <Compile Include="Network\ClientList.cs" />
-    <Compile Include="Network\Handle\Login.cs" />
-    <Compile Include="Network\Handle\Rates.cs" />
-    <Compile Include="Network\Handle\Requests.cs" />
+    <Compile Include="Services\PlaylistService.cs" />
+    <Compile Include="Services\RatesService.cs" />
+    <Compile Include="Services\RequestsService.cs" />
+    <Compile Include="Services\EditService.cs" />
+    <Compile Include="Services\EditUserService.cs" />
+    <Compile Include="Services\EventsArgs\PacketEventArgs.cs" />
     <Compile Include="Network\ReceiveArgs.cs" />
     <Compile Include="Network\Server.cs" />
     <Compile Include="Network\ServerClient.cs" />
@@ -133,6 +136,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Services\LoginService.cs" />
+    <Compile Include="Services\Service.cs" />
+    <Compile Include="Services\UploadService.cs" />
     <Compile Include="Users\Auth.cs" />
     <Compile Include="MusicsManagement\Indexation.cs" />
     <Compile Include="Program.cs" />

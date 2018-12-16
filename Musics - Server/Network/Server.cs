@@ -1,6 +1,6 @@
-﻿
-using CodeCraft.Logger;
+﻿using CodeCraft.Logger;
 using Musics___Server.Authentification;
+using Musics___Server.Services.EventsArgs;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -21,6 +21,10 @@ namespace Musics___Server.Network
         public AuthentificationService AuthService = new AuthentificationService();
 
         public ConsoleLogger Log { get; } = new ConsoleLogger();
+
+        public delegate void PacketReceivedEvent(object sender, PacketEventArgs a);
+        public delegate void PacketReceivedHandler(object sender, PacketEventArgs a);
+        public event PacketReceivedHandler OnPacketreceived;
 
         public void Setup()
         {
@@ -93,12 +97,44 @@ namespace Musics___Server.Network
             }
         }
 
-        private static void GetMessage(Socket current, int received)
+        private void GetMessage(Socket current, int received)
         {
             byte[] recBuf = new byte[received];
             Array.Copy(buffer, recBuf, received);
 
-            Program.TreatRequest(recBuf, current);
+            IPacket PacketRec;
+
+            try
+            {
+                PacketRec = (IPacket)Function.Deserialize(new MessageTCP(recBuf));
+            }
+            catch { return; }
+
+            try
+            {
+                var a = Clients.GetUser(current).UID != null;
+
+                if (!Tokenlist.CheckTokenValidity((PacketRec as Packet).Token, current))
+                {
+                    Log.Warn($"Client Token not valide (THash : {(PacketRec as Packet).Token?.THash})");
+                    return;
+                }
+            }
+            catch { }
+
+            if (PacketRec is Disconnect)
+                TreatDisconnect(current);
+
+            OnPacketreceived(current, new PacketEventArgs(PacketRec));
+
+            //Program.TreatRequest(recBuf, current);
+        }
+
+        private void TreatDisconnect(Socket socket)
+        {
+            Tokenlist.RemoveToken(socket);
+            Log.Warn("Client disconnected =(");
+            Clients.Remove(socket);
         }
 
         public void SendObject(object obj, Socket socket)

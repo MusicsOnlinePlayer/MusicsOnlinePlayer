@@ -8,11 +8,21 @@ using Utility.Network.Dialog;
 using Utility.Network.Dialog.Requests;
 using Utility.Network.Users;
 
-namespace Musics___Server.Network.Handle
+namespace Musics___Server.Services
 {
-    static class Requests
+    public  class RequestsService
     {
-        public static void Handle(Request request, Socket socket)
+        public RequestsService()
+        {
+            Program.MyServer.OnPacketreceived += MyServer_OnPacketreceived;
+        }
+
+        private void MyServer_OnPacketreceived(object sender, EventsArgs.PacketEventArgs a)
+        {
+            if (a.Packet is Request)
+                Handle(a.Packet as Request, sender as Socket);
+        }
+        public void Handle(Request request, Socket socket)
         {
             switch (request.RequestsType)
             {

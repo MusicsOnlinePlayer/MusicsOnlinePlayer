@@ -7,10 +7,21 @@ using Utility.Network.Dialog;
 using Utility.Network.Dialog.Rating;
 using Utility.Network.Users;
 
-namespace Musics___Server.Network.Handle
+namespace Musics___Server.Services
 {
-    public static class Rates
+    public class RatesServices
     {
+        public RatesServices()
+        {
+            Program.MyServer.OnPacketreceived += MyServer_OnPacketreceived;
+        }
+
+        private void MyServer_OnPacketreceived(object sender, EventsArgs.PacketEventArgs a)
+        {
+            if (a.Packet is Rate)
+                Handle(a.Packet as Rate, sender as Socket);
+        }
+
         public static void Handle(Rate temp, Socket socket)
         {
             bool VoteExist = UsersInfos.VoteExist(temp.MusicRatedMID, Program.MyServer.Clients[socket]);
