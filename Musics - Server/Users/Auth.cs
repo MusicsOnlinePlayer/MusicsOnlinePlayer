@@ -4,7 +4,7 @@ using Utility.Network.Users;
 using System.Linq;
 namespace Musics___Server.Authentification
 {
-    class AuthentificationService
+    public class AuthentificationService
     {       
         public void SetupAuth()
         {

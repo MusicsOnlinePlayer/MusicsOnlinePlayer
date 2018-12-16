@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography;
 
 namespace Utility.Network
 {
@@ -35,6 +37,17 @@ namespace Utility.Network
             foreach (string FileFilter in MultipleFilters)
                 alFiles.AddRange(Directory.GetFiles(SourceFolder, FileFilter, searchOption));
             return (string[])alFiles.ToArray();
+        }
+
+        public static string GetMD5(string filepath)
+        {
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(filepath))
+                {
+                    return BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", "").ToLower();
+                }
+            }
         }
     }
 }

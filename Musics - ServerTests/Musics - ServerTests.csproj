@@ -60,6 +60,7 @@
     <Compile Include="MusicsManagement\SearchTests.cs" />
     <Compile Include="Network\TokenListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Users\AuthentificationServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
