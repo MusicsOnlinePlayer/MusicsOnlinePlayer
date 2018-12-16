@@ -137,11 +137,12 @@ namespace Musics___Server
 
                     if (auth.IsSignup)
                     {
-                        AuthInfo authInfo = new AuthInfo(true, Rank.Viewer, auth.LoginInfo.UID);
+                        AuthInfo authInfo = new AuthInfo(true, Rank.Viewer,new User(auth.LoginInfo));
                         MyServer.AuthService.SignupUser(auth.LoginInfo);
                         MyServer.Clients.Remove(socket);
                         MyServer.Clients.AddUser(auth.LoginInfo, socket);
-                        
+                        if (!MyServer.Tokenlist.AddToken(socket, authInfo.Token))
+                            return;
                         MyServer.SendObject(authInfo, socket);
                     }
                     else

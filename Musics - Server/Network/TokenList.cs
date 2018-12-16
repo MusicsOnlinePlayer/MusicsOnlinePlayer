@@ -16,8 +16,13 @@ namespace Musics___Server.Network
         }
 
         public bool CheckTokenValidity(Token token, Socket socket)
-            => this[socket].THash == token.THash;
-
+        {
+            if(TryGetValue(socket, out Token tk))
+            {
+                return tk.THash == token.THash;
+            }
+            return false;
+        }
         public void RemoveToken(Socket socket)
             => Remove(socket);
     }

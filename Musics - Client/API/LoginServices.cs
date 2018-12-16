@@ -51,10 +51,9 @@ namespace Musics___Client.API
             }
            
         }
-        public void LogIn(CryptedCredentials cryptedCredentials)
+        public void LogIn(CryptedCredentials cryptedCredentials,bool IsSignup)
         {
-       
-            NetworkClient.SendObject(new Login(cryptedCredentials, false));
+            NetworkClient.SendObject(new Login(cryptedCredentials, IsSignup));
         }
     }
 }

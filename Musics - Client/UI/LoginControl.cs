@@ -19,7 +19,7 @@ namespace Musics___Client.UI
 
         private void SignInButton_Click(object sender, EventArgs e)
         {
-            LoginServices.Instance.LogIn(credentialControl.User);
+            LoginServices.Instance.LogIn(credentialControl.User,IsSignup);
         }
 
         private void LoginControl_Load(object sender, EventArgs e)
@@ -78,6 +78,17 @@ namespace Musics___Client.UI
         private void SettingsForm_FormClosing(object sender, FormClosedEventArgs e)
         {
             InitControl();
+        }
+
+        public bool IsSignup = false;
+
+        private void UIRegsisterLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!IsSignup)
+                LoginLabel.Text = "Sign up";
+            else
+                LoginLabel.Text = "Log in";
+            IsSignup = !IsSignup;  
         }
     }
 }

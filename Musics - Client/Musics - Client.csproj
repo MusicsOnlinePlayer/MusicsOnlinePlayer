@@ -277,12 +277,6 @@
     <Compile Include="UI\SearchControl.Designer.cs">
       <DependentUpon>SearchControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SignInControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\SignInControl.Designer.cs">
-      <DependentUpon>SignInControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Upload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -326,9 +320,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SearchControl.resx">
       <DependentUpon>SearchControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\SignInControl.resx">
-      <DependentUpon>SignInControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Upload.resx">
       <DependentUpon>Upload.cs</DependentUpon>

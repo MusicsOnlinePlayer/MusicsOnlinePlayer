@@ -31,6 +31,7 @@ namespace Musics___Server.Network.Tests
 
             Assert.AreEqual(true, TkL.CheckTokenValidity( tk,sk));
             Assert.AreEqual(false, TkL.CheckTokenValidity(new Utility.Network.Token("Test2"), sk));
+            Assert.AreEqual(false, TkL.CheckTokenValidity(tk, new System.Net.Sockets.Socket(System.Net.Sockets.SocketType.Raw, System.Net.Sockets.ProtocolType.Icmp)));
         }
     }
 }
