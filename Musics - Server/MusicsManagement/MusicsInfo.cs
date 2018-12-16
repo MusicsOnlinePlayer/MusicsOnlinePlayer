@@ -66,10 +66,11 @@ namespace Musics___Server.MusicsInformation
                 nodeMID.InnerText = music.MID;
                 nodeMusic.AppendChild(nodeMID);
 
-                if(music.Tags != null)
+                if(music.Tags.Count != 0)
                 {
-                    XmlAttribute attributetag = doc.CreateAttribute("Tags", string.Join(";", music.Tags.SelectMany(w => w.Name)));
-                    nodeMusic.Attributes.Append(attributetag);
+                    XmlNode nodetag = doc.CreateElement("Tags");
+                    nodetag.InnerText = string.Join(";", music.Tags.Select(w => w.Name));
+                    nodeMusic.AppendChild(nodetag);
                 }
                 doc.DocumentElement.AppendChild(nodeMusic);
             }
@@ -110,10 +111,11 @@ namespace Musics___Server.MusicsInformation
                         nodeMID.InnerText = m.MID;
                         nodeMusic.AppendChild(nodeMID);
 
-                        if (m.Tags != null)
+                        if (m.Tags.Count != 0)
                         {
-                            XmlAttribute attributetag = doc.CreateAttribute("Tags", string.Join(";", m.Tags.SelectMany(w => w.Name)));
-                            nodeMusic.Attributes.Append(attributetag);
+                            XmlNode nodetag = doc.CreateElement("Tags");
+                            nodetag.InnerText = string.Join(";", m.Tags.Select(w => w.Name));
+                            nodeMusic.AppendChild(nodetag);
                         }
 
                         doc.DocumentElement.AppendChild(nodeMusic);
@@ -145,11 +147,12 @@ namespace Musics___Server.MusicsInformation
 
         public static Music GetMusicInfo(XmlNode node)
         {
+            var ags = node["Tags"]?.InnerText.Split(';');
             var music = new Music
             {
                 Title = node["Title"].InnerText,
                 Author = new Author(node["Author"].InnerText),
-                Tags = node.Attributes.Count == 1 ? node.Attributes["Tags"].Value.Split(';').Select(x => new Utility.Musics.Tags.Tag(x)).ToList() : null
+                Tags = node["Tags"]?.InnerText.Split(';').Select(x => new Utility.Musics.Tags.Tag(x)).ToList()
             };
             int.TryParse(node["Rating"].InnerText, out music.Rating);
 

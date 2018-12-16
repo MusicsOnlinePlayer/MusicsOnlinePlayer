@@ -146,7 +146,9 @@ namespace Musics___Server.MusicsManagement
                 }
                 if (MusicsInfo.TryFindMusic(current.MID, out XmlNode node))
                 {
-                    current.Rating = MusicsInfo.GetMusicInfo(current.MID).Rating;
+                    var a = MusicsInfo.GetMusicInfo(node);
+                    current.Rating = a.Rating;
+                    current.Tags = a.Tags;
                 }
 
                 NumberofMusics++;
