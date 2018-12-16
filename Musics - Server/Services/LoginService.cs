@@ -52,7 +52,7 @@ namespace Musics___Server.Services
                 {
                     var foundUser = UsersInfos.GetAllUsers().SingleOrDefault(u => u.UID == auth.LoginInfo.UID);
                     var isRegister = foundUser != null;
-                    AuthInfo authInfo = new AuthInfo(true, Rank.Viewer, foundUser);
+                    AuthInfo authInfo = new AuthInfo(isRegister, Rank.Viewer, foundUser);
                     if (!Program.MyServer.Tokenlist.AddToken(socket, authInfo.Token))
                         return;
                     if (isRegister)
