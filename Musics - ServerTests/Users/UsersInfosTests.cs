@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Xml;
 using Utility.Network;
+using Utility.Network.Users;
 
 namespace Musics___Server.Usersinfos.Tests
 {
@@ -27,7 +28,6 @@ namespace Musics___Server.Usersinfos.Tests
             doc.Save(@"users.xml");
 
             Assert.AreEqual("3f8c88f5cad87ebbae3ad701842c876e", Function.GetMD5(@"users.xml"));
-            File.Delete(@"users.xml");
         }
 
         [TestMethod()]
@@ -47,7 +47,6 @@ namespace Musics___Server.Usersinfos.Tests
             UsersInfos.RemoveVoteByNode("MusicMID", nodes[0]);
             doc.Save(@"users.xml");
             Assert.AreEqual("e0424ec3aad221f0f22836728db397f7", Function.GetMD5(@"users.xml"));
-            File.Delete(@"users.xml");
         }
 
         [TestMethod()]
@@ -63,7 +62,6 @@ namespace Musics___Server.Usersinfos.Tests
             Assert.AreEqual("3f8c88f5cad87ebbae3ad701842c876e", Function.GetMD5(@"users.xml"));
             UsersInfos.AddVoteMusic("MusicMID", "abc");
             Assert.AreEqual("e0424ec3aad221f0f22836728db397f7", Function.GetMD5(@"users.xml"));
-            File.Delete(@"users.xml");
         }
 
         [TestMethod()]
@@ -79,7 +77,6 @@ namespace Musics___Server.Usersinfos.Tests
             Assert.AreEqual(false, UsersInfos.VoteExist("IncorrectMID", "abc"));
             Assert.AreEqual(false, UsersInfos.VoteExist("MusicMID", "IncorrectUID"));
             Assert.AreEqual(true, UsersInfos.VoteExist("MusicMID", "abc"));
-            File.Delete(@"users.xml");
         }
 
         [TestMethod()]
@@ -95,7 +92,6 @@ namespace Musics___Server.Usersinfos.Tests
             Assert.AreEqual(true, getall[0].UID == "abc");
             Assert.AreEqual(true, getall[1].Name == "User2");
             Assert.AreEqual(true, getall[1].UID == "abc2");
-            File.Delete(@"users.xml");
         }
 
         [TestMethod()]
@@ -111,7 +107,6 @@ namespace Musics___Server.Usersinfos.Tests
 
             var getuser2 = UsersInfos.GetUser("abC");
             Assert.AreEqual(true, getuser2 == null);
-            File.Delete(@"users.xml");
         }
 
         [TestMethod()]
@@ -124,7 +119,34 @@ namespace Musics___Server.Usersinfos.Tests
             var getuser = UsersInfos.SearchUser("User1");
             Assert.AreEqual(true, getuser[0].Name == "User1");
             Assert.AreEqual(true, getuser[0].UID == "abc");
+        }
+
+        [TestMethod()]
+        public void GetRankOfUserTest()
+        {
+            Authentification.AuthentificationService a = new Authentification.AuthentificationService();
+            a.SetupAuth();
+            a.SignupUser(new Utility.Network.Users.CryptedCredentials("User1", "abc"));
+            Assert.AreEqual(true, UsersInfos.GetRankOfUser("abc") == Rank.Viewer);
+            Assert.AreEqual(true, UsersInfos.GetRankOfUser("abC") == Rank.Viewer);//TODO: add some test for other rank
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
             File.Delete(@"users.xml");
+        }
+
+        [TestMethod()]
+        public void SetRankOfUserTest()
+        {
+            //59fdab60bac3fb5c3bdf9e8cb772e637
+            Authentification.AuthentificationService a = new Authentification.AuthentificationService();
+            a.SetupAuth();
+            a.SignupUser(new Utility.Network.Users.CryptedCredentials("User1", "abc"));
+
+            UsersInfos.SetRankOfUser("abc", Rank.Creator);
+            Assert.AreEqual("59fdab60bac3fb5c3bdf9e8cb772e637", Function.GetMD5(@"users.xml"));
         }
     }
 }
