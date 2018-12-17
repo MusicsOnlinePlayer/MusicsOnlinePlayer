@@ -55,6 +55,7 @@ namespace Musics___Server.Authentification.Tests
             a.SignupUser(new Utility.Network.Users.CryptedCredentials("User1", "abc"));
             Assert.AreEqual(true, a.UserIDExist("abc"));
             Assert.AreEqual(false, a.UserIDExist("abC"));
+            File.Delete(@"users.xml");
         }
     }
 }

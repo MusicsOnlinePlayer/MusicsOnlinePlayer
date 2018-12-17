@@ -8,7 +8,7 @@ using Utility.Network.Users;
 
 namespace Musics___Server.Usersinfos
 {
-    static class UsersInfos
+    public static class UsersInfos
     {
         public static void AddVoteMusic(string MID, string UID)
         {
@@ -23,29 +23,38 @@ namespace Musics___Server.Usersinfos
                 {
                     if (VoteExist(MID, UID))
                     {
-                        XmlNodeList nodesMusics = n.SelectNodes("RatedMusics/Music");
-                        foreach (XmlNode nM in nodesMusics)
-                        {
-                            if (nM["MID"].InnerText == MID)
-                            {
-                                nM.ParentNode.RemoveChild(nM);
-                            }
-                        }
-                        doc.Save(@"users.xml");
+                        RemoveVoteByNode(MID, n);
                     }
                     else
                     {
-                        XmlNode musicNode = doc.CreateElement("Music");
-
-                        XmlNode nodeMID = doc.CreateElement("MID");
-                        nodeMID.InnerText = MID;
-                        musicNode.AppendChild(nodeMID);
-
-                        n["RatedMusics"].AppendChild(musicNode);
-                        doc.Save(@"users.xml");
+                        CreateVoteByNode(MID, doc, n);
                     }
+                    doc.Save(@"users.xml");
                 }
             }
+        }
+
+        public static void CreateVoteByNode(string MID, XmlDocument doc, XmlNode n)
+        {
+            XmlNode musicNode = doc.CreateElement("Music");
+
+            XmlNode nodeMID = doc.CreateElement("MID");
+            nodeMID.InnerText = MID;
+            musicNode.AppendChild(nodeMID);
+
+            n["RatedMusics"].AppendChild(musicNode);
+        }
+
+        public static void RemoveVoteByNode(string MID, XmlNode n)
+        {
+            XmlNodeList nodesMusics = n.SelectNodes("RatedMusics/Music");
+            foreach (XmlNode nM in nodesMusics)
+            {
+                if (nM["MID"].InnerText == MID)
+                {
+                    nM.ParentNode.RemoveChild(nM);
+                }
+            }    
         }
 
         public static List<Music> GetLikedMusics(string UserID)
