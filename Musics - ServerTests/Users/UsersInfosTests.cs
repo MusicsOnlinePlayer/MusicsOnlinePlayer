@@ -1,8 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Musics___Server.Usersinfos;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using Utility.Musics;
 using Utility.Network;
 using Utility.Network.Users;
 
@@ -147,6 +149,48 @@ namespace Musics___Server.Usersinfos.Tests
 
             UsersInfos.SetRankOfUser("abc", Rank.Creator);
             Assert.AreEqual("59fdab60bac3fb5c3bdf9e8cb772e637", Function.GetMD5(@"users.xml"));
+        }
+
+        [TestMethod()]
+        public void SaveUserPlaylistTest()
+        {
+            //76fdfae945157b5ec9732d9416c080c4
+            Authentification.AuthentificationService a = new Authentification.AuthentificationService();
+            a.SetupAuth();
+            User ur = new User(new Utility.Network.Users.CryptedCredentials("User1", "abc"));
+            a.SignupUser(ur);
+
+            var m = new Music("Music1", new Author("Albert", "path2"), new Album(new Author("Albert", "path2"), "AlbertAlum"), "path", 0);
+            Playlist pl = new Playlist(ur, "Playlist1", new List<Music>() { m }, false)
+            {
+                Rating = 1
+
+            };
+            UsersInfos.SaveUserPlaylist("abc", pl);
+            Assert.AreEqual("76fdfae945157b5ec9732d9416c080c4", Function.GetMD5(@"users.xml"));
+        }
+
+        [TestMethod()]
+        public void RatePlaylistTest()
+        {
+            //2e1047e01b9f0d927651f33ec8ddce63
+            Authentification.AuthentificationService a = new Authentification.AuthentificationService();
+            a.SetupAuth();
+            User ur = new User(new Utility.Network.Users.CryptedCredentials("User1", "abc"));
+            a.SignupUser(ur);
+
+            var m = new Music("Music1", new Author("Albert", "path2"), new Album(new Author("Albert", "path2"), "AlbertAlum"), "path", 0);
+            Playlist pl = new Playlist(ur, "Playlist1", new List<Music>() { m }, false)
+            {
+                Rating = 1
+
+            };
+            UsersInfos.SaveUserPlaylist("abc", pl);
+
+            UsersInfos.RatePlaylist(pl.MID, false);
+            Assert.AreEqual("2e1047e01b9f0d927651f33ec8ddce63", Function.GetMD5(@"users.xml"));
+            UsersInfos.RatePlaylist(pl.MID, true);
+            Assert.AreEqual("76fdfae945157b5ec9732d9416c080c4", Function.GetMD5(@"users.xml"));
         }
     }
 }
