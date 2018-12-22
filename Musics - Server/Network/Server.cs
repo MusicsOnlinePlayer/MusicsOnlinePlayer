@@ -66,7 +66,7 @@ namespace Musics___Server.Network
         private void ServerComunicationSocket_OnDataReceived(object sender, DataReceivedFromSocketArgs args)
         {
             IPacket PacketRec;
-            try//TODO fix token error
+            try
             {
                 PacketRec = (IPacket)Function.Deserialize(new MessageTCP(args.DataReceived));
                 var a = Clients.GetUser(args.SocketConnected) != null;
