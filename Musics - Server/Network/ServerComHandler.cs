@@ -24,7 +24,8 @@ namespace Musics___Server.Network
 
         private void ServerClient_ReceivingObject(object sender, ReceiveArgs e)
         {
-            Program.MyServer.SendData(e.Data, Program.MyServer.Clients.GetSocket(((IPacket)Function.Deserialize(new MessageTCP(e.Data))).SenderUID));
+            //Program.MyServer.SendData(e.Data, Program.MyServer.Clients.GetSocket(((IPacket)Function.Deserialize(new MessageTCP(e.Data))).SenderUID));
+            throw new System.NotImplementedException();
         }
 
         public void GlobalSend(object obj)

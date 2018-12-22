@@ -39,16 +39,16 @@ namespace Musics___Server.Services
                         m.Rating++;
 
                         Program.MyServer.Clients.TryGetValue(socket, out string uid);
-                        Program.MyServer.SendObject(new RequestAnswer(UsersInfos.GetLikedMusics(uid)), socket);
+                        new RequestAnswer(UsersInfos.GetLikedMusics(uid)).Send(socket);
                     }
-                    Program.MyServer.SendObject(new RateReport(true, temp.MusicRatedMID, m.Rating), socket);
+                    new RateReport(true, temp.MusicRatedMID, m.Rating).Send(socket);
                     MusicsInfo.SaveMusicInfo(m);
                 }
             }
             else
             {
                 UsersInfos.RatePlaylist(temp.MusicRatedMID, !VoteExist);
-                Program.MyServer.SendObject(new RateReport(true, temp.MusicRatedMID, UsersInfos.GetPlaylist(temp.MusicRatedMID).Rating), socket);
+                new RateReport(true, temp.MusicRatedMID, UsersInfos.GetPlaylist(temp.MusicRatedMID).Rating).Send(socket);
             }
         }
     }

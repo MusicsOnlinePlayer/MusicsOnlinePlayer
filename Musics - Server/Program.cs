@@ -26,9 +26,8 @@ namespace Musics___Server
 
         static void Main(string[] args)
         {
-            MyServer.Setup();
+            MyServer.Setup(new System.Net.IPEndPoint(System.Net.IPAddress.Any,2003));
 
-            MyServer.AuthService.SetupAuth();
             Indexation.InitRepository();
 
             MyServer.Log.Info("Indexation of all musics....  ");
@@ -53,7 +52,7 @@ namespace Musics___Server
             if (MyServer.Clients.IsConnected(UID))
             {
                 var userUpdated = UsersInfos.GetUser(UID);
-                MyServer.SendObject(new EditUserReport(true, userUpdated), MyServer.Clients.GetSocket(UID));
+                new EditUserReport(true, userUpdated).Send(MyServer.Clients.GetSocket(UID));
             }
         }
     }

@@ -48,7 +48,7 @@ namespace Musics___Server.Services
                                 {
                                     UsersInfos.GetUser(editRequest.UserToEdit)
                                 };
-                Program.MyServer.SendObject(new RequestAnswer(tmpU, true), socket);
+                (new RequestAnswer(tmpU, true)).Send(socket);
                 Program.MyServer.Log.Warn($"User promoted { editRequest.UserToEdit} to " + editRequest.NewRankOfUser.ToString());
             }
             else

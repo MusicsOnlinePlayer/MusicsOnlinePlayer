@@ -26,12 +26,12 @@ namespace Musics___Server.Services
         {
             if (Indexation.AddElement(uploadMusic) && (int)Program.MyServer.Clients.GetUser(socket).Rank > 1)
             {
-                Program.MyServer.SendObject(new UploadReport(null, true), socket);
+                new UploadReport(null, true).Send(socket);
                 Program.MyServer.Log.Warn($"The music { uploadMusic.MusicPart.Name } has been upload");
             }
             else
             {
-                Program.MyServer.SendObject(new UploadReport(null, false), socket);
+                new UploadReport(null, false).Send(socket);
                 Program.MyServer.Log.Warn($"The music { uploadMusic.MusicPart.Name } has been upload");
                 Program.MyServer.Log.Warn("Upload completed with success");
             }

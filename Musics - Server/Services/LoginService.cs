@@ -36,20 +36,21 @@ namespace Musics___Server.Services
             {
                 Login auth = received as Login;
 
-                Program.MyServer.Log.Warn("Client try to login");
-
                 if (auth.IsSignup)
                 {
+                    Program.MyServer.Log.Warn("Client try to signup");
                     AuthInfo authInfo = new AuthInfo(true, Rank.Viewer, new User(auth.LoginInfo));
                     Program.MyServer.AuthService.SignupUser(auth.LoginInfo);
                     Program.MyServer.Clients.Remove(socket);
                     Program.MyServer.Clients.AddUser(auth.LoginInfo, socket);
                     if (!Program.MyServer.Tokenlist.AddToken(socket, authInfo.Token))
                         return;
-                    Program.MyServer.SendObject(authInfo, socket);
+                    authInfo.Send(socket);
+                    Program.MyServer.Log.Warn($"Client succefuly signed up ({authInfo.User.Name})");
                 }
                 else
                 {
+                    Program.MyServer.Log.Warn("Client try to login");
                     var foundUser = UsersInfos.GetAllUsers().SingleOrDefault(u => u.UID == auth.LoginInfo.UID);
                     var isRegister = foundUser != null;
                     AuthInfo authInfo = new AuthInfo(isRegister, Rank.Viewer, foundUser);
@@ -59,8 +60,10 @@ namespace Musics___Server.Services
                     {
                         // MyServer.Clients.Remove(socket);
                         Program.MyServer.Clients.AddUser(auth.LoginInfo, socket);
+                        Program.MyServer.Log.Warn($"Client succefuly logged in ({authInfo.User.Name})");
                     }
-                    Program.MyServer.SendObject(authInfo, socket);
+                    authInfo.Send(socket);
+
                 }
             }
         }

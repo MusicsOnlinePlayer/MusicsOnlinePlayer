@@ -38,20 +38,20 @@ namespace Musics___Server.Services
                         Format = m.Format,
                         Rating = m.Rating
                     };
-                    Program.MyServer.SendObject(new RequestAnswer(answer), socket);
+                    new RequestAnswer(answer).Send(socket);
                     break;
                 case RequestsTypes.Favorites:
                     List<Music> tmp = UsersInfos.GetLikedMusics((request as RequestFavorites).UserID);
-                    Program.MyServer.SendObject(new RequestAnswer(tmp), socket);
+                    new RequestAnswer(tmp).Send(socket);
                     break;
                 case RequestsTypes.Users:
                     if (Program.MyServer.Clients.GetUser(socket).Rank != Rank.Viewer)
                     {
-                        Program.MyServer.SendObject(new RequestAnswer(UsersInfos.SearchUser((request as RequestUser).Username), true), socket);
+                        new RequestAnswer(UsersInfos.SearchUser((request as RequestUser).Username), true).Send(socket);
                     }
                     else
                     {
-                        Program.MyServer.SendObject(new RequestAnswer(null, false), socket);
+                        new RequestAnswer(null, false).Send(socket);
                     }
                     break;
             }

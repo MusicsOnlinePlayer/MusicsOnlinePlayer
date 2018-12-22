@@ -20,7 +20,7 @@ namespace Musics___Server.Services
         {
             if (Program.MyServer.AuthService.EditUser(editUser.UIDOld, editUser.NewUser))
             {
-                Program.MyServer.SendObject(new EditUserReport(true, editUser.NewUser), socket);
+                new EditUserReport(true, editUser.NewUser).Send(socket);
 
                 Program.MyServer.Clients.Remove(socket);
                 Program.MyServer.Clients.AddUser(editUser.NewUser, socket);
@@ -29,7 +29,7 @@ namespace Musics___Server.Services
             else
             {
                 Program.MyServer.Log.Warn($"Editing the user {editUser.NewUser.Name} failed !");
-                Program.MyServer.SendObject(new EditUserReport(false, editUser.NewUser), socket);
+                new EditUserReport(false, editUser.NewUser).Send(socket);
             }
         }
     }
