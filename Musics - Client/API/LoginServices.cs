@@ -22,8 +22,11 @@ namespace Musics___Client.API
         private LoginServices() { }
 
         public bool Connect()
-        {   
-            NetworkClient.ip = IPAddress.Parse(AppSettings.ApplicationSettings.Get().ServerIp);
+        {
+            var p = AppSettings.ApplicationSettings.Get().ServerIp;
+            if (p == null)
+                return false;
+            NetworkClient.ip = IPAddress.Parse(p);
             if (NetworkClient.Connect())
             {
                 NetworkClient.Packetreceived += NetworkClient_Packetreceived;
