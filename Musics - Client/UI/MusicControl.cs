@@ -36,7 +36,9 @@ namespace Musics___Client.UI
 
         private void ChangeControlPlaylist()
         {
-            throw new NotImplementedException();
+            Playlist Pl = (Playlist)Element;
+            UIArtistName.Text = Pl.Creator.Name;
+            UIMusicname.Text = Pl.Name;
         }
 
         private void ChangeControlAuthor()
