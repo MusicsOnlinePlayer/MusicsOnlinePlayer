@@ -120,8 +120,7 @@
     <Compile Include="MusicsManagement\Search.cs" />
     <Compile Include="MusicsManagement\Trending\Trending.cs" />
     <Compile Include="Network\ClientList.cs" />
-    <Compile Include="Network\ServerComunication.cs" />
-    <Compile Include="Network\ServerSocket.cs" />
+    <Compile Include="Network\Server.cs" />
     <Compile Include="Network\ServerUtils.cs" />
     <Compile Include="Services\PlaylistService.cs" />
     <Compile Include="Services\RatesService.cs" />
@@ -130,7 +129,6 @@
     <Compile Include="Services\EditUserService.cs" />
     <Compile Include="Services\EventsArgs\PacketEventArgs.cs" />
     <Compile Include="Network\ReceiveArgs.cs" />
-    <Compile Include="Network\Server.cs" />
     <Compile Include="Network\ServerClient.cs" />
     <Compile Include="Network\ServerComHandler.cs" />
     <Compile Include="Network\TokenList.cs" />

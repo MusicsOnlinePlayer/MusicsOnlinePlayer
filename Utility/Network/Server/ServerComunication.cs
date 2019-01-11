@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 
-namespace Musics___Server.Network
+namespace Utility.Network.Server
 {
     public class ServerComunication : ServerSetup
     {
@@ -52,5 +52,30 @@ namespace Musics___Server.Network
             => DataReceived?.Invoke(null, args);
         public void OnSocketDisconnected(object sender,SocketConnectedEventArgs args)
             => SocketDisconnected?.Invoke(sender, args);
+    }
+
+
+
+    public class SocketConnectedEventArgs : EventArgs
+    {
+        public Socket SocketConnected { get; set; }
+
+
+        public SocketConnectedEventArgs(Socket _SocketConnected)
+        {
+            SocketConnected = _SocketConnected;
+        }
+    }
+
+    public class DataReceivedFromSocketArgs : EventArgs
+    {
+        public Socket SocketConnected { get; set; }
+        public byte[] DataReceived { get; set; }
+
+        public DataReceivedFromSocketArgs(Socket _SocketConnected, byte[] data)
+        {
+            SocketConnected = _SocketConnected;
+            DataReceived = data;
+        }
     }
 }
