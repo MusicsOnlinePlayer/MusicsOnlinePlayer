@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using Utility.Network;
 using Utility.Network.Dialog.Authentification;
+using Utility.Network.Server;
 
 namespace Musics___Server.Network
 {
@@ -85,27 +86,4 @@ namespace Musics___Server.Network
         }
     }
 
-
-    public class SocketConnectedEventArgs : EventArgs
-    {
-        public Socket SocketConnected { get; set; }
-
-
-        public SocketConnectedEventArgs(Socket _SocketConnected)
-        {
-            SocketConnected = _SocketConnected;
-        }
-    }
-
-    public class DataReceivedFromSocketArgs : EventArgs
-    {
-        public Socket SocketConnected { get; set; }
-        public byte[] DataReceived { get; set; }
-
-        public DataReceivedFromSocketArgs(Socket _SocketConnected, byte[] data)
-        {
-            SocketConnected = _SocketConnected;
-            DataReceived = data;
-        }
-    }
 }

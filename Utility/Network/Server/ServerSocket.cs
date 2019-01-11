@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 
-namespace Musics___Server.Network
+namespace Utility.Network.Server
 {
     public abstract class ServerSocket
     {
