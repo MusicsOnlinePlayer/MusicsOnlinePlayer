@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlLibrary", "ControlLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Musics - ServerTests", "Musics - ServerTests\Musics - ServerTests.csproj", "{4DE34EBD-01C0-4588-B545-30A81F814343}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracker", "Tracker\Tracker.csproj", "{D390E047-EFA1-43B5-B003-78E5C70A297E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,14 @@ Global
 		{4DE34EBD-01C0-4588-B545-30A81F814343}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4DE34EBD-01C0-4588-B545-30A81F814343}.Release|x64.ActiveCfg = Release|Any CPU
 		{4DE34EBD-01C0-4588-B545-30A81F814343}.Release|x64.Build.0 = Release|Any CPU
+		{D390E047-EFA1-43B5-B003-78E5C70A297E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D390E047-EFA1-43B5-B003-78E5C70A297E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D390E047-EFA1-43B5-B003-78E5C70A297E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D390E047-EFA1-43B5-B003-78E5C70A297E}.Debug|x64.Build.0 = Debug|Any CPU
+		{D390E047-EFA1-43B5-B003-78E5C70A297E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D390E047-EFA1-43B5-B003-78E5C70A297E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D390E047-EFA1-43B5-B003-78E5C70A297E}.Release|x64.ActiveCfg = Release|Any CPU
+		{D390E047-EFA1-43B5-B003-78E5C70A297E}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -80,7 +80,6 @@
     <Compile Include="Music\Player.cs" />
     <Compile Include="Network\Client.cs" />
     <Compile Include="Network\NetworkEventArgs.cs" />
-    <Compile Include="Network\PacketEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
