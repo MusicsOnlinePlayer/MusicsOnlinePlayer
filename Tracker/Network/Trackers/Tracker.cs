@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utility.Network.Server;
 using Utility.Network.Tracker.Identity;
 using Utility.Network.Tracker.Requests;
 
-namespace Tracker.Network.Tracker
+namespace Tracker.Network.Trackers
 {
     public class Tracker : TrackerH
     {
@@ -20,8 +21,28 @@ namespace Tracker.Network.Tracker
         public Tracker(TrackerIdentity Ti)
         {
             TrackerIdentity = Ti;
+        }
+
+        public void Start()
+        {
             Logger.Info("Starting the tracker...");
-            StartTracker(TrackerIdentity);
+            try
+            {
+                StartTracker(TrackerIdentity);
+            }
+            catch(ServerSocketException ex)
+            {
+                if (ex.ExceptionType == ServerSocketErrors.AddressAlreadyTaken)
+                {
+                    TrackerIdentity.IPEndPoint.Port++;
+                    Logger.Critical($"Port Already taken retring with {TrackerIdentity.IPEndPoint.Port.ToString()}");
+                    Start();
+                    return;
+                }
+                    
+                Logger.Error("Socket Exception : "+ex.ExceptionType.ToString());
+                return;
+            }
             Logger.Info("Done.");
             Logger.Info("Event Setup...");
             EventSetup();

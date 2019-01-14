@@ -3,7 +3,7 @@ using Utility.Network;
 using Utility.Network.Server;
 using Utility.Network.Tracker.Identity;
 
-namespace Tracker.Network.Tracker
+namespace Tracker.Network.Trackers
 {
     public class TrackerH : ServerComunication
     {
@@ -13,6 +13,7 @@ namespace Tracker.Network.Tracker
 
         public void StartTracker(TrackerIdentity ti)
         {
+            SetupSocket(ti.IPEndPoint.Port,10000);
             TryBindSocket(ti.IPEndPoint);
             TryListen();
             BeginAcceptConnection();
@@ -27,7 +28,7 @@ namespace Tracker.Network.Tracker
             }
             catch
             {
-                throw new InvalidObjectException();
+                //throw new InvalidObjectException();
             }
         }
     }

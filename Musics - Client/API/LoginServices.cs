@@ -3,6 +3,7 @@ using System.Net;
 using ControlLibrary.Network;
 using Utility.Network;
 using Utility.Network.Dialog.Authentification;
+using Utility.Network.Server;
 using Utility.Network.Users;
 
 namespace Musics___Client.API

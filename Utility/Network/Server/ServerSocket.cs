@@ -40,6 +40,7 @@ namespace Utility.Network.Server
                 switch (SckEx.SocketErrorCode)
                 {
                     case SocketError.InvalidArgument:
+                    case SocketError.AddressAlreadyInUse:
                         throw new ServerSocketException(ServerSocketErrors.AddressAlreadyTaken);
                 }
             }

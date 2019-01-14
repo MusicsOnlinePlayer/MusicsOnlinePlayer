@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using Utility.Network.Tracker.Identity;
 
-namespace Tracker.Network.Tracker
+namespace Tracker.Network.Trackers
 {
     public class IDList : Dictionary<Socket,Identity>
     {

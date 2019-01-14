@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Utility.Network.Dialog.Authentification;
+using Utility.Network.Server;
 using Utility.Network.Users;
 
 namespace Musics___Server.Services
@@ -22,7 +23,7 @@ namespace Musics___Server.Services
             Program.MyServer.OnPacketreceived += MyServer_OnPacketreceived;
         }
 
-        private void MyServer_OnPacketreceived(object sender, EventsArgs.PacketEventArgs a)
+        private void MyServer_OnPacketreceived(object sender, PacketEventArgs a)
         {   
             if(a.Packet is Login)
             {

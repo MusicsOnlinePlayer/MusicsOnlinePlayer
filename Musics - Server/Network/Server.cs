@@ -1,5 +1,4 @@
-﻿using Musics___Server.Services.EventsArgs;
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Sockets;
 using Utility.Network;
@@ -18,7 +17,7 @@ namespace Musics___Server.Network
 
         public void Setup(IPEndPoint ip)
         {
-            ServerComunicationSocket.SetupSocket(2003, 100000000);
+            ServerComunicationSocket.SetupSocket(ip.Port, 100000000);
             BindAndListenSocket(ip);
             StartAcceptingAndReceiveClients();
             AuthService.SetupAuth();
@@ -36,7 +35,9 @@ namespace Musics___Server.Network
                 switch (ex.ExceptionType)
                 {
                     case ServerSocketErrors.AddressAlreadyTaken:
-                        Log.Critical($"Address already on port {ServerComunicationSocket.GetConnectSocketPORT()}");
+                        iPEndPoint.Port++;
+                        Log.Critical($"Address already on port {ServerComunicationSocket.GetConnectSocketPORT()} retrying with {iPEndPoint.Port}");
+                        BindAndListenSocket(iPEndPoint);
                         break;
                     case ServerSocketErrors.ConnectionStopped:
                         Log.Critical($"Listening has been stopped for an uknown reason !");
