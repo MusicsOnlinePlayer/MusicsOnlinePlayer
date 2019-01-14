@@ -46,9 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Network\Tracker\IDList.cs" />
-    <Compile Include="Network\Tracker\Tracker.cs" />
-    <Compile Include="Network\Tracker\TrackerH.cs" />
+    <Compile Include="Network\Trackers\IDList.cs" />
+    <Compile Include="Network\Trackers\Tracker.cs" />
+    <Compile Include="Network\Trackers\TrackerH.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

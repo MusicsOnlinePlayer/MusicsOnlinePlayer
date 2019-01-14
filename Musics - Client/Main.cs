@@ -14,6 +14,8 @@ using ControlLibrary.Network;
 using Musics___Client.API;
 using Musics___Client.API.Events;
 using Utility.Network.Dialog.Requests;
+using Utility.Network.Tracker.Identity;
+using Utility.Network.Server;
 
 namespace Musics___Client
 {
@@ -133,7 +135,7 @@ namespace Musics___Client
         }
 
         public void EditAccountDetails(User NewUser)
-        {
+        {   
             Invoke((MethodInvoker)delegate
             {
                 Text = "Musics - Client  Connected as " + NewUser.Name + " - Rank : " + NewUser.Rank.ToString();

@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using Utility.Musics;
 using Utility.Network.Dialog;
 using Utility.Network.Dialog.Rating;
+using Utility.Network.Server;
 using Utility.Network.Users;
 
 namespace Musics___Server.Services
@@ -16,7 +17,7 @@ namespace Musics___Server.Services
             Program.MyServer.OnPacketreceived += MyServer_OnPacketreceived;
         }
 
-        private void MyServer_OnPacketreceived(object sender, EventsArgs.PacketEventArgs a)
+        private void MyServer_OnPacketreceived(object sender, PacketEventArgs a)
         {
             if (a.Packet is Rate)
                 Handle(a.Packet as Rate, sender as Socket);

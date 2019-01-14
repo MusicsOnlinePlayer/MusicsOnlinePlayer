@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using Utility.Musics;
 using Utility.Network.Dialog;
 using Utility.Network.Dialog.Requests;
+using Utility.Network.Server;
 using Utility.Network.Users;
 
 namespace Musics___Server.Services
@@ -17,7 +18,7 @@ namespace Musics___Server.Services
             Program.MyServer.OnPacketreceived += MyServer_OnPacketreceived;
         }
 
-        private void MyServer_OnPacketreceived(object sender, EventsArgs.PacketEventArgs a)
+        private void MyServer_OnPacketreceived(object sender, PacketEventArgs a)
         {
             if (a.Packet is Request)
                 Handle(a.Packet as Request, sender as Socket);

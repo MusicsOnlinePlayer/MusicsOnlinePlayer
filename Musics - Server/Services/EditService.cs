@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Utility.Musics;
 using Utility.Network.Dialog;
 using Utility.Network.Dialog.Edits;
+using Utility.Network.Server;
 using Utility.Network.Users;
 
 namespace Musics___Server.Services
@@ -20,7 +21,7 @@ namespace Musics___Server.Services
             Program.MyServer.OnPacketreceived += MyServer_OnPacketreceived;
         }
 
-        private void MyServer_OnPacketreceived(object sender, EventsArgs.PacketEventArgs a)
+        private void MyServer_OnPacketreceived(object sender, PacketEventArgs a)
         {
             if (a.Packet is EditRequest)
                 TreatEditRequest(sender as Socket, a.Packet as EditRequest);

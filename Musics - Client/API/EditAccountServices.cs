@@ -2,6 +2,7 @@
 using Musics___Client.API.Events;
 using System;
 using Utility.Network.Dialog.Edits;
+using Utility.Network.Server;
 using Utility.Network.Users;
 
 namespace Musics___Client.API
