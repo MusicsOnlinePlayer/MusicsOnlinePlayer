@@ -29,6 +29,7 @@ namespace Musics___Server.Network
             {
                 ServerComunicationSocket.TryBindSocket(iPEndPoint);
                 ServerComunicationSocket.TryListen();
+                Log.Info($"Bind finiched at port {iPEndPoint.Port}");
             }
             catch(ServerSocketException ex)
             {

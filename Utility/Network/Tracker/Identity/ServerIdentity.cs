@@ -8,6 +8,6 @@ namespace Utility.Network.Tracker.Identity
 {
     public class ServerIdentity : Identity
     {
-        
+        public bool IsAvailable { get; set; }
     }
 }
