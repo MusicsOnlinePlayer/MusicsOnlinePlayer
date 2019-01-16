@@ -32,5 +32,10 @@ namespace Tracker.Network.Trackers
         {
             return Values.Where(x => x is ServerIdentity).Select(x => (ServerIdentity)x).ToArray();
         }
+
+        public ServerIdentity[] GetServerIDAvailable()
+        {
+            return Values.Where(x => x is ServerIdentity).Select(x => (ServerIdentity)x).Where(x => x.IsAvailable).ToArray();
+        }
     }
 }

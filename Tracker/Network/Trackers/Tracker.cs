@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Utility.Network.Server;
@@ -82,6 +84,29 @@ namespace Tracker.Network.Trackers
         {
             Idlist.AddSocket(args.SocketConnected);
             Logger.Info($"Socket connected - {Idlist.Count} clients connected");
+        }
+
+        public void UpdateServersAvailabilty()
+        {
+            foreach(var p in Idlist.GetServerID())
+            {
+                var pc = p;
+                pc.IsAvailable = CheckServer(pc.IPEndPoint);
+            }    
+        }
+
+        public bool CheckServer(IPEndPoint ip)
+        {
+            try
+            {
+                TcpListener tcpListener = new TcpListener(ip);
+                tcpListener.Start();
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
         }
     }
 }
