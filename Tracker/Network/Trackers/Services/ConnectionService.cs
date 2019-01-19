@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Utility.Network.Tracker.Identity;
@@ -28,7 +29,14 @@ namespace Tracker.Network.Trackers.Services
                     Register reg = (a.Packet as Register);
                     Program._Tracker.Logger.Info("Receiving register demand from the socket");
                     if (reg.Identity is ServerIdentity)
+                    {
+                        reg.Identity = new ServerIdentity()
+                        {
+                            IPEndPoint = a.Sender.RemoteEndPoint as IPEndPoint
+                        };
                         Program._Tracker.AddServer(reg.Identity as ServerIdentity, a.Sender);
+                    }
+                       
                     else
                         Program._Tracker.Idlist.AddIdentity(a.Sender, reg.Identity);
                     new RegisterAck(true).Send(a.Sender);

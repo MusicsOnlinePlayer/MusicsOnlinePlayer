@@ -11,7 +11,8 @@ namespace Musics___Server.Commands
         {
             if (args.Count() != 1)
                 throw new CommandException("Number of arguments are not correct.");
-            Program.ServerCom.AddServer(args.First());
+            if(!Program.TrackersClient.AddTrackerByString(args.First().Remove(0,1)))
+                throw new CommandException("Error with the first args");
         }
     }
 }

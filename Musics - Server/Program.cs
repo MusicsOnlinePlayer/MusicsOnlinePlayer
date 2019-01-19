@@ -20,7 +20,8 @@ namespace Musics___Server
     class Program
     {
         public static Server MyServer { get; } = new Server();
-        public static ServerComHandler ServerCom = new ServerComHandler();
+      
+        public static TrackerClient TrackersClient= new TrackerClient();
 
         public static Service AllServices;
 
@@ -38,6 +39,8 @@ namespace Musics___Server
 
             AllServices = new Service();
             AllServices.SetupServices();
+
+            TrackersClient.Init();
 
             CommandLineInterpreter.Instance.Start();
 

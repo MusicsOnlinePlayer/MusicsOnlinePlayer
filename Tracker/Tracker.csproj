@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Network\Trackers\IDList.cs" />
+    <Compile Include="Network\Trackers\Services\ConnectionService.cs" />
     <Compile Include="Network\Trackers\Tracker.cs" />
     <Compile Include="Network\Trackers\TrackerH.cs" />
     <Compile Include="Program.cs" />

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Utility.Network.Tracker.Requests
 {
+    [Serializable]
     public class TrackerRequest : Packet
     {
 
