@@ -17,7 +17,7 @@ namespace Tracker.Network.Trackers
     {
         public TrackerIdentity TrackerIdentity { get; private set; }
 
-        private IDList Idlist = new IDList();
+        public IDList Idlist = new IDList();
 
         public ConsoleLogger Logger = new ConsoleLogger();
 
@@ -139,6 +139,13 @@ namespace Tracker.Network.Trackers
             var s = new ServerIdentity() { IPEndPoint = new IPEndPoint(iPAddress,port)};
             Idlist.AddIdentity(null, s); //TODO See Null
             ServerXml.AddServerToXml(s);
+            return true;
+        }
+
+        public bool AddServer(ServerIdentity id, Socket server)
+        {
+            Idlist.AddIdentity(server, id);
+            ServerXml.AddServerToXml(id);
             return true;
         }
     }

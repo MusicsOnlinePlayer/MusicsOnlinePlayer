@@ -5,11 +5,11 @@ using System.Linq;
 using System.Net;
 using Utility.Network.Tracker.Identity;
 
-namespace Tracker.ServersXML
+namespace Musics___Server.Network
 {
     public static class ServerXml
     {
-        public const string Path = @"ServersIP.xml";
+        public const string Path = @"TrackerIP.xml";
 
         public static void Setup()
         {
@@ -18,20 +18,20 @@ namespace Tracker.ServersXML
                 using (var writer = XmlWriter.Create(Path))
                 {
                     writer.WriteStartDocument();
-                    writer.WriteStartElement("Servers");
+                    writer.WriteStartElement("Trackers");
                     writer.WriteEndElement();
                     writer.WriteEndDocument();
                 }
             }
         }
 
-        public static void AddServerToXml(ServerIdentity si)
+        public static void AddServerToXml(TrackerIdentity si)
         {
             if (si == null) return;
             XmlDocument doc = new XmlDocument();
             doc.Load(Path);
 
-            XmlNode nodeServer = doc.CreateElement("Server");
+            XmlNode nodeServer = doc.CreateElement("Tracker");
 
             XmlNode nodeIP = doc.CreateElement("Ip");
             nodeIP.InnerText = si.IPEndPoint.Address.ToString();
@@ -48,20 +48,20 @@ namespace Tracker.ServersXML
         }
 
 
-        public static ServerIdentity[] GetServers()
+        public static TrackerIdentity[] GetServers()
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(Path);
-            XmlNodeList nodes = doc.DocumentElement.SelectNodes("Server");
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("Tracker");
             return nodes.Cast<XmlNode>().Select(x => GetServer(x)).ToArray();
 
         }
 
-        public static ServerIdentity GetServer(XmlNode node)
+        public static TrackerIdentity GetServer(XmlNode node)
         {
             if (!IPAddress.TryParse(node["Ip"].InnerText, out IPAddress iP)) throw new Exception();
             if (!int.TryParse(node["Port"].InnerText, out int i)) throw new Exception();
-            var si = new ServerIdentity()
+            var si = new TrackerIdentity()
             {
                 IPEndPoint = new IPEndPoint(iP, i)
             };

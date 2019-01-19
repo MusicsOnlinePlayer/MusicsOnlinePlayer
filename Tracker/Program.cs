@@ -7,7 +7,7 @@ namespace Tracker
 {
     class Program
     {
-        static Network.Trackers.Tracker _Tracker { get; set; }
+        public static Network.Trackers.Tracker _Tracker { get; set; }
 
         static void Main(string[] args)
         {
