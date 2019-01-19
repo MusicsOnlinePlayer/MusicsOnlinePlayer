@@ -120,16 +120,17 @@
     <Compile Include="MusicsManagement\Search.cs" />
     <Compile Include="MusicsManagement\Trending\Trending.cs" />
     <Compile Include="Network\ClientList.cs" />
+    <Compile Include="Network\ClientSocket.cs" />
     <Compile Include="Network\Server.cs" />
     <Compile Include="Network\ServerUtils.cs" />
+    <Compile Include="Network\TrackerClient.cs" />
+    <Compile Include="Network\TrackerXml.cs" />
     <Compile Include="Services\PlaylistService.cs" />
     <Compile Include="Services\RatesService.cs" />
     <Compile Include="Services\RequestsService.cs" />
     <Compile Include="Services\EditService.cs" />
     <Compile Include="Services\EditUserService.cs" />
     <Compile Include="Network\ReceiveArgs.cs" />
-    <Compile Include="Network\ServerClient.cs" />
-    <Compile Include="Network\ServerComHandler.cs" />
     <Compile Include="Network\TokenList.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

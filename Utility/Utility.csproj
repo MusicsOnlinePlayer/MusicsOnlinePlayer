@@ -87,6 +87,7 @@
     <Compile Include="Network\Tracker\Identity\TrackerIdentity.cs" />
     <Compile Include="Network\Tracker\Identity\ClientIdentity.cs" />
     <Compile Include="Network\Tracker\Identity\ServerIdentity.cs" />
+    <Compile Include="Network\Tracker\Requests\Register.cs" />
     <Compile Include="Network\Tracker\Requests\ServerRequest.cs" />
     <Compile Include="Network\Tracker\Requests\TrackerRequest.cs" />
     <Compile Include="Network\Users\Rank.cs" />

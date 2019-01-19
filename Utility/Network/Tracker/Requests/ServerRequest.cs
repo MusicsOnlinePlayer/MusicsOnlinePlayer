@@ -7,11 +7,13 @@ using Utility.Network.Tracker.Identity;
 
 namespace Utility.Network.Tracker.Requests
 {
+    [Serializable]
     public class ServerRequest : TrackerRequest
     {
 
     }
 
+    [Serializable]
     public class ServerRequestAnswer : TrackerRequest
     {
         public ServerRequestAnswer(ServerIdentity[] serverIdentities)

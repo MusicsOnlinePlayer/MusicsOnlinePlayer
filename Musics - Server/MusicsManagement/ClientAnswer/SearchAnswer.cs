@@ -50,7 +50,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
              
             requestSearch.SenderUID = MyServer.Clients.GetUser(asker).UID;
 
-            ServerCom.GlobalSend(requestSearch);
+            //ServerCom.GlobalSend(requestSearch);
             (new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Music)).Send(asker);
         }
 

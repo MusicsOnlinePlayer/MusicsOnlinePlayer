@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Musics___Server.Network;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,8 @@ namespace Musics___Server.Services
             Ratesservices = new RatesServices();
             Requestsservice = new RequestsService();
             Uploadservice = new UploadService();
+
+            TrackerXml.Setup();
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Utility.Network.Tracker.Identity
 {
+    [Serializable]
     public class ServerIdentity : Identity
     {
         public bool IsAvailable { get; set; }

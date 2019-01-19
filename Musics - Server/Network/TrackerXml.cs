@@ -7,7 +7,7 @@ using Utility.Network.Tracker.Identity;
 
 namespace Musics___Server.Network
 {
-    public static class ServerXml
+    public static class TrackerXml
     {
         public const string Path = @"TrackerIP.xml";
 
@@ -61,10 +61,7 @@ namespace Musics___Server.Network
         {
             if (!IPAddress.TryParse(node["Ip"].InnerText, out IPAddress iP)) throw new Exception();
             if (!int.TryParse(node["Port"].InnerText, out int i)) throw new Exception();
-            var si = new TrackerIdentity()
-            {
-                IPEndPoint = new IPEndPoint(iP, i)
-            };
+            var si = new TrackerIdentity(new IPEndPoint(iP, i));
 
             return si;
         }
