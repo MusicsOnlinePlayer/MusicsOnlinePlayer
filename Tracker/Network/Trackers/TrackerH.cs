@@ -1,4 +1,5 @@
 ﻿using System;
+using Tracker.Network.Trackers.Services;
 using Utility.Network;
 using Utility.Network.Server;
 using Utility.Network.Tracker.Identity;
@@ -7,6 +8,8 @@ namespace Tracker.Network.Trackers
 {
     public class TrackerH : ServerComunication
     {
+        public ConnectionService ConnectionServices = new ConnectionService();
+
         public delegate void PacketReceivedEvent(object sender, PacketEventArgs a);
         public delegate void PacketReceivedHandler(object sender, PacketEventArgs a);
         public event PacketReceivedHandler OnPacketreceived;
@@ -18,6 +21,7 @@ namespace Tracker.Network.Trackers
             TryListen();
             BeginAcceptConnection();
             DataReceived += TrackerH_DataReceived;
+            ConnectionServices.Start();
         }
 
         private void TrackerH_DataReceived(object sender, DataReceivedFromSocketArgs args)
