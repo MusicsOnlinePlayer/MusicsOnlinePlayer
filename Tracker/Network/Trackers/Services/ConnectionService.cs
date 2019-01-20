@@ -30,10 +30,12 @@ namespace Tracker.Network.Trackers.Services
                     Program._Tracker.Logger.Info("Receiving register demand from the socket");
                     if (reg.Identity is ServerIdentity)
                     {
+                        int Port = reg.Identity.IPEndPoint.Port;
                         reg.Identity = new ServerIdentity()
                         {
                             IPEndPoint = a.Sender.RemoteEndPoint as IPEndPoint
                         };
+                        reg.Identity.IPEndPoint.Port = Port;
                         Program._Tracker.AddServer(reg.Identity as ServerIdentity, a.Sender);
                     }
                     else
