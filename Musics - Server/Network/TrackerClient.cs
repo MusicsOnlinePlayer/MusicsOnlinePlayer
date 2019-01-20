@@ -20,11 +20,15 @@ namespace Musics___Server.Network
             Program.MyServer.Log.Info($"Connecting to the tracker {trackerIdentity?.IPEndPoint.Address.ToString()}");
             ClientSocket cs = new ClientSocket();
             cs.Packetreceived += Cs_Packetreceived;
-            cs.Connect(trackerIdentity);
-            _trackerSockets.Add(cs);
+            cs.Connect(trackerIdentity);  
             Program.MyServer.Log.Info("Connected to the tracker");
-            //while (cs._Socket.Blocking) { }
-            //cs._Socket.Send(Function.Serialize(new Register()).Data);
+            while (!    cs._Socket.Connected) { }
+            var r = new Register()
+            {
+                Identity = new ServerIdentity()
+            };
+            cs._Socket.Send(Function.Serialize(r).Data);
+            _trackerSockets.Add(cs);
         }
 
         public bool AddTrackerByString(string ipport)

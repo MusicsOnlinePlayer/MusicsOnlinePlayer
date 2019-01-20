@@ -36,9 +36,10 @@ namespace Tracker.Network.Trackers.Services
                         };
                         Program._Tracker.AddServer(reg.Identity as ServerIdentity, a.Sender);
                     }
-                       
                     else
+                    {
                         Program._Tracker.Idlist.AddIdentity(a.Sender, reg.Identity);
+                    } 
                     new RegisterAck(true).Send(a.Sender);
                     Program._Tracker.Logger.Info("Done.");
                     return;

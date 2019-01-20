@@ -27,7 +27,8 @@ namespace Tracker.ServersXML
 
         public static void AddServerToXml(ServerIdentity si)
         {
-            if (si == null) return;
+            if (si == null ) return;
+            if (IsExisting(si)) return;
             XmlDocument doc = new XmlDocument();
             doc.Load(Path);
 
@@ -47,6 +48,15 @@ namespace Tracker.ServersXML
 
         }
 
+        public static bool IsExisting(ServerIdentity identity)
+        {
+            foreach(var p in GetServers())
+            {
+                if (p.IPEndPoint.Address == identity.IPEndPoint.Address && p.IPEndPoint.Port == identity.IPEndPoint.Port)
+                    return true;
+            }
+            return false;
+        }
 
         public static ServerIdentity[] GetServers()
         {

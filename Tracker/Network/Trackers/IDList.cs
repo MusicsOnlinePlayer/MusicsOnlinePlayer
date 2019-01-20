@@ -14,6 +14,7 @@ namespace Tracker.Network.Trackers
         }
         public void AddIdentity(Socket socket, Identity identity)
         {
+            RemoveBySocket(socket);
             Add(socket, identity);
         }
 

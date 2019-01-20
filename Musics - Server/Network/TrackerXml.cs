@@ -28,6 +28,7 @@ namespace Musics___Server.Network
         public static void AddServerToXml(TrackerIdentity si)
         {
             if (si == null) return;
+            if (IsExisting(si)) return;
             XmlDocument doc = new XmlDocument();
             doc.Load(Path);
 
@@ -47,6 +48,15 @@ namespace Musics___Server.Network
 
         }
 
+        public static bool IsExisting(TrackerIdentity identity)
+        {
+            foreach (var p in GetServers())
+            {
+                if (p.IPEndPoint.Address == identity.IPEndPoint.Address && p.IPEndPoint.Port == identity.IPEndPoint.Port)
+                    return true;
+            }
+            return false;
+        }
 
         public static TrackerIdentity[] GetServers()
         {

@@ -61,7 +61,7 @@ namespace Tracker.Network.Trackers
             Console.Write("Retreiving server datas from xml ");
             foreach(var si in ServerXml.GetServers())
             {
-                Idlist.Add(null, si);
+                Idlist.Add(new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp), si);
                 Console.Write(".");
             }
             Console.WriteLine("Ok");
