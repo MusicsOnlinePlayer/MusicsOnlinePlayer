@@ -33,6 +33,7 @@ namespace Utility.Network.Server
         {
             try
             {
+                PORT = IpAddress.Port;
                 this.Socket.Bind(IpAddress);
             }
             catch (SocketException SckEx)

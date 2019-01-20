@@ -27,6 +27,7 @@ namespace Musics___Server.Network
             {
                 Identity = new ServerIdentity()
             };
+            r.Identity.IPEndPoint = new IPEndPoint(IPAddress.Any, Program.MyServer.ServerComunicationSocket.GetConnectSocketPORT());
             cs._Socket.Send(Function.Serialize(r).Data);
             _trackerSockets.Add(cs);
         }
