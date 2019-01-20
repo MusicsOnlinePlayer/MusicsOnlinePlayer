@@ -25,12 +25,8 @@ namespace Musics___Server.Network
         {
             try
             {
-                _Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
-                {
-                    SendTimeout = 600000,
-                    ReceiveTimeout = 600000
-                };
-                _Socket.BeginConnect(trackeridentity.IPEndPoint, new AsyncCallback(ConnectCallback), null);
+                _Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                _Socket.BeginConnect(trackeridentity.IPEndPoint, new AsyncCallback(ConnectCallback), _Socket);
             }
             catch(Exception ex) {
                 Program.MyServer.Log.Critical(ex.Message);
@@ -45,6 +41,7 @@ namespace Musics___Server.Network
         {
             try
             {
+                _Socket = (Socket)ar.AsyncState;
                 _Socket.EndConnect(ar);
                 recevoir = new Thread(new ThreadStart(Receive));
                 recevoir.Start();
@@ -60,7 +57,7 @@ namespace Musics___Server.Network
         public void Receive()
         {
             _Socket.BeginReceive(recbuffer, 0, Bufferlgth, SocketFlags.Partial,
-                    new AsyncCallback(ReceiveCallback), null);
+                    new AsyncCallback(ReceiveCallback), _Socket);
         }
 
         private void ReceiveCallback(IAsyncResult ar)
@@ -74,12 +71,12 @@ namespace Musics___Server.Network
 
             }
 
-            OnPacketReceived(new PacketEventArgs((IPacket)Function.Deserialize(new MessageTCP(recbuffer))));
+            OnPacketReceived(new PacketEventArgs((IPacket)Function.Deserialize(new MessageTCP(recbuffer)),_Socket));
 
             try
             {
                 _Socket.BeginReceive(recbuffer, 0, recbuffer.Length, SocketFlags.Partial,
-                new AsyncCallback(ReceiveCallback), null);
+                new AsyncCallback(ReceiveCallback), _Socket);
             }
             catch(Exception ex) {
                 Program.MyServer.Log.Critical(ex.Message);

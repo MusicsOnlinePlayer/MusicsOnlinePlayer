@@ -27,6 +27,8 @@ namespace Musics___Server
 
         static void Main(string[] args)
         {
+          
+
             MyServer.Setup(new System.Net.IPEndPoint(System.Net.IPAddress.Any,2003));
 
             Indexation.InitRepository();
