@@ -192,6 +192,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\ApiEnums\ConnectionState.cs" />
     <Compile Include="API\EditMusicsServices.cs" />
     <Compile Include="API\Events\EditAccountEventArgs.cs" />
     <Compile Include="API\EditAccountServices.cs" />
@@ -280,6 +281,12 @@
     <Compile Include="UI\SearchControl.Designer.cs">
       <DependentUpon>SearchControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\TrackerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\TrackerControl.Designer.cs">
+      <DependentUpon>TrackerControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Upload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -323,6 +330,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SearchControl.resx">
       <DependentUpon>SearchControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TrackerControl.resx">
+      <DependentUpon>TrackerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Upload.resx">
       <DependentUpon>Upload.cs</DependentUpon>
