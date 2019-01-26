@@ -21,7 +21,7 @@ namespace Musics___Client.UI
         }
 
         private void TrackerControl_Load(object sender, EventArgs e)
-        {
+        { 
 
         }
 
@@ -45,7 +45,7 @@ namespace Musics___Client.UI
 
         public void UpdateStatut(ConnectionState connectionState)
         {
-
+            UIStatut.Text = nameof(connectionState);
         }
     }
 }
