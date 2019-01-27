@@ -16,6 +16,7 @@ using Musics___Client.API.Events;
 using Utility.Network.Dialog.Requests;
 using Utility.Network.Tracker.Identity;
 using Utility.Network.Server;
+using Musics___Client.API.Tracker;
 
 namespace Musics___Client
 {
@@ -36,6 +37,14 @@ namespace Musics___Client
             RateServices.Instance.RateReportEvent += RateServices_RateReportEvent;
             RateServices.Instance.FavoriteReceivedEvent += RateServices_FavoriteReceivedEvent;
             EditAccountServices.Instance.EditAccountReport += AccountServices_EditAccountReport;
+            TrackersClientService.Instance.Init();
+            TrackersClientService.Instance.Registered += Tracker_Registered;
+        }
+
+        private void Tracker_Registered(object sender, EventArgs e)
+        {
+            UITracker.UpdateStatut(System.Data.ConnectionState.Connecting);
+            UITracker.AddTrackerToUI((TrackerIdentity)sender);
         }
 
         private void AccountServices_EditAccountReport(object sender, EditAccountReportEventArgs e)
