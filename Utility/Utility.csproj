@@ -82,6 +82,7 @@
     <Compile Include="Network\Server\ServerComunication.cs" />
     <Compile Include="Network\Server\ServerSocket.cs" />
     <Compile Include="Network\Token.cs" />
+    <Compile Include="Network\Tracker\ClientSocket.cs" />
     <Compile Include="Network\Tracker\Identity\Identity.cs" />
     <Compile Include="Network\Tracker\Identity\IIdentity.cs" />
     <Compile Include="Network\Tracker\Identity\TrackerIdentity.cs" />

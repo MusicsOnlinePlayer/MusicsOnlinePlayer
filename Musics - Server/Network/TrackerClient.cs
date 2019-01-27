@@ -22,13 +22,13 @@ namespace Musics___Server.Network
             cs.Packetreceived += Cs_Packetreceived;
             cs.Connect(trackerIdentity);  
             Program.MyServer.Log.Info("Connected to the tracker");
-            while (!    cs._Socket.Connected) { }
+            while (!cs.IsConnected()) { }
             var r = new Register()
             {
                 Identity = new ServerIdentity()
             };
             r.Identity.IPEndPoint = new IPEndPoint(IPAddress.Any, Program.MyServer.ServerComunicationSocket.GetConnectSocketPORT());
-            cs._Socket.Send(Function.Serialize(r).Data);
+            cs.Send(Function.Serialize(r).Data);
             _trackerSockets.Add(cs);
         }
 
