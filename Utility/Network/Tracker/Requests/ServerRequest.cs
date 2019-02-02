@@ -21,6 +21,6 @@ namespace Utility.Network.Tracker.Requests
             ServerIdentities = serverIdentities;
         }
 
-        ServerIdentity[] ServerIdentities { get; set; }
+        public ServerIdentity[] ServerIdentities { get; set; }
     }
 }

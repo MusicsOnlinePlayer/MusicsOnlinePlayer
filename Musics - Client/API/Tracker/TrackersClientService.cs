@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Musics___Client.API.Events;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -26,6 +27,9 @@ namespace Musics___Client.API.Tracker
         public virtual void OnDisconnection(object sender, EventArgs e)
             => ClientDisconnected?.Invoke(sender, e);
 
+        public event EventHandler<ServersReceivedFromTrackerEventArgs> ServersReceived;
+        public virtual void OnServersReceived(object sender, ServersReceivedFromTrackerEventArgs serversReceivedFromTrackerEventArgs)
+            => ServersReceived.Invoke(sender, serversReceivedFromTrackerEventArgs);
 
         public void Init()
         {
@@ -70,9 +74,17 @@ namespace Musics___Client.API.Tracker
                 {
                     TrackerXml.AddServerToXml(new TrackerIdentity(a.Sender.RemoteEndPoint as IPEndPoint));
                     OnRegister(a.Sender.RemoteEndPoint, new EventArgs());
+                    a.Sender.Send(Function.Serialize(new ServerRequest()).Data);
+                }
+
+                if(a.Packet is ServerRequestAnswer)
+                {
+                    ServerRequestAnswer serverRequestAnswer = a.Packet as ServerRequestAnswer;
+                    OnServersReceived(sender, new ServersReceivedFromTrackerEventArgs(serverRequestAnswer.ServerIdentities, TrackersSocket.Where(x => x.ConnectionEndPoint.ToString() == ((IPEndPoint)a.Sender.RemoteEndPoint).ToString()).First().Trackeridentity));
                 }
             }
         }
+       
 
         public List<TrackerIdentity> RetreiveActiveTrackers()
             => TrackersSocket.Select(t => t.Trackeridentity).ToList();

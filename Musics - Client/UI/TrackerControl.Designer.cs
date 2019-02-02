@@ -39,7 +39,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.UIUpload = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.UiTrackerServer = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label12
@@ -75,6 +75,7 @@
             this.UITrackers.Name = "UITrackers";
             this.UITrackers.Size = new System.Drawing.Size(800, 379);
             this.UITrackers.TabIndex = 39;
+            this.UITrackers.SelectedIndexChanged += new System.EventHandler(this.UITrackers_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -169,23 +170,23 @@
             this.label5.Text = "Tracker information";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // listBox1
+            // UiTrackerServer
             // 
-            this.listBox1.Enabled = false;
-            this.listBox1.Font = new System.Drawing.Font("Raleway Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 25;
-            this.listBox1.Location = new System.Drawing.Point(889, 86);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(800, 379);
-            this.listBox1.TabIndex = 48;
+            this.UiTrackerServer.Enabled = false;
+            this.UiTrackerServer.Font = new System.Drawing.Font("Raleway Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UiTrackerServer.FormattingEnabled = true;
+            this.UiTrackerServer.ItemHeight = 25;
+            this.UiTrackerServer.Location = new System.Drawing.Point(889, 86);
+            this.UiTrackerServer.Name = "UiTrackerServer";
+            this.UiTrackerServer.Size = new System.Drawing.Size(800, 379);
+            this.UiTrackerServer.TabIndex = 48;
             // 
             // TrackerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.UiTrackerServer);
             this.Controls.Add(this.UIUpload);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.UITrackerPort);
@@ -217,6 +218,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button UIUpload;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox UiTrackerServer;
     }
 }

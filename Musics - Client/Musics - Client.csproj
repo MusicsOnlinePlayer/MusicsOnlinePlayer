@@ -206,12 +206,15 @@
     <Compile Include="API\Events\RateEventArgs.cs" />
     <Compile Include="API\Events\RateReportEventArgs.cs" />
     <Compile Include="API\Events\RequestBinairiesEventArgs.cs" />
+    <Compile Include="API\Events\ServerAddedEventArgs.cs" />
+    <Compile Include="API\Events\ServersReceivedFromTrackerEventArgs.cs" />
     <Compile Include="API\PlaylistServices.cs" />
     <Compile Include="API\RateServices.cs" />
     <Compile Include="API\Events\SearchEventArgs.cs" />
     <Compile Include="API\Events\SearchResultEventArgs.cs" />
     <Compile Include="API\LoginServices.cs" />
     <Compile Include="API\SearchServices.cs" />
+    <Compile Include="API\Tracker\ServerClient.cs" />
     <Compile Include="API\Tracker\ServerManagerService.cs" />
     <Compile Include="API\Tracker\TrackerClient.cs" />
     <Compile Include="API\Tracker\TrackersClientService.cs" />

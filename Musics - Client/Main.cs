@@ -39,9 +39,21 @@ namespace Musics___Client
             RateServices.Instance.RateReportEvent += RateServices_RateReportEvent;
             RateServices.Instance.FavoriteReceivedEvent += RateServices_FavoriteReceivedEvent;
             EditAccountServices.Instance.EditAccountReport += AccountServices_EditAccountReport;
+            ServerManagerService.Instance.ServerAdded += Instance_ServerAdded;
             TrackersClientService.Instance.ClientDisconnected += Instance_ClientDisconnected;
             TrackersClientService.Instance.Registered += Tracker_Registered;
+            TrackersClientService.Instance.ServersReceived += Instance_ServersReceived;
             TrackersClientService.Instance.Init();
+        }
+
+        private void Instance_ServerAdded(object sender, ServerAddedEventArgs e)
+        {
+            UITracker.AddServerToTracker(e.ServerIdentity, e.Provider);
+        }
+
+        private void Instance_ServersReceived(object sender, ServersReceivedFromTrackerEventArgs e)
+        {
+            ServerManagerService.Instance.AddMultipleServer(e.ServerIdentities,e.Provider);
         }
 
         private void Instance_ClientDisconnected(object sender, EventArgs e)
