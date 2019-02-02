@@ -33,9 +33,9 @@
             this.UITrackers = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.UITextboxSearch = new System.Windows.Forms.TextBox();
+            this.UINewtrackerIP = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.UITrackerPort = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.UIUpload = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -68,7 +68,6 @@
             // 
             // UITrackers
             // 
-            this.UITrackers.Enabled = false;
             this.UITrackers.Font = new System.Drawing.Font("Raleway Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UITrackers.FormattingEnabled = true;
             this.UITrackers.ItemHeight = 25;
@@ -101,14 +100,14 @@
             this.label2.Text = "Add Trackers";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // UITextboxSearch
+            // UINewtrackerIP
             // 
-            this.UITextboxSearch.Font = new System.Drawing.Font("Raleway Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UITextboxSearch.Location = new System.Drawing.Point(102, 525);
-            this.UITextboxSearch.Margin = new System.Windows.Forms.Padding(10);
-            this.UITextboxSearch.Name = "UITextboxSearch";
-            this.UITextboxSearch.Size = new System.Drawing.Size(437, 32);
-            this.UITextboxSearch.TabIndex = 43;
+            this.UINewtrackerIP.Font = new System.Drawing.Font("Raleway Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UINewtrackerIP.Location = new System.Drawing.Point(102, 525);
+            this.UINewtrackerIP.Margin = new System.Windows.Forms.Padding(10);
+            this.UINewtrackerIP.Name = "UINewtrackerIP";
+            this.UINewtrackerIP.Size = new System.Drawing.Size(437, 32);
+            this.UINewtrackerIP.TabIndex = 43;
             // 
             // label3
             // 
@@ -122,14 +121,14 @@
             this.label3.Text = "IP ";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox1
+            // UITrackerPort
             // 
-            this.textBox1.Font = new System.Drawing.Font("Raleway Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(102, 577);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(10);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(201, 32);
-            this.textBox1.TabIndex = 45;
+            this.UITrackerPort.Font = new System.Drawing.Font("Raleway Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UITrackerPort.Location = new System.Drawing.Point(102, 577);
+            this.UITrackerPort.Margin = new System.Windows.Forms.Padding(10);
+            this.UITrackerPort.Name = "UITrackerPort";
+            this.UITrackerPort.Size = new System.Drawing.Size(201, 32);
+            this.UITrackerPort.TabIndex = 45;
             // 
             // label4
             // 
@@ -156,6 +155,7 @@
             this.UIUpload.TabIndex = 47;
             this.UIUpload.Text = "Add";
             this.UIUpload.UseVisualStyleBackColor = false;
+            this.UIUpload.Click += new System.EventHandler(this.UIUpload_Click);
             // 
             // label5
             // 
@@ -188,9 +188,9 @@
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.UIUpload);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.UITrackerPort);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.UITextboxSearch);
+            this.Controls.Add(this.UINewtrackerIP);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.UITrackers);
@@ -211,9 +211,9 @@
         private System.Windows.Forms.ListBox UITrackers;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox UITextboxSearch;
+        private System.Windows.Forms.TextBox UINewtrackerIP;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox UITrackerPort;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button UIUpload;
         private System.Windows.Forms.Label label5;

@@ -194,6 +194,7 @@
   <ItemGroup>
     <Compile Include="API\ApiEnums\ConnectionState.cs" />
     <Compile Include="API\EditMusicsServices.cs" />
+    <Compile Include="API\Events\AddingTrackerEventArgs.cs" />
     <Compile Include="API\Events\EditAccountEventArgs.cs" />
     <Compile Include="API\EditAccountServices.cs" />
     <Compile Include="API\Events\EditAccountReportEventArgs.cs" />
@@ -211,6 +212,9 @@
     <Compile Include="API\Events\SearchResultEventArgs.cs" />
     <Compile Include="API\LoginServices.cs" />
     <Compile Include="API\SearchServices.cs" />
+    <Compile Include="API\Tracker\ServerManagerService.cs" />
+    <Compile Include="API\Tracker\TrackerClient.cs" />
+    <Compile Include="API\Tracker\TrackersClientService.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

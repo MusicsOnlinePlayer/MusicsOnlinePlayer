@@ -15,7 +15,7 @@ namespace Musics___Client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             ApplicationSettings.Setup();
-            Application.Run(new LoginForm());
+            Application.Run(new Client());
 
             // Application.Run(new Client());
             //Application.Run(new LoginPage());

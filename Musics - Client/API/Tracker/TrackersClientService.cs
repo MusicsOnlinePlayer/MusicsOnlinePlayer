@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Utility.Network;
+using Utility.Network.Tracker;
 using Utility.Network.Tracker.Identity;
 using Utility.Network.Tracker.Requests;
 
@@ -21,8 +22,14 @@ namespace Musics___Client.API.Tracker
         public virtual void OnRegister(object sender, EventArgs e)
             => Registered?.Invoke(sender, e);
 
+        public event EventHandler ClientDisconnected;
+        public virtual void OnDisconnection(object sender, EventArgs e)
+            => ClientDisconnected?.Invoke(sender, e);
+
+
         public void Init()
         {
+            TrackerXml.Setup();
             var a = TrackerXml.GetServers();
             foreach (var t in a)
                 AddTracker(t);
@@ -32,14 +39,27 @@ namespace Musics___Client.API.Tracker
         {
             TrackerClientService cs = new TrackerClientService();
             cs.Packetreceived += Cs_Packetreceived;
-            cs.Connect(trackerIdentity);
-            while (!cs.IsConnected()) { }
+            cs.Disconnected += Cs_Disconnected;
+            try {
+                if (!cs.Connect(trackerIdentity)) return;
+            }
+            catch
+            {
+                throw new Exception();
+            }
+            
+            //while (!cs.IsConnected()) { }
             var r = new Register()
             {
                 Identity = new ClientIdentity()
             };
             cs.Send(Function.Serialize(r).Data);
             TrackersSocket.Add(cs);
+        }
+
+        private void Cs_Disconnected(object sender, EventArgs e)
+        {
+            OnDisconnection(sender, new EventArgs());
         }
 
         private void Cs_Packetreceived(object sender, Utility.Network.Server.PacketEventArgs a)

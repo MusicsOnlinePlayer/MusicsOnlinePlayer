@@ -360,6 +360,7 @@
             this.UITracker.Name = "UITracker";
             this.UITracker.Size = new System.Drawing.Size(1901, 897);
             this.UITracker.TabIndex = 0;
+            this.UITracker.UIAddTracker += new System.EventHandler<Musics___Client.API.Events.AddingTrackerEventArgs>(this.UITracker_UIAddTracker);
             // 
             // tabPage2
             // 

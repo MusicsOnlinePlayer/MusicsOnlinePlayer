@@ -23,6 +23,9 @@ namespace Utility.Network.Tracker
         public delegate void PacketReceivedHandler(object sender, PacketEventArgs a);
         public event PacketReceivedHandler Packetreceived;
 
+        public event EventHandler Disconnected;
+
+        public IPEndPoint ConnectionEndPoint;
 
         private Thread recevoir;
 
@@ -41,28 +44,16 @@ namespace Utility.Network.Tracker
         {
             try
             {
-                _Socket.BeginConnect(ip, new AsyncCallback(ConnectCallback), _Socket);
+                _Socket.Connect(ip);
+                ConnectionEndPoint = ip;
                 return Task.FromResult(_Socket.Connected);
             }
-            catch (Exception ex)
+            catch
             {
                 return Task.FromResult(false);
             }
         }
 
-        private void ConnectCallback(IAsyncResult ar)
-        {
-            try
-            {
-                _Socket = (Socket)ar.AsyncState;
-                _Socket.EndConnect(ar);
-
-            }
-            catch (Exception ex)
-            {
-                throw new ClientSocketException(ex.Message);
-            }
-        }
 
         public void StartReceiving()
         {
@@ -72,19 +63,28 @@ namespace Utility.Network.Tracker
 
         public void Receive()
         {
+            try { 
             _Socket.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.Partial,
                     new AsyncCallback(ReceiveCallback), _Socket);
+            }
+            catch
+            {
+                OnDisconnection(new EventArgs());
+                return;
+            }
         }
 
         private void ReceiveCallback(IAsyncResult ar)
         {
+
             try
             {
                 _Socket.EndReceive(ar);
             }
             catch
             {
-
+                OnDisconnection(new EventArgs());
+                return;
             }
 
             OnPacketReceived(new PacketEventArgs((IPacket)Function.Deserialize(new MessageTCP(buffer)), _Socket));
@@ -96,12 +96,16 @@ namespace Utility.Network.Tracker
             }
             catch (Exception ex)
             {
-                throw new ClientSocketException(ex.Message);
+                OnDisconnection(new EventArgs());
+                return;
             }
         }
 
         public void OnPacketReceived(PacketEventArgs e)
                => Packetreceived?.Invoke(null, e);
+
+        public void OnDisconnection(EventArgs e)
+            => Disconnected?.Invoke(this, e);
 
         public bool IsConnected()
             => _Socket.Connected;
@@ -122,4 +126,5 @@ namespace Utility.Network.Tracker
         SocketError SocketError { get; set; }
 
     }
+
 }
