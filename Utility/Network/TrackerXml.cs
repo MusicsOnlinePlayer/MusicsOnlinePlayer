@@ -52,7 +52,7 @@ namespace Utility.Network
         {
             foreach (var p in GetServers())
             {
-                if (p.IPEndPoint.Address == identity.IPEndPoint.Address && p.IPEndPoint.Port == identity.IPEndPoint.Port)
+                if (p.IPEndPoint.Address.ToString() == identity.IPEndPoint.Address.ToString() && p.IPEndPoint.Port == identity.IPEndPoint.Port)
                     return true;
             }
             return false;

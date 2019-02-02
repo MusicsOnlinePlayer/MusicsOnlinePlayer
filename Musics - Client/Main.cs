@@ -17,6 +17,8 @@ using Utility.Network.Dialog.Requests;
 using Utility.Network.Tracker.Identity;
 using Utility.Network.Server;
 using Musics___Client.API.Tracker;
+using System.Net;
+using Utility.Network.Tracker;
 
 namespace Musics___Client
 {
@@ -27,7 +29,7 @@ namespace Musics___Client
         public Client()
         {
             InitializeComponent();
-            Me = LoginServices.Instance.LoggedUser;
+            //Me = LoginServices.Instance.LoggedUser;
         }
 
         public void InitServices()
@@ -37,14 +39,25 @@ namespace Musics___Client
             RateServices.Instance.RateReportEvent += RateServices_RateReportEvent;
             RateServices.Instance.FavoriteReceivedEvent += RateServices_FavoriteReceivedEvent;
             EditAccountServices.Instance.EditAccountReport += AccountServices_EditAccountReport;
-            TrackersClientService.Instance.Init();
+            TrackersClientService.Instance.ClientDisconnected += Instance_ClientDisconnected;
             TrackersClientService.Instance.Registered += Tracker_Registered;
+            TrackersClientService.Instance.Init();
+        }
+
+        private void Instance_ClientDisconnected(object sender, EventArgs e)
+        {
+            UITracker.RemoveTrackerOfUI(new TrackerIdentity(((ClientSetup)sender).ConnectionEndPoint));
         }
 
         private void Tracker_Registered(object sender, EventArgs e)
         {
             UITracker.UpdateStatut(System.Data.ConnectionState.Connecting);
-            UITracker.AddTrackerToUI((TrackerIdentity)sender);
+            UITracker.AddTrackerToUI(new TrackerIdentity((IPEndPoint)sender));
+        }
+
+        private void UITracker_UIAddTracker(object sender, AddingTrackerEventArgs e)
+        {
+            TrackersClientService.Instance.AddTracker(e.Ti);
         }
 
         private void AccountServices_EditAccountReport(object sender, EditAccountReportEventArgs e)
@@ -105,13 +118,13 @@ namespace Musics___Client
 
         private void Client_Load(object sender, EventArgs e)
         {
-            NetworkClient.recevoir.Abort();
-            NetworkClient.recevoir = new Thread(new ThreadStart(NetworkClient.Receive));
-            NetworkClient.recevoir.Start();
+            //NetworkClient.recevoir.Abort();
+            //NetworkClient.recevoir = new Thread(new ThreadStart(NetworkClient.Receive));
+            //NetworkClient.recevoir.Start();
 
-            EditAccountDetails(Me);
+            //EditAccountDetails(Me);
 
-            NetworkClient.SendObject(new RequestFavorites(Me.UID));
+            //NetworkClient.SendObject(new RequestFavorites(Me.UID));
 
             InitServices();
 
@@ -486,6 +499,7 @@ namespace Musics___Client
 
         private void AccountControl_EditAccountDone(object sender, EditAccountEventArgs e)
             => EditAccountServices.Instance.EditUser(e.NewPassword, Me.UID, e.NewName);
+
 
     }
 }

@@ -12,12 +12,16 @@ namespace Musics___Client.API.Tracker
     {
         public TrackerIdentity Trackeridentity { get; protected set; }
 
-        public async void Connect(TrackerIdentity ti)
+        public bool Connect(TrackerIdentity ti)
         {
             SetupSocket(ti.IPEndPoint.Port, 1000);
-            await Connect(ti.IPEndPoint);
+            Task<bool> a = Connect(ti.IPEndPoint);
+            a.Wait(new TimeSpan(0,1,0));
+            if (!a.Result)
+                return false;
             StartReceiving();
             Trackeridentity = ti;
+            return true;
         }
     }
 }
