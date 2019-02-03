@@ -17,6 +17,7 @@ namespace Musics___Server.Network
 
         public bool CheckTokenValidity(Token token, Socket socket)
         {
+            return true;
             if(TryGetValue(socket, out Token tk))
             {
                 return tk.THash == token.THash;

@@ -1,10 +1,10 @@
 ﻿using System;
 using Utility.Musics;
-using ControlLibrary.Network;
 using Musics___Client.API.Events;
 using Utility.Network.Dialog.Rating;
 using Utility.Network.Dialog;
 using Utility.Network.Server;
+using Musics___Client.API.Tracker;
 
 namespace Musics___Client.API
 {
@@ -14,7 +14,7 @@ namespace Musics___Client.API
         static public RateServices Instance { get => instance.Value; }
         private RateServices()
         {
-            NetworkClient.Packetreceived += NetworkClient_Packetreceived;
+            ServerManagerService.Instance.PacketReceived += Instance_Packetreceived;
         }
 
         public event EventHandler<RateReportEventArgs> RateReportEvent;
@@ -25,7 +25,7 @@ namespace Musics___Client.API
         protected virtual void OnFavoriteReceivedEvent(FavoriteEventArgs e)
             => FavoriteReceivedEvent?.Invoke(this, e);
 
-        private void NetworkClient_Packetreceived(object sender, PacketEventArgs a)
+        private void Instance_Packetreceived(object sender, PacketEventArgs a)
         {
             if(a.Packet is RateReport)
             {
@@ -41,6 +41,6 @@ namespace Musics___Client.API
         }
 
         public void RateMusic(string ElementRatedMID, ElementType elementType)
-            => NetworkClient.SendObject(new Rate(ElementRatedMID, elementType));
+            => ServerManagerService.Instance.SendObject(new Rate(ElementRatedMID, elementType));
     }
 }

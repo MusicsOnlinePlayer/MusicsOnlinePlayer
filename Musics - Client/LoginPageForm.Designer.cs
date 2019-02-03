@@ -1,6 +1,6 @@
 ﻿namespace Musics___Client
 {
-    partial class LoginForm
+    partial class LoginPageForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,30 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.LoginControl = new Musics___Client.UI.LoginControl();
+            this.login1 = new Musics___Client.UI.Login();
             this.SuspendLayout();
             // 
-            // loginControl1
+            // login1
             // 
-            this.LoginControl.Location = new System.Drawing.Point(13, 28);
-            this.LoginControl.Name = "loginControl1";
-            this.LoginControl.Size = new System.Drawing.Size(414, 410);
-            this.LoginControl.TabIndex = 0;
+            this.login1.Location = new System.Drawing.Point(1, 0);
+            this.login1.Name = "login1";
+            this.login1.Size = new System.Drawing.Size(381, 367);
+            this.login1.TabIndex = 0;
             // 
-            // LoginForm
+            // LoginPageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 587);
-            this.Controls.Add(this.LoginControl);
-            this.Name = "LoginForm";
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(387, 373);
+            this.Controls.Add(this.login1);
+            this.Name = "LoginPageForm";
+            this.Text = "Login";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private UI.LoginControl LoginControl;
+        public UI.Login login1;
     }
 }

@@ -77,16 +77,15 @@
     <Compile Include="AppSettings\Settings.cs" />
     <Compile Include="Hue\AsyncHelper.cs" />
     <Compile Include="Hue\HueMusic.cs" />
-    <Compile Include="Music\Player.cs" />
-    <Compile Include="Network\Client.cs" />
-    <Compile Include="Network\NetworkEventArgs.cs" />
+    <Compile Include="MusicUtils\Event\OnRequestBinairiesEventArgs.cs" />
+    <Compile Include="MusicUtils\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Music\Tags.cs" />
+    <Compile Include="MusicUtils\Tags.cs" />
     <Compile Include="User Interface\HueControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

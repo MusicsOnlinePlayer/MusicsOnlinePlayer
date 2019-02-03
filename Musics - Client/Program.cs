@@ -9,19 +9,30 @@ namespace Musics___Client
         /// <summary>
         /// Point d'entrée principal de l'application.
         /// </summary>
+        /// 
+
+        static LoginPageForm Loginf;
+        static Client Cl;
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             ApplicationSettings.Setup();
-            Application.Run(new Client());
+            Loginf = new LoginPageForm();
+            Loginf.login1.LoginCompleted += Login1_LoginCompleted;
+            Application.Run(Loginf);
 
             // Application.Run(new Client());
             //Application.Run(new LoginPage());
             //
         }
 
-     
+        private static void Login1_LoginCompleted(object sender, API.Events.LoginControlEventArgs e)
+        {
+            Loginf.Hide();
+            Cl = new Client(e.CryptedCredentials);
+            Cl.ShowDialog();
+        }
     }
 }
