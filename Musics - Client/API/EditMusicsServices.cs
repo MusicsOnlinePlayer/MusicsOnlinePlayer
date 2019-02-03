@@ -1,4 +1,4 @@
-﻿using ControlLibrary.Network;
+﻿using Musics___Client.API.Tracker;
 using System;
 using Utility.Musics;
 using Utility.Network.Dialog.Edits;
@@ -15,16 +15,16 @@ namespace Musics___Client.API
         public void SendEditMusicRequest(IElement ElementToEdit,string NewName)
         {
             if (ElementToEdit is Music)
-                NetworkClient.SendObject(new EditRequest(ElementToEdit, NewName, ElementType.Music));
+                ServerManagerService.Instance.SendObject(new EditRequest(ElementToEdit, NewName, ElementType.Music));
             else
-                NetworkClient.SendObject(new EditRequest(ElementToEdit, NewName, ElementType.Album));
+                ServerManagerService.Instance.SendObject(new EditRequest(ElementToEdit, NewName, ElementType.Album));
         }
         public void SendEditMusicRequest(IElement ElementToEdit, string NewName,string[] Genres)
         {
             if (ElementToEdit is Music)
-                NetworkClient.SendObject(new EditRequest(ElementToEdit, NewName, Genres, ElementType.Music));
+                ServerManagerService.Instance.SendObject(new EditRequest(ElementToEdit, NewName, Genres, ElementType.Music));
             else
-                NetworkClient.SendObject(new EditRequest(ElementToEdit, NewName, Genres, ElementType.Album));
+                ServerManagerService.Instance.SendObject(new EditRequest(ElementToEdit, NewName, Genres, ElementType.Album));
         }
     }
 }

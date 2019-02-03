@@ -16,7 +16,7 @@ namespace Musics___Client.API.Tracker
 
         public bool Connect(ServerIdentity si)
         {
-            SetupSocket(si.IPEndPoint.Port, 100000);
+            SetupSocket(si.IPEndPoint.Port, 100000000);
             Task<bool> a = Connect(si.IPEndPoint);
             a.Wait(new TimeSpan(0, 1, 0));
             if (!a.Result)

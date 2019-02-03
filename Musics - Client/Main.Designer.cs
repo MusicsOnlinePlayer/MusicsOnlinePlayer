@@ -42,7 +42,6 @@
             this.UISearchUser = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.UISettings = new System.Windows.Forms.TabPage();
-            this.hueControl1 = new ControlLibrary.User_Interface.HueControl();
             this.label1 = new System.Windows.Forms.Label();
             this.UIAccount = new System.Windows.Forms.TabPage();
             this.AccountControl = new Musics___Client.UI.AccountControl();
@@ -59,6 +58,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.uPlayer1 = new ControlLibrary.UPlayer();
+            this.hueControl1 = new ControlLibrary.User_Interface.HueControl();
             this.UIAdministration.SuspendLayout();
             this.UIPanelEditUser.SuspendLayout();
             this.UISettings.SuspendLayout();
@@ -208,17 +208,6 @@
             this.UISettings.TabIndex = 7;
             this.UISettings.Text = "Settings";
             this.UISettings.UseVisualStyleBackColor = true;
-            // 
-            // hueControl1
-            // 
-            this.hueControl1.AutoSize = true;
-            this.hueControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.hueControl1.BackColor = System.Drawing.Color.White;
-            this.hueControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hueControl1.Location = new System.Drawing.Point(13, 6);
-            this.hueControl1.Name = "hueControl1";
-            this.hueControl1.Size = new System.Drawing.Size(1186, 399);
-            this.hueControl1.TabIndex = 30;
             // 
             // label1
             // 
@@ -397,6 +386,18 @@
             this.uPlayer1.Name = "uPlayer1";
             this.uPlayer1.Size = new System.Drawing.Size(1904, 106);
             this.uPlayer1.TabIndex = 2;
+            this.uPlayer1.RequestBinairies += new System.EventHandler<ControlLibrary.MusicUtils.Event.OnRequestBinairiesEventArgs>(this.uPlayer1_RequestBinairies);
+            // 
+            // hueControl1
+            // 
+            this.hueControl1.AutoSize = true;
+            this.hueControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.hueControl1.BackColor = System.Drawing.Color.White;
+            this.hueControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hueControl1.Location = new System.Drawing.Point(13, 6);
+            this.hueControl1.Name = "hueControl1";
+            this.hueControl1.Size = new System.Drawing.Size(1186, 399);
+            this.hueControl1.TabIndex = 30;
             // 
             // Client
             // 

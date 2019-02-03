@@ -1,4 +1,4 @@
-﻿using ControlLibrary.Network;
+﻿using Musics___Client.API.Tracker;
 using System;
 using System.Collections.Generic;
 using Utility.Musics;
@@ -16,7 +16,7 @@ namespace Musics___Client.API
 
         public void SubmitPlaylist(User me,string PlaylistName,List<Music> PlaylistData,bool IsPrivate)
         {
-            NetworkClient.SendObject(new SavePlaylist(me.UID, new Playlist(me, PlaylistName, PlaylistData, IsPrivate)));
+            ServerManagerService.Instance.SendObject(new SavePlaylist(me.UID, new Playlist(me, PlaylistName, PlaylistData, IsPrivate)));
         }
     }
 }

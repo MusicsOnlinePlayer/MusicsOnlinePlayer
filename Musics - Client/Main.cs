@@ -10,7 +10,6 @@ using Utility.Network;
 using Utility.Network.Dialog.Authentification;
 using Utility.Musics;
 using Utility.Network.Dialog.Uploads;
-using ControlLibrary.Network;
 using Musics___Client.API;
 using Musics___Client.API.Events;
 using Utility.Network.Dialog.Requests;
@@ -26,15 +25,16 @@ namespace Musics___Client
     {
         public User Me { get; set; }
 
-        public Client()
+        public Client(CryptedCredentials me)
         {
             InitializeComponent();
+            ServerManagerService.Instance.Me = me;
             //Me = LoginServices.Instance.LoggedUser;
         }
 
         public void InitServices()
         {
-            NetworkClient.Packetreceived += TreatObject; 
+            ServerManagerService.Instance.PacketReceived += TreatObject; 
             SearchServices.Instance.SearchResultEvent += Search_SearchResultEvent;
             RateServices.Instance.RateReportEvent += RateServices_RateReportEvent;
             RateServices.Instance.FavoriteReceivedEvent += RateServices_FavoriteReceivedEvent;
@@ -96,7 +96,7 @@ namespace Musics___Client
             => PlayElement(e.Selected);
 
         private void FavoriteControl_SearchEvent(object sender, RequestBinairiesEventArgs e)
-            => NetworkClient.SendObject(new RequestBinairies(e.RequestedMusic));
+            => ServerManagerService.Instance.SendObject(new RequestBinairies(e.RequestedMusic));
 
         private void RateServices_RateReportEvent(object sender, RateReportEventArgs e)
         {
@@ -130,13 +130,13 @@ namespace Musics___Client
 
         private void Client_Load(object sender, EventArgs e)
         {
-            //NetworkClient.recevoir.Abort();
-            //NetworkClient.recevoir = new Thread(new ThreadStart(NetworkClient.Receive));
-            //NetworkClient.recevoir.Start();
+            //ServerManagerService.Instance.recevoir.Abort();
+            //ServerManagerService.Instance.recevoir = new Thread(new ThreadStart(ServerManagerService.Instance.Receive));
+            //ServerManagerService.Instance.recevoir.Start();
 
             //EditAccountDetails(Me);
 
-            //NetworkClient.SendObject(new RequestFavorites(Me.UID));
+            //ServerManagerService.Instance.SendObject(new RequestFavorites(Me.UID));
 
             InitServices();
 
@@ -185,8 +185,8 @@ namespace Musics___Client
 
         private void Client_FormClosed(object sender, FormClosedEventArgs e)
         {
-            NetworkClient.SendObject(new Disconnect());
-            NetworkClient.CloseSocket();
+           // ServerManagerService.Instance.SendObject(new Disconnect());
+            //ServerManagerService.Instance.CloseSocket();
         }
 
         public event EventHandler LoginInfoReceived;
@@ -232,7 +232,7 @@ namespace Musics___Client
                     if (UploadStatus < MusicsToSend.Musics.Count())
                     {
                         var music = MusicsToSend.Musics.ElementAt(UploadStatus);
-                        NetworkClient.SendObject(new UploadMusic(new Album(music.Author, MusicsToSend.Name, new Music[] { music })));
+                        ServerManagerService.Instance.SendObject(new UploadMusic(new Album(music.Author, MusicsToSend.Name, new Music[] { music })));
                         UploadStatus++;
                     }
                     else
@@ -350,7 +350,7 @@ namespace Musics___Client
         }
 
         private void PlayBis(Music music)
-            => NetworkClient.SendObject(new RequestBinairies(music));
+            => ServerManagerService.Instance.SendObject(new RequestBinairies(music));
 
         private void PlayBis(Album album)
         {
@@ -362,7 +362,7 @@ namespace Musics___Client
                 uPlayer1.Playlist.Add(m);
                 SearchControl.AddToPlaylist(m.Title);
             }
-            NetworkClient.SendObject(new RequestBinairies(uPlayer1.Playlist.First()));
+            ServerManagerService.Instance.SendObject(new RequestBinairies(uPlayer1.Playlist.First()));
         }
 
         private void PlayBis(Playlist playlist)
@@ -375,7 +375,7 @@ namespace Musics___Client
                 uPlayer1.Playlist.Add(m);
                 SearchControl.AddToPlaylist(m.Title);
             }
-            NetworkClient.SendObject(new RequestBinairies(uPlayer1.Playlist.First()));
+            ServerManagerService.Instance.SendObject(new RequestBinairies(uPlayer1.Playlist.First()));
         }
 
         private void Client_FormClosing(object sender, FormClosingEventArgs e)
@@ -413,7 +413,7 @@ namespace Musics___Client
             {
                 if (UISearchUser.Text != null)
                 {
-                    NetworkClient.SendObject(new RequestUser(new User(UISearchUser.Text)));
+                    ServerManagerService.Instance.SendObject(new RequestUser(new User(UISearchUser.Text)));
                 }
             }
         }
@@ -443,7 +443,7 @@ namespace Musics___Client
         {
             if (UIEditUserRank.SelectedIndex != (int)UserSearchResult[UIUsersResult.SelectedIndex].Rank && Enum.TryParse(UIEditUserRank.SelectedItem.ToString(), out Rank rank))
             {
-                NetworkClient.SendObject(new EditRequest(UserSearchResult[UIUsersResult.SelectedIndex].UID, rank));
+                ServerManagerService.Instance.SendObject(new EditRequest(UserSearchResult[UIUsersResult.SelectedIndex].UID, rank));
             }
         }
 
@@ -495,7 +495,7 @@ namespace Musics___Client
             {
                 MusicsToSend = uploadForm.AlbumToSend;
                 var music = MusicsToSend.Musics.First();
-                NetworkClient.SendObject(new UploadMusic(new Album(music.Author, uploadForm.AlbumToSend.Name, new Music[] { music })));
+                ServerManagerService.Instance.SendObject(new UploadMusic(new Album(music.Author, uploadForm.AlbumToSend.Name, new Music[] { music })));
 
                 UploadStatus = 1;
 
@@ -512,6 +512,9 @@ namespace Musics___Client
         private void AccountControl_EditAccountDone(object sender, EditAccountEventArgs e)
             => EditAccountServices.Instance.EditUser(e.NewPassword, Me.UID, e.NewName);
 
-
+        private void uPlayer1_RequestBinairies(object sender, ControlLibrary.MusicUtils.Event.OnRequestBinairiesEventArgs e)
+        {
+            ServerManagerService.Instance.SendObject(new RequestBinairies(e.RequestedMusic));
+        }
     }
 }

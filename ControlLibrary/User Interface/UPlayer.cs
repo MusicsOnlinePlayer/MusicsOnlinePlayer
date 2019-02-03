@@ -1,11 +1,11 @@
-﻿using ControlLibrary.Network;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Utility.Musics;
 using Utility.Network.Dialog;
 using Tulpep.NotificationWindow;
 using Utility.Network.Dialog.Requests;
+using ControlLibrary.MusicUtils.Event;
 
 namespace ControlLibrary
 {
@@ -17,6 +17,10 @@ namespace ControlLibrary
         public int PlaylistIndex;
 
         public Music InPlaying;
+
+        public event EventHandler<OnRequestBinairiesEventArgs> RequestBinairies;
+        public virtual void OnRequestBinairies(object sender, OnRequestBinairiesEventArgs e)
+            => RequestBinairies?.Invoke(sender, e);
 
         public UPlayer()
         {
@@ -35,7 +39,7 @@ namespace ControlLibrary
                 if (PlaylistIndex + 1 < Playlist.Count)
                 {
                     PlaylistIndex++;
-                    NetworkClient.SendObject(new RequestBinairies(Playlist[PlaylistIndex]));
+                    OnRequestBinairies(null, new OnRequestBinairiesEventArgs(Playlist[PlaylistIndex]));
                 }
             }
             if (NewState == 3)
@@ -66,7 +70,7 @@ namespace ControlLibrary
                 PlaylistIndex--;
                 UIForward.Enabled = false;
                 UIBackward.Enabled = false;
-                NetworkClient.SendObject(new RequestBinairies(Playlist[PlaylistIndex]));
+                OnRequestBinairies(null, new OnRequestBinairiesEventArgs(Playlist[PlaylistIndex]));
             }
         }
 
@@ -77,7 +81,7 @@ namespace ControlLibrary
                 PlaylistIndex++;
                 UIForward.Enabled = false;
                 UIBackward.Enabled = false;
-                NetworkClient.SendObject(new RequestBinairies(Playlist[PlaylistIndex]));
+                OnRequestBinairies(null, new OnRequestBinairiesEventArgs(Playlist[PlaylistIndex]));
             }
         }
 

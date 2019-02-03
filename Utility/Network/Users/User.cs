@@ -81,7 +81,7 @@ namespace Utility.Network.Users
             UID = copy.UID;
         }
 
-        protected CryptedCredentials(ICredentials credentials)
+        public CryptedCredentials(ICredentials credentials)
         {
             Login = credentials.Login;
             UID = GenerateUID(credentials);

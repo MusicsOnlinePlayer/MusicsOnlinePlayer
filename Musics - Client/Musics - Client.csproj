@@ -200,6 +200,7 @@
     <Compile Include="API\Events\EditAccountReportEventArgs.cs" />
     <Compile Include="API\Events\EditMusicEventArgs.cs" />
     <Compile Include="API\Events\FavoriteEventArgs.cs" />
+    <Compile Include="API\Events\LoginControlEventArgs.cs" />
     <Compile Include="API\Events\PathClickedEventArgs.cs" />
     <Compile Include="API\Events\PlayEventArgs.cs" />
     <Compile Include="API\Events\PlaylistSavedEventArgs.cs" />
@@ -212,29 +213,22 @@
     <Compile Include="API\RateServices.cs" />
     <Compile Include="API\Events\SearchEventArgs.cs" />
     <Compile Include="API\Events\SearchResultEventArgs.cs" />
-    <Compile Include="API\LoginServices.cs" />
     <Compile Include="API\SearchServices.cs" />
     <Compile Include="API\Tracker\ServerClient.cs" />
     <Compile Include="API\Tracker\ServerManagerService.cs" />
     <Compile Include="API\Tracker\TrackerClient.cs" />
     <Compile Include="API\Tracker\TrackersClientService.cs" />
-    <Compile Include="LoginForm.cs">
+    <Compile Include="LoginPageForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginForm.Designer.cs">
-      <DependentUpon>LoginForm.cs</DependentUpon>
+    <Compile Include="LoginPageForm.Designer.cs">
+      <DependentUpon>LoginPageForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LoginPage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LoginPage.Designer.cs">
-      <DependentUpon>LoginPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -252,12 +246,6 @@
     <Compile Include="UI\AccountControl.Designer.cs">
       <DependentUpon>AccountControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\CredentialControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\CredentialControl.Designer.cs">
-      <DependentUpon>CredentialControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\FavoriteControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -270,11 +258,11 @@
     <Compile Include="UI\HomeControl.Designer.cs">
       <DependentUpon>HomeControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\LoginControl.cs">
+    <Compile Include="UI\Login.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\LoginControl.Designer.cs">
-      <DependentUpon>LoginControl.cs</DependentUpon>
+    <Compile Include="UI\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MusicControl.cs">
       <SubType>UserControl</SubType>
@@ -300,14 +288,11 @@
     <Compile Include="Upload.Designer.cs">
       <DependentUpon>Upload.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="LoginForm.resx">
-      <DependentUpon>LoginForm.cs</DependentUpon>
+    <EmbeddedResource Include="LoginPageForm.resx">
+      <DependentUpon>LoginPageForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LoginPage.resx">
-      <DependentUpon>LoginPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -320,17 +305,14 @@
     <EmbeddedResource Include="UI\AccountControl.resx">
       <DependentUpon>AccountControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\CredentialControl.resx">
-      <DependentUpon>CredentialControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\FavoriteControl.resx">
       <DependentUpon>FavoriteControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\HomeControl.resx">
       <DependentUpon>HomeControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\LoginControl.resx">
-      <DependentUpon>LoginControl.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MusicControl.resx">
       <DependentUpon>MusicControl.cs</DependentUpon>

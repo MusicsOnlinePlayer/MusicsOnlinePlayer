@@ -1,12 +1,12 @@
 using System;
 using Utility.Musics;
 using Utility.Network.Dialog;
-using ControlLibrary.Network;
 using Musics___Client.API.Events;
 using System.Collections.Generic;
 using Utility.Network.Dialog.Requests;
 using Utility.Network.Tracker.Identity;
 using Utility.Network.Server;
+using Musics___Client.API.Tracker;
 
 namespace Musics___Client.API
 {
@@ -17,10 +17,10 @@ namespace Musics___Client.API
 
         private SearchServices()
         {
-            NetworkClient.Packetreceived += NetworkClient_Packetreceived;
+            ServerManagerService.Instance.PacketReceived += Instance_Packetreceived;
         }
 
-        private void NetworkClient_Packetreceived(object sender, PacketEventArgs a)
+        private void Instance_Packetreceived(object sender, PacketEventArgs a)
         {
             if (a.Packet is RequestAnswer)
             {
@@ -33,7 +33,7 @@ namespace Musics___Client.API
         }
 
         public void SearchElement(string Search, ElementType elementType) 
-            => NetworkClient.SendObject(new RequestSearch(Search, elementType));
+            => ServerManagerService.Instance.SendObject(new RequestSearch(Search, elementType));
 
         public event EventHandler<SearchResultEventArgs> SearchResultEvent;
 
