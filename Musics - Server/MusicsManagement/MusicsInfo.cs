@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using Utility.Musics;
+using Utility.Network;
 
 namespace Musics___Server.MusicsInformation
 {
     static class MusicsInfo
     {
+        public static string DefaultMusicPath = @"C:\AllMusics";
+
         public static void SetupMusics()
         {
             if (!File.Exists(@"Musics.xml"))
@@ -19,7 +22,52 @@ namespace Musics___Server.MusicsInformation
                     writer.WriteEndElement();
                     writer.WriteEndDocument();
                 }
+                SaveMusicPath(DefaultMusicPath);
             }
+        }
+
+        public static bool SaveMusicPath(string path)
+        {
+            if (!Function.CheckPathValidity(path)) return false;
+            if (!Directory.Exists(path)) return false;
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"Musics.xml");
+
+            if(TryFindMusicPath(out XmlNode node))
+            {
+                node.InnerText = path;
+            }
+            else
+            {
+                XmlNode NodePath = doc.CreateElement("Path");
+                NodePath.InnerText = path;
+                doc.DocumentElement.AppendChild(NodePath);
+            }
+            doc.Save(@"Musics.xml");
+            return true;
+        }
+
+        public static string GetMusicPath()
+        {
+            if(TryFindMusicPath(out XmlNode node))
+            {
+                if (!Function.CheckPathValidity(node.InnerText)) return DefaultMusicPath;
+                if (!Directory.Exists(node.InnerText)) return DefaultMusicPath;
+
+                return node.InnerText;
+            }
+            return DefaultMusicPath;
+        }
+
+        public static bool TryFindMusicPath(out XmlNode node)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"Musics.xml");
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("Path");
+
+            node = nodes.Cast<XmlNode>().SingleOrDefault();
+            return null != node;
         }
 
         public static void EditMusicsInfo(string OldMID, Music NewMusicInfo)

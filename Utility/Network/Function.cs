@@ -49,5 +49,25 @@ namespace Utility.Network
                 }
             }
         }
+
+        public static bool CheckPathValidity(string path)
+        {
+            System.IO.FileInfo fi = null;
+            try
+            {
+                fi = new System.IO.FileInfo(path);
+            }
+            catch (ArgumentException) { }
+            catch (System.IO.PathTooLongException) { }
+            catch (NotSupportedException) { }
+            if (ReferenceEquals(fi, null))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }
