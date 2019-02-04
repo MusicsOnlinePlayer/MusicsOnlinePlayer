@@ -22,11 +22,12 @@ namespace Musics___Server.MusicsManagement
 
         public static void InitRepository()
         {
-            string musicsDBPath = @"C:\AllMusics";
+            MusicsInfo.SetupMusics();
+            string musicsDBPath = MusicsInfo.GetMusicPath();
             if (!Directory.Exists(musicsDBPath))
                 Directory.CreateDirectory(musicsDBPath);
             Console.WriteLine("Directory created.");
-            MusicsInfo.SetupMusics();
+            
         }
 
         public static byte[] GetFileBinary(Music m)
@@ -52,7 +53,7 @@ namespace Musics___Server.MusicsManagement
         }
         public static int Do(bool UseMultiThreading)
         {
-            string[] ArtistDirs = Directory.GetDirectories(@"c:\AllMusics");
+            string[] ArtistDirs = Directory.GetDirectories(MusicsInfo.GetMusicPath());
 
             int NumberofMusics = 0;
 
