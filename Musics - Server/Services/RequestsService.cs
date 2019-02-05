@@ -33,13 +33,14 @@ namespace Musics___Server.Services
                     break;
 
                 case RequestsTypes.MusicsBinaries:
-                    var m = Indexation.GetMusicByID((request as RequestBinairies).RequestedBinaries.MID);
-                    Music answer = new Music(m.Title, new Author(m.Author.Name), m.Album, Indexation.GetFileBinary(m))
-                    {
-                        Format = m.Format,
-                        Rating = m.Rating
-                    };
-                    new RequestAnswer(answer).Send(socket);
+                    if(Indexation.TryGetMusicByID((request as RequestBinairies).RequestedBinaries.MID,out Music m){
+                        Music answer = new Music(m.Title, new Author(m.Author.Name), m.Album, Indexation.GetFileBinary(m))
+                        {
+                            Format = m.Format,
+                            Rating = m.Rating
+                        };
+                        new RequestAnswer(answer).Send(socket);
+                    }
                     break;
                 case RequestsTypes.Favorites:
                     List<Music> tmp = UsersInfos.GetLikedMusics((request as RequestFavorites).UserID);
