@@ -30,8 +30,8 @@ namespace Musics___Server.Services
 
             if (temp.Type == ElementType.Music)
             {
-                var m = Indexation.GetMusicByID(temp.MusicRatedMID);
-                if (m != null)
+                //var m = Indexation.GetMusicByID(temp.MusicRatedMID);
+                if(Indexation.TryGetMusicByID(temp.MusicRatedMID,out Music m))
                 {
                     if (VoteExist)
                         m.Rating--;

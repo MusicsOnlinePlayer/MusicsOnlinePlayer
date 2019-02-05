@@ -321,6 +321,19 @@ namespace Musics___Server.MusicsManagement
         public static Music GetMusicByID(string MID)
             => GetAllMusics().SingleOrDefault(m => m.MID == MID);
 
+        public static bool TryGetMusicByID(string MID, out Music music)
+        {
+            try
+            {
+                music = GetMusicByID(MID);
+            }
+            catch {
+                music = null;
+            }
+
+            return null != music;
+        }
+
         public static string GetElementPath(Element element)
         {
             switch (element.Type)
