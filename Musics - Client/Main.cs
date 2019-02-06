@@ -201,7 +201,7 @@ namespace Musics___Client
         #region PlayerSearch
 
         private void Search_SearchResultEvent(object sender, SearchResultEventArgs e)
-             => RequestAnswerSearch(e.ReceivedSearchedElement);
+             => RequestAnswerSearch(e.ReceivedSearchedElement , e.SearchField != SearchControl.CurrentSearchField);
 
         private void HomeControl1_SearchEvent(object sender, SearchEventArgs e)
             => SearchServices.Instance.SearchElement(e.SearchField, e.ElementType);
@@ -264,10 +264,11 @@ namespace Musics___Client
             }
         }
 
-        public void RequestAnswerSearch(IReadOnlyList<IElement> searchAnswer)
+        public void RequestAnswerSearch(IReadOnlyList<IElement> searchAnswer , bool IsNew)
         {
             ChangeTabsThreadSafe(1);
-            SearchControl.ClearSearchListBoxes();
+            if(IsNew)
+                SearchControl.ClearSearchListBoxes();
             SearchControl.FillSearchListBoxes(searchAnswer);
 
             Invoke((MethodInvoker)delegate

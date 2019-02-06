@@ -8,9 +8,12 @@ namespace Musics___Client.API.Events
     {
         public IReadOnlyList<IElement> ReceivedSearchedElement { get; set; }
 
-        public SearchResultEventArgs(IReadOnlyList<IElement> receivedSearchedElement)
+        public string SearchField { get; set; }
+
+        public SearchResultEventArgs(IReadOnlyList<IElement> receivedSearchedElement,string initialSearch)
         {
             ReceivedSearchedElement = receivedSearchedElement;
+            SearchField = initialSearch;
         }      
     }
 }
