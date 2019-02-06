@@ -27,7 +27,7 @@ namespace Musics___Client.API
                 var requestAnswer = a.Packet as RequestAnswer;
                 if (requestAnswer.RequestsTypes == RequestsTypes.Search)
                 {
-                    OnSearchResultEvent(new SearchResultEventArgs(requestAnswer.AnswerList));
+                    OnSearchResultEvent(new SearchResultEventArgs(requestAnswer.AnswerList,requestAnswer.InitialSearch));
                 }
             }
         }

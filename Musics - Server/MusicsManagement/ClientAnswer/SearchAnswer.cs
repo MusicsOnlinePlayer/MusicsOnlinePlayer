@@ -38,7 +38,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
         {
             string userUID = MyServer.Clients.GetUser(asker).UID;
             var playlists = UsersInfos.GetPlaylists(userUID).Where(p => Search.Find(requestSearch.Name, p.Name));
-            (new RequestAnswer(playlists.Cast<IElement>().ToList(), ElementType.Playlist)).Send(asker);
+            (new RequestAnswer(playlists.Cast<IElement>().ToList(), ElementType.Playlist,requestSearch.Name)).Send(asker);
         }
 
         private static void DoMusic(RequestSearch requestSearch, Socket asker)
@@ -51,7 +51,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
             requestSearch.SenderUID = MyServer.Clients.GetUser(asker).UID;
 
             //ServerCom.GlobalSend(requestSearch);
-            (new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Music)).Send(asker);
+            (new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Music, requestSearch.Name)).Send(asker);
         }
 
         private static void DoAlbum(RequestSearch requestSearch, Socket asker)
@@ -60,7 +60,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
             foreach(var a in result)
                 MyServer.Log.Info($"  {a.Name}");
 
-            (new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Album)).Send(asker);
+            (new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Album, requestSearch.Name)).Send(asker);
         }
 
         private static void DoAuthor(RequestSearch requestSearch, Socket asker)
@@ -68,7 +68,7 @@ namespace Musics___Server.MusicsManagement.ClientSearch
             var result = Indexation.GetAuthors(x => Search.Find(requestSearch.Name, x.Name));
             foreach (var a in result)
                 MyServer.Log.Info($"  {a.Name}");
-            (new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Author)).Send(asker);
+            (new RequestAnswer(result.Cast<IElement>().ToList(), ElementType.Author, requestSearch.Name)).Send(asker);
         }
     }
 }

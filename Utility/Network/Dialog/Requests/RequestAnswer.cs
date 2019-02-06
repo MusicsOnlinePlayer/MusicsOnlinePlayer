@@ -34,10 +34,13 @@ namespace Utility.Network.Dialog
         public object MusicByGenre { get; set; }
         public ElementType Type { get; set; }
 
-        public RequestAnswer(List<IElement> answerlist, ElementType requested)
+        public string InitialSearch;
+
+        public RequestAnswer(List<IElement> answerlist, ElementType requested, string SearchFor)
         {
             Requested = requested;
             AnswerList = answerlist;
+            InitialSearch = SearchFor;
             RequestsTypes = RequestsTypes.Search;
         }
 

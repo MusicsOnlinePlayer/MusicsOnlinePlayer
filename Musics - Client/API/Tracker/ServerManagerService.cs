@@ -29,6 +29,8 @@ namespace Musics___Client.API.Tracker
 
         public void AddServer(ServerIdentity si,TrackerIdentity provider)
         {
+            if (ServerClients.Exists(x => x.ServerIdentity.IPEndPoint.ToString() == si.IPEndPoint.ToString()))
+                return;
             ServerClient serverClient = new ServerClient();
             serverClient.Provider = provider;
             serverClient.Disconnected += ServerClient_Disconnected;

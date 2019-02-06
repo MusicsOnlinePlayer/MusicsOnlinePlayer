@@ -48,6 +48,7 @@ namespace Musics___Client.UI
         {
             if (e.KeyCode == Keys.Enter)
             {
+                CurrentSearchField = UITextboxSearch.Text;
                 if (UIRadioAlbum.Checked)
                 {
                     OnSearchEvent(new SearchEventArgs(UITextboxSearch.Text, ElementType.Album));
@@ -72,6 +73,8 @@ namespace Musics___Client.UI
         }
 
         public IElement selected;
+
+        public string CurrentSearchField;
 
         public void ClearSearchListBoxes()
             => Invoke((MethodInvoker)delegate { ClearSearchListBoxesThreadSafe(); });
