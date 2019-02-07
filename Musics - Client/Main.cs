@@ -201,7 +201,10 @@ namespace Musics___Client
         #region PlayerSearch
 
         private void Search_SearchResultEvent(object sender, SearchResultEventArgs e)
-             => RequestAnswerSearch(e.ReceivedSearchedElement , e.SearchField != SearchControl.CurrentSearchField);
+        {
+            RequestAnswerSearch(e.ReceivedSearchedElement, e.SearchField != SearchControl.CurrentSearchField);
+            SearchControl.CurrentSearchField = e.SearchField;
+        } 
 
         private void HomeControl1_SearchEvent(object sender, SearchEventArgs e)
             => SearchServices.Instance.SearchElement(e.SearchField, e.ElementType);

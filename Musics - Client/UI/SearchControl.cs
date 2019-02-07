@@ -48,7 +48,7 @@ namespace Musics___Client.UI
         {
             if (e.KeyCode == Keys.Enter)
             {
-                CurrentSearchField = UITextboxSearch.Text;
+                //CurrentSearchField = UITextboxSearch.Text;
                 if (UIRadioAlbum.Checked)
                 {
                     OnSearchEvent(new SearchEventArgs(UITextboxSearch.Text, ElementType.Album));
