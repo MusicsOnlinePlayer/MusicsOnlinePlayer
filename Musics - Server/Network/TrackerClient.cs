@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Utility.Network;
+using Utility.Network.Tracker;
 using Utility.Network.Tracker.Identity;
 using Utility.Network.Tracker.Requests;
 
@@ -13,7 +14,7 @@ namespace Musics___Server.Network
 {
     public class TrackerClient
     {
-        public List<ClientSocket> _trackerSockets = new List<ClientSocket>();
+        public List<IClient> _trackerSockets = new List<IClient>();
 
         public void AddTracker(TrackerIdentity trackerIdentity)
         {

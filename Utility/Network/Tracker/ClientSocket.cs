@@ -7,18 +7,28 @@ using Utility.Network.Server;
 
 namespace Utility.Network.Tracker
 {
+    public interface IClient
+    {
+        int PORT { get; set; }
+        int BUFFER_SIZE { get; set; }
+        byte[] buffer { get; set; }
+        Task<bool> Connect(IPEndPoint ip);
+        void SetupSocket(int PORT, int BUFFER_SIZE);
+        IPEndPoint GetConnectedEndPoint();
+        bool IsConnected();
+    }
+
     public abstract class SocketClient
     {
         protected Socket _Socket;
-        protected int BUFFER_SIZE;
-        protected int PORT;
-        protected byte[] buffer;
-        public abstract Task<bool> Connect(IPEndPoint ip);
-        public abstract void SetupSocket(int PORT, int BUFFER_SIZE);
     }
 
-    public class ClientSetup : SocketClient
+    public class ClientSetup : SocketClient , IClient
     {
+        public int PORT { get; set; }
+        public int BUFFER_SIZE { get; set ; }
+        public byte[] buffer { get; set; }
+
         public delegate void PacketReceivedEvent(object sender, PacketEventArgs a);
         public delegate void PacketReceivedHandler(object sender, PacketEventArgs a);
         public event PacketReceivedHandler Packetreceived;
@@ -29,7 +39,7 @@ namespace Utility.Network.Tracker
 
         private Thread recevoir;
 
-        public override void SetupSocket(int PORT, int BUFFER_SIZE)
+        public void SetupSocket(int PORT, int BUFFER_SIZE)
         {
             this._Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
             {
@@ -40,7 +50,7 @@ namespace Utility.Network.Tracker
             this.buffer = new byte[BUFFER_SIZE];
         }
 
-        public override Task<bool> Connect(IPEndPoint ip)
+        public Task<bool> Connect(IPEndPoint ip)
         {
             try
             {
@@ -112,6 +122,9 @@ namespace Utility.Network.Tracker
 
         public void Send(byte[] data)
             => _Socket.Send(data);
+
+        public IPEndPoint GetConnectedEndPoint()
+            => (IPEndPoint)_Socket?.RemoteEndPoint;
     }
 
 
