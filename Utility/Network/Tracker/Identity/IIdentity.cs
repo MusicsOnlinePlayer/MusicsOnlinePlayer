@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Utility.Network.Tracker.Identity
 {
-    interface IIdentity
+    public interface IIdentity
     {
         IPEndPoint IPEndPoint { get; set; }
     }
