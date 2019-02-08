@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using Utility.Network.Server;
+using Utility.Network.Tracker.Identity;
 
 namespace Utility.Network.Tracker
 {
@@ -23,7 +24,7 @@ namespace Utility.Network.Tracker
         protected Socket _Socket;
     }
 
-    public class ClientSetup : SocketClient , IClient
+    public class ClientSetup : SocketClient ,IClient
     {
         public int PORT { get; set; }
         public int BUFFER_SIZE { get; set ; }
