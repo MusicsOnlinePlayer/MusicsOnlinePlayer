@@ -17,7 +17,7 @@ namespace Musics___Client.API.Tracker
         static private readonly Lazy<TrackersClientService> instance = new Lazy<TrackersClientService>(() => new TrackersClientService());
         public static TrackersClientService Instance { get => instance.Value; }
 
-        private List<TrackerClientService> TrackersSocket = new List<TrackerClientService>();
+        private List<IClient> TrackersSocket = new List<IClient>();
 
         public event EventHandler Registered;
         public virtual void OnRegister(object sender, EventArgs e)
@@ -41,7 +41,7 @@ namespace Musics___Client.API.Tracker
 
         public void AddTracker(TrackerIdentity trackerIdentity)
         {
-            TrackerClientService cs = new TrackerClientService();
+            TrackerClient cs = new TrackerClient();
             cs.Packetreceived += Cs_Packetreceived;
             cs.Disconnected += Cs_Disconnected;
             try {
@@ -80,13 +80,13 @@ namespace Musics___Client.API.Tracker
                 if(a.Packet is ServerRequestAnswer)
                 {
                     ServerRequestAnswer serverRequestAnswer = a.Packet as ServerRequestAnswer;
-                    OnServersReceived(sender, new ServersReceivedFromTrackerEventArgs(serverRequestAnswer.ServerIdentities, TrackersSocket.Where(x => x.ConnectionEndPoint.ToString() == ((IPEndPoint)a.Sender.RemoteEndPoint).ToString()).First().Trackeridentity));
+                    OnServersReceived(sender, new ServersReceivedFromTrackerEventArgs(serverRequestAnswer.ServerIdentities, ((TrackerClient)TrackersSocket.Where(x => x.GetConnectedEndPoint().ToString() == ((IPEndPoint)a.Sender.RemoteEndPoint).ToString()).First()).Trackeridentity));
                 }
             }
         }
        
 
         public List<TrackerIdentity> RetreiveActiveTrackers()
-            => TrackersSocket.Select(t => t.Trackeridentity).ToList();
+            => TrackersSocket.Select(t => ((TrackerClient)t).Trackeridentity).ToList();
     }
 }

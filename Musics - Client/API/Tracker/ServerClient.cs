@@ -8,7 +8,7 @@ using Utility.Network.Tracker.Identity;
 
 namespace Musics___Client.API.Tracker
 {
-    public class ServerClient : ClientSetup
+    public sealed class ServerClient : ClientSetup
     {
         public ServerIdentity ServerIdentity { get; set; }
 

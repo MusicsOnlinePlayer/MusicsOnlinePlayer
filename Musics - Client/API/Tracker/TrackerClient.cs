@@ -8,9 +8,9 @@ using Utility.Network.Tracker.Identity;
 
 namespace Musics___Client.API.Tracker
 {
-    public class TrackerClientService : ClientSetup
+    public sealed class TrackerClient : ClientSetup
     {
-        public TrackerIdentity Trackeridentity { get; protected set; }
+        public TrackerIdentity Trackeridentity { get; set; }
 
         public bool Connect(TrackerIdentity ti)
         {
