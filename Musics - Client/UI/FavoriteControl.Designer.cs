@@ -32,6 +32,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.UIFavoritesBack = new System.Windows.Forms.Button();
             this.UIPlayFavorites = new System.Windows.Forms.Button();
+            this.UIServerSelector = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // UILikedMusicsList
@@ -65,7 +66,7 @@
             this.UIFavoritesBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.UIFavoritesBack.FlatAppearance.BorderSize = 0;
             this.UIFavoritesBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIFavoritesBack.Location = new System.Drawing.Point(216, 16);
+            this.UIFavoritesBack.Location = new System.Drawing.Point(216, 7);
             this.UIFavoritesBack.Name = "UIFavoritesBack";
             this.UIFavoritesBack.Size = new System.Drawing.Size(30, 30);
             this.UIFavoritesBack.TabIndex = 22;
@@ -78,17 +79,28 @@
             this.UIPlayFavorites.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.UIPlayFavorites.FlatAppearance.BorderSize = 0;
             this.UIPlayFavorites.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIPlayFavorites.Location = new System.Drawing.Point(265, 18);
+            this.UIPlayFavorites.Location = new System.Drawing.Point(264, 8);
             this.UIPlayFavorites.Name = "UIPlayFavorites";
             this.UIPlayFavorites.Size = new System.Drawing.Size(30, 30);
             this.UIPlayFavorites.TabIndex = 21;
             this.UIPlayFavorites.UseVisualStyleBackColor = true;
             this.UIPlayFavorites.Click += new System.EventHandler(this.UIPlayFavorites_Click);
             // 
+            // UIServerSelector
+            // 
+            this.UIServerSelector.Font = new System.Drawing.Font("Raleway", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIServerSelector.FormattingEnabled = true;
+            this.UIServerSelector.Location = new System.Drawing.Point(902, 7);
+            this.UIServerSelector.Name = "UIServerSelector";
+            this.UIServerSelector.Size = new System.Drawing.Size(281, 30);
+            this.UIServerSelector.TabIndex = 23;
+            this.UIServerSelector.SelectedIndexChanged += new System.EventHandler(this.UIServerSelector_SelectedIndexChanged);
+            // 
             // FavoriteControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.UIServerSelector);
             this.Controls.Add(this.UIFavoritesBack);
             this.Controls.Add(this.UIPlayFavorites);
             this.Controls.Add(this.UILikedMusicsList);
@@ -106,5 +118,6 @@
         private System.Windows.Forms.Button UIPlayFavorites;
         private System.Windows.Forms.ListBox UILikedMusicsList;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox UIServerSelector;
     }
 }

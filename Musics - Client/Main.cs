@@ -50,7 +50,7 @@ namespace Musics___Client
         private void Instance_ServerAdded(object sender, ServerAddedEventArgs e)
         {
             UITracker.AddServerToTracker(e.ServerIdentity, e.Provider);
-
+            FavoriteControl.AddServer(e.ServerIdentity);
         }
 
         private void Instance_ServersReceived(object sender, ServersReceivedFromTrackerEventArgs e)
@@ -61,6 +61,7 @@ namespace Musics___Client
         private void Instance_ServerDisconnected(object sender, ServerAddedEventArgs e)
         {
             UITracker.RemoveServerToTracker(e.ServerIdentity, e.Provider);
+            FavoriteControl.RemoveServer(e.ServerIdentity);
         }
 
         private void Instance_ClientDisconnected(object sender, EventArgs e)
