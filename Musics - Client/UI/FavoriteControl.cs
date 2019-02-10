@@ -1,9 +1,12 @@
 ﻿using Musics___Client.API.Events;
+using Musics___Client.API.Tracker;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Utility.Musics;
+using Utility.Network.Dialog.Requests;
+using Utility.Network.Tracker.Identity;
 
 namespace Musics___Client.UI
 {
@@ -13,6 +16,8 @@ namespace Musics___Client.UI
         {
             InitializeComponent();
         }
+
+        public List<ServerIdentity> ServerList = new List<ServerIdentity>();
 
         public List<Music> LikedMusics = new List<Music>();
         public List<Music> SelectedFavorites = new List<Music>();
@@ -52,13 +57,12 @@ namespace Musics___Client.UI
         {
             Invoke((MethodInvoker)delegate
             {
-                //UILikedMusicsList.Items.Clear();
+                UILikedMusicsList.Items.Clear();
                 foreach (var m in (from val in Favorites select val.Genre.First()).Cast<string>().Distinct().ToList())
                 {
-                    UILikedMusicsList.Items.Remove(m);
+                    //UILikedMusicsList.Items.Remove(m);
                     UILikedMusicsList.Items.Add(m);
                 }
-                   
                 var tmp = Favorites;
                 LikedMusics = tmp;
             });    
@@ -81,6 +85,25 @@ namespace Musics___Client.UI
         {
             if (LikedMusics.Count >= 1)
                 OnPlayAllEvent(new PlayEventArgs(new Album(new Author(""), "", LikedMusics.ToArray())));
+        }
+
+        private void UIServerSelector_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(UIServerSelector.SelectedItem != null)
+                ServerManagerService.Instance.SendToServer(new RequestFavorites(ServerManagerService.Instance.Me.UID), ServerList[UIServerSelector.SelectedIndex]);
+        }
+
+        public void AddServer(ServerIdentity si)
+        {
+            ServerList.Add(si);
+            UIServerSelector.Items.Add(si.IPEndPoint.ToString());
+        }
+
+        public void RemoveServer(ServerIdentity si)
+        {
+            ServerList.Remove(si);
+            UIServerSelector.Items.Clear();
+            UIServerSelector.Items.AddRange(ServerList.Select(x => x.IPEndPoint.ToString()).ToArray());
         }
     }
 }

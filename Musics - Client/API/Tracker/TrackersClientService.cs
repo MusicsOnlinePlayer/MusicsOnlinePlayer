@@ -30,7 +30,7 @@ namespace Musics___Client.API.Tracker
         public event EventHandler<ServersReceivedFromTrackerEventArgs> ServersReceived;
         public virtual void OnServersReceived(object sender, ServersReceivedFromTrackerEventArgs serversReceivedFromTrackerEventArgs)
             => ServersReceived.Invoke(sender, serversReceivedFromTrackerEventArgs);
-
+         
         public void Init()
         {
             TrackerXml.Setup();
@@ -38,6 +38,7 @@ namespace Musics___Client.API.Tracker
             foreach (var t in a)
                 AddTracker(t);
         }
+
 
         public void AddTracker(TrackerIdentity trackerIdentity)
         {
