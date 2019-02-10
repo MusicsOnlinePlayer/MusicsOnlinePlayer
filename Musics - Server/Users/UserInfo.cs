@@ -75,9 +75,11 @@ namespace Musics___Server.Usersinfos
                     {
                         if (GetPlaylist(nM["MID"].InnerText) == null)
                         {
-                            Music tmpM = Indexation.GetMusicByID(nM["MID"].InnerText);
-                            tmpM.FileBinary = null;
-                            tmp.Add(tmpM);
+                            if(Indexation.TryGetMusicByID(nM["MID"].InnerText ,out Music tmpM))
+                            {
+                                tmpM.FileBinary = null;
+                                tmp.Add(tmpM);
+                            }
                         }                      
                     }
                 }

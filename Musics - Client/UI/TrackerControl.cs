@@ -40,6 +40,12 @@ namespace Musics___Client.UI
             TrackersList[TrackersList.Where(x => IPEndPoint.Equals(x.Key.IPEndPoint,trackerIdentity.IPEndPoint)).FirstOrDefault().Key].Add(server);
         }
 
+        public void RemoveServerToTracker(ServerIdentity server, TrackerIdentity trackerIdentity)
+        {
+            TrackersList[TrackersList.Where(x => IPEndPoint.Equals(x.Key.IPEndPoint, trackerIdentity.IPEndPoint)).FirstOrDefault().Key].Remove(server);
+            UpdateServerOfTracker();
+        }
+
         public void RemoveTrackerOfUI(TrackerIdentity ti)
         {
             TrackersList.Remove(TrackersList.Where(s => s.Key.IPEndPoint.ToString() == ti.IPEndPoint.ToString()).FirstOrDefault().Key);
@@ -91,6 +97,11 @@ namespace Musics___Client.UI
         }
 
         private void UITrackers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateServerOfTracker();
+        }
+
+        private void UpdateServerOfTracker()
         {
             if (UITrackers.SelectedItem == null)
                 return;

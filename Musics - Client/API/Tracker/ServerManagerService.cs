@@ -9,6 +9,7 @@ using Utility.Network;
 using Utility.Network.Dialog.Authentification;
 using Utility.Network.Tracker.Identity;
 using Utility.Network.Users;
+using Utility.Network.Tracker;
 
 namespace Musics___Client.API.Tracker
 {
@@ -27,6 +28,10 @@ namespace Musics___Client.API.Tracker
 
         public event EventHandler<PacketEventArgs> PacketReceived;
 
+        public event EventHandler<ServerAddedEventArgs> ServerDisconnected;
+        public virtual void OnServerDisconnected(object sender, ServerAddedEventArgs e)
+            => ServerDisconnected?.Invoke(sender, e);
+
         public void AddServer(ServerIdentity si,TrackerIdentity provider)
         {
             if (ServerClients.Exists(x => x.ServerIdentity.IPEndPoint.ToString() == si.IPEndPoint.ToString()))
@@ -37,9 +42,11 @@ namespace Musics___Client.API.Tracker
             serverClient.Packetreceived += ServerClient_Packetreceived;
             if (!serverClient.Connect(si))
                 return;
-            OnServerAdded(serverClient, new ServerAddedEventArgs(si, provider));
+            
             serverClient.Send(Function.Serialize(new Login(Me, true)).Data);
             ServerClients.Add(serverClient);
+
+            OnServerAdded(serverClient, new ServerAddedEventArgs(si, provider));
         }
 
         public void AddMultipleServer(ServerIdentity[] serverIdentities,TrackerIdentity provider)
@@ -55,13 +62,20 @@ namespace Musics___Client.API.Tracker
 
         private void ServerClient_Disconnected(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            var sv = ServerClients.Where(x => x.GetConnectedEndPoint() == ((IClient)sender).GetConnectedEndPoint()).FirstOrDefault();
+            OnServerDisconnected(sender, new ServerAddedEventArgs(sv.ServerIdentity, sv.Provider));
+            ServerClients.Remove(sv);
         }
 
         public void SendObject(IPacket packet)
         {
             foreach (var si in ServerClients)
                 si.Send(Function.Serialize(packet).Data);
+        }
+
+        public void SendToServer(IPacket packet,ServerIdentity serverIdentity)
+        {
+            ServerClients.Where(x => x.ServerIdentity.IPEndPoint.ToString() == serverIdentity.IPEndPoint.ToString()).FirstOrDefault().Send(Function.Serialize(packet).Data);
         }
     }
 }

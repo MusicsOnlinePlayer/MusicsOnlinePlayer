@@ -52,9 +52,13 @@ namespace Musics___Client.UI
         {
             Invoke((MethodInvoker)delegate
             {
-                UILikedMusicsList.Items.Clear();
+                //UILikedMusicsList.Items.Clear();
                 foreach (var m in (from val in Favorites select val.Genre.First()).Cast<string>().Distinct().ToList())
+                {
+                    UILikedMusicsList.Items.Remove(m);
                     UILikedMusicsList.Items.Add(m);
+                }
+                   
                 var tmp = Favorites;
                 LikedMusics = tmp;
             });    
