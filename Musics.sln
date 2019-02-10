@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Musics - ServerTests", "Mus
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracker", "Tracker\Tracker.csproj", "{D390E047-EFA1-43B5-B003-78E5C70A297E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.UnitTests", "Utility.UnitTests\Utility.UnitTests.csproj", "{7DF905A5-60A3-4300-B7EB-7EA40A4CC4F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,14 @@ Global
 		{D390E047-EFA1-43B5-B003-78E5C70A297E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D390E047-EFA1-43B5-B003-78E5C70A297E}.Release|x64.ActiveCfg = Release|Any CPU
 		{D390E047-EFA1-43B5-B003-78E5C70A297E}.Release|x64.Build.0 = Release|Any CPU
+		{7DF905A5-60A3-4300-B7EB-7EA40A4CC4F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DF905A5-60A3-4300-B7EB-7EA40A4CC4F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DF905A5-60A3-4300-B7EB-7EA40A4CC4F3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7DF905A5-60A3-4300-B7EB-7EA40A4CC4F3}.Debug|x64.Build.0 = Debug|Any CPU
+		{7DF905A5-60A3-4300-B7EB-7EA40A4CC4F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DF905A5-60A3-4300-B7EB-7EA40A4CC4F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DF905A5-60A3-4300-B7EB-7EA40A4CC4F3}.Release|x64.ActiveCfg = Release|Any CPU
+		{7DF905A5-60A3-4300-B7EB-7EA40A4CC4F3}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,6 +5,7 @@ using Utility.Network.Dialog.Rating;
 using Utility.Network.Dialog;
 using Utility.Network.Server;
 using Musics___Client.API.Tracker;
+using Utility.Network.Dialog.Requests;
 
 namespace Musics___Client.API
 {
@@ -15,6 +16,12 @@ namespace Musics___Client.API
         private RateServices()
         {
             ServerManagerService.Instance.PacketReceived += Instance_Packetreceived;
+            ServerManagerService.Instance.ServerAdded += Instance_ServerAdded;
+        }
+
+        private void Instance_ServerAdded(object sender, ServerAddedEventArgs e)
+        {
+            ServerManagerService.Instance.SendToServer(new RequestFavorites(ServerManagerService.Instance.Me.UID),e.ServerIdentity);
         }
 
         public event EventHandler<RateReportEventArgs> RateReportEvent;

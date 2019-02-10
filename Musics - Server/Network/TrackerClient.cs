@@ -14,7 +14,7 @@ namespace Musics___Server.Network
 {
     public class TrackerClient
     {
-        public List<IClient> _trackerSockets = new List<IClient>();
+        public List<ClientSocket> _trackerSockets = new List<ClientSocket>();
 
         public void AddTracker(TrackerIdentity trackerIdentity)
         {

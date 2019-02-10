@@ -17,7 +17,7 @@ namespace Musics___Client.API.Tracker
         static private readonly Lazy<TrackersClientService> instance = new Lazy<TrackersClientService>(() => new TrackersClientService());
         public static TrackersClientService Instance { get => instance.Value; }
 
-        private List<IClient> TrackersSocket = new List<IClient>();
+        private List<TrackerClient> TrackersSocket = new List<TrackerClient>();
 
         public event EventHandler Registered;
         public virtual void OnRegister(object sender, EventArgs e)
