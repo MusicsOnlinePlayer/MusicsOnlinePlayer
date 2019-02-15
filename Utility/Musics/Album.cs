@@ -13,7 +13,7 @@ namespace Utility.Musics
         public override string Name { get; set; }
         public Author Author { get; set; }
         public int Rating { get; set; }
-        private readonly  List<Music> musics = new List<Music>();
+        public List<Music> musics = new List<Music>();
         public IEnumerable<Music> Musics
         {
             get => musics;

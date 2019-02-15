@@ -1,6 +1,7 @@
 ﻿using Musics___Client.API.Tracker;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Utility.Musics;
 using Utility.Network.Dialog.Uploads;
 using Utility.Network.Users;
@@ -16,7 +17,14 @@ namespace Musics___Client.API
 
         public void SubmitPlaylist(User me,string PlaylistName,List<Music> PlaylistData,bool IsPrivate)
         {
-            ServerManagerService.Instance.SendObject(new SavePlaylist(me.UID, new Playlist(me, PlaylistName, PlaylistData, IsPrivate)));
+            var ps = PlaylistData.GroupBy(x => x.Provider.IPEndPoint.ToString());
+
+            foreach(var p in ps)
+            {
+                ServerManagerService.Instance.SendToServer(new SavePlaylist(me.UID, new Playlist(me, PlaylistName, p.ToList(), IsPrivate)),p.First().Provider);
+            }
+
+            
         }
     }
 }

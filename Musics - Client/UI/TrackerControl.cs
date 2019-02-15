@@ -56,6 +56,7 @@ namespace Musics___Client.UI
 
         public void UpdateTrackerList()
         {
+
             Invoke((MethodInvoker)delegate
             {
                 UITrackers.Items.Clear();

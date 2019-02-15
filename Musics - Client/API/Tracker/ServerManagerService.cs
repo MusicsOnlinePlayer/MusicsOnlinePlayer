@@ -10,6 +10,7 @@ using Utility.Network.Dialog.Authentification;
 using Utility.Network.Tracker.Identity;
 using Utility.Network.Users;
 using Utility.Network.Tracker;
+using System.Net;
 
 namespace Musics___Client.API.Tracker
 {
@@ -76,6 +77,13 @@ namespace Musics___Client.API.Tracker
         public void SendToServer(IPacket packet,ServerIdentity serverIdentity)
         {
             ServerClients.Where(x => x.ServerIdentity.IPEndPoint.ToString() == serverIdentity.IPEndPoint.ToString()).FirstOrDefault().Send(Function.Serialize(packet).Data);
+        }
+
+        public bool TryGetServerIdentityByEndPoint(IPEndPoint ip, out ServerIdentity serverIdentity)
+        {
+            serverIdentity = ServerClients.Where(x => x.GetConnectedEndPoint().ToString() == ip.ToString()).First().ServerIdentity;
+
+            return serverIdentity != null;
         }
     }
 }

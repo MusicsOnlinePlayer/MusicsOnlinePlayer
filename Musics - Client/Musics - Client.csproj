@@ -212,6 +212,7 @@
     <Compile Include="API\Events\RequestBinairiesEventArgs.cs" />
     <Compile Include="API\Events\ServerAddedEventArgs.cs" />
     <Compile Include="API\Events\ServersReceivedFromTrackerEventArgs.cs" />
+    <Compile Include="API\LoginServices.cs" />
     <Compile Include="API\PlaylistServices.cs" />
     <Compile Include="API\RateServices.cs" />
     <Compile Include="API\Events\SearchEventArgs.cs" />
