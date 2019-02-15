@@ -22,12 +22,12 @@ using Utility.Network.Tracker;
 namespace Musics___Client
 {
     public partial class Client : Form
-    {
-        public User Me { get; set; }
+    { 
 
         public Client(CryptedCredentials me)
         {
             InitializeComponent();
+            LoginServices.Instance.Init();
             ServerManagerService.Instance.ServerDisconnected += Instance_ServerDisconnected;
             ServerManagerService.Instance.Me = me;
             //Me = LoginServices.Instance.LoggedUser;
@@ -51,6 +51,7 @@ namespace Musics___Client
         {
             UITracker.AddServerToTracker(e.ServerIdentity, e.Provider);
             FavoriteControl.AddServer(e.ServerIdentity);
+            SearchControl.AddServer(e.ServerIdentity);
         }
 
         private void Instance_ServersReceived(object sender, ServersReceivedFromTrackerEventArgs e)
@@ -62,6 +63,7 @@ namespace Musics___Client
         {
             UITracker.RemoveServerToTracker(e.ServerIdentity, e.Provider);
             FavoriteControl.RemoveServer(e.ServerIdentity);
+            SearchControl.RemoveServer(e.ServerIdentity);
         }
 
         private void Instance_ClientDisconnected(object sender, EventArgs e)
@@ -87,8 +89,9 @@ namespace Musics___Client
             {
                 Invoke((MethodInvoker)delegate
                 {
-                    Me = e.EditedUser;
-                    EditAccountDetails(Me);
+                    //ServerManagerService.Instance.Me = e.EditedUser;
+                    
+                    //EditAccountDetails(ServerManagerService.Instance.Me);
                 });
             }
             else
@@ -142,9 +145,9 @@ namespace Musics___Client
             //ServerManagerService.Instance.recevoir = new Thread(new ThreadStart(ServerManagerService.Instance.Receive));
             //ServerManagerService.Instance.recevoir.Start();
 
-            //EditAccountDetails(Me);
+            //EditAccountDetails(ServerManagerService.Instance.Me);
 
-            //ServerManagerService.Instance.SendObject(new RequestFavorites(Me.UID));
+            //ServerManagerService.Instance.SendObject(new RequestFavorites(ServerManagerService.Instance.Me.UID));
 
             InitServices();
 
@@ -228,12 +231,12 @@ namespace Musics___Client
             if (obj.Packet is RequestAnswer)
             {
                 var requestAnswer = obj.Packet as RequestAnswer;
-                TreatRequestAnswer(requestAnswer);
-            }
-            if (obj.Packet is AuthInfo authInfo)
-            {
-                authInfo = obj.Packet as AuthInfo;
-                OnloginInfoReceived(EventArgs.Empty);
+                if(ServerManagerService.Instance.TryGetServerIdentityByEndPoint((IPEndPoint)obj.Sender.RemoteEndPoint, out ServerIdentity Id))
+                {
+                    requestAnswer.Provider = Id;
+                    TreatRequestAnswer(requestAnswer);
+                }
+                
             }
 
             if (obj.Packet is UploadReport)
@@ -292,6 +295,7 @@ namespace Musics___Client
 
         public void RequestAnswerBinaries(RequestAnswer searchAnswer)
         {
+            searchAnswer.Binaries.Provider = searchAnswer.Provider;
             Invoke((MethodInvoker)delegate
             {
                 if (PlaylistContainsMusic(searchAnswer.Binaries.MID))
@@ -323,7 +327,7 @@ namespace Musics___Client
                     UIUsersResult.Items.Clear();
                     foreach (var u in searchAnswer.Users)
                     {
-                        if (u.UID != Me.UID)
+                        if (u.UID != ServerManagerService.Instance.Me.UID)
                         {
                             UserSearchResult.Add(u);
                             UIUsersResult.Items.Add(u.Name);
@@ -441,10 +445,12 @@ namespace Musics___Client
 
                 UIEditUserRank.Items.Clear();
 
+                throw new NotImplementedException();
+
                 var r = Enum.GetNames(typeof(Rank)).OfType<string>().ToList();
-                for (int i = 0; i < (int)Me.Rank; i++)
+                //for (int i = 0; i < (int)ServerManagerService.Instance.Me.Rank; i++)
                 {
-                    UIEditUserRank.Items.Add(r[i]);
+                 //   UIEditUserRank.Items.Add(r[i]);
                 }
 
                 UIEditUserRank.SelectedIndex = (int)UserSearchResult[UIUsersResult.SelectedIndex].Rank;
@@ -463,22 +469,24 @@ namespace Musics___Client
 
         private void SearchControl_EditMusic(object sender, EditMusicEventArgs e)
         {
-            if ((int)Me.Rank > 1 && e.NewName != null)
-            {
-                EditMusicsServices.Instance.SendEditMusicRequest(e.ElementToEdit, e.NewName, e.Genre);
-                SearchControl.EditMusicDone();
-            }
-            else
-            {
-                MessageBox.Show("You have to be at least a user to edit this music");
-                SearchControl.EditMusicDone();
-            }
+            //if ((int)ServerManagerService.Instance.Me.Rank > 1 && e.NewName != null)
+            //{
+            //    EditMusicsServices.Instance.SendEditMusicRequest(e.ElementToEdit, e.NewName, e.Genre);
+            //    SearchControl.EditMusicDone();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("You have to be at least a user to edit this music");
+            //    SearchControl.EditMusicDone();
+            //}
+            throw new NotImplementedException();
         }
 
         private void SearchControl_PlaylistSaved(object sender, PlaylistSavedEventArgs e)
         {
             if (uPlayer1.Playlist.Count != 0)
-                PlaylistServices.Instance.SubmitPlaylist(Me, e.PlaylistName, uPlayer1.Playlist, e.IsPrivate);
+                if(LoginServices.Instance.RegisteredUser.TryGetValue(e.SaveServerId,out User user))
+                    PlaylistServices.Instance.SubmitPlaylist(user, e.PlaylistName, uPlayer1.Playlist.Select(x => { x.FileBinary = null; return x; }).ToList(), e.IsPrivate);
         }
 
         #region Upload
@@ -522,7 +530,7 @@ namespace Musics___Client
         #endregion
 
         private void AccountControl_EditAccountDone(object sender, EditAccountEventArgs e)
-            => EditAccountServices.Instance.EditUser(e.NewPassword, Me.UID, e.NewName);
+            => EditAccountServices.Instance.EditUser(e.NewPassword, ServerManagerService.Instance.Me.UID, e.NewName);
 
         private void uPlayer1_RequestBinairies(object sender, ControlLibrary.MusicUtils.Event.OnRequestBinairiesEventArgs e)
         {

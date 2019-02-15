@@ -274,7 +274,20 @@ namespace Musics___Server.Usersinfos
                     Playlist playlist = new Playlist(new User(n["Name"].InnerText), p.Attributes["Name"].InnerText);
                     foreach (XmlNode m in p.SelectNodes("Music"))
                     {
-                        playlist.musics.Add(Indexation.GetMusicByID(m.InnerText));
+                        if(Indexation.TryGetMusicByID(m.InnerText,out Music mu))
+                        {
+                            mu.FileBinary = null;
+                            playlist.musics.Add(mu);
+                        }
+                        else
+                        {
+                            Music music = new Music
+                            {
+                                MID = m.InnerText
+                            };
+                            playlist.musics.Add(mu);
+                        }
+                        
                     }
                     playlist.Rating = Convert.ToInt32(p.Attributes["Rating"].InnerText);
                     if (p.Attributes["Level"].InnerText == true.ToString())

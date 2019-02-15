@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Utility.Musics;
+using Utility.Network.Tracker.Identity;
 using Utility.Network.Users;
 
 namespace Utility.Network.Dialog
@@ -8,6 +9,7 @@ namespace Utility.Network.Dialog
     [Serializable]
     public class RequestAnswer : Packet
     {
+        public ServerIdentity Provider { get; set; }
 
         public RequestsTypes RequestsTypes { get; set; }
 

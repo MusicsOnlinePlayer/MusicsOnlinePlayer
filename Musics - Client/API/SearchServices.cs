@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Utility.Musics;
 using Utility.Network.Dialog;
 using Musics___Client.API.Events;
@@ -7,6 +8,8 @@ using Utility.Network.Dialog.Requests;
 using Utility.Network.Tracker.Identity;
 using Utility.Network.Server;
 using Musics___Client.API.Tracker;
+using System.Net;
+using System.Collections.ObjectModel;
 
 namespace Musics___Client.API
 {
@@ -27,9 +30,32 @@ namespace Musics___Client.API
                 var requestAnswer = a.Packet as RequestAnswer;
                 if (requestAnswer.RequestsTypes == RequestsTypes.Search)
                 {
-                    OnSearchResultEvent(new SearchResultEventArgs(requestAnswer.AnswerList,requestAnswer.InitialSearch));
+                    if (ServerManagerService.Instance.TryGetServerIdentityByEndPoint((IPEndPoint)a.Sender.RemoteEndPoint, out ServerIdentity si))
+                    {
+                        var j = PopulateOfProvider(requestAnswer.AnswerList.ToList(), si);
+                        OnSearchResultEvent(new SearchResultEventArgs(new ReadOnlyCollection<IElement>(j.ToList()), requestAnswer.InitialSearch));
+                    }
                 }
             }
+        }
+
+        public List<IElement> PopulateOfProvider(List<IElement> elements, ServerIdentity serverIdentity)
+        {
+            var c = elements.First().GetType();
+            if (c == typeof(Music))
+                return elements.Select(x => { x.Provider = serverIdentity; return x; }).ToList();
+
+            if (c == typeof(Album))
+            {
+                List<Album> l = elements.Cast<Album>().ToList();
+                return l.Select(x => { x.Provider = serverIdentity; x.musics = x.Musics.Select(y => { y.Provider = serverIdentity; return y; }).ToList(); return x; }).Cast<IElement>().ToList();
+            }
+            if (c == typeof(Author))
+            {
+                List<Author> l = elements.Cast<Author>().ToList();
+                return l.Select(x => { x.Provider = serverIdentity; x.Albums = x.Albums.Select(z => { z.Provider = serverIdentity; z.musics = z.musics.Select(y => { y.Provider = serverIdentity; return y; }).ToList(); return z; }).ToList(); return x; }).Cast<IElement>().ToList();
+            }
+            return null;
         }
 
         public void SearchElement(string Search, ElementType elementType) 
