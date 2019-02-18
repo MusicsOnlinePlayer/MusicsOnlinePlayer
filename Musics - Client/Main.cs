@@ -483,7 +483,7 @@ namespace Musics___Client
         private void SearchControl_PlaylistSaved(object sender, PlaylistSavedEventArgs e)
         {
             if (uPlayer1.Playlist.Count != 0)
-                    PlaylistServices.Instance.SubmitPlaylist(ServerManagerService.Instance., e.PlaylistName, uPlayer1.Playlist.Select(x => { x.FileBinary = null; return x; }).ToList(), e.IsPrivate);
+                    PlaylistServices.Instance.SubmitPlaylist(LoginServices.Instance.RegisteredUser.First().Value, e.PlaylistName, uPlayer1.Playlist.Select(x => { x.FileBinary = null; return x; }).ToList(), e.IsPrivate);
         }
 
         #region Upload
