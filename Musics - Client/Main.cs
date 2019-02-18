@@ -279,7 +279,7 @@ namespace Musics___Client
         public void RequestAnswerSearch(IReadOnlyList<IElement> searchAnswer , bool IsNew)
         {
             ChangeTabsThreadSafe(1);
-            if(IsNew && searchAnswer.First() is Playlist)
+            if(IsNew)
                 SearchControl.ClearSearchListBoxes();
             SearchControl.FillSearchListBoxes(searchAnswer);
 
@@ -483,8 +483,7 @@ namespace Musics___Client
         private void SearchControl_PlaylistSaved(object sender, PlaylistSavedEventArgs e)
         {
             if (uPlayer1.Playlist.Count != 0)
-                if(LoginServices.Instance.RegisteredUser.TryGetValue(uPlayer1.Playlist.First().Provider,out User user))
-                    PlaylistServices.Instance.SubmitPlaylist(user, e.PlaylistName, uPlayer1.Playlist.Select(x => { x.FileBinary = null; return x; }).ToList(), e.IsPrivate);
+                    PlaylistServices.Instance.SubmitPlaylist(ServerManagerService.Instance., e.PlaylistName, uPlayer1.Playlist.Select(x => { x.FileBinary = null; return x; }).ToList(), e.IsPrivate);
         }
 
         #region Upload
