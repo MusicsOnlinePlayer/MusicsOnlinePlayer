@@ -23,8 +23,6 @@ namespace Musics___Client.API
             {
                 ServerManagerService.Instance.SendToServer(new SavePlaylist(me.UID, new Playlist(me, PlaylistName, p.ToList(), IsPrivate)),p.First().Provider);
             }
-
-            
         }
     }
 }

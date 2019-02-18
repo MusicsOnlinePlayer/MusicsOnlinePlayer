@@ -95,6 +95,18 @@ namespace Musics___Client.UI
             //UIListView.SuspendLayout();
             foreach(Element e in elements)
             {
+                if(e is Playlist)
+                {
+                    for (int i = 0; i < UIListView.Controls.Count; i++)
+                    {
+                        if (((MusicControl)UIListView.Controls[i]).Element.MID == (e as Playlist).MID)
+                        {
+                            ((MusicControl)UIListView.Controls[i]).MergePlaylist(e as Playlist);
+                            return;
+                        }
+                    }
+                }
+                
                 var mc = new MusicControl().UpdateControl(e);
                 GetAllClickEvent(mc);
                 UIListView.Controls.Add(mc);
@@ -176,7 +188,7 @@ namespace Musics___Client.UI
             UIPathAlbum.Text = string.Empty;
             UIPathMusic.Text = string.Empty;
             UIThumbup.Visible = true;
-            UIProvider.Text = playlist.Provider.IPEndPoint.ToString();
+            //UIProvider.Text = playlist.Provider.IPEndPoint.ToString();
 
             ClearPlaylist();
             UIPlaylist.Items.AddRange(playlist.musics.Select(x => x?.Title ?? "Uknown Music").ToArray());
@@ -309,18 +321,16 @@ namespace Musics___Client.UI
             {
                 UIEditPlaylist.Visible = true;
                 UIPlaylistName.Visible = true;
-                UIPlaylistSaveID.Visible = true;
             }
         }
 
         private void UIPlaylistName_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter && UIPlaylistSaveID.SelectedItem != null)
+            if (e.KeyCode == Keys.Enter)
             {
                 UIEditPlaylist.Visible = false;
                 UIPlaylistName.Visible = false;
-                UIPlaylistSaveID.Visible = false;
-                OnPlaylistSaved(new PlaylistSavedEventArgs(UIPlaylistName.Text, UIPlaylistPrivate.Checked,ServerIdentities[UIPlaylistSaveID.SelectedIndex]));
+                OnPlaylistSaved(new PlaylistSavedEventArgs(UIPlaylistName.Text, UIPlaylistPrivate.Checked));
             }
         }
 
@@ -328,19 +338,6 @@ namespace Musics___Client.UI
         {
             ClearPlaylist();
             OnClearEvent(new EventArgs());
-        }
-
-        public void AddServer(ServerIdentity serverIdentity)
-        {
-            ServerIdentities.Add(serverIdentity);
-            UIPlaylistSaveID.Items.Add(serverIdentity.IPEndPoint.ToString());
-        }
-
-        public void RemoveServer(ServerIdentity serverIdentity)
-        {
-            ServerIdentities.Remove(serverIdentity);
-            UIPlaylistSaveID.Items.Remove(serverIdentity.IPEndPoint.ToString());
-            UIPlaylistSaveID.Items.AddRange(ServerIdentities.Select(x => x.IPEndPoint.ToString()).ToArray());
         }
     }
 }

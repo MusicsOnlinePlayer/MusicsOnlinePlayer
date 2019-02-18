@@ -32,6 +32,7 @@ namespace Musics___Client.API
                 {
                     if (ServerManagerService.Instance.TryGetServerIdentityByEndPoint((IPEndPoint)a.Sender.RemoteEndPoint, out ServerIdentity si))
                     {
+                        if (requestAnswer.AnswerList == null || requestAnswer.AnswerList.Count == 0) return;
                         var j = PopulateOfProvider(requestAnswer.AnswerList.ToList(), si);
                         OnSearchResultEvent(new SearchResultEventArgs(new ReadOnlyCollection<IElement>(j.ToList()), requestAnswer.InitialSearch));
                     }
@@ -55,6 +56,10 @@ namespace Musics___Client.API
                 List<Author> l = elements.Cast<Author>().ToList();
                 return l.Select(x => { x.Provider = serverIdentity; x.Albums = x.Albums.Select(z => { z.Provider = serverIdentity; z.musics = z.musics.Select(y => { y.Provider = serverIdentity; return y; }).ToList(); return z; }).ToList(); return x; }).Cast<IElement>().ToList();
             }
+
+            if (c == typeof(Playlist))
+                return elements;
+                
             return null;
         }
 
