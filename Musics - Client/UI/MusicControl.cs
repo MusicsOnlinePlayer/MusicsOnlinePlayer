@@ -75,5 +75,14 @@ namespace Musics___Client.UI
                 }
             }
         }
+
+        public void MergePlaylist(Playlist playlist)
+        {
+            if (!(Element is Playlist)) throw new ArgumentException("Element invalid");
+            //if (playlist.musics == null) throw new ArgumentNullException("Playlist empty");
+            if (playlist.MID != (Element as Playlist).MID) throw new ArgumentException("Playlists MID differents");
+
+            ((Playlist)Element).musics.AddRange(playlist.musics);
+        }
     }
 }
