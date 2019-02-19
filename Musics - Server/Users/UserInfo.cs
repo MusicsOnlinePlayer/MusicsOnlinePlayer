@@ -247,7 +247,10 @@ namespace Musics___Server.Usersinfos
                     foreach (var m in playlist.musics)
                     {
                         XmlNode nodeMusic = doc.CreateElement("Music");
+                        XmlAttribute xmlAttributeOrder = doc.CreateAttribute("Number");
+                        xmlAttributeOrder.InnerText = m.N.ToString();
                         nodeMusic.InnerText = m.MID;
+                        nodeMusic.Attributes.Append(xmlAttributeOrder);
                         playlistnode.AppendChild(nodeMusic);
                     }
 
@@ -278,14 +281,7 @@ namespace Musics___Server.Usersinfos
                         {
                             mu.FileBinary = null;
                             playlist.musics.Add(mu);
-                        }
-                        else
-                        {
-                            Music music = new Music
-                            {
-                                MID = m.InnerText
-                            };
-                            playlist.musics.Add(mu);
+                            mu.N = UInt32.Parse(m.Attributes["Number"].InnerText);
                         }
                         
                     }

@@ -82,7 +82,9 @@ namespace Musics___Client.UI
             //if (playlist.musics == null) throw new ArgumentNullException("Playlist empty");
             if (playlist.MID != (Element as Playlist).MID) throw new ArgumentException("Playlists MID differents");
 
-            ((Playlist)Element).musics.AddRange(playlist.musics);
+            ((Playlist)Element).musics.AddRange(playlist.musics);   
+
+            //((Playlist)Element).musics = ((Playlist)Element).musics.OrderBy(x => x.N).ToList();
         }
     }
 }
