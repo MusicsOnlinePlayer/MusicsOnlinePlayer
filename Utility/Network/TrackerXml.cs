@@ -48,6 +48,21 @@ namespace Utility.Network
 
         }
 
+        public static void RemoveTracker(TrackerIdentity identity)
+        {
+            if (!IsExisting(identity)) return;
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(Path);
+
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("Tracker");
+            var a = nodes.Cast<XmlNode>().Where(x => GetServer(x).IPEndPoint.ToString() == identity.IPEndPoint.ToString());
+            foreach (var n in a)
+                n.ParentNode.RemoveChild(n);
+
+            doc.Save(Path);
+        }
+
         public static bool IsExisting(TrackerIdentity identity)
         {
             foreach (var p in GetServers())
