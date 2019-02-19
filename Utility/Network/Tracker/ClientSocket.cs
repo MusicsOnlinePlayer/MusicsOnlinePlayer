@@ -112,6 +112,12 @@ namespace Utility.Network.Tracker
             }
         }
 
+        public void Disconnect()
+        {
+            _Socket.Shutdown(SocketShutdown.Both);
+            _Socket.Close(100);
+        }
+
         public void OnPacketReceived(PacketEventArgs e)
                => Packetreceived?.Invoke(null, e);
 

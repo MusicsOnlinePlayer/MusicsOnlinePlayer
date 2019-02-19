@@ -23,7 +23,13 @@ namespace Utility.Network.Server
         {
             Socket socket = this.Socket.EndAccept(ar);
             OnSocketConnected(new SocketConnectedEventArgs(socket));
-            socket.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.Partial, ReceiveCallback, socket);
+            try
+            {
+                socket.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.Partial, ReceiveCallback, socket);
+            }
+            catch {
+                OnSocketDisconnected(null, new SocketConnectedEventArgs(socket));
+            }
             BeginAcceptConnection();
         }
 
@@ -44,7 +50,14 @@ namespace Utility.Network.Server
             byte[] recBuf = new byte[Datalength];
             Array.Copy(buffer, recBuf, Datalength);
             OnDataReceived(new DataReceivedFromSocketArgs(current, buffer));
-            current.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.Partial, ReceiveCallback, current);
+            try
+            {
+                current.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.Partial, ReceiveCallback, current);
+            }
+            catch
+            {
+                OnSocketDisconnected(null, new SocketConnectedEventArgs(current));
+            }
         }
         public void OnSocketConnected(SocketConnectedEventArgs args)
             => SocketConnected?.Invoke(null, args);

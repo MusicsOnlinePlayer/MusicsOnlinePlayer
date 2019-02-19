@@ -56,6 +56,18 @@ namespace Musics___Client.API.Tracker
                 AddServer(si,provider);
         }
 
+        public void RemoveByTracker(TrackerIdentity trackerIdentity)
+        {
+            foreach(var sc in ServerClients.Where(x => x.Provider.IPEndPoint.ToString() == trackerIdentity.IPEndPoint.ToString()).ToList())
+            {
+                sc.Disconnect();
+                ServerClients.Remove(sc);
+            }
+                
+
+            TrackerXml.RemoveTracker(trackerIdentity);
+        }
+
         private void ServerClient_Packetreceived(object sender, PacketEventArgs a)
         {
             PacketReceived?.Invoke(sender, new PacketEventArgs(a.Packet, a.Sender));
@@ -64,6 +76,7 @@ namespace Musics___Client.API.Tracker
         private void ServerClient_Disconnected(object sender, EventArgs e)
         {
             var sv = ServerClients.Where(x => x.GetConnectedEndPoint() == ((IClient)sender).GetConnectedEndPoint()).FirstOrDefault();
+            if (sv == null) return;
             OnServerDisconnected(sender, new ServerAddedEventArgs(sv.ServerIdentity, sv.Provider));
             ServerClients.Remove(sv);
         }

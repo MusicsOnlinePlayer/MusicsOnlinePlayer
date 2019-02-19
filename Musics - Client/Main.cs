@@ -80,6 +80,11 @@ namespace Musics___Client
             TrackersClientService.Instance.AddTracker(e.Ti);
         }
 
+        private void UITracker_UIRemoveTracker(object sender, AddingTrackerEventArgs e)
+        {
+            ServerManagerService.Instance.RemoveByTracker(e.Ti);
+        }
+
         private void AccountServices_EditAccountReport(object sender, EditAccountReportEventArgs e)
         {
 
@@ -540,5 +545,6 @@ namespace Musics___Client
         {
             ServerManagerService.Instance.SendObject(new RequestBinairies(e.RequestedMusic));
         }
+
     }
 }

@@ -19,6 +19,11 @@ namespace Musics___Client.UI
         public virtual void OnUIAddTracker(object sender, AddingTrackerEventArgs addingTrackerEventArgs)
             => UIAddTracker?.Invoke(sender, addingTrackerEventArgs);
 
+        public event EventHandler<AddingTrackerEventArgs> UIRemoveTracker;
+
+        public virtual void OnUIRemoveTracker(object sender, AddingTrackerEventArgs RemovingTrackerEventArgs)
+            => UIRemoveTracker?.Invoke(sender, RemovingTrackerEventArgs);
+
         public TrackerControl()
         {
             InitializeComponent();
@@ -104,11 +109,26 @@ namespace Musics___Client.UI
 
         private void UpdateServerOfTracker()
         {
+            UiTrackerServer.Items.Clear();
             if (UITrackers.SelectedItem == null)
                 return;
-            UiTrackerServer.Items.Clear();
             foreach (var si in GetSelectedTrackerServer())
                 UiTrackerServer.Items.Add(si.IPEndPoint.ToString());
+        }
+
+        private void UITrackerRemoveButton_Click(object sender, EventArgs e)
+        {
+            if(UITrackers.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a tracker to remove one");
+                return;
+            }
+            var ElementToRemove = TrackersList.Where(x => IPEndPoint.Equals(x.Key.IPEndPoint.ToString(), UITrackers.SelectedItem.ToString())).FirstOrDefault().Key;
+
+            TrackersList.Remove(ElementToRemove);
+            UpdateTrackerList();
+            UpdateServerOfTracker();
+            OnUIRemoveTracker(null, new AddingTrackerEventArgs(ElementToRemove));
         }
     }
 }

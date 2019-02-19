@@ -37,9 +37,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.UITrackerPort = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.UIUpload = new System.Windows.Forms.Button();
+            this.UIAddTrackerButton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.UiTrackerServer = new System.Windows.Forms.ListBox();
+            this.UITrackerRemoveButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label12
@@ -143,20 +144,20 @@
             this.label4.Text = "Port";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // UIUpload
+            // UIAddTrackerButton
             // 
-            this.UIUpload.BackColor = System.Drawing.Color.LimeGreen;
-            this.UIUpload.FlatAppearance.BorderSize = 0;
-            this.UIUpload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIUpload.Font = new System.Drawing.Font("Raleway", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UIUpload.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.UIUpload.Location = new System.Drawing.Point(420, 577);
-            this.UIUpload.Name = "UIUpload";
-            this.UIUpload.Size = new System.Drawing.Size(119, 36);
-            this.UIUpload.TabIndex = 47;
-            this.UIUpload.Text = "Add";
-            this.UIUpload.UseVisualStyleBackColor = false;
-            this.UIUpload.Click += new System.EventHandler(this.UIUpload_Click);
+            this.UIAddTrackerButton.BackColor = System.Drawing.Color.LimeGreen;
+            this.UIAddTrackerButton.FlatAppearance.BorderSize = 0;
+            this.UIAddTrackerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UIAddTrackerButton.Font = new System.Drawing.Font("Raleway", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIAddTrackerButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.UIAddTrackerButton.Location = new System.Drawing.Point(420, 577);
+            this.UIAddTrackerButton.Name = "UIAddTrackerButton";
+            this.UIAddTrackerButton.Size = new System.Drawing.Size(119, 36);
+            this.UIAddTrackerButton.TabIndex = 47;
+            this.UIAddTrackerButton.Text = "Add";
+            this.UIAddTrackerButton.UseVisualStyleBackColor = false;
+            this.UIAddTrackerButton.Click += new System.EventHandler(this.UIUpload_Click);
             // 
             // label5
             // 
@@ -181,13 +182,29 @@
             this.UiTrackerServer.Size = new System.Drawing.Size(800, 379);
             this.UiTrackerServer.TabIndex = 48;
             // 
+            // UITrackerRemoveButton
+            // 
+            this.UITrackerRemoveButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.UITrackerRemoveButton.FlatAppearance.BorderSize = 0;
+            this.UITrackerRemoveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UITrackerRemoveButton.Font = new System.Drawing.Font("Raleway", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UITrackerRemoveButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.UITrackerRemoveButton.Location = new System.Drawing.Point(718, 471);
+            this.UITrackerRemoveButton.Name = "UITrackerRemoveButton";
+            this.UITrackerRemoveButton.Size = new System.Drawing.Size(119, 36);
+            this.UITrackerRemoveButton.TabIndex = 50;
+            this.UITrackerRemoveButton.Text = "Remove";
+            this.UITrackerRemoveButton.UseVisualStyleBackColor = false;
+            this.UITrackerRemoveButton.Click += new System.EventHandler(this.UITrackerRemoveButton_Click);
+            // 
             // TrackerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.UITrackerRemoveButton);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.UiTrackerServer);
-            this.Controls.Add(this.UIUpload);
+            this.Controls.Add(this.UIAddTrackerButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.UITrackerPort);
             this.Controls.Add(this.label3);
@@ -216,8 +233,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox UITrackerPort;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button UIUpload;
+        private System.Windows.Forms.Button UIAddTrackerButton;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ListBox UiTrackerServer;
+        private System.Windows.Forms.Button UITrackerRemoveButton;
     }
 }
