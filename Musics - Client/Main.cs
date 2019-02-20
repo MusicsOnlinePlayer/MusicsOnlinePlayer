@@ -472,17 +472,18 @@ namespace Musics___Client
 
         private void SearchControl_EditMusic(object sender, EditMusicEventArgs e)
         {
-            //if ((int)ServerManagerService.Instance.Me.Rank > 1 && e.NewName != null)
-            //{
-            //    EditMusicsServices.Instance.SendEditMusicRequest(e.ElementToEdit, e.NewName, e.Genre);
-            //    SearchControl.EditMusicDone();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("You have to be at least a user to edit this music");
-            //    SearchControl.EditMusicDone();
-            //}
-            throw new NotImplementedException();
+            if (LoginServices.Instance.TryGetLoggedUserByID(e.ElementToEdit.Provider, out User user))
+            {
+                if((int)user.Rank > 1 && e.NewName!= null)
+                {
+                    EditMusicsServices.Instance.SendEditMusicRequest(e.ElementToEdit, e.NewName, e.Genre,e.ElementToEdit.Provider);
+                }
+                else
+                {
+                    MessageBox.Show("You have to be at least a user to edit this music");
+                }
+            }
+            SearchControl.EditMusicDone();
         }
 
         private void SearchControl_PlaylistSaved(object sender, PlaylistSavedEventArgs e)

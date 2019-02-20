@@ -17,7 +17,7 @@ namespace Musics___Server.Commands
             var strRank = args.Last();
             if (Enum.TryParse(strRank, out Rank rank))
             {
-                Log.Info($"~romote {UID} to {rank}\t");
+                Log.Info($"~Promote {UID} to {rank}\t");
                 Program.PromoteUser(UID, rank);
                 Log.Info("Ok.");
             }
