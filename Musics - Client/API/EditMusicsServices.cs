@@ -2,6 +2,7 @@
 using System;
 using Utility.Musics;
 using Utility.Network.Dialog.Edits;
+using Utility.Network.Tracker.Identity;
 
 namespace Musics___Client.API
 {
@@ -12,19 +13,19 @@ namespace Musics___Client.API
 
         private EditMusicsServices() { }
 
-        public void SendEditMusicRequest(IElement ElementToEdit,string NewName)
+        public void SendEditMusicRequest(IElement ElementToEdit,string NewName, ServerIdentity serverIdentity)
         {
             if (ElementToEdit is Music)
-                ServerManagerService.Instance.SendObject(new EditRequest(ElementToEdit, NewName, ElementType.Music));
+                ServerManagerService.Instance.SendToServer(new EditRequest(ElementToEdit, NewName, ElementType.Music), serverIdentity);
             else
-                ServerManagerService.Instance.SendObject(new EditRequest(ElementToEdit, NewName, ElementType.Album));
+                ServerManagerService.Instance.SendToServer(new EditRequest(ElementToEdit, NewName, ElementType.Album), serverIdentity);
         }
-        public void SendEditMusicRequest(IElement ElementToEdit, string NewName,string[] Genres)
+        public void SendEditMusicRequest(IElement ElementToEdit, string NewName,string[] Genres, ServerIdentity serverIdentity)
         {
             if (ElementToEdit is Music)
-                ServerManagerService.Instance.SendObject(new EditRequest(ElementToEdit, NewName, Genres, ElementType.Music));
+                ServerManagerService.Instance.SendToServer(new EditRequest(ElementToEdit, NewName, Genres, ElementType.Music), serverIdentity);
             else
-                ServerManagerService.Instance.SendObject(new EditRequest(ElementToEdit, NewName, Genres, ElementType.Album));
+                ServerManagerService.Instance.SendToServer(new EditRequest(ElementToEdit, NewName, Genres, ElementType.Album), serverIdentity);
         }
     }
 }

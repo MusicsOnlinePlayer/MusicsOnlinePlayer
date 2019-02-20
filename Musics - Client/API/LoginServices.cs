@@ -32,5 +32,19 @@ namespace Musics___Client.API
                     RegisteredUser.Add(id, authInfo.User);
             }
         }
+
+        public bool TryGetLoggedUserByID(ServerIdentity serverIdentity, out User user)
+        {
+            try
+            {
+                user = RegisteredUser.Where(x => x.Key.IPEndPoint.ToString() == serverIdentity.IPEndPoint.ToString()).SingleOrDefault().Value;
+                return true;
+            }
+            catch
+            {
+                user = null;
+                return false;
+            }
+        }
     }
 }
