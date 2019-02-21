@@ -36,6 +36,7 @@ namespace Musics___Client.UI
 
         public void AddTrackerToUI(TrackerIdentity ti)
         {
+            if (TrackersList.ContainsKey(ti)) return;
             TrackersList.Add(ti,new List<ServerIdentity>());
             UpdateTrackerList();
         }
@@ -53,7 +54,7 @@ namespace Musics___Client.UI
 
         public void RemoveTrackerOfUI(TrackerIdentity ti)
         {
-            TrackersList.Remove(TrackersList.Where(s => s.Key.IPEndPoint.ToString() == ti.IPEndPoint.ToString()).FirstOrDefault().Key);
+            TrackersList.Remove(TrackersList.Where(s => s.Key == ti).FirstOrDefault().Key);
             UpdateTrackerList();
             if (TrackersList.Count == 0)
                 UpdateStatut(ConnectionState.Closed);

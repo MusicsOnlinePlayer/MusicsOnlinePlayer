@@ -29,7 +29,8 @@ namespace Musics___Client.API
             {
                 authInfo = e.Packet as AuthInfo;
                 if (ServerManagerService.Instance.TryGetServerIdentityByEndPoint((IPEndPoint)e.Sender.RemoteEndPoint, out ServerIdentity id))
-                    RegisteredUser.Add(id, authInfo.User);
+                    if(!RegisteredUser.ContainsKey(id))
+                        RegisteredUser.Add(id, authInfo.User);
             }
         }
 
@@ -37,7 +38,7 @@ namespace Musics___Client.API
         {
             try
             {
-                user = RegisteredUser.Where(x => x.Key.IPEndPoint.ToString() == serverIdentity.IPEndPoint.ToString()).SingleOrDefault().Value;
+                user = RegisteredUser.Where(x => x.Key == serverIdentity).SingleOrDefault().Value;
                 return true;
             }
             catch
