@@ -53,6 +53,7 @@ namespace Musics___Client
         private void Instance_Logged(object sender, LoginEventArgs e)
         {
             AccountControl.AddServer(e.Loggedserveridentity, e.LoggedUser);
+            AddServerId(e.Loggedserveridentity);
         }
 
         private void Instance_ServerAdded(object sender, ServerAddedEventArgs e)
@@ -71,6 +72,7 @@ namespace Musics___Client
             UITracker.RemoveServerToTracker(e.ServerIdentity, e.Provider);
             FavoriteControl.RemoveServer(e.ServerIdentity);
             AccountControl.RemoveServer(e.ServerIdentity);
+            RemoveServerId(e.ServerIdentity);
         }
 
         private void Instance_ClientDisconnected(object sender, EventArgs e)
@@ -433,6 +435,27 @@ namespace Musics___Client
         #region EditUser
 
         readonly List<User> UserSearchResult = new List<User>();
+        private List<ServerIdentity> ServerIdentities = new List<ServerIdentity>();
+
+        public void AddServerId(ServerIdentity serverIdentity)
+        {
+            ServerIdentities.Add(serverIdentity);
+            UIAdministrationServers.Items.Add(serverIdentity.ToString());
+        }
+
+        public void RemoveServerId(ServerIdentity serverIdentity)
+        {
+            ServerIdentities.Remove(serverIdentity);
+            UIAdministrationServers.Items.Remove(serverIdentity.ToString());
+        }
+
+        public bool TryGetSelected(out ServerIdentity serverIdentity)
+        {
+            serverIdentity = null;
+            if (UIAdministrationServers.SelectedItem == null) return false;
+            serverIdentity = ServerIdentities[UIAdministrationServers.SelectedIndex];
+            return true;
+        }
 
         private void UISearchUser_KeyDown(object sender, KeyEventArgs e)
         {
@@ -440,7 +463,10 @@ namespace Musics___Client
             {
                 if (UISearchUser.Text != null)
                 {
-                    ServerManagerService.Instance.SendObject(new RequestUser(new User(UISearchUser.Text)));
+                    if (TryGetSelected(out ServerIdentity si))
+                        ServerManagerService.Instance.SendToServer(new RequestUser(new User(UISearchUser.Text)), si);
+                    else
+                        MessageBox.Show("Please Select a server to search");
                 }
             }
         }
@@ -449,31 +475,35 @@ namespace Musics___Client
         {
             if (UIUsersResult.SelectedItem != null)
             {
-                UIPanelEditUser.Visible = true;
-
-                UIAdminUser.Text = UIUsersResult.Text + " - " + UserSearchResult[UIUsersResult.SelectedIndex].Rank.ToString();
-                UIAdminUID.Text = UserSearchResult[UIUsersResult.SelectedIndex].UID;
-
-                UIEditUserRank.Items.Clear();
-
-                throw new NotImplementedException();
-
-                var r = Enum.GetNames(typeof(Rank)).OfType<string>().ToList();
-                //for (int i = 0; i < (int)ServerManagerService.Instance.Me.Rank; i++)
+                if(TryGetSelected(out ServerIdentity serverIdentity))
                 {
-                 //   UIEditUserRank.Items.Add(r[i]);
-                }
+                    if(LoginServices.Instance.TryGetLoggedUserByID(serverIdentity,out User me))
+                    {
+                        UIPanelEditUser.Visible = true;
 
-                UIEditUserRank.SelectedIndex = (int)UserSearchResult[UIUsersResult.SelectedIndex].Rank;
+                        UIAdminUser.Text = UIUsersResult.Text + " - " + UserSearchResult[UIUsersResult.SelectedIndex].Rank.ToString();
+                        UIAdminUID.Text = UserSearchResult[UIUsersResult.SelectedIndex].UID;
+
+                        UIEditUserRank.Items.Clear();
+
+                        var r = Enum.GetNames(typeof(Rank)).OfType<string>().ToList();
+                        for (int i = 0; i < (int)me.Rank; i++)
+                        {
+                            UIEditUserRank.Items.Add(r[i]);
+                        }
+
+                        UIEditUserRank.SelectedIndex = (int)UserSearchResult[UIUsersResult.SelectedIndex].Rank;
+                    }
+                }
             }
         }
 
         private void UIEditUserConfirm_Click(object sender, EventArgs e)
         {
             if (UIEditUserRank.SelectedIndex != (int)UserSearchResult[UIUsersResult.SelectedIndex].Rank && Enum.TryParse(UIEditUserRank.SelectedItem.ToString(), out Rank rank))
-            {
-                ServerManagerService.Instance.SendObject(new EditRequest(UserSearchResult[UIUsersResult.SelectedIndex].UID, rank));
-            }
+                if(TryGetSelected(out ServerIdentity si))
+                    ServerManagerService.Instance.SendToServer(new EditRequest(UserSearchResult[UIUsersResult.SelectedIndex].UID, rank),si);
+
         }
 
         #endregion
