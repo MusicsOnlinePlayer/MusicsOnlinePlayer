@@ -204,6 +204,7 @@
     <Compile Include="API\Events\EditMusicEventArgs.cs" />
     <Compile Include="API\Events\FavoriteEventArgs.cs" />
     <Compile Include="API\Events\LoginControlEventArgs.cs" />
+    <Compile Include="API\Events\LoginEventArgs.cs" />
     <Compile Include="API\Events\PathClickedEventArgs.cs" />
     <Compile Include="API\Events\PlayEventArgs.cs" />
     <Compile Include="API\Events\PlaylistSavedEventArgs.cs" />

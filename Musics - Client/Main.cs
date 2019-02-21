@@ -28,10 +28,12 @@ namespace Musics___Client
         {
             InitializeComponent();
             LoginServices.Instance.Init();
+            LoginServices.Instance.Logged += Instance_Logged;
             ServerManagerService.Instance.ServerDisconnected += Instance_ServerDisconnected;
             ServerManagerService.Instance.Me = me;
             //Me = LoginServices.Instance.LoggedUser;
         }
+
 
         public void InitServices()
         {
@@ -45,6 +47,12 @@ namespace Musics___Client
             TrackersClientService.Instance.Registered += Tracker_Registered;
             TrackersClientService.Instance.ServersReceived += Instance_ServersReceived;
             TrackersClientService.Instance.Init();
+        }
+        #region NetworkP2P
+
+        private void Instance_Logged(object sender, LoginEventArgs e)
+        {
+            AccountControl.AddServer(e.Loggedserveridentity, e.LoggedUser);
         }
 
         private void Instance_ServerAdded(object sender, ServerAddedEventArgs e)
@@ -62,6 +70,7 @@ namespace Musics___Client
         {
             UITracker.RemoveServerToTracker(e.ServerIdentity, e.Provider);
             FavoriteControl.RemoveServer(e.ServerIdentity);
+            AccountControl.RemoveServer(e.ServerIdentity);
         }
 
         private void Instance_ClientDisconnected(object sender, EventArgs e)
@@ -85,13 +94,16 @@ namespace Musics___Client
             ServerManagerService.Instance.RemoveByTracker(e.Ti);
         }
 
+        #endregion
         private void AccountServices_EditAccountReport(object sender, EditAccountReportEventArgs e)
         {
-
             if (e.IsApproved)
             {
                 if(LoginServices.Instance.ModifyUserOfServer(e.EditedUser, e.ServerIdentity))
+                {
                     MessageBox.Show($"User modified for {e.ServerIdentity.ToString()} to {e.EditedUser.Name} with {e.EditedUser.Rank.ToString()}");
+                    AccountControl.ModifyUser(e.EditedUser, e.ServerIdentity);
+                }
             }
             else
             {
