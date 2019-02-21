@@ -52,7 +52,7 @@ namespace Tracker.ServersXML
         {
             foreach(var p in GetServers())
             {
-                if (p.IPEndPoint.ToString() == p.IPEndPoint.ToString())
+                if (p == identity)
                     return true;
             }
             return false;

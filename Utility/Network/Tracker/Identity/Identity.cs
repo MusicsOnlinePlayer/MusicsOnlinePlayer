@@ -10,7 +10,9 @@ namespace Utility.Network.Tracker.Identity
 
         public override bool Equals(object obj)
         {
+            if (obj == null) return false;
             if (!(obj is Identity)) return false;
+
 
             var item = obj as Identity;
 
@@ -25,5 +27,11 @@ namespace Utility.Network.Tracker.Identity
         {
             return IPEndPoint.ToString();
         }
+
+        public static bool operator ==(Identity id1, Identity id2)
+            => id1.Equals(id2);
+
+        public static bool operator !=(Identity id1, Identity id2)
+            => !id1.Equals(id2);
     }
 }

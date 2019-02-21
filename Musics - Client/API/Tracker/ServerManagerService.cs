@@ -35,7 +35,7 @@ namespace Musics___Client.API.Tracker
 
         public void AddServer(ServerIdentity si,TrackerIdentity provider)
         {
-            if (ServerClients.Exists(x => x.ServerIdentity.IPEndPoint.ToString() == si.IPEndPoint.ToString()))
+            if (ServerClients.Exists(x => x.ServerIdentity == si))
                 return;
             ServerClient serverClient = new ServerClient();
             serverClient.Provider = provider;
@@ -58,7 +58,7 @@ namespace Musics___Client.API.Tracker
 
         public void RemoveByTracker(TrackerIdentity trackerIdentity)
         {
-            foreach(var sc in ServerClients.Where(x => x.Provider.IPEndPoint.ToString() == trackerIdentity.IPEndPoint.ToString()).ToList())
+            foreach(var sc in ServerClients.Where(x => x.Provider == trackerIdentity).ToList())
             {
                 sc.Disconnect();
                 ServerClients.Remove(sc);
@@ -89,7 +89,7 @@ namespace Musics___Client.API.Tracker
 
         public void SendToServer(IPacket packet,ServerIdentity serverIdentity)
         {
-            ServerClients.Where(x => x.ServerIdentity.IPEndPoint.ToString() == serverIdentity.IPEndPoint.ToString()).FirstOrDefault().Send(Function.Serialize(packet).Data);
+            ServerClients.Where(x => x.ServerIdentity == serverIdentity).FirstOrDefault().Send(Function.Serialize(packet).Data);
         }
 
         public bool TryGetServerIdentityByEndPoint(IPEndPoint ip, out ServerIdentity serverIdentity)

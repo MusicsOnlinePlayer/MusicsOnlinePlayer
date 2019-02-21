@@ -52,7 +52,7 @@ namespace Musics___Server.Network
         {
             foreach (var p in GetServers())
             {
-                if (p.IPEndPoint.ToString() == identity.IPEndPoint.ToString())
+                if (p == identity)
                     return true;
             }
             return false;

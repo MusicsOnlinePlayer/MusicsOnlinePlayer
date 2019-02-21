@@ -56,7 +56,7 @@ namespace Utility.Network
             doc.Load(Path);
 
             XmlNodeList nodes = doc.DocumentElement.SelectNodes("Tracker");
-            var a = nodes.Cast<XmlNode>().Where(x => GetServer(x).IPEndPoint.ToString() == identity.IPEndPoint.ToString());
+            var a = nodes.Cast<XmlNode>().Where(x => GetServer(x) == identity);
             foreach (var n in a)
                 n.ParentNode.RemoveChild(n);
 
