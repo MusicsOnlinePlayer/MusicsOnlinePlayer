@@ -547,7 +547,7 @@ namespace Musics___Client
         {
             if (MusicsToSend == null)
             {
-                uploadForm = new Upload();
+                uploadForm = new Upload(LoginServices.Instance.RegisteredUser.Select(x=> x.Key).ToList());
                 uploadForm.Show();
                 uploadForm.FormClosing += UploadForm_FormClosing;
             }

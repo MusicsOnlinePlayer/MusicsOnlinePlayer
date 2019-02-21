@@ -5,21 +5,29 @@ using System.IO;
 using System.Windows.Forms;
 using System.Threading;
 using Utility.Musics;
+using Utility.Network.Tracker.Identity;
+using System.Collections.Generic;
 
 namespace Musics___Client
 {
     public partial class Upload : Form
     {
-        public Upload()
+        public Upload(List<ServerIdentity> identities)
         {
             InitializeComponent();
             UIMusicInformation.View = View.Details;
             UIMusicInformation.Columns.Add("Info",-2,HorizontalAlignment.Left);
             UIMusicInformation.Columns.Add("User Input", -2, HorizontalAlignment.Left);
             UIMusicInformation.GridLines = true;
+            serverIdentities = identities;
+            UIServers.Items.AddRange(serverIdentities.Select(x => x.ToString()).ToArray());
         }
 
         string[] FilesPath;
+
+        private List<ServerIdentity> serverIdentities = new List<ServerIdentity>();
+
+
 
         private void UIUploadButton_Click(object sender, EventArgs e)
         {
@@ -118,26 +126,40 @@ namespace Musics___Client
         public Album AlbumToSend;
         public bool IsUploadValid = false;
 
+        public ServerIdentity SelectedID { get; set; }
+
         private void UISubmit_Click(object sender, EventArgs e)
         {
-            music = TagLib.File.Create(FilesPath[0]);
-            AlbumToSend  = new Album(music.Tag.Album);
-
-            foreach(var p in FilesPath)
+            if (TryGetSelectedId(out ServerIdentity id))
             {
-                music = TagLib.File.Create(p);
-                var tmpFile = TagLib.File.Create(p);
-                var MusicUpload = new Music(tmpFile.Tag.Title, new Author(tmpFile.Tag.Performers[0]),new Album(AlbumToSend.Name),System.IO.File.ReadAllBytes(p))
+                SelectedID = id;
+                music = TagLib.File.Create(FilesPath[0]);
+                AlbumToSend = new Album(music.Tag.Album);
+
+                foreach (var p in FilesPath)
                 {
-                    Format = Path.GetExtension(p),
-                    Genre = music.Tag.Genres                   
-                };
-                AlbumToSend.Add(MusicUpload);
+                    music = TagLib.File.Create(p);
+                    var tmpFile = TagLib.File.Create(p);
+                    var MusicUpload = new Music(tmpFile.Tag.Title, new Author(tmpFile.Tag.Performers[0]), new Album(AlbumToSend.Name), System.IO.File.ReadAllBytes(p))
+                    {
+                        Format = Path.GetExtension(p),
+                        Genre = music.Tag.Genres
+                    };
+                    AlbumToSend.Add(MusicUpload);
+                }
+
+                IsUploadValid = true;
+
+                Close();
             }
+        }
 
-            IsUploadValid = true;
-
-            Close();
+        private bool TryGetSelectedId(out ServerIdentity id)
+        {
+            id = null;
+            if (UIServers.SelectedItem == null) return false;
+            id = serverIdentities[UIServers.SelectedIndex];
+            return true;
         }
     }
 }

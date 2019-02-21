@@ -37,32 +37,34 @@
             this.UIUserEntry = new System.Windows.Forms.TextBox();
             this.UIUserEnter = new System.Windows.Forms.Button();
             this.UISubmit = new System.Windows.Forms.Button();
+            this.UIServers = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Raleway", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.DarkGray;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(177, 55);
+            this.label1.Size = new System.Drawing.Size(188, 56);
             this.label1.TabIndex = 1;
             this.label1.Text = "Upload";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Raleway", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label2.Location = new System.Drawing.Point(19, 81);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 16);
+            this.label2.Size = new System.Drawing.Size(174, 15);
             this.label2.TabIndex = 2;
-            this.label2.Text = "1. Select a music";
+            this.label2.Text = "1. Select a music and server";
             // 
             // UIUploadButton
             // 
+            this.UIUploadButton.Font = new System.Drawing.Font("Raleway", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIUploadButton.Location = new System.Drawing.Point(22, 101);
             this.UIUploadButton.Name = "UIUploadButton";
             this.UIUploadButton.Size = new System.Drawing.Size(149, 24);
@@ -74,16 +76,17 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Raleway", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label3.Location = new System.Drawing.Point(19, 156);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(106, 16);
+            this.label3.Size = new System.Drawing.Size(107, 15);
             this.label3.TabIndex = 4;
             this.label3.Text = "2. Edit music info";
             // 
             // UIMusicInformation
             // 
+            this.UIMusicInformation.Font = new System.Drawing.Font("Raleway", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIMusicInformation.LabelEdit = true;
             this.UIMusicInformation.Location = new System.Drawing.Point(22, 212);
             this.UIMusicInformation.MultiSelect = false;
@@ -95,27 +98,30 @@
             // 
             // UIMusicsBoxList
             // 
+            this.UIMusicsBoxList.Font = new System.Drawing.Font("Raleway", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIMusicsBoxList.FormattingEnabled = true;
             this.UIMusicsBoxList.Location = new System.Drawing.Point(22, 176);
             this.UIMusicsBoxList.Name = "UIMusicsBoxList";
-            this.UIMusicsBoxList.Size = new System.Drawing.Size(376, 21);
+            this.UIMusicsBoxList.Size = new System.Drawing.Size(376, 23);
             this.UIMusicsBoxList.TabIndex = 6;
             this.UIMusicsBoxList.SelectedIndexChanged += new System.EventHandler(this.UIMusicsBoxList_SelectedIndexChanged);
             // 
             // UIUserEntry
             // 
+            this.UIUserEntry.Font = new System.Drawing.Font("Raleway", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIUserEntry.Location = new System.Drawing.Point(22, 352);
             this.UIUserEntry.Name = "UIUserEntry";
-            this.UIUserEntry.Size = new System.Drawing.Size(291, 20);
+            this.UIUserEntry.Size = new System.Drawing.Size(291, 23);
             this.UIUserEntry.TabIndex = 7;
             // 
             // UIUserEnter
             // 
             this.UIUserEnter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.UIUserEnter.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.UIUserEnter.Font = new System.Drawing.Font("Raleway", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIUserEnter.Location = new System.Drawing.Point(319, 351);
             this.UIUserEnter.Name = "UIUserEnter";
-            this.UIUserEnter.Size = new System.Drawing.Size(79, 21);
+            this.UIUserEnter.Size = new System.Drawing.Size(79, 24);
             this.UIUserEnter.TabIndex = 8;
             this.UIUserEnter.Text = "Enter";
             this.UIUserEnter.UseVisualStyleBackColor = false;
@@ -126,7 +132,7 @@
             this.UISubmit.BackColor = System.Drawing.Color.LimeGreen;
             this.UISubmit.FlatAppearance.BorderSize = 0;
             this.UISubmit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UISubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UISubmit.Font = new System.Drawing.Font("Raleway", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UISubmit.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.UISubmit.Location = new System.Drawing.Point(279, 473);
             this.UISubmit.Name = "UISubmit";
@@ -136,11 +142,21 @@
             this.UISubmit.UseVisualStyleBackColor = false;
             this.UISubmit.Click += new System.EventHandler(this.UISubmit_Click);
             // 
+            // UIServers
+            // 
+            this.UIServers.Font = new System.Drawing.Font("Raleway", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIServers.FormattingEnabled = true;
+            this.UIServers.Location = new System.Drawing.Point(196, 101);
+            this.UIServers.Name = "UIServers";
+            this.UIServers.Size = new System.Drawing.Size(149, 23);
+            this.UIServers.TabIndex = 18;
+            // 
             // Upload
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(410, 521);
+            this.Controls.Add(this.UIServers);
             this.Controls.Add(this.UISubmit);
             this.Controls.Add(this.UIUserEnter);
             this.Controls.Add(this.UIUserEntry);
@@ -168,5 +184,6 @@
         private System.Windows.Forms.TextBox UIUserEntry;
         private System.Windows.Forms.Button UIUserEnter;
         private System.Windows.Forms.Button UISubmit;
+        private System.Windows.Forms.ComboBox UIServers;
     }
 }
