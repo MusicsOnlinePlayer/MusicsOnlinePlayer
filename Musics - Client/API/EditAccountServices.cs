@@ -4,6 +4,8 @@ using System;
 using Utility.Network.Dialog.Edits;
 using Utility.Network.Server;
 using Utility.Network.Users;
+using Utility.Network.Tracker.Identity;
+using System.Net;
 
 namespace Musics___Client.API
 {
@@ -25,7 +27,8 @@ namespace Musics___Client.API
             if(a.Packet is EditUserReport)
             {
                 var editUserReport = a.Packet as EditUserReport;
-                OnEditAccountReport(new EditAccountReportEventArgs(editUserReport.NewUser, editUserReport.IsApproved));            
+                if(ServerManagerService.Instance.TryGetServerIdentityByEndPoint((IPEndPoint)a.Sender.RemoteEndPoint,out ServerIdentity identity))
+                    OnEditAccountReport(new EditAccountReportEventArgs(editUserReport.NewUser, editUserReport.IsApproved,identity));            
             }
         }
 

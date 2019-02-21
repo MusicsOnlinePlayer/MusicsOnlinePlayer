@@ -90,12 +90,8 @@ namespace Musics___Client
 
             if (e.IsApproved)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    //ServerManagerService.Instance.Me = e.EditedUser;
-                    
-                    //EditAccountDetails(ServerManagerService.Instance.Me);
-                });
+                if(LoginServices.Instance.ModifyUserOfServer(e.EditedUser, e.ServerIdentity))
+                    MessageBox.Show($"User modified for {e.ServerIdentity.ToString()} to {e.EditedUser.Name} with {e.EditedUser.Rank.ToString()}");
             }
             else
             {

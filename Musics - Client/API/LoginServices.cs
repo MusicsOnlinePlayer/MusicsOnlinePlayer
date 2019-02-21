@@ -46,5 +46,18 @@ namespace Musics___Client.API
                 return false;
             }
         }
+
+        public bool ModifyUserOfServer(User NewUser,ServerIdentity serverIdentity)
+        {
+            try
+            {
+                RegisteredUser[serverIdentity] = NewUser;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
