@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.HueTimer = new System.Windows.Forms.Timer(this.components);
             this.UIAdministration = new System.Windows.Forms.TabPage();
+            this.UIAdministrationServers = new System.Windows.Forms.ComboBox();
             this.UIPanelEditUser = new System.Windows.Forms.Panel();
             this.UIEditUserConfirm = new System.Windows.Forms.Button();
             this.UIEditUserRank = new System.Windows.Forms.ComboBox();
@@ -72,6 +73,7 @@
             // 
             // UIAdministration
             // 
+            this.UIAdministration.Controls.Add(this.UIAdministrationServers);
             this.UIAdministration.Controls.Add(this.UIPanelEditUser);
             this.UIAdministration.Controls.Add(this.UIUsersResult);
             this.UIAdministration.Controls.Add(this.label19);
@@ -84,6 +86,14 @@
             this.UIAdministration.TabIndex = 8;
             this.UIAdministration.Text = "Administration";
             this.UIAdministration.UseVisualStyleBackColor = true;
+            // 
+            // UIAdministrationServers
+            // 
+            this.UIAdministrationServers.FormattingEnabled = true;
+            this.UIAdministrationServers.Location = new System.Drawing.Point(475, 94);
+            this.UIAdministrationServers.Name = "UIAdministrationServers";
+            this.UIAdministrationServers.Size = new System.Drawing.Size(229, 33);
+            this.UIAdministrationServers.TabIndex = 37;
             // 
             // UIPanelEditUser
             // 
@@ -181,7 +191,7 @@
             // 
             this.UISearchUser.Location = new System.Drawing.Point(22, 94);
             this.UISearchUser.Name = "UISearchUser";
-            this.UISearchUser.Size = new System.Drawing.Size(544, 32);
+            this.UISearchUser.Size = new System.Drawing.Size(447, 32);
             this.UISearchUser.TabIndex = 33;
             this.UISearchUser.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UISearchUser_KeyDown);
             // 
@@ -462,6 +472,7 @@
         private ControlLibrary.UPlayer uPlayer1;
         private System.Windows.Forms.TabPage tabPage3;
         private UI.TrackerControl UITracker;
+        private System.Windows.Forms.ComboBox UIAdministrationServers;
     }
 }
 
