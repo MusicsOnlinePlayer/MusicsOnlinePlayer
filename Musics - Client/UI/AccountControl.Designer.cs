@@ -41,6 +41,7 @@
             this.UIRank = new System.Windows.Forms.Label();
             this.UIAccountId = new System.Windows.Forms.Label();
             this.UIAccountName = new System.Windows.Forms.Label();
+            this.UIServerSelector = new System.Windows.Forms.ComboBox();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -186,10 +187,21 @@
             this.UIAccountName.TabIndex = 5;
             this.UIAccountName.Text = "UIAccount Name";
             // 
+            // UIServerSelector
+            // 
+            this.UIServerSelector.Font = new System.Drawing.Font("Raleway", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UIServerSelector.FormattingEnabled = true;
+            this.UIServerSelector.Location = new System.Drawing.Point(482, 11);
+            this.UIServerSelector.Name = "UIServerSelector";
+            this.UIServerSelector.Size = new System.Drawing.Size(187, 30);
+            this.UIServerSelector.TabIndex = 9;
+            this.UIServerSelector.SelectedIndexChanged += new System.EventHandler(this.UIServerSelector_SelectedIndexChanged);
+            // 
             // AccountControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.UIServerSelector);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.UIRank);
             this.Controls.Add(this.UIAccountId);
@@ -218,5 +230,6 @@
         private System.Windows.Forms.Label UIRank;
         private System.Windows.Forms.Label UIAccountId;
         private System.Windows.Forms.Label UIAccountName;
+        private System.Windows.Forms.ComboBox UIServerSelector;
     }
 }

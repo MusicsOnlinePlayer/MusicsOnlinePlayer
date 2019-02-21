@@ -32,7 +32,6 @@
             this.UIEditMusicGenres = new System.Windows.Forms.TextBox();
             this.UIEditMusicName = new System.Windows.Forms.TextBox();
             this.UITextboxSearch = new System.Windows.Forms.TextBox();
-            this.UIUpload = new System.Windows.Forms.Button();
             this.UIEditPlaylist = new System.Windows.Forms.Panel();
             this.UIPlaylistPrivate = new System.Windows.Forms.CheckBox();
             this.UIPlaylistName = new System.Windows.Forms.TextBox();
@@ -59,6 +58,7 @@
             this.UIListView = new System.Windows.Forms.FlowLayoutPanel();
             this.UIMusicTags = new System.Windows.Forms.Label();
             this.UIProvider = new System.Windows.Forms.Label();
+            this.UIUpload = new System.Windows.Forms.Button();
             this.UIEditPlaylist.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -106,20 +106,6 @@
             this.UITextboxSearch.Size = new System.Drawing.Size(688, 32);
             this.UITextboxSearch.TabIndex = 28;
             this.UITextboxSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UITextboxSearch_KeyDown);
-            // 
-            // UIUpload
-            // 
-            this.UIUpload.BackColor = System.Drawing.Color.LimeGreen;
-            this.UIUpload.FlatAppearance.BorderSize = 0;
-            this.UIUpload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UIUpload.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.UIUpload.Location = new System.Drawing.Point(15, 841);
-            this.UIUpload.Name = "UIUpload";
-            this.UIUpload.Size = new System.Drawing.Size(119, 36);
-            this.UIUpload.TabIndex = 44;
-            this.UIUpload.Text = "Upload";
-            this.UIUpload.UseVisualStyleBackColor = false;
-            this.UIUpload.Click += new System.EventHandler(this.UIUpload_Click);
             // 
             // UIEditPlaylist
             // 
@@ -170,7 +156,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.23116F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.76884F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 307F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 308F));
             this.tableLayoutPanel1.Controls.Add(this.UIPathMusic, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAlbum, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.UIPathAuthor, 0, 0);
@@ -187,7 +173,7 @@
             this.UIPathMusic.AutoSize = true;
             this.UIPathMusic.Font = new System.Drawing.Font("Raleway ExtraLight", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UIPathMusic.LinkColor = System.Drawing.Color.Blue;
-            this.UIPathMusic.Location = new System.Drawing.Point(315, 0);
+            this.UIPathMusic.Location = new System.Drawing.Point(314, 0);
             this.UIPathMusic.Name = "UIPathMusic";
             this.UIPathMusic.Size = new System.Drawing.Size(39, 14);
             this.UIPathMusic.TabIndex = 19;
@@ -437,6 +423,20 @@
             this.UIProvider.Text = "NoProvider";
             this.UIProvider.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // UIUpload
+            // 
+            this.UIUpload.BackColor = System.Drawing.Color.LimeGreen;
+            this.UIUpload.FlatAppearance.BorderSize = 0;
+            this.UIUpload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UIUpload.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.UIUpload.Location = new System.Drawing.Point(15, 841);
+            this.UIUpload.Name = "UIUpload";
+            this.UIUpload.Size = new System.Drawing.Size(119, 36);
+            this.UIUpload.TabIndex = 44;
+            this.UIUpload.Text = "Upload";
+            this.UIUpload.UseVisualStyleBackColor = false;
+            this.UIUpload.Click += new System.EventHandler(this.UIUpload_Click);
+            // 
             // SearchControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -482,7 +482,6 @@
         private System.Windows.Forms.TextBox UIEditMusicGenres;
         private System.Windows.Forms.TextBox UIEditMusicName;
         private System.Windows.Forms.TextBox UITextboxSearch;
-        private System.Windows.Forms.Button UIUpload;
         private System.Windows.Forms.Panel UIEditPlaylist;
         private System.Windows.Forms.CheckBox UIPlaylistPrivate;
         private System.Windows.Forms.TextBox UIPlaylistName;
@@ -509,5 +508,6 @@
         private System.Windows.Forms.FlowLayoutPanel UIListView;
         private System.Windows.Forms.Label UIMusicTags;
         private System.Windows.Forms.Label UIProvider;
+        private System.Windows.Forms.Button UIUpload;
     }
 }

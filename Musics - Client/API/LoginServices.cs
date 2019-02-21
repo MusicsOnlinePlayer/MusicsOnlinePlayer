@@ -1,10 +1,9 @@
-﻿using Musics___Client.API.Tracker;
+﻿using Musics___Client.API.Events;
+using Musics___Client.API.Tracker;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using Utility.Network.Dialog.Authentification;
 using Utility.Network.Tracker.Identity;
 using Utility.Network.Users;
@@ -18,6 +17,10 @@ namespace Musics___Client.API
 
         public Dictionary<ServerIdentity,User> RegisteredUser = new Dictionary<ServerIdentity,User>();
 
+        public event EventHandler<LoginEventArgs> Logged;
+        public virtual void OnLogged(LoginEventArgs loginEventArgs, object sender)
+            => Logged?.Invoke(sender, loginEventArgs);
+
         public void Init()
         {
             ServerManagerService.Instance.PacketReceived += Instance_PacketReceived;
@@ -29,8 +32,13 @@ namespace Musics___Client.API
             {
                 authInfo = e.Packet as AuthInfo;
                 if (ServerManagerService.Instance.TryGetServerIdentityByEndPoint((IPEndPoint)e.Sender.RemoteEndPoint, out ServerIdentity id))
-                    if(!RegisteredUser.ContainsKey(id))
+                {
+                    if (!RegisteredUser.ContainsKey(id))
+                    {
                         RegisteredUser.Add(id, authInfo.User);
+                        OnLogged(new LoginEventArgs(authInfo.User, id), null);
+                    }
+                }
             }
         }
 
