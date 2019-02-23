@@ -24,6 +24,9 @@ namespace Tracker.Network.Trackers
             return identity;
         }
 
+        public Socket GetSocketByID(Identity socket)
+            => this.FirstOrDefault(x => x.Value == socket).Key;
+
         public void RemoveBySocket(Socket socket)
         {
             Remove(socket);
@@ -38,5 +41,8 @@ namespace Tracker.Network.Trackers
         {
             return Values.Where(x => x is ServerIdentity).Select(x => (ServerIdentity)x).Where(x => x.IsAvailable).ToArray();
         }
+
+        public ClientIdentity[] GetClientIdentity()
+            => Values.Where(x => x is ClientIdentity).Select(x => (ClientIdentity)x).ToArray();
     }
 }

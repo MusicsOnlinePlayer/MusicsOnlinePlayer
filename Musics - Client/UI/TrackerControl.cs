@@ -104,17 +104,18 @@ namespace Musics___Client.UI
         }
 
         private void UITrackers_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateServerOfTracker();
-        }
-
+             => UpdateServerOfTracker();
+         
         private void UpdateServerOfTracker()
         {
-            UiTrackerServer.Items.Clear();
-            if (UITrackers.SelectedItem == null)
-                return;
-            foreach (var si in GetSelectedTrackerServer())
-                UiTrackerServer.Items.Add(si.IPEndPoint.ToString());
+            Invoke((MethodInvoker)delegate
+            {
+                UiTrackerServer.Items.Clear();
+                if (UITrackers.SelectedItem == null)
+                    return;
+                foreach (var si in GetSelectedTrackerServer())
+                    UiTrackerServer.Items.Add(si.IPEndPoint.ToString());
+            });
         }
 
         private void UITrackerRemoveButton_Click(object sender, EventArgs e)
