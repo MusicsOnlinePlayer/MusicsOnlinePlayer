@@ -89,7 +89,12 @@ namespace Musics___Client.UI
 
         private void UIServerSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(UIServerSelector.SelectedItem != null)
+            RequestFavorite();
+        }
+
+        private void RequestFavorite()
+        {
+            if (UIServerSelector.SelectedItem != null)
                 ServerManagerService.Instance.SendToServer(new RequestFavorites(ServerManagerService.Instance.Me.UID), ServerList[UIServerSelector.SelectedIndex]);
         }
 
@@ -97,6 +102,8 @@ namespace Musics___Client.UI
         {
             ServerList.Add(si);
             UIServerSelector.Items.Add(si.IPEndPoint.ToString());
+            UIServerSelector.SelectedIndex = UIServerSelector.Items.Count - 1;
+            RequestFavorite();
         }
 
         public void RemoveServer(ServerIdentity si)
