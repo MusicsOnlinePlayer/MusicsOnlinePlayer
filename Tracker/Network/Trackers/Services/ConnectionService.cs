@@ -37,6 +37,8 @@ namespace Tracker.Network.Trackers.Services
                         };
                         reg.Identity.IPEndPoint.Port = Port;
                         Program._Tracker.AddServer(reg.Identity as ServerIdentity, a.Sender);
+                        foreach (var id in Program._Tracker.Idlist.GetClientIdentity())
+                            new ServerRequestAnswer(Program._Tracker.Idlist.GetServerIDAvailable()).Send(Program._Tracker.Idlist.GetSocketByID(id));
                     }
                     else
                     {
