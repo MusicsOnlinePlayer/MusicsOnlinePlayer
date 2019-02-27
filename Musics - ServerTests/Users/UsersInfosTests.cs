@@ -151,7 +151,8 @@ namespace Musics___Server.Usersinfos.Tests
             Assert.AreEqual("59fdab60bac3fb5c3bdf9e8cb772e637", Function.GetMD5(@"users.xml"));
         }
 
-        [TestMethod()]
+        [Obsolete]
+        //[TestMethod()]
         public void SaveUserPlaylistTest()
         {
             //76fdfae945157b5ec9732d9416c080c4
@@ -170,7 +171,8 @@ namespace Musics___Server.Usersinfos.Tests
             Assert.AreEqual("76fdfae945157b5ec9732d9416c080c4", Function.GetMD5(@"users.xml"));
         }
 
-        [TestMethod()]
+        //[TestMethod()]
+        [Obsolete]
         public void RatePlaylistTest()
         {
             //2e1047e01b9f0d927651f33ec8ddce63
