@@ -21,7 +21,7 @@ namespace Musics___Server.Network.Tests
             Assert.AreEqual(false, TkL.AddToken(new System.Net.Sockets.Socket(System.Net.Sockets.SocketType.Dgram, System.Net.Sockets.ProtocolType.Udp), tk));
         }
 
-        [TestMethod()]
+        [Obsolete]
         public void CheckTokenValidityTest()
         {
             TokenList TkL = new TokenList();

@@ -31,11 +31,5 @@ namespace Utility.Network.Tracker.Tests
             Assert.AreEqual(Cs.BUFFER_SIZE, 1000);
             Assert.AreEqual(Cs.buffer.Length, Cs.BUFFER_SIZE);
         }
-
-        [TestMethod()]
-        public void ConnectTest()
-        {
-            Assert.Fail();
-        }
     }
 }
