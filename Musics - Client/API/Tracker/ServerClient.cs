@@ -18,7 +18,7 @@ namespace Musics___Client.API.Tracker
         {
             SetupSocket(si.IPEndPoint.Port, 100000000);
             Task<bool> a = Connect(si.IPEndPoint);
-            a.Wait(new TimeSpan(0, 1, 0));
+            a.Wait(new TimeSpan(0, 0, 10));
             if (!a.Result)
                 return false;
             StartReceiving();

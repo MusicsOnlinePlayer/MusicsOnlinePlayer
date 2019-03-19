@@ -38,20 +38,20 @@
       <HintPath>WmpLib\Interop.WMPLib.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="NAudio, Version=1.8.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.1.8.4\lib\net35\NAudio.dll</HintPath>
+    <Reference Include="NAudio, Version=1.8.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.8.5\lib\net35\NAudio.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="policy.2.0.taglib-sharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
       <HintPath>..\packages\taglib.2.1.0.0\lib\policy.2.0.taglib-sharp.dll</HintPath>
     </Reference>
-    <Reference Include="Q42.HueApi, Version=3.7.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Q42.HueApi.3.7.2\lib\netstandard1.1\Q42.HueApi.dll</HintPath>
+    <Reference Include="Q42.HueApi, Version=3.8.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Q42.HueApi.3.8.4\lib\netstandard2.0\Q42.HueApi.dll</HintPath>
     </Reference>
-    <Reference Include="Q42.HueApi.ColorConverters, Version=3.7.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Q42.HueApi.ColorConverters.3.7.1\lib\netstandard1.1\Q42.HueApi.ColorConverters.dll</HintPath>
+    <Reference Include="Q42.HueApi.ColorConverters, Version=3.8.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Q42.HueApi.ColorConverters.3.8.1\lib\netstandard2.0\Q42.HueApi.ColorConverters.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
